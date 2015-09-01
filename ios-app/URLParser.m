@@ -43,7 +43,7 @@ static NSString * const BASE_URL = @"http://morningsignout.com/?json=";
     return [NSString stringWithFormat:@"%@get_search_results&search=%@", BASE_URL, parsedQuery];
 }
 
-+ (NSString *)URLForPostsWithAuthorID:(int)ID {
++ (NSString *)URLForAuthorInfoAndPostsWithAuthorID:(int)ID {
     return [NSString stringWithFormat:@"%@get_author_posts&id=%d", BASE_URL, ID];
 }
 
