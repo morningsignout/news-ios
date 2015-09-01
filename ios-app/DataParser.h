@@ -10,4 +10,6 @@
 
 @interface DataParser : NSObject
 
++ (NSArray *)postsWithTag:(NSString *)tag;
+
 @end
