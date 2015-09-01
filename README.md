@@ -6,3 +6,13 @@
 
 #### Once you have a local copy:
 **you MUST open ios-app.xcworkspace**. **NOT ios-app.xcodeproj.** This has to do with using Cocoapods as a dependency manager for the AFNetworking library.
+
+
+#### Git Workflow
+Let's try to work on separate branches for development and only push changes to master once they are fully functional and "production ready".
+
+Checkout [this](http://rogerdudler.github.io/git-guide/) guide for help on git. 
+
+#### To push local changes in:
+`git fetch origin`
+`git rebase origin/master`
