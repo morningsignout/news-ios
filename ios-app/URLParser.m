@@ -80,14 +80,17 @@ static NSString * const BASE_URL = @"http://morningsignout.com/?json=";
     return [NSString stringWithFormat:@"%@get_page_index", BASE_URL];
 }
 
-+ (NSString *)URLForQuery:(NSString *)OLD_URL WithCountLimit:(int)count {
++ (NSString *)URLForURLQuery:(NSString *)OLD_URL WithCountLimit:(int)count {
     return [NSString stringWithFormat:@"%@&count=%d", OLD_URL, count];
 }
 
-+ (NSString *)URLForQuery:(NSString *)OLD_URL WithOrdering:(NSString *)orderParam {
++ (NSString *)URLForURLQuery:(NSString *)OLD_URL WithOrdering:(NSString *)orderParam {
     return [NSString stringWithFormat:@"%@&order_by=%@", OLD_URL, orderParam];
 }
 
++ (NSString *)URLForURLQuery:(NSString *)OLD_URL WithPageNumber:(int)page {
+    return [NSString stringWithFormat:@"%@&page=%d", OLD_URL, page];
+}
 
 
 
