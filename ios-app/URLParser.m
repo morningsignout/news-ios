@@ -64,6 +64,14 @@ static NSString * const BASE_URL = @"http://morningsignout.com/?json=";
     return [yearURL stringByAppendingString:appendedMonth];
 }
 
++ (NSString *)URLForCategories {
+    return [NSString stringWithFormat:@"%@get_category_index", BASE_URL];
+}
+
++ (NSString *)URLForAllAuthors {
+    return [NSString stringWithFormat:@"%@get_author_index", BASE_URL];
+}
+
 + (NSString *)URLForIndexPosts {
     return [NSString stringWithFormat:@"%@1", BASE_URL];
 }

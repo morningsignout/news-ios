@@ -19,6 +19,8 @@
 + (NSString *)URLForPostsWithAuthorID:(int)ID;
 + (NSString *)URLForPostsInYear:(int)year;
 + (NSString *)URLForPostsInMonth:(int)month andYear:(int)year;
++ (NSString *)URLForCategories;
++ (NSString *)URLForAllAuthors;
 + (NSString *)URLForIndexPosts;
 + (NSString *)URLForIndexNavigation;
 + (NSString *)URLForQuery:(NSString *)OLD_URL WithCountLimit:(int)count;
