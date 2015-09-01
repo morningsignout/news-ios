@@ -13,9 +13,8 @@ Let's try to work on separate branches for development and only push changes to 
 
 Checkout [this](http://rogerdudler.github.io/git-guide/) guide for help on git. 
 
-Branch info:
+##### Branch info:
 If you're working on URLParser, push to branch urlparse
 `git push origin urlparse`
-
 If you're working on DataParser, push to branch dataparse
 `git push origin dataparse`
