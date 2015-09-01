@@ -13,5 +13,7 @@
 + (NSString *)URLForPostID:(int)ID;
 + (NSString *)URLForRecentPosts;
 + (NSString *)URLForPostWithTag:(NSString *)tagSlug;
++ (NSString *)URLForCategory:(NSString *)categorySlug;
++ (NSString *)URLForFeaturedPosts;
 
 @end

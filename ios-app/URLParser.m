@@ -26,5 +26,13 @@ static NSString * const BASE_URL = @"http://morningsignout.com/?json=";
     return [NSString stringWithFormat:@"%@get_tag_posts&tag_slug=%@", BASE_URL, tagSlug];
 }
 
++ (NSString *)URLForCategory:(NSString *)categorySlug {
+    return [NSString stringWithFormat:@"%@category_slug=%@", BASE_URL, categorySlug];
+}
+
++ (NSString *)URLForFeaturedPosts {
+    return [self URLForCategory:@"feature"];
+}
+
 
 @end
