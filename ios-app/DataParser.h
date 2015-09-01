@@ -10,6 +10,6 @@
 
 @interface DataParser : NSObject
 
-+ (NSArray *)postsWithTag:(NSString *)tag;
++ (NSArray *)postsWithTag:(NSString *)tag InPage:(int)page;
 
 @end
