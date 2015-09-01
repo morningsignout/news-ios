@@ -15,5 +15,6 @@
 + (NSString *)URLForPostWithTag:(NSString *)tagSlug;
 + (NSString *)URLForCategory:(NSString *)categorySlug;
 + (NSString *)URLForFeaturedPosts;
++ (NSString *)URLForSearchTerm:(NSString *)query;
 
 @end

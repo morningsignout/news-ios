@@ -34,5 +34,14 @@ static NSString * const BASE_URL = @"http://morningsignout.com/?json=";
     return [self URLForCategory:@"feature"];
 }
 
++ (NSString *)URLForSearchTerm:(NSString *)query {
+    // If search term has a space in it
+    NSString *parsedQuery = [query stringByReplacingOccurrencesOfString:@" " withString:@"-"];
+    
+    // TODO: Deal with other cases of user input into search bar
+    
+    return [NSString stringWithFormat:@"%@get_search_results&search=%@", BASE_URL, parsedQuery];
+}
+
 
 @end
