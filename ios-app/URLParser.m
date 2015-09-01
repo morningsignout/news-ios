@@ -36,12 +36,46 @@ static NSString * const BASE_URL = @"http://morningsignout.com/?json=";
 
 + (NSString *)URLForSearchTerm:(NSString *)query {
     // If search term has a space in it
-    NSString *parsedQuery = [query stringByReplacingOccurrencesOfString:@" " withString:@"-"];
+    NSString *parsedQuery = [query stringByReplacingOccurrencesOfString:@" " withString:@"+"];
     
     // TODO: Deal with other cases of user input into search bar
     
     return [NSString stringWithFormat:@"%@get_search_results&search=%@", BASE_URL, parsedQuery];
 }
+
++ (NSString *)URLForAuthorsPost:(int)ID{
+    return [NSString stringWithFormat:@"%@get_author_posts&id=%d", BASE_URL, ID];
+}
+
++ (NSString *)URLForAuthorsInfo {
+    return [NSString stringWithFormat:@"%@get_author_index", BASE_URL];
+}
+
++ (NSString *)URLForCategories {
+    return [NSString stringWithFormat:@"%@get_category_index", BASE_URL];
+}
+
++ (NSString *)URLForDate:(int)date {
+    return [NSString stringWithFormat:@"%@get_date_posts&date=%d", BASE_URL, date];
+}
+
++ (NSString *)URLForIndexPosts {
+    return [NSString stringWithFormat:@"%@1", BASE_URL];
+}
+
++ (NSString *)URLForNavigation {
+    return [NSString stringWithFormat:@"%@get_page_index", BASE_URL];
+}
+
++ (NSString *)URLFor:(NSString *)OLD_URL CountLimit:(int)count{
+    return [NSString stringWithFormat:@"%@&count=%d", OLD_URL, count];
+}
+
++ (NSString *)URLFor:(NSString *)OLD_URL Ordering:(NSString *)orderParam{
+    return [NSString stringWithFormat:@"%@&order_by=%@", OLD_URL, orderParam];
+}
+
+
 
 
 @end
