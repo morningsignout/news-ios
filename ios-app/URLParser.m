@@ -38,40 +38,45 @@ static NSString * const BASE_URL = @"http://morningsignout.com/?json=";
     // If search term has a space in it
     NSString *parsedQuery = [query stringByReplacingOccurrencesOfString:@" " withString:@"+"];
     
-    // TODO: Deal with other cases of user input into search bar
+    // TODO: Deal with other cases of user input into search bar, if any
     
     return [NSString stringWithFormat:@"%@get_search_results&search=%@", BASE_URL, parsedQuery];
 }
 
-+ (NSString *)URLForAuthorsPost:(int)ID{
++ (NSString *)URLForPostsWithAuthorID:(int)ID {
     return [NSString stringWithFormat:@"%@get_author_posts&id=%d", BASE_URL, ID];
 }
 
-+ (NSString *)URLForAuthorsInfo {
-    return [NSString stringWithFormat:@"%@get_author_index", BASE_URL];
++ (NSString *)URLForPostsInYear:(int)year {
+    return [NSString stringWithFormat:@"%@get_date_posts&date=%d", BASE_URL, year];
 }
 
-+ (NSString *)URLForCategories {
-    return [NSString stringWithFormat:@"%@get_category_index", BASE_URL];
-}
-
-+ (NSString *)URLForDate:(int)date {
-    return [NSString stringWithFormat:@"%@get_date_posts&date=%d", BASE_URL, date];
++ (NSString *)URLForPostsInMonth:(int)month andYear:(int)year {
+    
+    // If month is a single digit, add a '0' in front of it
+    NSString *monthString = [NSString stringWithFormat:@"%d", month];
+    if ([monthString length] == 1) {
+        monthString = [NSString stringWithFormat:@"0%@", monthString];
+    }
+    
+    NSString *yearURL = [NSString stringWithString:[self URLForPostsInYear:year]];
+    NSString *appendedMonth = [NSString stringWithFormat:@"-%@", monthString];
+    return [yearURL stringByAppendingString:appendedMonth];
 }
 
 + (NSString *)URLForIndexPosts {
     return [NSString stringWithFormat:@"%@1", BASE_URL];
 }
 
-+ (NSString *)URLForNavigation {
++ (NSString *)URLForIndexNavigation {
     return [NSString stringWithFormat:@"%@get_page_index", BASE_URL];
 }
 
-+ (NSString *)URLFor:(NSString *)OLD_URL CountLimit:(int)count{
++ (NSString *)URLForQuery:(NSString *)OLD_URL WithCountLimit:(int)count {
     return [NSString stringWithFormat:@"%@&count=%d", OLD_URL, count];
 }
 
-+ (NSString *)URLFor:(NSString *)OLD_URL Ordering:(NSString *)orderParam{
++ (NSString *)URLForQuery:(NSString *)OLD_URL WithOrdering:(NSString *)orderParam {
     return [NSString stringWithFormat:@"%@&order_by=%@", OLD_URL, orderParam];
 }
 
