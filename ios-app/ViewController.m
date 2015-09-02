@@ -25,7 +25,7 @@
     }*/
 
     //[DataParser postsWithTag:@"health"];ß
-    [DataParser DataForAllAuthors];
+    [DataParser DataForIndexNavigation];
 
 }
 

@@ -79,19 +79,6 @@ AFHTTPRequestOperationManager *manager;
     return [posts copy];
 }
 
-/*// Example function ONLY.
-// On average takes 1.2-1.3s to print out JSON from URL if only 10 posts.
-+ (NSArray *)postsWithTag:(NSString *)tag InPage:(int)page {
-    // if any number below 1 passed in, make it 1 for pagination
-    int revisedPageNum = page;
-    if (revisedPageNum < 1) {
-        revisedPageNum = 0;
-    }
-
-
-    return nil;
-}*/
-
 + (Post *)DataForPostID:(int)ID{
     NSString *url = [URLParser URLForPostID:ID];
     NSDictionary* parseData = [self parseDataFromURL:url];
@@ -130,23 +117,64 @@ AFHTTPRequestOperationManager *manager;
     
     return [self parsePostsFromDictionaries:parseData];
 }
+
 + (NSArray *)DataForRecentPosts{
     NSString *url = [URLParser URLForRecentPosts];
     NSDictionary *parseData = [self parseDataFromURL:url];
     
     return [self parsePostsFromDictionaries:parseData];
 }
+
 + (NSArray *)DataForFeaturedPosts{
     NSString *url = [URLParser URLForFeaturedPosts];
     NSDictionary *parseData = [self parseDataFromURL:url];
     
     return [self parsePostsFromDictionaries:parseData];
 }
+
 + (NSArray *)DataForAllAuthors{  // returns an array of authors
     NSString *url = [URLParser URLForAllAuthors];
     NSDictionary *parseData = [self parseDataFromURL:url];
 
     return [self parseAuthorsFromDictionaries:parseData];
+}
+
+// Get posts organized by dates
++ (NSArray *)DataForPostsInYear:(int)year{
+    NSString *url = [URLParser URLForPostsInYear:year];
+    NSDictionary *parseData = [self parseDataFromURL:url];
+    
+    return [self parsePostsFromDictionaries:parseData];
+}
+
++ (NSArray *)DataForPostsInMonth:(int)month andYear:(int)year{
+    NSString *url = [URLParser URLForPostsInMonth:month andYear:year];
+    NSDictionary *parseData = [self parseDataFromURL:url];
+    
+    return [self parsePostsFromDictionaries:parseData];
+}
+
+
+// Get navigation-related info, including search-bar URL
++ (NSArray *)DataForCategories{
+    NSString *url = [URLParser URLForCategories];
+    NSDictionary *parseData = [self parseDataFromURL:url];
+    NSArray * data = [parseData valueForKey:@"categories"];
+    return nil;
+}
+
++ (NSArray *)DataForIndexNavigation{
+    NSString *url = [URLParser URLForIndexNavigation];
+    NSDictionary *parseData = [self parseDataFromURL:url];
+    
+    return [self parsePostsFromDictionaries:parseData];
+}
+
++ (NSArray *)DataForSearchTerm:(NSString *)query{
+    NSString *url = [URLParser URLForSearchTerm:query];
+    NSDictionary *parseData = [self parseDataFromURL:url];
+    
+    return [self parsePostsFromDictionaries:parseData];
 }
 
 @end

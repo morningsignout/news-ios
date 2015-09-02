@@ -30,4 +30,14 @@
 + (NSArray *)DataForFeaturedPosts;
 + (NSArray *)DataForAllAuthors; //array of authors
 
+// Get posts organized by dates
++ (NSArray *)DataForPostsInYear:(int)year;
++ (NSArray *)DataForPostsInMonth:(int)month andYear:(int)year;
+
+
+// Get navigation-related info, including search-bar URL
++ (NSArray *)DataForCategories;
++ (NSArray *)DataForIndexNavigation;
++ (NSArray *)DataForSearchTerm:(NSString *)query;
+
 @end
