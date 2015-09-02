@@ -28,6 +28,6 @@
 + (NSArray *)DataForIndexPosts;
 + (NSArray *)DataForRecentPosts;
 + (NSArray *)DataForFeaturedPosts;
-+ (NSArray *)DataForAllAuthors;
++ (NSArray *)DataForAllAuthors; //array of authors
 
 @end

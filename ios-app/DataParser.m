@@ -37,6 +37,22 @@ AFHTTPRequestOperationManager *manager;
     return data;
 }
 
++(Author *)parseAuthorFromDictionary:(NSDictionary*)authorData{
+    int authorId = (int)[authorData valueForKey:@"id"];
+    NSString* name = [authorData valueForKey:@"name"];
+    NSString* about = [authorData valueForKey:@"description"];
+    return [[Author alloc] initWith:authorId Name:name About:about];
+}
+
++(NSArray *)parseAuthorsFromDictionaries:(NSDictionary*)authorArray{
+    NSArray* authorsData = [authorArray valueForKey:@"authors"];
+    NSMutableArray* authors;
+    for(int i=0;i<[authorsData count];i++){
+        [authors addObject:[self parseAuthorFromDictionary:authorsData[i]]];
+    }
+    return [authors copy];
+}
+
 //provided a dictionary with info for a post.  Return a post object
 //with that info.
 +(Post *)parsePostFromDictionary:(NSDictionary*)parseData{
@@ -109,17 +125,28 @@ AFHTTPRequestOperationManager *manager;
 
 // Get home page, recent, featured posts, or all author info
 + (NSArray *)DataForIndexPosts{
-    return nil;
+    NSString *url = [URLParser URLForIndexPosts];
+    NSDictionary *parseData = [self parseDataFromURL:url];
+    
+    return [self parsePostsFromDictionaries:parseData];
 }
 + (NSArray *)DataForRecentPosts{
-    return nil;
+    NSString *url = [URLParser URLForRecentPosts];
+    NSDictionary *parseData = [self parseDataFromURL:url];
+    
+    return [self parsePostsFromDictionaries:parseData];
 }
 + (NSArray *)DataForFeaturedPosts{
-    return nil;
+    NSString *url = [URLParser URLForFeaturedPosts];
+    NSDictionary *parseData = [self parseDataFromURL:url];
+    
+    return [self parsePostsFromDictionaries:parseData];
 }
-+ (NSArray *)DataForAllAuthors{
++ (NSArray *)DataForAllAuthors{  // returns an array of authors
+    NSString *url = [URLParser URLForAllAuthors];
+    NSDictionary *parseData = [self parseDataFromURL:url];
 
-    return nil;
+    return [self parseAuthorsFromDictionaries:parseData];
 }
 
 @end
