@@ -19,7 +19,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    [DataParser postsWithTag:@"health"];
+    //[DataParser postsWithTag:@"health"];ß
+    [DataParser DataForPostWithTag:(@"nicu")];
 }
 
 - (void)didReceiveMemoryWarning {

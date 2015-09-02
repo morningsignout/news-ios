@@ -27,14 +27,14 @@
 @property (strong, nonatomic) NSArray *images; // tentative; may be used to deal with image+caption pair loading
 
 
-//- (instancetype)initWith:(int)ID
-//                   Title:(NSString *)Title
-//                  Author:(Author *)Author
-//                    Body:(NSString *)Content
-//                     URL:(NSString *)URL
-//                 Excerpt:(NSString *)excerpt
-//                Category:(NSArray *)Category
-//                    Tags:(NSArray *)Tags
-//                    Images:(NSArray *)Images;
++ (instancetype)initWith:(int)ID
+                   Title:(NSString *)Title
+                  Author:(Author *)Author
+                    Body:(NSString *)Content
+                     URL:(NSString *)URL
+                 Excerpt:(NSString *)excerpt
+                Category:(NSArray *)Category
+                    Tags:(NSArray *)Tags
+                    Images:(NSArray *)Images;
 
 @end
