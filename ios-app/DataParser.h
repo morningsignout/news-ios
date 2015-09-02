@@ -12,7 +12,7 @@
 
 @interface DataParser : NSObject
 
-+ (NSArray *)postsWithTag:(NSString *)tag;
++ (NSArray *)postsWithTag:(NSString *)tag InPage:(int)page;
 
 // Get specific content with post or author ID
 + (Post *)DataForPostID:(int)ID;

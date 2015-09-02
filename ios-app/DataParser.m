@@ -16,6 +16,7 @@ AFHTTPRequestOperationManager *manager;
 
 @implementation DataParser
 
+
 +(void)initialize{
     manager = [AFHTTPRequestOperationManager manager];
 }
@@ -51,11 +52,16 @@ AFHTTPRequestOperationManager *manager;
     return [Post initWith:postid Title:title Author:author Body:content URL:postUrl Excerpt:excerpt Category:category Tags:tags Images:images];
 }
 
-// Example function ONLY. On average takes 1.3s to print out JSON from URL.
-/*+ (NSArray *)postsWithTag:(NSString *)tag {
-    NSString *url = [URLParser URLForPostWithTag:tag];
-    NSDictionary * parseData = [self parseDataFromURL:url];
-    
+/*// Example function ONLY.
+// On average takes 1.2-1.3s to print out JSON from URL if only 10 posts.
++ (NSArray *)postsWithTag:(NSString *)tag InPage:(int)page {
+    // if any number below 1 passed in, make it 1 for pagination
+    int revisedPageNum = page;
+    if (revisedPageNum < 1) {
+        revisedPageNum = 0;
+    }
+
+
     return nil;
 }*/
 
@@ -102,6 +108,17 @@ AFHTTPRequestOperationManager *manager;
     return nil;
 }
 + (NSArray *)DataForAllAuthors{
+
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        [manager GET:url
+          parameters:nil
+             success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                 NSLog(@"JSON: %@", responseObject);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error: %@", error);
+        }];
+
+
     return nil;
 }
 
