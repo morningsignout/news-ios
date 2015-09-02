@@ -10,7 +10,7 @@
 
 @implementation Post
 
-+ (instancetype)initWith:(int)ID
+- (instancetype)initWith:(int)ID
                    Title:(NSString *)Title
                   Author:(Author *)Author
                     Body:(NSString *)Content

@@ -49,7 +49,18 @@ AFHTTPRequestOperationManager *manager;
     NSArray* category = [parseData valueForKey:@"categories"];
     NSArray* tags = [parseData valueForKey:@"tags"];
     NSArray* images = [parseData valueForKey:@"images"];
-    return [Post initWith:postid Title:title Author:author Body:content URL:postUrl Excerpt:excerpt Category:category Tags:tags Images:images];
+    return [[Post alloc] initWith:postid Title:title Author:author Body:content URL:postUrl Excerpt:excerpt Category:category Tags:tags Images:images];
+ 
+}
+
+//returns an array of Posts, given a Dictionary of Posts
++(NSArray*)parsePostsFromDictionaries:(NSDictionary*)postArray{
+    NSArray* postsData = [postArray valueForKey:@"attachments"];//array of dictionaries of posts
+    NSMutableArray* posts; // array of Posts
+    for(int i =0;i<[postsData count];i++){
+        [posts addObject:[self parsePostFromDictionary:postsData[i]]];
+    }
+    return [posts copy];
 }
 
 /*// Example function ONLY.
@@ -82,18 +93,17 @@ AFHTTPRequestOperationManager *manager;
 + (NSArray *)DataForPostWithTag:(NSString *)tagSlug{
     NSString *url = [URLParser URLForPostWithTag:tagSlug];
     NSDictionary* parseData = [self parseDataFromURL:url];
-    NSArray* postsData = [parseData valueForKey:@"attachments"];//array of dictionaries
-    NSMutableArray* posts; // array of Posts
-    for(int i =0;i<[postsData count];i++){
-        [posts addObject:[self parsePostFromDictionary:postsData[i]]];
-    }
-    return posts;
+    
+    return [self parsePostsFromDictionaries:parseData];
 }
 
 //get posts related to a certain category i'm guessing
 + (NSArray *)DataForCategory:(NSString *)categorySlug{
     NSString *url = [URLParser URLForCategory:categorySlug];
-    return nil;
+    NSLog(@"%@",url);
+    NSDictionary* parseData = [self parseDataFromURL:url];
+    
+    return [self parsePostsFromDictionaries:parseData];
 }
 
 
