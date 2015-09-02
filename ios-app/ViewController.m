@@ -25,7 +25,7 @@
     }*/
 
     //[DataParser postsWithTag:@"health"];ß
-    [DataParser DataForCategories];
+    [DataParser DataForPostID:30562];
 
 }
 

@@ -91,9 +91,10 @@ AFHTTPRequestOperationManager *manager;
 }
 
 + (NSArray *)DataForAuthorInfoAndPostsWithAuthorID:(int)ID{
+    NSString *url = [URLParser URLForAuthorInfoAndPostsWithAuthorID:ID];
+    NSDictionary* parseData = [self parseDataFromURL:url];
     
-    
-    return nil;
+    return [self parsePostsFromDictionaries:parseData]; //an array of posts by a give author
 }
 
 // Get many posts with certain tag or category
