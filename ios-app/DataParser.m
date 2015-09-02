@@ -46,7 +46,7 @@ AFHTTPRequestOperationManager *manager;
 
 +(NSArray *)parseAuthorsFromDictionaries:(NSDictionary*)authorArray{
     NSArray* authorsData = [authorArray valueForKey:@"authors"];
-    NSMutableArray* authors;
+    NSMutableArray* authors = [[NSMutableArray alloc] init];
     for(int i=0;i<[authorsData count];i++){
         [authors addObject:[self parseAuthorFromDictionary:authorsData[i]]];
     }
@@ -62,17 +62,21 @@ AFHTTPRequestOperationManager *manager;
     NSString* content = [parseData valueForKey:@"content]"];
     NSString* postUrl = [parseData valueForKey:@"url"];
     NSString* excerpt = [parseData valueForKey:@"excerpt"];
-    NSArray* category = [parseData valueForKey:@"categories"];
+    NSArray* data = [parseData valueForKey:@"categories"];
+    NSMutableArray * category = [[NSMutableArray alloc] init];
+    for(int i =0;i<[data count] ;i ++){
+        [category addObject:[data[i] valueForKey:@"title"]];
+    }
     NSArray* tags = [parseData valueForKey:@"tags"];
     NSArray* images = [parseData valueForKey:@"images"];
-    return [[Post alloc] initWith:postid Title:title Author:author Body:content URL:postUrl Excerpt:excerpt Category:category Tags:tags Images:images];
+    return [[Post alloc] initWith:postid Title:title Author:author Body:content URL:postUrl Excerpt:excerpt Category:[category copy] Tags:tags Images:images];
  
 }
 
 //returns an array of Posts, given a Dictionary of Posts
 +(NSArray*)parsePostsFromDictionaries:(NSDictionary*)postArray{
     NSArray* postsData = [postArray valueForKey:@"attachments"];//array of dictionaries of posts
-    NSMutableArray* posts; // array of Posts
+    NSMutableArray* posts = [[NSMutableArray alloc] init]; // array of Posts
     for(int i =0;i<[postsData count];i++){
         [posts addObject:[self parsePostFromDictionary:postsData[i]]];
     }
@@ -160,7 +164,12 @@ AFHTTPRequestOperationManager *manager;
     NSString *url = [URLParser URLForCategories];
     NSDictionary *parseData = [self parseDataFromURL:url];
     NSArray * data = [parseData valueForKey:@"categories"];
-    return nil;
+    NSMutableArray * titles = [[NSMutableArray alloc] init];
+    for(int i =0;i<[data count] ;i ++){
+        [titles addObject:[data[i] valueForKey:@"title"]];
+    }
+    
+    return [titles copy];  //string names of categories
 }
 
 + (NSArray *)DataForIndexNavigation{
