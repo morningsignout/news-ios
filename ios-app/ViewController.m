@@ -19,13 +19,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    // Some stress testing
+    /*// Some stress testing
     for (int i = 1; i < 5; i++) {
         [DataParser postsWithTag:@"health" InPage:i];
-    }
+    }*/
 
     //[DataParser postsWithTag:@"health"];ß
-    [DataParser DataForPostWithTag:(@"nicu")];
+    [DataParser DataForCategory:(@"research")];
 
 }
 

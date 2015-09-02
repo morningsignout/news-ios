@@ -109,16 +109,6 @@ AFHTTPRequestOperationManager *manager;
 }
 + (NSArray *)DataForAllAuthors{
 
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        [manager GET:url
-          parameters:nil
-             success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                 NSLog(@"JSON: %@", responseObject);
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"Error: %@", error);
-        }];
-
-
     return nil;
 }
 
