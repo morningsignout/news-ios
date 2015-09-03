@@ -19,4 +19,10 @@
     return self;
 }
 
+- (void)printInfo {
+    NSLog(@"ID: %d", self.ID);
+    NSLog(@"Name: %@", self.name);
+    NSLog(@"About: %@", self.about);
+}
+
 @end

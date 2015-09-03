@@ -33,8 +33,11 @@
                     Body:(NSString *)Content
                      URL:(NSString *)URL
                  Excerpt:(NSString *)excerpt
+                    Date:(NSString *)date
                 Category:(NSArray *)Category
                     Tags:(NSArray *)Tags
                     Images:(NSArray *)Images;
+
+- (void)printInfo;
 
 @end

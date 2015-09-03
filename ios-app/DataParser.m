@@ -32,8 +32,14 @@ AFHTTPRequestOperationManager *manager;
     [manager GET:url
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             NSLog(@"JSON: %@", responseObject);
-             data = (NSDictionary *)responseObject;
+             //NSLog(@"JSON: %@", responseObject);
+             
+             dispatch_queue_t myQueue = dispatch_queue_create("My Queue",NULL);
+             dispatch_async(myQueue, ^{
+                 data = (NSDictionary *)responseObject;
+             });
+             
+             NSLog(@"SUCCESS");
              dispatch_semaphore_signal(semaphore);
              
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -63,21 +69,39 @@ AFHTTPRequestOperationManager *manager;
 //provided a dictionary with info for a post.  Return a post object
 //with that info.
 +(Post *)parsePostFromDictionary:(NSDictionary*)parseData{
-    int postid = (int)[parseData valueForKey:@"id"];
-    NSString* title = [parseData valueForKey:@"title"];
-    Author* author = [parseData valueForKey:@"author"];
-    NSString* content = [parseData valueForKey:@"content]"];
-    NSString* postUrl = [parseData valueForKey:@"url"];
-    NSString* excerpt = [parseData valueForKey:@"excerpt"];
-    NSArray* data = [parseData valueForKey:@"categories"];
-    NSMutableArray * category = [[NSMutableArray alloc] init];
-    for(int i =0; i<[data count]; i++){
-        [category addObject:[data[i] valueForKey:@"title"]];
-    }
-    NSArray* tags = [parseData valueForKey:@"tags"];
-    NSArray* images = [parseData valueForKey:@"images"];
-    Post* post = [[Post alloc] initWith:postid Title:title Author:author Body:content URL:postUrl Excerpt:excerpt Category:[category copy] Tags:tags Images:images];
-    //NSLog(@"post: %@",post);
+     dispatch_queue_t myQueue = dispatch_queue_create("My Queue",NULL);
+    __block Post *post = nil;
+    
+    dispatch_sync(myQueue, ^{
+        int postid = (int)[parseData valueForKey:@"id"];
+        NSString* title = [parseData valueForKey:@"title"];
+        
+        NSDictionary *authorDict = [parseData valueForKey:@"author"];
+        Author *author = [[Author alloc] initWith:(int)[authorDict valueForKey:@"id"] Name:[authorDict valueForKey:@"name"] About:[authorDict valueForKey:@"description"]];
+        
+        NSString* content = [parseData valueForKey:@"content"];
+        NSString* postUrl = [parseData valueForKey:@"url"];
+        NSString* excerpt = [parseData valueForKey:@"excerpt"];
+        NSString *date = [parseData valueForKey:@"date"];
+        
+        NSArray* data = [parseData valueForKey:@"categories"];
+        NSMutableArray *category = [[NSMutableArray alloc] init];
+            for(int i = 0; i < [data count]; i++){
+                [category addObject:[data[i] valueForKey:@"title"]];
+            }
+        
+        NSArray* tagData = [parseData valueForKey:@"tags"];
+        NSMutableArray *tags = [NSMutableArray array];
+        for (int i = 0; i < [tagData count]; i++) {
+            [tags addObject:[tagData[i] valueForKey:@"slug"]];
+        }
+        
+        NSArray* images = [parseData valueForKey:@"images"];
+        
+        post = [[Post alloc] initWith:postid Title:title Author:author Body:content URL:postUrl Excerpt:excerpt Date:date Category:[category copy] Tags:tags Images:images];
+    
+    });
+    
     return post;
  
 }

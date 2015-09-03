@@ -17,24 +17,33 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    NSLog(@"Start");
     
-    /*// Some stress testing
-    for (int i = 1; i < 5; i++) {
-        [DataParser postsWithTag:@"health" InPage:i];
-    }*/
+    NSArray *a = [DataParser DataForPostsInMonth:11 andYear:2014];
+    [self dump:a];
+    NSLog(@"BREAK");
+    
+    Post *b = [DataParser DataForPostID:9575];
+    [b printInfo];
+    
+    NSLog(@"BREAK");
+    
+    NSArray *c = [DataParser DataForPostWithTag:@"caffeine"];
+    [self dump:c];
+    
+    NSLog(@"BREAK");
+    
+    NSArray *d = [DataParser DataForCategory:@"premed"];
+    [self dump:d];
+    
+    NSLog(@"BREAK");
+}
 
-    //
-    //[DataParser DataForPostID:30562];
-    //Post* post = [DataParser DataForPostID:30562];
-    //NSLog(@"%@",[post title]);
-    NSArray * posts = [DataParser DataForPostsInMonth:11 andYear:2014];
-    for(int i = 0; i<[posts count]; i++)
-    {
-        NSLog(@"%@",[posts[i] title]);
+- (void)dump:(NSArray *)postArr {
+    for (Post *post in postArr) {
+        [post printInfo];
+        NSLog(@"==================================");
     }
-    //[DataParser DataForPostWithTag:@"empathy"];
-
 }
 
 - (void)didReceiveMemoryWarning {
