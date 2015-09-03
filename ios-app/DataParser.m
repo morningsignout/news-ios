@@ -86,9 +86,9 @@ AFHTTPRequestOperationManager *manager;
         
         NSArray* data = [parseData valueForKey:@"categories"];
         NSMutableArray *category = [[NSMutableArray alloc] init];
-            for(int i = 0; i < [data count]; i++){
-                [category addObject:[data[i] valueForKey:@"title"]];
-            }
+        for(int i = 0; i < [data count]; i++){
+            [category addObject:[data[i] valueForKey:@"title"]];
+        }
         
         NSArray* tagData = [parseData valueForKey:@"tags"];
         NSMutableArray *tags = [NSMutableArray array];
