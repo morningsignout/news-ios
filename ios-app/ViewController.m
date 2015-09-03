@@ -24,8 +24,16 @@
         [DataParser postsWithTag:@"health" InPage:i];
     }*/
 
-    //[DataParser postsWithTag:@"health"];ß
-    [DataParser DataForPostID:30562];
+    //
+    //[DataParser DataForPostID:30562];
+    //Post* post = [DataParser DataForPostID:30562];
+    //NSLog(@"%@",[post title]);
+    NSArray * posts = [DataParser DataForPostsInMonth:11 andYear:2014];
+    for(int i = 0; i<[posts count]; i++)
+    {
+        NSLog(@"%@",[posts[i] title]);
+    }
+    //[DataParser DataForPostWithTag:@"empathy"];
 
 }
 

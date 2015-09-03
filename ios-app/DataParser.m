@@ -27,14 +27,20 @@ AFHTTPRequestOperationManager *manager;
 +(NSDictionary*)parseDataFromURL:(NSString *)url{
     //NSURL *url = [NSURL URLWithString:string];
     __block NSDictionary * data = [[NSDictionary alloc]init];
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    manager.completionQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     [manager GET:url
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSLog(@"JSON: %@", responseObject);
              data = (NSDictionary *)responseObject;
+             dispatch_semaphore_signal(semaphore);
+             
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              NSLog(@"Error: %@", error);
+             dispatch_semaphore_signal(semaphore);
          }];
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
     return data;
 }
 
@@ -65,18 +71,21 @@ AFHTTPRequestOperationManager *manager;
     NSString* excerpt = [parseData valueForKey:@"excerpt"];
     NSArray* data = [parseData valueForKey:@"categories"];
     NSMutableArray * category = [[NSMutableArray alloc] init];
-    for(int i =0;i<[data count] ;i ++){
+    for(int i =0; i<[data count]; i++){
         [category addObject:[data[i] valueForKey:@"title"]];
     }
     NSArray* tags = [parseData valueForKey:@"tags"];
     NSArray* images = [parseData valueForKey:@"images"];
-    return [[Post alloc] initWith:postid Title:title Author:author Body:content URL:postUrl Excerpt:excerpt Category:[category copy] Tags:tags Images:images];
+    Post* post = [[Post alloc] initWith:postid Title:title Author:author Body:content URL:postUrl Excerpt:excerpt Category:[category copy] Tags:tags Images:images];
+    //NSLog(@"post: %@",post);
+    return post;
  
 }
 
 //returns an array of Posts, given a Dictionary of Posts
 +(NSArray*)parsePostsFromDictionaries:(NSDictionary*)postArray{
-    NSArray* postsData = [postArray valueForKey:@"attachments"];//array of dictionaries of posts
+    NSArray* postsData = [postArray valueForKey:@"posts"];//array of dictionaries of posts
+    
     NSMutableArray* posts = [[NSMutableArray alloc] init]; // array of Posts
     for(int i =0;i<[postsData count];i++){
         [posts addObject:[self parsePostFromDictionary:postsData[i]]];
@@ -84,22 +93,23 @@ AFHTTPRequestOperationManager *manager;
     return [posts copy];
 }
 
-+ (Post *)DataForPostID:(int)ID{
++ (Post *)DataForPostID:(int)ID{  //checked
     NSString *url = [URLParser URLForPostID:ID];
     NSDictionary* parseData = [self parseDataFromURL:url];
     
-    return [self parsePostFromDictionary:parseData];
+    return [self parsePostFromDictionary:[parseData valueForKey:@"post"]];
 }
 
-+ (NSArray *)DataForAuthorInfoAndPostsWithAuthorID:(int)ID{
++ (NSArray *)DataForAuthorInfoAndPostsWithAuthorID:(int)ID{  //checked
     NSString *url = [URLParser URLForAuthorInfoAndPostsWithAuthorID:ID];
     NSDictionary* parseData = [self parseDataFromURL:url];
-    
-    return [self parsePostsFromDictionaries:parseData]; //an array of posts by a give author
+    NSArray* stuff = [self parsePostsFromDictionaries:parseData];
+    //NSLog(@"%@",stuff);
+    return stuff; //an array of posts by a give author
 }
 
 // Get many posts with certain tag or category
-+ (NSArray *)DataForPostWithTag:(NSString *)tagSlug{
++ (NSArray *)DataForPostWithTag:(NSString *)tagSlug{ //checked
     NSString *url = [URLParser URLForPostWithTag:tagSlug];
     NSDictionary* parseData = [self parseDataFromURL:url];
     
@@ -107,9 +117,9 @@ AFHTTPRequestOperationManager *manager;
 }
 
 //get posts related to a certain category i'm guessing
-+ (NSArray *)DataForCategory:(NSString *)categorySlug{
++ (NSArray *)DataForCategory:(NSString *)categorySlug{ //checked
     NSString *url = [URLParser URLForCategory:categorySlug];
-    NSLog(@"%@",url);
+    //NSLog(@"%@",url);
     NSDictionary* parseData = [self parseDataFromURL:url];
     
     return [self parsePostsFromDictionaries:parseData];
@@ -117,28 +127,28 @@ AFHTTPRequestOperationManager *manager;
 
 
 // Get home page, recent, featured posts, or all author info
-+ (NSArray *)DataForIndexPosts{
++ (NSArray *)DataForIndexPosts{  //checked
     NSString *url = [URLParser URLForIndexPosts];
     NSDictionary *parseData = [self parseDataFromURL:url];
     
     return [self parsePostsFromDictionaries:parseData];
 }
 
-+ (NSArray *)DataForRecentPosts{
++ (NSArray *)DataForRecentPosts{   //checked
     NSString *url = [URLParser URLForRecentPosts];
     NSDictionary *parseData = [self parseDataFromURL:url];
     
     return [self parsePostsFromDictionaries:parseData];
 }
 
-+ (NSArray *)DataForFeaturedPosts{
++ (NSArray *)DataForFeaturedPosts{   //checked
     NSString *url = [URLParser URLForFeaturedPosts];
     NSDictionary *parseData = [self parseDataFromURL:url];
     
     return [self parsePostsFromDictionaries:parseData];
 }
 
-+ (NSArray *)DataForAllAuthors{  // returns an array of authors
++ (NSArray *)DataForAllAuthors{  // returns an array of authors   //checked
     NSString *url = [URLParser URLForAllAuthors];
     NSDictionary *parseData = [self parseDataFromURL:url];
 
@@ -146,14 +156,14 @@ AFHTTPRequestOperationManager *manager;
 }
 
 // Get posts organized by dates
-+ (NSArray *)DataForPostsInYear:(int)year{
++ (NSArray *)DataForPostsInYear:(int)year{  //checked
     NSString *url = [URLParser URLForPostsInYear:year];
     NSDictionary *parseData = [self parseDataFromURL:url];
     
     return [self parsePostsFromDictionaries:parseData];
 }
 
-+ (NSArray *)DataForPostsInMonth:(int)month andYear:(int)year{
++ (NSArray *)DataForPostsInMonth:(int)month andYear:(int)year{   //checked
     NSString *url = [URLParser URLForPostsInMonth:month andYear:year];
     NSDictionary *parseData = [self parseDataFromURL:url];
     
@@ -162,7 +172,7 @@ AFHTTPRequestOperationManager *manager;
 
 
 // Get navigation-related info, including search-bar URL
-+ (NSArray *)DataForCategories{
++ (NSArray *)DataForCategories{  //checked  is this correct though?
     NSString *url = [URLParser URLForCategories];
     NSDictionary *parseData = [self parseDataFromURL:url];
     NSArray * data = [parseData valueForKey:@"categories"];
@@ -174,14 +184,14 @@ AFHTTPRequestOperationManager *manager;
     return [titles copy];  //string names of categories
 }
 
-+ (NSArray *)DataForIndexNavigation{
++ (NSArray *)DataForIndexNavigation{  //not good  //key is "pages"
     NSString *url = [URLParser URLForIndexNavigation];
     NSDictionary *parseData = [self parseDataFromURL:url];
     
     return [self parsePostsFromDictionaries:parseData];
 }
 
-+ (NSArray *)DataForSearchTerm:(NSString *)query{
++ (NSArray *)DataForSearchTerm:(NSString *)query{  //checked
     NSString *url = [URLParser URLForSearchTerm:query];
     NSDictionary *parseData = [self parseDataFromURL:url];
     
