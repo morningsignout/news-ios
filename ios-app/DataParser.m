@@ -10,6 +10,7 @@
 #import "URLParser.h"
 //#import "Post.h"
 #import "Author.h"
+#import "PhotoInfo.h"
 #import <AFNetworking.h>
 
 AFHTTPRequestOperationManager *manager;

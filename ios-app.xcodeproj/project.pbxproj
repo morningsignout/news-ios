@@ -20,6 +20,7 @@
 		FB714A451B94D20600D68CB5 /* Author.m in Sources */ = {isa = PBXBuildFile; fileRef = FB714A441B94D20600D68CB5 /* Author.m */; };
 		FB714A4B1B94FFCF00D68CB5 /* URLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = FB714A4A1B94FFCF00D68CB5 /* URLParser.m */; };
 		FB714A4E1B94FFE100D68CB5 /* DataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = FB714A4D1B94FFE100D68CB5 /* DataParser.m */; };
+		FFE900D71B97CA7300D0A13C /* PhotoInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FFE900D61B97CA7300D0A13C /* PhotoInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,8 @@
 		FB714A4A1B94FFCF00D68CB5 /* URLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLParser.m; sourceTree = "<group>"; };
 		FB714A4C1B94FFE100D68CB5 /* DataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataParser.h; sourceTree = "<group>"; };
 		FB714A4D1B94FFE100D68CB5 /* DataParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataParser.m; sourceTree = "<group>"; };
+		FFE900D51B97CA7300D0A13C /* PhotoInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoInfo.h; sourceTree = "<group>"; };
+		FFE900D61B97CA7300D0A13C /* PhotoInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +173,8 @@
 		FB714A3F1B94D19800D68CB5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				FFE900D51B97CA7300D0A13C /* PhotoInfo.h */,
+				FFE900D61B97CA7300D0A13C /* PhotoInfo.m */,
 				FB714A491B94FFCF00D68CB5 /* URLParser.h */,
 				FB714A4A1B94FFCF00D68CB5 /* URLParser.m */,
 				FB714A4C1B94FFE100D68CB5 /* DataParser.h */,
@@ -317,6 +322,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFE900D71B97CA7300D0A13C /* PhotoInfo.m in Sources */,
 				FB714A421B94D1E500D68CB5 /* Post.m in Sources */,
 				FB714A1B1B94D16000D68CB5 /* AppDelegate.m in Sources */,
 				FB714A4B1B94FFCF00D68CB5 /* URLParser.m in Sources */,
