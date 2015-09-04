@@ -20,6 +20,10 @@
 		FB714A451B94D20600D68CB5 /* Author.m in Sources */ = {isa = PBXBuildFile; fileRef = FB714A441B94D20600D68CB5 /* Author.m */; };
 		FB714A4B1B94FFCF00D68CB5 /* URLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = FB714A4A1B94FFCF00D68CB5 /* URLParser.m */; };
 		FB714A4E1B94FFE100D68CB5 /* DataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = FB714A4D1B94FFE100D68CB5 /* DataParser.m */; };
+		FB99DEE21B9A1AFE007111B4 /* FeatureTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB99DEE11B9A1AFE007111B4 /* FeatureTableViewController.m */; };
+		FB99DEE61B9A1BD9007111B4 /* FeaturedStoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB99DEE51B9A1BD9007111B4 /* FeaturedStoryTableViewCell.m */; };
+		FB99DEE91B9A1C01007111B4 /* TiledCellTypeA.m in Sources */ = {isa = PBXBuildFile; fileRef = FB99DEE81B9A1C01007111B4 /* TiledCellTypeA.m */; };
+		FB99DEEC1B9A1CAE007111B4 /* TiledCellTypeB.m in Sources */ = {isa = PBXBuildFile; fileRef = FB99DEEB1B9A1CAE007111B4 /* TiledCellTypeB.m */; };
 		FFE900D71B97CA7300D0A13C /* PhotoInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FFE900D61B97CA7300D0A13C /* PhotoInfo.m */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +63,14 @@
 		FB714A4A1B94FFCF00D68CB5 /* URLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLParser.m; sourceTree = "<group>"; };
 		FB714A4C1B94FFE100D68CB5 /* DataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataParser.h; sourceTree = "<group>"; };
 		FB714A4D1B94FFE100D68CB5 /* DataParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataParser.m; sourceTree = "<group>"; };
+		FB99DEE01B9A1AFE007111B4 /* FeatureTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeatureTableViewController.h; sourceTree = "<group>"; };
+		FB99DEE11B9A1AFE007111B4 /* FeatureTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeatureTableViewController.m; sourceTree = "<group>"; };
+		FB99DEE41B9A1BD9007111B4 /* FeaturedStoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeaturedStoryTableViewCell.h; sourceTree = "<group>"; };
+		FB99DEE51B9A1BD9007111B4 /* FeaturedStoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeaturedStoryTableViewCell.m; sourceTree = "<group>"; };
+		FB99DEE71B9A1C01007111B4 /* TiledCellTypeA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiledCellTypeA.h; sourceTree = "<group>"; };
+		FB99DEE81B9A1C01007111B4 /* TiledCellTypeA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiledCellTypeA.m; sourceTree = "<group>"; };
+		FB99DEEA1B9A1CAE007111B4 /* TiledCellTypeB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiledCellTypeB.h; sourceTree = "<group>"; };
+		FB99DEEB1B9A1CAE007111B4 /* TiledCellTypeB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiledCellTypeB.m; sourceTree = "<group>"; };
 		FFE900D51B97CA7300D0A13C /* PhotoInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoInfo.h; sourceTree = "<group>"; };
 		FFE900D61B97CA7300D0A13C /* PhotoInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -124,6 +136,7 @@
 			children = (
 				FB714A191B94D16000D68CB5 /* AppDelegate.h */,
 				FB714A1A1B94D16000D68CB5 /* AppDelegate.m */,
+				FB99DEE31B9A1BB1007111B4 /* UI */,
 				FB714A3F1B94D19800D68CB5 /* Models */,
 				FB714A3E1B94D18700D68CB5 /* Controllers */,
 				FB714A221B94D16000D68CB5 /* Main.storyboard */,
@@ -166,6 +179,8 @@
 			children = (
 				FB714A1F1B94D16000D68CB5 /* TestViewController.h */,
 				FB714A201B94D16000D68CB5 /* TestViewController.m */,
+				FB99DEE01B9A1AFE007111B4 /* FeatureTableViewController.h */,
+				FB99DEE11B9A1AFE007111B4 /* FeatureTableViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -185,6 +200,19 @@
 				FB714A441B94D20600D68CB5 /* Author.m */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		FB99DEE31B9A1BB1007111B4 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				FB99DEE41B9A1BD9007111B4 /* FeaturedStoryTableViewCell.h */,
+				FB99DEE51B9A1BD9007111B4 /* FeaturedStoryTableViewCell.m */,
+				FB99DEE71B9A1C01007111B4 /* TiledCellTypeA.h */,
+				FB99DEE81B9A1C01007111B4 /* TiledCellTypeA.m */,
+				FB99DEEA1B9A1CAE007111B4 /* TiledCellTypeB.h */,
+				FB99DEEB1B9A1CAE007111B4 /* TiledCellTypeB.m */,
+			);
+			name = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -322,14 +350,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB99DEE91B9A1C01007111B4 /* TiledCellTypeA.m in Sources */,
 				FFE900D71B97CA7300D0A13C /* PhotoInfo.m in Sources */,
 				FB714A421B94D1E500D68CB5 /* Post.m in Sources */,
+				FB99DEEC1B9A1CAE007111B4 /* TiledCellTypeB.m in Sources */,
 				FB714A1B1B94D16000D68CB5 /* AppDelegate.m in Sources */,
 				FB714A4B1B94FFCF00D68CB5 /* URLParser.m in Sources */,
 				FB714A451B94D20600D68CB5 /* Author.m in Sources */,
 				FB714A1E1B94D16000D68CB5 /* ios_app.xcdatamodeld in Sources */,
+				FB99DEE21B9A1AFE007111B4 /* FeatureTableViewController.m in Sources */,
 				FB714A211B94D16000D68CB5 /* TestViewController.m in Sources */,
 				FB714A4E1B94FFE100D68CB5 /* DataParser.m in Sources */,
+				FB99DEE61B9A1BD9007111B4 /* FeaturedStoryTableViewCell.m in Sources */,
 				FB714A181B94D16000D68CB5 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
