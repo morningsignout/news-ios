@@ -21,7 +21,7 @@
     
     NSLog(@"Start");
     
-    NSArray *a = [DataParser DataForPostsInMonth:11 andYear:2014];
+    NSArray *a = [DataParser DataForPostsInMonth:11 Year:2014 AndPage:1];
     [self dump:a];
     
     Post *b = [DataParser DataForPostID:9575];
@@ -42,11 +42,14 @@
     NSArray *e = [DataParser DataForAuthorInfoAndPostsWithAuthorID:238];
     [self dump:e];
     
-    NSArray *f = [DataParser DataForFeaturedPosts];
+    NSArray *f = [DataParser DataForFeaturedPostsWithPageNumber:1];
     [self dump:f];
     
-    NSArray *h = [DataParser DataForPostsInYear:2015];
+    NSArray *h = [DataParser DataForPostsInYear:2015 AndInPage:1];
     [self dump:h];
+    NSLog(@"***");
+    NSArray *i = [DataParser DataForAuthorInfoAndPostsWithAuthorID:238];
+    [self dump:i];
 }
 
 - (void)dataDidLoad {

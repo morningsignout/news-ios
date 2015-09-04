@@ -186,16 +186,16 @@ NSDateFormatter *dateToStringFormatter;
 }
 
 // Returns an array of Posts sorted by recent
-+ (NSArray *)DataForRecentPosts{   //checked
-    NSString *url = [URLParser URLForRecentPosts];
++ (NSArray *)DataForRecentPostsWithPageNumber:(int)page {
+    NSString *url = [URLParser URLForQuery:[URLParser URLForRecentPosts] WithPageNumber:page];
     NSDictionary *parseData = [self parseDataFromURL:url];
     
     return [self parsePostsFromDictionaries:parseData];
 }
 
 // Returns an array of Posts sorted by featured
-+ (NSArray *)DataForFeaturedPosts{   //checked
-    NSString *url = [URLParser URLForFeaturedPosts];
++ (NSArray *)DataForFeaturedPostsWithPageNumber:(int)page {
+    NSString *url = [URLParser URLForQuery:[URLParser URLForFeaturedPosts] WithPageNumber:page];
     NSDictionary *parseData = [self parseDataFromURL:url];
     
     return [self parsePostsFromDictionaries:parseData];
@@ -212,16 +212,16 @@ NSDateFormatter *dateToStringFormatter;
 // Get posts organized by dates
 
 // Returns an array of posts from a given year
-+ (NSArray *)DataForPostsInYear:(int)year{  //checked
-    NSString *url = [URLParser URLForPostsInYear:year];
++ (NSArray *)DataForPostsInYear:(int)year AndInPage:(int)page {
+    NSString *url = [URLParser URLForQuery:[URLParser URLForPostsInYear:year] WithPageNumber:page];
     NSDictionary *parseData = [self parseDataFromURL:url];
     
     return [self parsePostsFromDictionaries:parseData];
 }
 
 // Returns an array of posts from a given month and year
-+ (NSArray *)DataForPostsInMonth:(int)month andYear:(int)year{   //checked
-    NSString *url = [URLParser URLForPostsInMonth:month andYear:year];
++ (NSArray *)DataForPostsInMonth:(int)month Year:(int)year AndPage:(int)page {
+    NSString *url = [URLParser URLForQuery:[URLParser URLForPostsInMonth:month andYear:year] WithPageNumber:page];
     NSDictionary *parseData = [self parseDataFromURL:url];
     
     return [self parsePostsFromDictionaries:parseData];
@@ -244,7 +244,7 @@ NSDateFormatter *dateToStringFormatter;
 }
 
 // Returns an array of posts
-+ (NSArray *)DataForIndexNavigation{  // returns key "pages" instead of posts
++ (NSArray *)DataForIndexNavigation {  // returns key "pages" instead of posts
     NSString *url = [URLParser URLForIndexNavigation];
     NSDictionary *parseData = [self parseDataFromURL:url];
     
@@ -252,8 +252,8 @@ NSDateFormatter *dateToStringFormatter;
 }
 
 // Returns an array of posts related to the query passed in
-+ (NSArray *)DataForSearchTerm:(NSString *)query{  //checked
-    NSString *url = [URLParser URLForSearchTerm:query];
++ (NSArray *)DataForSearchTerm:(NSString *)query InPage:(int)page {
+    NSString *url = [URLParser URLForQuery:[URLParser URLForSearchTerm:query] WithPageNumber:page];
     NSDictionary *parseData = [self parseDataFromURL:url];
     
     return [self parsePostsFromDictionaries:parseData];

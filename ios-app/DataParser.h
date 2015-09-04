@@ -24,21 +24,20 @@
 
 // Get home page, recent, featured posts, or all author info
 + (NSArray *)DataForIndexPosts;
-+ (NSArray *)DataForRecentPosts;
-+ (NSArray *)DataForFeaturedPosts;
++ (NSArray *)DataForRecentPostsWithPageNumber:(int)page;
++ (NSArray *)DataForFeaturedPostsWithPageNumber:(int)page;
 + (NSArray *)DataForAllAuthors; //array of authors
 
 
 // Get posts organized by dates
-+ (NSArray *)DataForPostsInYear:(int)year;
-+ (NSArray *)DataForPostsInMonth:(int)month andYear:(int)year;
++ (NSArray *)DataForPostsInYear:(int)year AndInPage:(int)page;
++ (NSArray *)DataForPostsInMonth:(int)month Year:(int)year AndPage:(int)page;
 
 
 // Get navigation-related info, including search-bar URL
 + (NSArray *)DataForCategories;
 + (NSArray *)DataForIndexNavigation;
-+ (NSArray *)DataForSearchTerm:(NSString *)query;
++ (NSArray *)DataForSearchTerm:(NSString *)query InPage:(int)page;
 
-// Get posts of wanted page number
 
 @end
