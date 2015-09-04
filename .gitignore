@@ -1,3 +1,4 @@
 *.xcuserstate
 .*
+ios-app/.*
 !/.gitignore
