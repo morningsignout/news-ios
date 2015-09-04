@@ -1,23 +1,26 @@
 //
-//  ViewController.m
+//  TestViewController.m
 //  ios-app
 //
 //  Created by Shannon Phu on 8/31/15.
 //  Copyright (c) 2015 Morning Sign Out Incorporated. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "TestViewController.h"
 #import "DataParser.h"
 
-@interface ViewController ()
+@interface TestViewController ()
 
 @end
 
-@implementation ViewController
+@implementation TestViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataDidLoad) name:@"dataLoaded" object:nil];
+    
+    // Stress testing for performance. In the console after all output logged,
+    // Ctrl-F for "SUCCESS" and find time difference to estimate average time requests take.
     
     NSLog(@"Start");
     
@@ -47,7 +50,7 @@
     
     NSArray *h = [DataParser DataForPostsInYear:2015 AndInPage:1];
     [self dump:h];
-    NSLog(@"***");
+
     NSArray *i = [DataParser DataForAuthorInfoAndPostsWithAuthorID:238];
     [self dump:i];
 }

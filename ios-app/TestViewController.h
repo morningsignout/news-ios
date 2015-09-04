@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  TestViewController.h
 //  ios-app
 //
 //  Created by Shannon Phu on 8/31/15.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface TestViewController : UIViewController
 
 
 @end
