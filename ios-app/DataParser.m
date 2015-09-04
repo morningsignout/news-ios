@@ -69,10 +69,11 @@ NSDateFormatter *dateToStringFormatter;
 +(NSArray *)parseAuthorsFromDictionaries:(NSDictionary*)authorArray{
     NSArray* authorsData = [authorArray valueForKey:@"authors"];
     NSMutableArray* authors = [[NSMutableArray alloc] init];
-    for(int i=0;i<[authorsData count];i++){
+    int total = (int)[authorsData count];
+    for (int i = 0; i < total; i++){
         [authors addObject:[self parseAuthorFromDictionary:authorsData[i]]];
     }
-    return [authors copy];
+    return authors;
 }
 
 //provided a dictionary with info for a post.  Return a post object
@@ -108,14 +109,16 @@ NSDateFormatter *dateToStringFormatter;
     // Get categories
     NSArray* data = [parseData valueForKey:@"categories"];
     NSMutableArray *category = [[NSMutableArray alloc] init];
-    for(int i = 0; i < [data count]; i++){
+    int dataCount = (int)[data count];
+    for(int i = 0; i < dataCount; i++){
         [category addObject:[data[i] valueForKey:@"title"]];
     }
     
     // Get tags
     NSArray* tagData = [parseData valueForKey:@"tags"];
     NSMutableArray *tags = [NSMutableArray array];
-    for (int i = 0; i < [tagData count]; i++) {
+    int tagCount = (int)[tagData count];
+    for (int i = 0; i < tagCount; i++) {
         [tags addObject:[tagData[i] valueForKey:@"slug"]];
     }
     
@@ -139,38 +142,43 @@ NSDateFormatter *dateToStringFormatter;
     
     NSMutableArray* posts = [[NSMutableArray alloc] init]; // array of Posts
 
-    for(int i = 0; i < [postsData count]; i++){
+    int postCount = (int)[postsData count];
+    for(int i = 0; i < postCount; i++){
         [posts addObject:[self parsePostFromDictionary:postsData[i]]];
     }
     
-    return [posts copy];
+    return posts;
 }
 
 // Returns one Post searched by its Post ID
-+ (Post *)DataForPostID:(int)ID{  //checked
++ (Post *)DataForPostID:(int)ID{
     NSString *url = [URLParser URLForPostID:ID];
     NSDictionary* parseData = [self parseDataFromURL:url];
+    
     return [self parsePostFromDictionary:[parseData valueForKey:@"post"]];
 }
 
 // Returns an array of Posts by a given author
-+ (NSArray *)DataForAuthorInfoAndPostsWithAuthorID:(int)ID{  //checked
++ (NSArray *)DataForAuthorInfoAndPostsWithAuthorID:(int)ID{
     NSString *url = [URLParser URLForAuthorInfoAndPostsWithAuthorID:ID];
     NSDictionary* parseData = [self parseDataFromURL:url];
+    
     return [self parsePostsFromDictionaries:parseData];
 }
 
 // Returns an array of Posts filtered by tag
-+ (NSArray *)DataForPostWithTag:(NSString *)tagSlug AndPageNumber:(int)page { //checked
++ (NSArray *)DataForPostWithTag:(NSString *)tagSlug AndPageNumber:(int)page {
     NSString *url = [URLParser URLForQuery:[URLParser URLForPostWithTag:tagSlug] WithPageNumber:page];
     NSDictionary* parseData = [self parseDataFromURL:url];
+    
     return [self parsePostsFromDictionaries:parseData];
 }
 
 // Returns an array of Posts filtered by category
-+ (NSArray *)DataForCategory:(NSString *)categorySlug AndPageNumber:(int)page { //checked
++ (NSArray *)DataForCategory:(NSString *)categorySlug AndPageNumber:(int)page {
     NSString *url = [URLParser URLForQuery:[URLParser URLForCategory:categorySlug] WithPageNumber:page];
     NSDictionary* parseData = [self parseDataFromURL:url];
+    
     return [self parsePostsFromDictionaries:parseData];
 }
 
@@ -236,7 +244,8 @@ NSDateFormatter *dateToStringFormatter;
     NSDictionary *parseData = [self parseDataFromURL:url];
     NSArray * data = [parseData valueForKey:@"categories"];
     NSMutableArray * titles = [[NSMutableArray alloc] init];
-    for(int i =0;i<[data count] ;i ++){
+    int dataCount = (int)[data count];
+    for(int i = 0; i < dataCount; i++){
         [titles addObject:[data[i] valueForKey:@"title"]];
     }
     
