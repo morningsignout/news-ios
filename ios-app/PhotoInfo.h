@@ -13,4 +13,6 @@
 @property (strong, nonatomic) NSString *photoURL; 
 @property (strong, nonatomic) NSString *caption;
 
+- (instancetype)initWithURL:(NSString *)url AndCaption:(NSString *)caption;
+
 @end

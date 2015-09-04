@@ -8,36 +8,45 @@
 
 #import "DataParser.h"
 #import "URLParser.h"
-//#import "Post.h"
 #import "Author.h"
 #import "PhotoInfo.h"
 #import <AFNetworking.h>
 
 AFHTTPRequestOperationManager *manager;
+NSDateFormatter *stringToDateFormatter;
+NSDateFormatter *dateToStringFormatter;
 
 @implementation DataParser
 
 
-+(void)initialize{
++ (void)initialize{
     manager = [AFHTTPRequestOperationManager manager];
+    
+    stringToDateFormatter = [[NSDateFormatter alloc] init];
+    [stringToDateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    dateToStringFormatter = [[NSDateFormatter alloc] init];
+    [dateToStringFormatter setDateFormat:@"MMMM dd, yyyy"];
 }
 
 //Returns a dictionary parsed from the JSON returned
 //after sending an api call
 +(NSDictionary*)parseDataFromURL:(NSString *)url{
-    //NSURL *url = [NSURL URLWithString:string];
+    // Always return 25 post objects!
+    NSString *URLWithCount = [URLParser URLForQuery:url WithCountLimit:25];
+    
+    
     __block NSDictionary * data = [[NSDictionary alloc]init];
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
     manager.completionQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    [manager GET:url
+    [manager GET:URLWithCount
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             //NSLog(@"JSON: %@", responseObject);
              
-             dispatch_queue_t myQueue = dispatch_queue_create("My Queue",NULL);
-             dispatch_async(myQueue, ^{
+             //dispatch_queue_t myQueue = dispatch_queue_create("My Queue",NULL);
+             //dispatch_async(myQueue, ^{
                  data = (NSDictionary *)responseObject;
-             });
+             //});
              
              NSLog(@"SUCCESS");
              dispatch_semaphore_signal(semaphore);
@@ -68,39 +77,54 @@ AFHTTPRequestOperationManager *manager;
 
 //provided a dictionary with info for a post.  Return a post object
 //with that info.
-+(Post *)parsePostFromDictionary:(NSDictionary*)parseData{
-     dispatch_queue_t myQueue = dispatch_queue_create("My Queue",NULL);
-    __block Post *post = nil;
++ (Post *)parsePostFromDictionary:(NSDictionary*)parseData{
+
+    // Get ID
+    int postid = (int)[parseData valueForKey:@"id"];
     
-    dispatch_sync(myQueue, ^{
-        int postid = (int)[parseData valueForKey:@"id"];
-        NSString* title = [parseData valueForKey:@"title"];
-        
-        NSDictionary *authorDict = [parseData valueForKey:@"author"];
-        Author *author = [[Author alloc] initWith:(int)[authorDict valueForKey:@"id"] Name:[authorDict valueForKey:@"name"] About:[authorDict valueForKey:@"description"]];
-        
-        NSString* content = [parseData valueForKey:@"content"];
-        NSString* postUrl = [parseData valueForKey:@"url"];
-        NSString* excerpt = [parseData valueForKey:@"excerpt"];
-        NSString *date = [parseData valueForKey:@"date"];
-        
-        NSArray* data = [parseData valueForKey:@"categories"];
-        NSMutableArray *category = [[NSMutableArray alloc] init];
-        for(int i = 0; i < [data count]; i++){
-            [category addObject:[data[i] valueForKey:@"title"]];
-        }
-        
-        NSArray* tagData = [parseData valueForKey:@"tags"];
-        NSMutableArray *tags = [NSMutableArray array];
-        for (int i = 0; i < [tagData count]; i++) {
-            [tags addObject:[tagData[i] valueForKey:@"slug"]];
-        }
-        
-        NSArray* images = [parseData valueForKey:@"images"];
-        
-        post = [[Post alloc] initWith:postid Title:title Author:author Body:content URL:postUrl Excerpt:excerpt Date:date Category:[category copy] Tags:tags Images:images];
+    // Get title
+    NSString* title = [parseData valueForKey:@"title"];
     
-    });
+    // Get author
+    NSDictionary *authorDict = [parseData valueForKey:@"author"];
+    Author *author = [[Author alloc] initWith:(int)[authorDict valueForKey:@"id"] Name:[authorDict valueForKey:@"name"] About:[authorDict valueForKey:@"description"]];
+    
+    // Get content
+    NSString* content = [parseData valueForKey:@"content"];
+    
+    // Get URL
+    NSString* postUrl = [parseData valueForKey:@"url"];
+    
+    // Get excerpt
+    NSString* excerpt = [parseData valueForKey:@"excerpt"];
+    
+    // Get formatted date
+        // format date from string into NSDate object
+    NSString *fullDate = [parseData valueForKey:@"date"];
+    NSDate *dateObj = [stringToDateFormatter dateFromString: fullDate];
+        // convert date object back into MMMM dd, yyyy format
+    NSString *date = [dateToStringFormatter stringFromDate:dateObj];
+    
+    // Get categories
+    NSArray* data = [parseData valueForKey:@"categories"];
+    NSMutableArray *category = [[NSMutableArray alloc] init];
+    for(int i = 0; i < [data count]; i++){
+        [category addObject:[data[i] valueForKey:@"title"]];
+    }
+    
+    // Get tags
+    NSArray* tagData = [parseData valueForKey:@"tags"];
+    NSMutableArray *tags = [NSMutableArray array];
+    for (int i = 0; i < [tagData count]; i++) {
+        [tags addObject:[tagData[i] valueForKey:@"slug"]];
+    }
+    
+    // Get thumbnail and full cover image
+    NSString *thumbnailImageURL = [parseData valueForKey:@"thumbnail"];
+    NSString *fullImageURL = [[[parseData valueForKey:@"thumbnail_images"] valueForKey:@"full"] valueForKey:@"url"];
+    
+    // Create a post with data
+    Post *post = [[Post alloc] initWith:postid Title:title Author:author Body:content URL:postUrl Excerpt:excerpt Date:date Category:category Tags:tags ThumbnailCoverImage:thumbnailImageURL FullCoverImage:fullImageURL];
     
     return post;
  
@@ -111,9 +135,11 @@ AFHTTPRequestOperationManager *manager;
     NSArray* postsData = [postArray valueForKey:@"posts"];//array of dictionaries of posts
     
     NSMutableArray* posts = [[NSMutableArray alloc] init]; // array of Posts
-    for(int i =0;i<[postsData count];i++){
+
+    for(int i = 0; i < [postsData count]; i++){
         [posts addObject:[self parsePostFromDictionary:postsData[i]]];
     }
+    
     return [posts copy];
 }
 

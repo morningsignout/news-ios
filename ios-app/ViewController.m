@@ -21,22 +21,21 @@
     
     NSArray *a = [DataParser DataForPostsInMonth:11 andYear:2014];
     [self dump:a];
-    NSLog(@"BREAK");
     
     Post *b = [DataParser DataForPostID:9575];
     [b printInfo];
     
-    NSLog(@"BREAK");
-    
-    NSArray *c = [DataParser DataForPostWithTag:@"caffeine"];
+    NSArray *c = [DataParser DataForPostWithTag:@"health"];
     [self dump:c];
     
-    NSLog(@"BREAK");
-    
-    NSArray *d = [DataParser DataForCategory:@"premed"];
+    NSArray *d = [DataParser DataForCategory:@"medicine"];
     [self dump:d];
     
-    NSLog(@"BREAK");
+    NSArray *e = [DataParser DataForAuthorInfoAndPostsWithAuthorID:238];
+    [self dump:e];
+    
+    NSArray *f = [DataParser DataForFeaturedPosts];
+    [self dump:f];
 }
 
 - (void)dump:(NSArray *)postArr {

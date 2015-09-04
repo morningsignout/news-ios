@@ -24,19 +24,21 @@
 @property (strong, nonatomic) NSArray *category; // array of strings for categories
 @property (strong, nonatomic) NSArray *tags; // array of strings for tags
 
-@property (strong, nonatomic) NSArray *images; // tentative; may be used to deal with image+caption pair loading
+@property (strong, nonatomic) NSString *thumbnailCoverImageURL;
+@property (strong, nonatomic) NSString *fullCoverImageURL;
 
 
 - (instancetype)initWith:(int)ID
-                   Title:(NSString *)Title
-                  Author:(Author *)Author
-                    Body:(NSString *)Content
+                   Title:(NSString *)title
+                  Author:(Author *)author
+                    Body:(NSString *)content
                      URL:(NSString *)URL
                  Excerpt:(NSString *)excerpt
                     Date:(NSString *)date
-                Category:(NSArray *)Category
-                    Tags:(NSArray *)Tags
-                    Images:(NSArray *)Images;
+                Category:(NSArray *)category
+                    Tags:(NSArray *)tags
+     ThumbnailCoverImage:(NSString *)thumbnailURL
+          FullCoverImage:(NSString *)fullURL;
 
 - (void)printInfo;
 

@@ -41,6 +41,6 @@
 // Get URLs for above URL plus more search filtering by count, sorting, or page number
 + (NSString *)URLForQuery:(NSString *)OLD_URL WithCountLimit:(int)count;
 + (NSString *)URLForQuery:(NSString *)OLD_URL WithOrdering:(NSString *)orderParam;
-+ (NSString *)URLForURLQuery:(NSString *)OLD_URL WithPageNumber:(int)page;
++ (NSString *)URLForQuery:(NSString *)OLD_URL WithPageNumber:(int)page;
 
 @end

@@ -10,4 +10,12 @@
 
 @implementation PhotoInfo
 
+- (instancetype)initWithURL:(NSString *)url AndCaption:(NSString *)caption {
+    if (self = [super init]) {
+        _photoURL = url;
+        _caption = caption;
+    }
+    return self;
+}
+
 @end
