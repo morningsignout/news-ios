@@ -11,7 +11,7 @@
 		FB714A181B94D16000D68CB5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FB714A171B94D16000D68CB5 /* main.m */; };
 		FB714A1B1B94D16000D68CB5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FB714A1A1B94D16000D68CB5 /* AppDelegate.m */; };
 		FB714A1E1B94D16000D68CB5 /* ios_app.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FB714A1C1B94D16000D68CB5 /* ios_app.xcdatamodeld */; };
-		FB714A211B94D16000D68CB5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB714A201B94D16000D68CB5 /* ViewController.m */; };
+		FB714A211B94D16000D68CB5 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB714A201B94D16000D68CB5 /* TestViewController.m */; };
 		FB714A241B94D16000D68CB5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB714A221B94D16000D68CB5 /* Main.storyboard */; };
 		FB714A261B94D16000D68CB5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB714A251B94D16000D68CB5 /* Images.xcassets */; };
 		FB714A291B94D16000D68CB5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB714A271B94D16000D68CB5 /* LaunchScreen.xib */; };
@@ -43,8 +43,8 @@
 		FB714A191B94D16000D68CB5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FB714A1A1B94D16000D68CB5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		FB714A1D1B94D16000D68CB5 /* ios_app.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ios_app.xcdatamodel; sourceTree = "<group>"; };
-		FB714A1F1B94D16000D68CB5 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		FB714A201B94D16000D68CB5 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		FB714A1F1B94D16000D68CB5 /* TestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
+		FB714A201B94D16000D68CB5 /* TestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
 		FB714A231B94D16000D68CB5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FB714A251B94D16000D68CB5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		FB714A281B94D16000D68CB5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -164,8 +164,8 @@
 		FB714A3E1B94D18700D68CB5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				FB714A1F1B94D16000D68CB5 /* ViewController.h */,
-				FB714A201B94D16000D68CB5 /* ViewController.m */,
+				FB714A1F1B94D16000D68CB5 /* TestViewController.h */,
+				FB714A201B94D16000D68CB5 /* TestViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -328,7 +328,7 @@
 				FB714A4B1B94FFCF00D68CB5 /* URLParser.m in Sources */,
 				FB714A451B94D20600D68CB5 /* Author.m in Sources */,
 				FB714A1E1B94D16000D68CB5 /* ios_app.xcdatamodeld in Sources */,
-				FB714A211B94D16000D68CB5 /* ViewController.m in Sources */,
+				FB714A211B94D16000D68CB5 /* TestViewController.m in Sources */,
 				FB714A4E1B94FFE100D68CB5 /* DataParser.m in Sources */,
 				FB714A181B94D16000D68CB5 /* main.m in Sources */,
 			);
