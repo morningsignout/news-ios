@@ -34,6 +34,7 @@
 
 // Get navigation-related info, including search-bar URL
 + (NSString *)URLForCategories;
+    // For now ignore this function; returns pages instead of posts
 + (NSString *)URLForIndexNavigation;
 + (NSString *)URLForSearchTerm:(NSString *)query;
 
