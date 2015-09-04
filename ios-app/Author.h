@@ -17,5 +17,6 @@
 // will use ID to get array of posts author has written
 
 - (instancetype)initWith:(int)ID Name:(NSString *)Name About:(NSString *)About;
+- (void)printInfo;
 
 @end
