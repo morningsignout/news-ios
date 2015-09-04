@@ -43,7 +43,7 @@ NSDateFormatter *dateToStringFormatter;
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
             data = (NSDictionary *)responseObject;
-            NSLog(@"SUCCESS");
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"dataLoaded" object:nil];
             dispatch_semaphore_signal(semaphore);
              
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -122,6 +122,9 @@ NSDateFormatter *dateToStringFormatter;
     // Get thumbnail and full cover image
     NSString *thumbnailImageURL = [parseData valueForKey:@"thumbnail"];
     NSString *fullImageURL = [[[parseData valueForKey:@"thumbnail_images"] valueForKey:@"full"] valueForKey:@"url"];
+    if (thumbnailImageURL == (id)[NSNull null] || title.length == 0 )
+        thumbnailImageURL = fullImageURL;
+    
     
     // Create a post with data
     Post *post = [[Post alloc] initWith:postid Title:title Author:author Body:content URL:postUrl Excerpt:excerpt Date:date Category:category Tags:tags ThumbnailCoverImage:thumbnailImageURL FullCoverImage:fullImageURL];
@@ -154,7 +157,6 @@ NSDateFormatter *dateToStringFormatter;
     NSString *url = [URLParser URLForAuthorInfoAndPostsWithAuthorID:ID];
     NSDictionary* parseData = [self parseDataFromURL:url];
     NSArray* stuff = [self parsePostsFromDictionaries:parseData];
-    //NSLog(@"%@",stuff);
     return stuff; //an array of posts by a give author
 }
 
@@ -231,7 +233,7 @@ NSDateFormatter *dateToStringFormatter;
     return titles;  //string names of categories
 }
 
-+ (NSArray *)DataForIndexNavigation{  //not good  //key is "pages"
++ (NSArray *)DataForIndexNavigation{  // returns key "pages" instead of posts
     NSString *url = [URLParser URLForIndexNavigation];
     NSDictionary *parseData = [self parseDataFromURL:url];
     

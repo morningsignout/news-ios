@@ -17,13 +17,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataDidLoad) name:@"dataLoaded" object:nil];
+    
     NSLog(@"Start");
     
-//    NSArray *a = [DataParser DataForPostsInMonth:11 andYear:2014];
-//    [self dump:a];
-//    
-//    Post *b = [DataParser DataForPostID:9575];
-//    [b printInfo];
+    NSArray *a = [DataParser DataForPostsInMonth:11 andYear:2014];
+    [self dump:a];
+    
+    Post *b = [DataParser DataForPostID:9575];
+    [b printInfo];
     
     for (int i = 0; i < 3; i++) {
         NSArray *c = [DataParser DataForPostWithTag:@"health" AndPageNumber:i];
@@ -37,15 +39,18 @@
         [self dump:d];
     }
     
-//    NSArray *e = [DataParser DataForAuthorInfoAndPostsWithAuthorID:238];
-//    [self dump:e];
-//    
-//    NSArray *f = [DataParser DataForFeaturedPosts];
-//    [self dump:f];
+    NSArray *e = [DataParser DataForAuthorInfoAndPostsWithAuthorID:238];
+    [self dump:e];
     
-    NSArray *f = [DataParser DataForIndexNavigation];
+    NSArray *f = [DataParser DataForFeaturedPosts];
     [self dump:f];
+    
+    NSArray *h = [DataParser DataForPostsInYear:2015];
+    [self dump:h];
+}
 
+- (void)dataDidLoad {
+    NSLog(@"SUCCESS");
 }
 
 - (void)dump:(NSArray *)postArr {
