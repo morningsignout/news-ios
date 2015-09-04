@@ -19,23 +19,33 @@
     [super viewDidLoad];
     NSLog(@"Start");
     
-    NSArray *a = [DataParser DataForPostsInMonth:11 andYear:2014];
-    [self dump:a];
+//    NSArray *a = [DataParser DataForPostsInMonth:11 andYear:2014];
+//    [self dump:a];
+//    
+//    Post *b = [DataParser DataForPostID:9575];
+//    [b printInfo];
     
-    Post *b = [DataParser DataForPostID:9575];
-    [b printInfo];
+    for (int i = 0; i < 3; i++) {
+        NSArray *c = [DataParser DataForPostWithTag:@"health" AndPageNumber:i];
+        NSLog(@"%d", (int)c.count);
+        [self dump:c];
+    }
+   
+    for (int i = 0; i < 5; i++) {
+        NSArray *d = [DataParser DataForCategory:@"medicine" AndPageNumber:i];
+        NSLog(@"%d", (int)d.count);
+        [self dump:d];
+    }
     
-    NSArray *c = [DataParser DataForPostWithTag:@"health"];
-    [self dump:c];
+//    NSArray *e = [DataParser DataForAuthorInfoAndPostsWithAuthorID:238];
+//    [self dump:e];
+//    
+//    NSArray *f = [DataParser DataForFeaturedPosts];
+//    [self dump:f];
     
-    NSArray *d = [DataParser DataForCategory:@"medicine"];
-    [self dump:d];
-    
-    NSArray *e = [DataParser DataForAuthorInfoAndPostsWithAuthorID:238];
-    [self dump:e];
-    
-    NSArray *f = [DataParser DataForFeaturedPosts];
+    NSArray *f = [DataParser DataForIndexNavigation];
     [self dump:f];
+
 }
 
 - (void)dump:(NSArray *)postArr {

@@ -12,16 +12,14 @@
 
 @interface DataParser : NSObject
 
-//+ (NSArray *)postsWithTag:(NSString *)tag InPage:(int)page;
-
 // Get specific content with post or author ID
 + (Post *)DataForPostID:(int)ID;
 + (NSArray *)DataForAuthorInfoAndPostsWithAuthorID:(int)ID;
 
 
 // Get many posts with certain tag or category
-+ (NSArray *)DataForPostWithTag:(NSString *)tagSlug;
-+ (NSArray *)DataForCategory:(NSString *)categorySlug;
++ (NSArray *)DataForPostWithTag:(NSString *)tagSlug AndPageNumber:(int)page;
++ (NSArray *)DataForCategory:(NSString *)categorySlug AndPageNumber:(int)page;
 
 
 // Get home page, recent, featured posts, or all author info
@@ -29,6 +27,7 @@
 + (NSArray *)DataForRecentPosts;
 + (NSArray *)DataForFeaturedPosts;
 + (NSArray *)DataForAllAuthors; //array of authors
+
 
 // Get posts organized by dates
 + (NSArray *)DataForPostsInYear:(int)year;
@@ -39,5 +38,7 @@
 + (NSArray *)DataForCategories;
 + (NSArray *)DataForIndexNavigation;
 + (NSArray *)DataForSearchTerm:(NSString *)query;
+
+// Get posts of wanted page number
 
 @end

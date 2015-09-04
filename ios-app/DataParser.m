@@ -35,7 +35,6 @@ NSDateFormatter *dateToStringFormatter;
     // Always return 25 post objects!
     NSString *URLWithCount = [URLParser URLForQuery:url WithCountLimit:25];
     
-    
     __block NSDictionary * data = [[NSDictionary alloc]init];
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
     manager.completionQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -43,19 +42,20 @@ NSDateFormatter *dateToStringFormatter;
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
-             //dispatch_queue_t myQueue = dispatch_queue_create("My Queue",NULL);
-             //dispatch_async(myQueue, ^{
-                 data = (NSDictionary *)responseObject;
-             //});
-             
-             NSLog(@"SUCCESS");
-             dispatch_semaphore_signal(semaphore);
+            data = (NSDictionary *)responseObject;
+            NSLog(@"SUCCESS");
+            dispatch_semaphore_signal(semaphore);
              
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              NSLog(@"Error: %@", error);
              dispatch_semaphore_signal(semaphore);
          }];
     dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    return data;
+}
+
++ (NSDictionary *)parseDataFromURL:(NSString *)url WithPageNumber:(int)page {
+    NSDictionary *data = [self parseDataFromURL:[URLParser URLForQuery:url WithPageNumber:page]];
     return data;
 }
 
@@ -158,20 +158,17 @@ NSDateFormatter *dateToStringFormatter;
     return stuff; //an array of posts by a give author
 }
 
-// Get many posts with certain tag or category
-+ (NSArray *)DataForPostWithTag:(NSString *)tagSlug{ //checked
-    NSString *url = [URLParser URLForPostWithTag:tagSlug];
+// Get many posts with certain tag
++ (NSArray *)DataForPostWithTag:(NSString *)tagSlug AndPageNumber:(int)page { //checked
+    NSString *url = [URLParser URLForQuery:[URLParser URLForPostWithTag:tagSlug] WithPageNumber:page];
     NSDictionary* parseData = [self parseDataFromURL:url];
-    
     return [self parsePostsFromDictionaries:parseData];
 }
 
-//get posts related to a certain category i'm guessing
-+ (NSArray *)DataForCategory:(NSString *)categorySlug{ //checked
-    NSString *url = [URLParser URLForCategory:categorySlug];
-    //NSLog(@"%@",url);
+// Get many posts with certain category
++ (NSArray *)DataForCategory:(NSString *)categorySlug AndPageNumber:(int)page { //checked
+    NSString *url = [URLParser URLForQuery:[URLParser URLForCategory:categorySlug] WithPageNumber:page];
     NSDictionary* parseData = [self parseDataFromURL:url];
-    
     return [self parsePostsFromDictionaries:parseData];
 }
 
@@ -222,7 +219,7 @@ NSDateFormatter *dateToStringFormatter;
 
 
 // Get navigation-related info, including search-bar URL
-+ (NSArray *)DataForCategories{  //checked  is this correct though?
++ (NSArray *)DataForCategories{  //checked
     NSString *url = [URLParser URLForCategories];
     NSDictionary *parseData = [self parseDataFromURL:url];
     NSArray * data = [parseData valueForKey:@"categories"];
@@ -231,7 +228,7 @@ NSDateFormatter *dateToStringFormatter;
         [titles addObject:[data[i] valueForKey:@"title"]];
     }
     
-    return [titles copy];  //string names of categories
+    return titles;  //string names of categories
 }
 
 + (NSArray *)DataForIndexNavigation{  //not good  //key is "pages"
