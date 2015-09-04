@@ -12,6 +12,7 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    self.backgroundColor = [UIColor greenColor];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

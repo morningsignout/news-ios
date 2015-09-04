@@ -7,6 +7,9 @@
 //
 
 #import "FeatureTableViewController.h"
+#import "FeaturedStoryTableViewCell.h"
+#import "TiledCellTypeA.h"
+#import "TiledCellTypeB.h"
 
 @interface FeatureTableViewController ()
 
@@ -32,26 +35,33 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return 15;
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
     
-    // Configure the cell...
+    UITableViewCell *cell;
+    
+    int cellType = indexPath.row % 3;
+    
+    if (cellType == 0) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"feature" forIndexPath:indexPath];
+    } else if (cellType == 1) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"A" forIndexPath:indexPath];
+    } else if (cellType == 2) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"B" forIndexPath:indexPath];
+    }
     
     return cell;
 }
-*/
+
 
 /*
 // Override to support conditional editing of the table view.
