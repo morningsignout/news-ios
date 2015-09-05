@@ -12,6 +12,9 @@
 #import "TiledCellTypeB.h"
 
 @interface FeatureTableViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *label1A;
+@property (weak, nonatomic) IBOutlet UILabel *label1B;
+
 
 @end
 
@@ -25,6 +28,7 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.tableView.rowHeight = 100.0f;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,14 +53,23 @@
     
     UITableViewCell *cell;
     
-    int cellType = indexPath.row % 3;
-    
-    if (cellType == 0) {
+    if  (indexPath.row == 0){
         cell = [tableView dequeueReusableCellWithIdentifier:@"feature" forIndexPath:indexPath];
-    } else if (cellType == 1) {
+    }
+    else{
+    int cellType = indexPath.row % 2;
+    
+    //if (cellType == 0) {
+    //    cell = [tableView dequeueReusableCellWithIdentifier:@"feature" forIndexPath:indexPath];
+    //} else
+    if (cellType == 0) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"A" forIndexPath:indexPath];
-    } else if (cellType == 2) {
+        [self.label1A setText:[NSString stringWithFormat:@"Post %ld",indexPath.row*2-1]];
+        [self.label1B setText:[NSString stringWithFormat:@"Post %ld",indexPath.row*2]];
+    
+    } else if (cellType == 1) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"B" forIndexPath:indexPath];
+    }
     }
     
     return cell;
