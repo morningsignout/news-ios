@@ -6,20 +6,33 @@
 //  Copyright (c) 2015 Morning Sign Out Incorporated. All rights reserved.
 //
 
+// Note: DataParser will return 28 posts at a time.
+
+#import "DataParser.h"
 #import "FeatureTableViewController.h"
 #import "FeaturedStoryTableViewCell.h"
 #import "TiledCellTypeA.h"
 #import "TiledCellTypeB.h"
 #import "Tile.h"
+#import "Post.h"
 
-@interface FeatureTableViewController ()
-
+@interface FeatureTableViewController () {
+    int page;
+}
+@property (strong, nonatomic) IBOutlet UIRefreshControl *refreshControl;
+@property (strong, nonatomic) NSArray *posts;
 @end
 
 @implementation FeatureTableViewController
 
+@synthesize refreshControl = _refreshControl;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataDidLoad) name:@"dataLoaded" object:nil];
+    [self.refreshControl addTarget:self
+                            action:@selector(getDataForPage:)
+                  forControlEvents:UIControlEventValueChanged];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -27,12 +40,25 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    //self.tableView.rowHeight = 100.0f;
+    page = 1;
+    self.posts = [self getDataForPage:page];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (NSArray *)getDataForPage:(int)pageNum {
+    int p = pageNum;
+    if (pageNum <= 0 || pageNum > self.posts.count) {
+        p = 1;
+    }
+    return [DataParser DataForFeaturedPostsWithPageNumber:p];
+}
+
+- (void)dataDidLoad {
+    [self.refreshControl endRefreshing];
 }
 
 #pragma mark - Table view data source
@@ -44,7 +70,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return 15;
+    return (int)[self.posts count] / 2 + 1;
 }
 
 
@@ -55,6 +81,9 @@
         return cell;
     }
     else {
+        // Get post objects
+        Post *leftPost = [self.posts objectAtIndex:(indexPath.row - 1) * 2];
+        Post *rightPost = [self.posts objectAtIndex:(indexPath.row - 1) * 2 + 1];
         
         int cellType = indexPath.row % 2;
 
@@ -65,8 +94,8 @@
                 cellTypeA = [[TiledCellTypeA alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"A"];
             }
             
-            cellTypeA.tileLeft.title.text = @"type a left tile!";
-            cellTypeA.tileRight.title.text = @"type a right tile!";
+            cellTypeA.tileLeft.title.text = leftPost.title;
+            cellTypeA.tileRight.title.text = rightPost.title;
             
             return cellTypeA;
             
@@ -77,8 +106,8 @@
                 cellTypeB = [[TiledCellTypeB alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"B"];
             }
             
-            cellTypeB.tileLeft.title.text = @"type b left tile!";
-            cellTypeB.tileRight.title.text = @"type b right tile!";
+            cellTypeB.tileLeft.title.text = leftPost.title;
+            cellTypeB.tileRight.title.text = rightPost.title;
             
             return cellTypeB;
         }

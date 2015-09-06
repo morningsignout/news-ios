@@ -32,8 +32,8 @@ NSDateFormatter *dateToStringFormatter;
 //Returns a dictionary parsed from the JSON returned
 //after sending an api call
 +(NSDictionary*)parseDataFromURL:(NSString *)url{
-    // Always return 25 post objects!
-    NSString *URLWithCount = [URLParser URLForQuery:url WithCountLimit:25];
+    // Always return 28 post objects!
+    NSString *URLWithCount = [URLParser URLForQuery:url WithCountLimit:28];
     
     __block NSDictionary * data = [[NSDictionary alloc]init];
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
