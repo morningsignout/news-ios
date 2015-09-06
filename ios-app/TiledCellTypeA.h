@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+@class Tile;
 
 @interface TiledCellTypeA : UITableViewCell
-
+@property (strong, nonatomic) Tile *tileLeft;
+@property (strong, nonatomic) Tile *tileRight;
 @end

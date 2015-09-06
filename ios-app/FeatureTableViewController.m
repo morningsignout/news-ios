@@ -10,11 +10,9 @@
 #import "FeaturedStoryTableViewCell.h"
 #import "TiledCellTypeA.h"
 #import "TiledCellTypeB.h"
+#import "Tile.h"
 
 @interface FeatureTableViewController ()
-@property (weak, nonatomic) IBOutlet UILabel *label1A;
-@property (weak, nonatomic) IBOutlet UILabel *label1B;
-
 
 @end
 
@@ -28,7 +26,8 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    self.tableView.rowHeight = 100.0f;
+    
+    //self.tableView.rowHeight = 100.0f;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -53,26 +52,28 @@
     
     UITableViewCell *cell;
     
-    if  (indexPath.row == 0){
+    if (indexPath.row == 0) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"feature" forIndexPath:indexPath];
     }
-    else{
-    int cellType = indexPath.row % 2;
-    
-    //if (cellType == 0) {
-    //    cell = [tableView dequeueReusableCellWithIdentifier:@"feature" forIndexPath:indexPath];
-    //} else
-    if (cellType == 0) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"A" forIndexPath:indexPath];
-        [self.label1A setText:[NSString stringWithFormat:@"Post %ld",indexPath.row*2-1]];
-        [self.label1B setText:[NSString stringWithFormat:@"Post %ld",indexPath.row*2]];
-    
-    } else if (cellType == 1) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"B" forIndexPath:indexPath];
-    }
+    else {
+        
+        int cellType = indexPath.row % 2;
+
+        if (cellType == 0) {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"A" forIndexPath:indexPath];
+        } else if (cellType == 1) {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"B" forIndexPath:indexPath];
+        }
     }
     
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0) {
+        return self.view.frame.size.height / 1.5;
+    }
+    return self.view.frame.size.height / 4;
 }
 
 

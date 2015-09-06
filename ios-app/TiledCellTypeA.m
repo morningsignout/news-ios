@@ -7,12 +7,17 @@
 //
 
 #import "TiledCellTypeA.h"
+#import "Tile.h"
+
+static const CGFloat margin = 10.0f;
 
 @implementation TiledCellTypeA
 
 - (void)awakeFromNib {
     // Initialization code
     self.backgroundColor = [UIColor blueColor];
+    _tileLeft = [[Tile alloc] initWithFrame:CGRectMake(margin, margin, 2 * (self.frame.size.width / 3 - margin), self.frame.size.height - 2 * margin)];
+    _tileLeft.title.text = @"hi";
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
