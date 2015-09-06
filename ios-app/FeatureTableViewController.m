@@ -50,23 +50,41 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell *cell;
-    
     if (indexPath.row == 0) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"feature" forIndexPath:indexPath];
+        FeaturedStoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"feature" forIndexPath:indexPath];
+        return cell;
     }
     else {
         
         int cellType = indexPath.row % 2;
 
         if (cellType == 0) {
-            cell = [tableView dequeueReusableCellWithIdentifier:@"A" forIndexPath:indexPath];
+            TiledCellTypeA *cellTypeA = [tableView dequeueReusableCellWithIdentifier:@"A" forIndexPath:indexPath];
+            
+            if (!cellTypeA) {
+                cellTypeA = [[TiledCellTypeA alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"A"];
+            }
+            
+            cellTypeA.tileLeft.title.text = @"type a left tile!";
+            cellTypeA.tileRight.title.text = @"type a right tile!";
+            
+            return cellTypeA;
+            
         } else if (cellType == 1) {
-            cell = [tableView dequeueReusableCellWithIdentifier:@"B" forIndexPath:indexPath];
+            TiledCellTypeB *cellTypeB = [tableView dequeueReusableCellWithIdentifier:@"B" forIndexPath:indexPath];
+
+            if (!cellTypeB) {
+                cellTypeB = [[TiledCellTypeB alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"B"];
+            }
+            
+            cellTypeB.tileLeft.title.text = @"type b left tile!";
+            cellTypeB.tileRight.title.text = @"type b right tile!";
+            
+            return cellTypeB;
         }
     }
     
-    return cell;
+    return nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

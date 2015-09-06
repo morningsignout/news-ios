@@ -78,6 +78,10 @@
                                         <constraint firstAttribute="bottom" secondItem="e4x-kG-WMa" secondAttribute="bottom" constant="8" id="aZS-kL-8Hi"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="tileLeft" destination="e4x-kG-WMa" id="Ezk-Ts-y6J"/>
+                                    <outlet property="tileRight" destination="vet-zF-uFP" id="SNn-Vf-pE7"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="B" rowHeight="200" id="ik7-Yz-PSe" customClass="TiledCellTypeB">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -88,25 +92,31 @@
                                             <rect key="frame" x="203" y="8" width="389" height="183"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ofA-dN-9N8">
-                                                    <rect key="frame" x="93" y="8" width="42" height="21"/>
+                                                    <rect key="frame" x="52" y="8" width="182" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <connections>
+                                                <outlet property="title" destination="ofA-dN-9N8" id="Oog-im-rDS"/>
+                                            </connections>
                                         </view>
                                         <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3C1-JA-CNA" customClass="Tile">
                                             <rect key="frame" x="8" y="8" width="187" height="183"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="95d-kx-2i9">
-                                                    <rect key="frame" x="18" y="8" width="42" height="21"/>
+                                                    <rect key="frame" x="18" y="8" width="134" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <connections>
+                                                <outlet property="title" destination="95d-kx-2i9" id="uSX-9P-Gh3"/>
+                                            </connections>
                                         </view>
                                     </subviews>
                                     <constraints>
@@ -119,6 +129,10 @@
                                         <constraint firstAttribute="bottom" secondItem="ppL-55-dS3" secondAttribute="bottom" constant="8" id="nNu-4Z-Ijh"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="tileLeft" destination="3C1-JA-CNA" id="YLD-Ez-wHO"/>
+                                    <outlet property="tileRight" destination="ppL-55-dS3" id="1Is-Yy-Cun"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <sections/>

@@ -10,6 +10,6 @@
 @class Tile;
 
 @interface TiledCellTypeA : UITableViewCell
-@property (strong, nonatomic) Tile *tileLeft;
-@property (strong, nonatomic) Tile *tileRight;
+@property (strong, nonatomic) IBOutlet Tile *tileLeft;
+@property (strong, nonatomic) IBOutlet Tile *tileRight;
 @end
