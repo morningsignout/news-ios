@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+@class Post;
 
 @interface FeaturedStoryTableViewCell : UITableViewCell
-
+@property (weak, nonatomic) IBOutlet UILabel *title;
+@property (strong, nonatomic) Post *post;
 @end

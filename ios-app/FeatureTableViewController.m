@@ -26,6 +26,7 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 }
 @property (strong, nonatomic) IBOutlet UIRefreshControl *refreshControl;
 @property (strong, nonatomic) NSArray *posts;
+@property (strong, nonatomic) Post *topFeatured;
 @end
 
 @implementation FeatureTableViewController
@@ -50,6 +51,7 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     
     // Start loading data from JSON page 1
     page = 1;
+    self.topFeatured = [[DataParser DataForRecentPostsWithPageNumber:1] firstObject];
     self.posts = [self getDataForPage:page];
     
     
@@ -99,6 +101,10 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     
     if (indexPath.row == 0) {
         FeaturedStoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"feature" forIndexPath:indexPath];
+        
+        cell.post = self.topFeatured;
+        cell.title.text = cell.post.title;
+        
         return cell;
     }
     else {
