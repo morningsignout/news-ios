@@ -9,8 +9,6 @@
 #import "TiledCellTypeA.h"
 #import "Tile.h"
 
-static const CGFloat margin = 10.0f;
-
 @implementation TiledCellTypeA
 
 - (void)awakeFromNib {

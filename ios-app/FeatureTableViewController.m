@@ -15,9 +15,14 @@
 #import "TiledCellTypeB.h"
 #import "Tile.h"
 #import "Post.h"
+#import "FullPostViewController.h"
 
-@interface FeatureTableViewController () {
+static NSString * const SEGUE_IDENTIFIER = @"viewPost";
+
+@interface FeatureTableViewController ()<UIGestureRecognizerDelegate> {
     int page;
+    UITapGestureRecognizer *tapTile;
+    Post *seguePost;
 }
 @property (strong, nonatomic) IBOutlet UIRefreshControl *refreshControl;
 @property (strong, nonatomic) NSArray *posts;
@@ -29,19 +34,35 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // Be notified when data is done loading
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataDidLoad) name:@"dataLoaded" object:nil];
+    // Be notified when tile is tapped
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tileTapped:) name:@"tileTapped" object:nil];
+    
     [self.refreshControl addTarget:self
                             action:@selector(getDataForPage:)
                   forControlEvents:UIControlEventValueChanged];
+    
+    // Don't allow user to tap in underlying table cell
+    self.tableView.allowsSelection = NO;
+    self.tableView.delaysContentTouches = YES;
+    
+    // Start loading data from JSON page 1
+    page = 1;
+    self.posts = [self getDataForPage:page];
+    
+    
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    page = 1;
-    self.posts = [self getDataForPage:page];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    seguePost = nil;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -73,7 +94,6 @@
     return (int)[self.posts count] / 2 + 1;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.row == 0) {
@@ -90,23 +110,21 @@
         if (cellType == 0) {
             TiledCellTypeA *cellTypeA = [tableView dequeueReusableCellWithIdentifier:@"A" forIndexPath:indexPath];
             
-            if (!cellTypeA) {
-                cellTypeA = [[TiledCellTypeA alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"A"];
-            }
-            
+            cellTypeA.tileLeft.post = leftPost;
             cellTypeA.tileLeft.title.text = leftPost.title;
+            
+            cellTypeA.tileRight.post = rightPost;
             cellTypeA.tileRight.title.text = rightPost.title;
             
             return cellTypeA;
             
         } else if (cellType == 1) {
             TiledCellTypeB *cellTypeB = [tableView dequeueReusableCellWithIdentifier:@"B" forIndexPath:indexPath];
-
-            if (!cellTypeB) {
-                cellTypeB = [[TiledCellTypeB alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"B"];
-            }
             
+            cellTypeB.tileLeft.post = leftPost;
             cellTypeB.tileLeft.title.text = leftPost.title;
+            
+            cellTypeB.tileRight.post = rightPost;
             cellTypeB.tileRight.title.text = rightPost.title;
             
             return cellTypeB;
@@ -158,14 +176,31 @@
 }
 */
 
-/*
+#pragma mark - Gesture Recognizer Methods
+
+- (void)tileTapped:(NSNotification*)notification {
+    if ([notification.name isEqualToString:@"tileTapped"])
+    {
+        seguePost = notification.object;
+        [self performSegueWithIdentifier:SEGUE_IDENTIFIER sender:self];
+    }
+}
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    if ([segue.identifier isEqualToString:SEGUE_IDENTIFIER] && [segue.destinationViewController isKindOfClass:[FullPostViewController class]]) {
+        FullPostViewController *postVC = segue.destinationViewController;
+        if (seguePost) {
+            postVC.post = seguePost;
+        }
+    }
+    
 }
-*/
+
 
 @end

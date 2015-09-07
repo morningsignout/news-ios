@@ -7,8 +7,18 @@
 //
 
 #import "Tile.h"
+#import "Post.h"
+
+@interface Tile ()
+
+@end
 
 @implementation Tile
+
+- (void)awakeFromNib {
+    UIGestureRecognizer* recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
+    [self addGestureRecognizer:recognizer];
+}
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -20,6 +30,11 @@
     CGContextSetRGBStrokeColor(context, 0.0, 0.0, 0.0, 0.5);
     CGContextFillRect(context, rectangle);
     CGContextStrokeRect(context, rectangle);    //this will draw the border
+}
+
+-(void)tapped:(UIPanGestureRecognizer *)recognizer {
+    Post *post = self.post;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"tileTapped" object:post];
 }
 
 
