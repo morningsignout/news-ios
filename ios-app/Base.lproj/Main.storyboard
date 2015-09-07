@@ -33,7 +33,7 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OGE-KO-GcP" id="bbY-fr-YRq">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e4x-kG-WMa" customClass="Tile">
+                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e4x-kG-WMa" customClass="Tile">
                                             <rect key="frame" x="8" y="8" width="199" height="183"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sbm-mb-INF">
@@ -48,7 +48,7 @@
                                                 <outlet property="title" destination="sbm-mb-INF" id="rDY-wp-SoT"/>
                                             </connections>
                                         </view>
-                                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vet-zF-uFP" customClass="Tile">
+                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vet-zF-uFP" customClass="Tile">
                                             <rect key="frame" x="215" y="8" width="377" height="183"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nx2-Cw-n83">
@@ -163,28 +163,73 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xge-wu-J2T">
-                                <rect key="frame" x="16" y="20" width="35" height="30"/>
-                                <state key="normal" title="Back">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="goBack:" destination="sFC-xX-gyV" eventType="touchUpInside" id="tey-88-lFt"/>
-                                </connections>
-                            </button>
+                            <webView contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nQ8-pB-mLD">
+                                <rect key="frame" x="0.0" y="121" width="600" height="479"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cy2-ly-Dn9">
+                                <rect key="frame" x="16" y="59" width="568" height="59"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Cy2-ly-Dn9" firstAttribute="leading" secondItem="XAY-Ey-9XU" secondAttribute="leading" constant="16" id="3nU-s7-uHy"/>
+                            <constraint firstItem="nQ8-pB-mLD" firstAttribute="top" secondItem="Cy2-ly-Dn9" secondAttribute="bottom" constant="3" id="74s-in-eqL"/>
+                            <constraint firstAttribute="bottom" secondItem="nQ8-pB-mLD" secondAttribute="bottom" id="A2K-sh-lTF"/>
+                            <constraint firstAttribute="trailing" secondItem="Cy2-ly-Dn9" secondAttribute="trailing" constant="16" id="D8U-el-sx1"/>
+                            <constraint firstItem="nQ8-pB-mLD" firstAttribute="leading" secondItem="XAY-Ey-9XU" secondAttribute="leading" id="Eol-3W-THE"/>
+                            <constraint firstAttribute="trailing" secondItem="nQ8-pB-mLD" secondAttribute="trailing" id="tDa-3z-tlF"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="cgw-Gy-Fyt"/>
+                    <connections>
+                        <outlet property="postTitle" destination="Cy2-ly-Dn9" id="A0e-Rp-bkd"/>
+                        <outlet property="webView" destination="nQ8-pB-mLD" id="DYq-6P-JJd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vcs-vD-t5d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1279" y="-254"/>
         </scene>
+        <!--Web Links View Controller-->
+        <scene sceneID="3jf-Dq-lNe">
+            <objects>
+                <viewController storyboardIdentifier="LinkController" id="MeV-fh-exn" customClass="WebLinksViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jF2-4i-Fz6"/>
+                        <viewControllerLayoutGuide type="bottom" id="TUK-cG-bAd"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="IOe-QC-WoP">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yLH-C5-Tsq">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="yLH-C5-Tsq" secondAttribute="trailing" id="LWV-jk-g4q"/>
+                            <constraint firstAttribute="bottom" secondItem="yLH-C5-Tsq" secondAttribute="bottom" id="bAO-t4-KxO"/>
+                            <constraint firstItem="yLH-C5-Tsq" firstAttribute="leading" secondItem="IOe-QC-WoP" secondAttribute="leading" id="kbo-PD-MnI"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="yLH-C5-Tsq" id="Npc-PX-Cco"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="C46-2m-3Vc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2067" y="-254"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="9eM-l9-Z7q">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="fgm-BO-Inc" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fgm-BO-Inc" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="GOf-3K-4Vt">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

@@ -63,6 +63,7 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 
 - (void)viewWillAppear:(BOOL)animated {
     seguePost = nil;
+    self.navigationController.navigationBarHidden = YES;
 }
 
 - (void)didReceiveMemoryWarning {
