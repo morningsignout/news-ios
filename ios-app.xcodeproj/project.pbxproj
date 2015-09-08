@@ -28,7 +28,7 @@
 		FBDEF3521B9E0436005BD9F4 /* WebLinksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDEF3511B9E0436005BD9F4 /* WebLinksViewController.m */; };
 		FBDEF3D11B9E4D31005BD9F4 /* DropdownMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDEF3CE1B9E4D31005BD9F4 /* DropdownMenuController.m */; };
 		FBDEF3D21B9E4D31005BD9F4 /* DropdownMenuSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDEF3D01B9E4D31005BD9F4 /* DropdownMenuSegue.m */; };
-		FBDEF3D51B9E4D59005BD9F4 /* FeatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDEF3D41B9E4D59005BD9F4 /* FeatureViewController.m */; };
+		FBDEF3D81B9E857B005BD9F4 /* NavDropdownController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDEF3D71B9E857B005BD9F4 /* NavDropdownController.m */; };
 		FBEB8E141B9CCB930080BBD1 /* FullPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEB8E131B9CCB930080BBD1 /* FullPostViewController.m */; };
 		FFE900D71B97CA7300D0A13C /* PhotoInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FFE900D61B97CA7300D0A13C /* PhotoInfo.m */; };
 /* End PBXBuildFile section */
@@ -85,8 +85,8 @@
 		FBDEF3CE1B9E4D31005BD9F4 /* DropdownMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropdownMenuController.m; sourceTree = "<group>"; };
 		FBDEF3CF1B9E4D31005BD9F4 /* DropdownMenuSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropdownMenuSegue.h; sourceTree = "<group>"; };
 		FBDEF3D01B9E4D31005BD9F4 /* DropdownMenuSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropdownMenuSegue.m; sourceTree = "<group>"; };
-		FBDEF3D31B9E4D59005BD9F4 /* FeatureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeatureViewController.h; sourceTree = "<group>"; };
-		FBDEF3D41B9E4D59005BD9F4 /* FeatureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeatureViewController.m; sourceTree = "<group>"; };
+		FBDEF3D61B9E857B005BD9F4 /* NavDropdownController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavDropdownController.h; sourceTree = "<group>"; };
+		FBDEF3D71B9E857B005BD9F4 /* NavDropdownController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavDropdownController.m; sourceTree = "<group>"; };
 		FBEB8E121B9CCB930080BBD1 /* FullPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullPostViewController.h; sourceTree = "<group>"; };
 		FBEB8E131B9CCB930080BBD1 /* FullPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullPostViewController.m; sourceTree = "<group>"; };
 		FFE900D51B97CA7300D0A13C /* PhotoInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoInfo.h; sourceTree = "<group>"; };
@@ -196,16 +196,15 @@
 		FB714A3E1B94D18700D68CB5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				FB714A1F1B94D16000D68CB5 /* TestViewController.h */,
-				FB714A201B94D16000D68CB5 /* TestViewController.m */,
+				FBDEF3D61B9E857B005BD9F4 /* NavDropdownController.h */,
+				FBDEF3D71B9E857B005BD9F4 /* NavDropdownController.m */,
 				FB99DEE01B9A1AFE007111B4 /* FeatureTableViewController.h */,
 				FB99DEE11B9A1AFE007111B4 /* FeatureTableViewController.m */,
 				FBEB8E121B9CCB930080BBD1 /* FullPostViewController.h */,
 				FBEB8E131B9CCB930080BBD1 /* FullPostViewController.m */,
 				FBDEF3501B9E0436005BD9F4 /* WebLinksViewController.h */,
 				FBDEF3511B9E0436005BD9F4 /* WebLinksViewController.m */,
-				FBDEF3D31B9E4D59005BD9F4 /* FeatureViewController.h */,
-				FBDEF3D41B9E4D59005BD9F4 /* FeatureViewController.m */,
+				FBDEF3D91B9E9092005BD9F4 /* Extra Controllers */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -251,6 +250,15 @@
 				FBDEF3D01B9E4D31005BD9F4 /* DropdownMenuSegue.m */,
 			);
 			path = DropdownMenu;
+			sourceTree = "<group>";
+		};
+		FBDEF3D91B9E9092005BD9F4 /* Extra Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				FB714A1F1B94D16000D68CB5 /* TestViewController.h */,
+				FB714A201B94D16000D68CB5 /* TestViewController.m */,
+			);
+			name = "Extra Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -393,7 +401,6 @@
 				FFE900D71B97CA7300D0A13C /* PhotoInfo.m in Sources */,
 				FB714A421B94D1E500D68CB5 /* Post.m in Sources */,
 				FB99DEEC1B9A1CAE007111B4 /* TiledCellTypeB.m in Sources */,
-				FBDEF3D51B9E4D59005BD9F4 /* FeatureViewController.m in Sources */,
 				FBDEF3D21B9E4D31005BD9F4 /* DropdownMenuSegue.m in Sources */,
 				FB714A1B1B94D16000D68CB5 /* AppDelegate.m in Sources */,
 				FB0391771B9BC06600C16FE8 /* Tile.m in Sources */,
@@ -404,6 +411,7 @@
 				FB714A211B94D16000D68CB5 /* TestViewController.m in Sources */,
 				FB714A4E1B94FFE100D68CB5 /* DataParser.m in Sources */,
 				FBEB8E141B9CCB930080BBD1 /* FullPostViewController.m in Sources */,
+				FBDEF3D81B9E857B005BD9F4 /* NavDropdownController.m in Sources */,
 				FB99DEE61B9A1BD9007111B4 /* FeaturedStoryTableViewCell.m in Sources */,
 				FBDEF3D11B9E4D31005BD9F4 /* DropdownMenuController.m in Sources */,
 				FB714A181B94D16000D68CB5 /* main.m in Sources */,

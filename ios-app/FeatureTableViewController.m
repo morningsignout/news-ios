@@ -16,6 +16,7 @@
 #import "Tile.h"
 #import "Post.h"
 #import "FullPostViewController.h"
+#import "NavDropdownController.h"
 
 static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 
@@ -66,6 +67,14 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 - (void)viewWillAppear:(BOOL)animated {
     seguePost = nil;
     self.navigationController.navigationBarHidden = YES;
+}
+
+-(void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    // Customize your menubar programmatically here.
+    NavDropdownController* menu = (NavDropdownController *) [self parentViewController];
+    [menu setMenubarTitle:@"Features"];
 }
 
 - (void)didReceiveMemoryWarning {
