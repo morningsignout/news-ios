@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 @class Tile;
 
-@interface TiledCellTypeA : UITableViewCell
+@interface TiledCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet Tile *tileLeft;
 @property (strong, nonatomic) IBOutlet Tile *tileRight;
 @end

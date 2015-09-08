@@ -6,14 +6,13 @@
 //  Copyright (c) 2015 Morning Sign Out Incorporated. All rights reserved.
 //
 
-#import "TiledCellTypeA.h"
+#import "TiledCell.h"
 #import "Tile.h"
 
-@implementation TiledCellTypeA
+@implementation TiledCell
 
 - (void)awakeFromNib {
     // Initialization code
-    self.backgroundColor = [UIColor purpleColor];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

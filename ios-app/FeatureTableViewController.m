@@ -11,8 +11,7 @@
 #import "DataParser.h"
 #import "FeatureTableViewController.h"
 #import "FeaturedStoryTableViewCell.h"
-#import "TiledCellTypeA.h"
-#import "TiledCellTypeB.h"
+#import "TiledCell.h"
 #import "Tile.h"
 #import "Post.h"
 #import "FullPostViewController.h"
@@ -110,19 +109,17 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.row == 0) {
-        FeaturedStoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"feature" forIndexPath:indexPath];
-        __block UIImage *image;
+        __weak FeaturedStoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"feature" forIndexPath:indexPath];
         
         cell.post = self.topFeatured;
         cell.title.text = cell.post.title;
         
-        dispatch_queue_t load = dispatch_queue_create("new queue", NULL);
-        dispatch_async(load, ^{
-            image = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:cell.post.thumbnailCoverImageURL]]];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [cell.image setImage:image];
-            });
-        });
+        NSURLRequest *requestLeft = [NSURLRequest requestWithURL:[NSURL URLWithString:cell.post.fullCoverImageURL]];
+        [cell.image setImageWithURLRequest:requestLeft placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+            cell.image.image = image;
+            cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
+            [cell.imageView setClipsToBounds:YES];
+        } failure:nil];
         
         return cell;
     }
@@ -132,57 +129,19 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
         Post *rightPost = [self.posts objectAtIndex:(indexPath.row - 1) * 2 + 1];
         
         int cellType = indexPath.row % 2;
+        
+        TiledCell *tiledCell;
 
         if (cellType == 0) {
-            TiledCellTypeA *cellTypeA = [tableView dequeueReusableCellWithIdentifier:@"A" forIndexPath:indexPath];
-            
-            __weak Tile *left = cellTypeA.tileLeft;
-            
-            left.post = leftPost;
-            left.title.text = leftPost.title;
-            
-            NSURLRequest *requestLeft = [NSURLRequest requestWithURL:[NSURL URLWithString:left.post.thumbnailCoverImageURL]];
-            [left.image setImageWithURLRequest:requestLeft placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                left.image.image = image;
-            } failure:nil];
-            
-            __weak Tile *right = cellTypeA.tileRight;
-            
-            right.post = rightPost;
-            right.title.text = rightPost.title;
-            
-            NSURLRequest *requestRight = [NSURLRequest requestWithURL:[NSURL URLWithString:right.post.thumbnailCoverImageURL]];
-            [right.image setImageWithURLRequest:requestRight placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                right.image.image = image;
-            } failure:nil];
-
-            return cellTypeA;
-            
+            tiledCell = [tableView dequeueReusableCellWithIdentifier:@"A" forIndexPath:indexPath];
         } else if (cellType == 1) {
-            TiledCellTypeA *cellTypeB = [tableView dequeueReusableCellWithIdentifier:@"B" forIndexPath:indexPath];
-            
-            __weak Tile *left = cellTypeB.tileLeft;
-            
-            left.post = leftPost;
-            left.title.text = leftPost.title;
-            
-            NSURLRequest *requestLeft = [NSURLRequest requestWithURL:[NSURL URLWithString:left.post.thumbnailCoverImageURL]];
-            [left.image setImageWithURLRequest:requestLeft placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                left.image.image = image;
-            } failure:nil];
-            
-            __weak Tile *right = cellTypeB.tileRight;
-            
-            right.post = rightPost;
-            right.title.text = rightPost.title;
-            
-            NSURLRequest *requestRight = [NSURLRequest requestWithURL:[NSURL URLWithString:right.post.thumbnailCoverImageURL]];
-            [right.image setImageWithURLRequest:requestRight placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                right.image.image = image;
-            } failure:nil];
-            
-            return cellTypeB;
+            tiledCell = [tableView dequeueReusableCellWithIdentifier:@"B" forIndexPath:indexPath];
         }
+        
+        [self setTileInfo:tiledCell.tileLeft WithPost:leftPost];
+        [self setTileInfo:tiledCell.tileRight WithPost:rightPost];
+        
+        return tiledCell;
     }
     
     return nil;
@@ -192,7 +151,22 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     if (indexPath.row == 0) {
         return self.view.frame.size.height / 1.5;
     }
-    return self.view.frame.size.height / 4;
+    return self.view.frame.size.height / 3;
+}
+
+- (void)setTileInfo:(Tile *)cellTile WithPost:(Post *)post {
+    
+    __weak Tile *tile = cellTile;
+    tile.post = post;
+    tile.title.text = post.title;
+    
+    NSURLRequest *requestLeft = [NSURLRequest requestWithURL:[NSURL URLWithString:post.thumbnailCoverImageURL]];
+    [tile.image setImageWithURLRequest:requestLeft placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        tile.image.image = image;
+        tile.image.contentMode = UIViewContentModeScaleAspectFill;
+        [tile.image setClipsToBounds:YES];
+    } failure:nil];
+
 }
 
 

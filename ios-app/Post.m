@@ -8,7 +8,6 @@
 
 #import "Post.h"
 #import "Author.h"
-#import "PhotoInfo.h"
 
 @implementation Post
 

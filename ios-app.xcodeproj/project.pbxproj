@@ -23,8 +23,7 @@
 		FB714A4E1B94FFE100D68CB5 /* DataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = FB714A4D1B94FFE100D68CB5 /* DataParser.m */; };
 		FB99DEE21B9A1AFE007111B4 /* FeatureTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB99DEE11B9A1AFE007111B4 /* FeatureTableViewController.m */; };
 		FB99DEE61B9A1BD9007111B4 /* FeaturedStoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB99DEE51B9A1BD9007111B4 /* FeaturedStoryTableViewCell.m */; };
-		FB99DEE91B9A1C01007111B4 /* TiledCellTypeA.m in Sources */ = {isa = PBXBuildFile; fileRef = FB99DEE81B9A1C01007111B4 /* TiledCellTypeA.m */; };
-		FB99DEEC1B9A1CAE007111B4 /* TiledCellTypeB.m in Sources */ = {isa = PBXBuildFile; fileRef = FB99DEEB1B9A1CAE007111B4 /* TiledCellTypeB.m */; };
+		FB99DEE91B9A1C01007111B4 /* TiledCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB99DEE81B9A1C01007111B4 /* TiledCell.m */; };
 		FBDEF3521B9E0436005BD9F4 /* WebLinksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDEF3511B9E0436005BD9F4 /* WebLinksViewController.m */; };
 		FBDEF3D11B9E4D31005BD9F4 /* DropdownMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDEF3CE1B9E4D31005BD9F4 /* DropdownMenuController.m */; };
 		FBDEF3D21B9E4D31005BD9F4 /* DropdownMenuSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDEF3D01B9E4D31005BD9F4 /* DropdownMenuSegue.m */; };
@@ -74,10 +73,8 @@
 		FB99DEE11B9A1AFE007111B4 /* FeatureTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeatureTableViewController.m; sourceTree = "<group>"; };
 		FB99DEE41B9A1BD9007111B4 /* FeaturedStoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeaturedStoryTableViewCell.h; sourceTree = "<group>"; };
 		FB99DEE51B9A1BD9007111B4 /* FeaturedStoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeaturedStoryTableViewCell.m; sourceTree = "<group>"; };
-		FB99DEE71B9A1C01007111B4 /* TiledCellTypeA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiledCellTypeA.h; sourceTree = "<group>"; };
-		FB99DEE81B9A1C01007111B4 /* TiledCellTypeA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiledCellTypeA.m; sourceTree = "<group>"; };
-		FB99DEEA1B9A1CAE007111B4 /* TiledCellTypeB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiledCellTypeB.h; sourceTree = "<group>"; };
-		FB99DEEB1B9A1CAE007111B4 /* TiledCellTypeB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiledCellTypeB.m; sourceTree = "<group>"; };
+		FB99DEE71B9A1C01007111B4 /* TiledCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiledCell.h; sourceTree = "<group>"; };
+		FB99DEE81B9A1C01007111B4 /* TiledCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiledCell.m; sourceTree = "<group>"; };
 		FBDEF3501B9E0436005BD9F4 /* WebLinksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebLinksViewController.h; sourceTree = "<group>"; };
 		FBDEF3511B9E0436005BD9F4 /* WebLinksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebLinksViewController.m; sourceTree = "<group>"; };
 		FBDEF3CD1B9E4D31005BD9F4 /* DropdownMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropdownMenuController.h; sourceTree = "<group>"; };
@@ -226,10 +223,8 @@
 			children = (
 				FB99DEE41B9A1BD9007111B4 /* FeaturedStoryTableViewCell.h */,
 				FB99DEE51B9A1BD9007111B4 /* FeaturedStoryTableViewCell.m */,
-				FB99DEE71B9A1C01007111B4 /* TiledCellTypeA.h */,
-				FB99DEE81B9A1C01007111B4 /* TiledCellTypeA.m */,
-				FB99DEEA1B9A1CAE007111B4 /* TiledCellTypeB.h */,
-				FB99DEEB1B9A1CAE007111B4 /* TiledCellTypeB.m */,
+				FB99DEE71B9A1C01007111B4 /* TiledCell.h */,
+				FB99DEE81B9A1C01007111B4 /* TiledCell.m */,
 				FB0391751B9BC06600C16FE8 /* Tile.h */,
 				FB0391761B9BC06600C16FE8 /* Tile.m */,
 			);
@@ -391,10 +386,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB99DEE91B9A1C01007111B4 /* TiledCellTypeA.m in Sources */,
+				FB99DEE91B9A1C01007111B4 /* TiledCell.m in Sources */,
 				FBDEF3521B9E0436005BD9F4 /* WebLinksViewController.m in Sources */,
 				FB714A421B94D1E500D68CB5 /* Post.m in Sources */,
-				FB99DEEC1B9A1CAE007111B4 /* TiledCellTypeB.m in Sources */,
 				FBDEF3D21B9E4D31005BD9F4 /* DropdownMenuSegue.m in Sources */,
 				FB714A1B1B94D16000D68CB5 /* AppDelegate.m in Sources */,
 				FB0391771B9BC06600C16FE8 /* Tile.m in Sources */,
