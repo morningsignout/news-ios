@@ -27,6 +27,9 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oPp-et-88Y" id="ovh-SI-Rtp">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OK0-Kw-y3z">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="113"/>
+                                        </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xj0-mL-9No">
                                             <rect key="frame" x="28" y="39" width="338" height="66"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -34,9 +37,17 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="OK0-Kw-y3z" firstAttribute="top" secondItem="ovh-SI-Rtp" secondAttribute="top" id="I5u-pL-3Y2"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="OK0-Kw-y3z" secondAttribute="trailing" constant="-8" id="MDx-tz-IJo"/>
+                                        <constraint firstAttribute="bottom" secondItem="OK0-Kw-y3z" secondAttribute="bottom" id="Tmt-oA-AXp"/>
+                                        <constraint firstItem="OK0-Kw-y3z" firstAttribute="leading" secondItem="ovh-SI-Rtp" secondAttribute="leading" id="zoN-4p-Xaz"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="image" destination="OK0-Kw-y3z" id="h46-TQ-5BQ"/>
                                     <outlet property="title" destination="Xj0-mL-9No" id="NAM-hY-ge5"/>
+                                    <segue destination="sFC-xX-gyV" kind="show" id="DXn-2w-hPS"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="A" rowHeight="200" id="OGE-KO-GcP" customClass="TiledCellTypeA">
@@ -483,4 +494,7 @@
             <point key="canvasLocation" x="-972" y="-254"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="YM3-J7-BWK"/>
+    </inferredMetricsTieBreakers>
 </document>

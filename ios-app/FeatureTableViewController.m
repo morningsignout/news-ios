@@ -110,9 +110,18 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     
     if (indexPath.row == 0) {
         FeaturedStoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"feature" forIndexPath:indexPath];
+        __block UIImage *image;
         
         cell.post = self.topFeatured;
         cell.title.text = cell.post.title;
+        
+        dispatch_queue_t load = dispatch_queue_create("new queue", NULL);
+        dispatch_async(load, ^{
+            image = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:cell.post.thumbnailCoverImageURL]]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [cell.image setImage:image];
+            });
+        });
         
         return cell;
     }
