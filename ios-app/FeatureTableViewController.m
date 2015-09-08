@@ -128,9 +128,13 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
             
             cellTypeA.tileLeft.post = leftPost;
             cellTypeA.tileLeft.title.text = leftPost.title;
+            UIImage *image = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:leftPost.thumbnailCoverImageURL]]];
+            [cellTypeA.tileLeft.image setImage:image];
             
             cellTypeA.tileRight.post = rightPost;
             cellTypeA.tileRight.title.text = rightPost.title;
+            UIImage *image2 = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:rightPost.thumbnailCoverImageURL]]];
+            [cellTypeA.tileRight.image setImage:image2];
             
             return cellTypeA;
             
@@ -139,9 +143,13 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
             
             cellTypeB.tileLeft.post = leftPost;
             cellTypeB.tileLeft.title.text = leftPost.title;
+            UIImage *image = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:leftPost.thumbnailCoverImageURL]]];
+            [cellTypeB.tileLeft.image setImage:image];
             
             cellTypeB.tileRight.post = rightPost;
             cellTypeB.tileRight.title.text = rightPost.title;
+            UIImage *image2 = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:rightPost.thumbnailCoverImageURL]]];
+            [cellTypeB.tileRight.image setImage:image2];
             
             return cellTypeB;
         }

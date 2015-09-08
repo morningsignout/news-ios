@@ -11,5 +11,6 @@
 
 @interface Tile : UIView
 @property (strong, nonatomic) IBOutlet UILabel *title;
+@property( strong, nonatomic) IBOutlet UIImageView * image;
 @property (strong, nonatomic) Post *post;
 @end
