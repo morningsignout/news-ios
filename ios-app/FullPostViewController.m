@@ -28,8 +28,6 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
     // Do any additional setup after loading the view.
     self.webView.delegate = self;
     
-    [self.post printInfo];
-    
     self.postTitle.text = self.post.title;
     [self loadWebView];
 }
@@ -71,11 +69,11 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
         // For modal segue
         [self presentViewController:controller animated:YES completion:nil];
         
-        
         return NO;
-    } else {
-        return YES;
+        
     }
+    
+    return YES;
 }
 
 
