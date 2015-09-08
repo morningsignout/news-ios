@@ -28,19 +28,24 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    if (navigationType == UIWebViewNavigationTypeLinkClicked ) {
-        NSString *urlToOpen = [NSString stringWithFormat:@"%@",request.URL];
-        NSURL* url = [NSURL URLWithString:urlToOpen];
-        
-        WebLinksViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"LinkController"];
-        [self.navigationController pushViewController:controller animated:YES];
-        controller.url = url;
-        
-        return NO;
-    } else {
-        return YES;
-    }
+// Uncomment if want to create push segue for every link tapped
+//- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+//    if (navigationType == UIWebViewNavigationTypeLinkClicked ) {
+//        NSString *urlToOpen = [NSString stringWithFormat:@"%@",request.URL];
+//        NSURL* url = [NSURL URLWithString:urlToOpen];
+//        
+//        WebLinksViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"LinkController"];
+//        [self.navigationController pushViewController:controller animated:YES];
+//        controller.url = url;
+//        
+//        return NO;
+//    } else {
+//        return YES;
+//    }
+//}
+
+- (IBAction)returnToApp:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 /*

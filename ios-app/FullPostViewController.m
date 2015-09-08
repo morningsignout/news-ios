@@ -63,8 +63,14 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
         NSURL* url = [NSURL URLWithString:urlToOpen];
         
         WebLinksViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"LinkController"];
-        [self.navigationController pushViewController:controller animated:YES];
         controller.url = url;
+        
+        // For push segue
+        // [self.navigationController pushViewController:controller animated:YES];
+        
+        // For modal segue
+        [self presentViewController:controller animated:YES completion:nil];
+        
         
         return NO;
     } else {
