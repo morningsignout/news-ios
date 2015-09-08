@@ -122,19 +122,30 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
         Post *rightPost = [self.posts objectAtIndex:(indexPath.row - 1) * 2 + 1];
         
         int cellType = indexPath.row % 2;
+        __block UIImage *image;
 
         if (cellType == 0) {
             TiledCellTypeA *cellTypeA = [tableView dequeueReusableCellWithIdentifier:@"A" forIndexPath:indexPath];
             
+            
             cellTypeA.tileLeft.post = leftPost;
             cellTypeA.tileLeft.title.text = leftPost.title;
-            UIImage *image = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:leftPost.thumbnailCoverImageURL]]];
-            [cellTypeA.tileLeft.image setImage:image];
+            dispatch_queue_t load = dispatch_queue_create("new queue", NULL);
+            dispatch_async(load, ^{
+                image = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:leftPost.thumbnailCoverImageURL]]];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [cellTypeA.tileLeft.image setImage:image];
+                });
+            });
             
             cellTypeA.tileRight.post = rightPost;
             cellTypeA.tileRight.title.text = rightPost.title;
-            UIImage *image2 = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:rightPost.thumbnailCoverImageURL]]];
-            [cellTypeA.tileRight.image setImage:image2];
+            dispatch_async(load, ^{
+                image = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:rightPost.thumbnailCoverImageURL]]];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [cellTypeA.tileRight.image setImage:image];
+                });
+            });
             
             return cellTypeA;
             
@@ -143,13 +154,22 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
             
             cellTypeB.tileLeft.post = leftPost;
             cellTypeB.tileLeft.title.text = leftPost.title;
-            UIImage *image = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:leftPost.thumbnailCoverImageURL]]];
-            [cellTypeB.tileLeft.image setImage:image];
+            dispatch_queue_t load = dispatch_queue_create("new queue", NULL);
+            dispatch_async(load, ^{
+                image = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:leftPost.thumbnailCoverImageURL]]];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [cellTypeB.tileLeft.image setImage:image];
+                });
+            });
             
             cellTypeB.tileRight.post = rightPost;
             cellTypeB.tileRight.title.text = rightPost.title;
-            UIImage *image2 = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:rightPost.thumbnailCoverImageURL]]];
-            [cellTypeB.tileRight.image setImage:image2];
+            dispatch_async(load, ^{
+                image = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:rightPost.thumbnailCoverImageURL]]];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [cellTypeB.tileRight.image setImage:image];
+                });
+            });
             
             return cellTypeB;
         }
