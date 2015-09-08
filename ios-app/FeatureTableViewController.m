@@ -16,6 +16,7 @@
 #import "Post.h"
 #import "FullPostViewController.h"
 #import "NavDropdownController.h"
+#import "NSString+HTML.h"
 #import <UIImageView+AFNetworking.h>
 
 static NSString * const SEGUE_IDENTIFIER = @"viewPost";

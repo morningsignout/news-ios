@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6B8E31A86FF101F5D2A9632F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 76DAA74E4EA736D8CF1DACF8 /* libPods.a */; };
+		CA239A6F1B9F660400BEDC5E /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = CA239A6C1B9F660400BEDC5E /* GTMNSString+HTML.m */; };
+		CA239A701B9F660400BEDC5E /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = CA239A6E1B9F660400BEDC5E /* NSString+HTML.m */; };
 		FB0391771B9BC06600C16FE8 /* Tile.m in Sources */ = {isa = PBXBuildFile; fileRef = FB0391761B9BC06600C16FE8 /* Tile.m */; };
 		FB714A181B94D16000D68CB5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FB714A171B94D16000D68CB5 /* main.m */; };
 		FB714A1B1B94D16000D68CB5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FB714A1A1B94D16000D68CB5 /* AppDelegate.m */; };
@@ -45,6 +47,10 @@
 		2B5F6649C5844C474A10642E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		76DAA74E4EA736D8CF1DACF8 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A36EF58E1666F92886A37D13 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		CA239A6B1B9F660400BEDC5E /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
+		CA239A6C1B9F660400BEDC5E /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
+		CA239A6D1B9F660400BEDC5E /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HTML.h"; sourceTree = "<group>"; };
+		CA239A6E1B9F660400BEDC5E /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTML.m"; sourceTree = "<group>"; };
 		FB0391751B9BC06600C16FE8 /* Tile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tile.h; sourceTree = "<group>"; };
 		FB0391761B9BC06600C16FE8 /* Tile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tile.m; sourceTree = "<group>"; };
 		FB714A121B94D16000D68CB5 /* ios-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,6 +120,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		CA239A6A1B9F660400BEDC5E /* MWFeedParser */ = {
+			isa = PBXGroup;
+			children = (
+				CA239A6B1B9F660400BEDC5E /* GTMNSString+HTML.h */,
+				CA239A6C1B9F660400BEDC5E /* GTMNSString+HTML.m */,
+				CA239A6D1B9F660400BEDC5E /* NSString+HTML.h */,
+				CA239A6E1B9F660400BEDC5E /* NSString+HTML.m */,
+			);
+			path = MWFeedParser;
+			sourceTree = "<group>";
+		};
 		E59774FB26CCB954D4ECFB9C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -163,6 +180,7 @@
 		FB714A151B94D16000D68CB5 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				CA239A6A1B9F660400BEDC5E /* MWFeedParser */,
 				FBDEF3CC1B9E4D31005BD9F4 /* DropdownMenu */,
 				FB714A161B94D16000D68CB5 /* Info.plist */,
 				FB714A171B94D16000D68CB5 /* main.m */,
@@ -388,6 +406,7 @@
 			files = (
 				FB99DEE91B9A1C01007111B4 /* TiledCell.m in Sources */,
 				FBDEF3521B9E0436005BD9F4 /* WebLinksViewController.m in Sources */,
+				CA239A701B9F660400BEDC5E /* NSString+HTML.m in Sources */,
 				FB714A421B94D1E500D68CB5 /* Post.m in Sources */,
 				FBDEF3D21B9E4D31005BD9F4 /* DropdownMenuSegue.m in Sources */,
 				FB714A1B1B94D16000D68CB5 /* AppDelegate.m in Sources */,
@@ -395,6 +414,7 @@
 				FB714A4B1B94FFCF00D68CB5 /* URLParser.m in Sources */,
 				FB714A451B94D20600D68CB5 /* Author.m in Sources */,
 				FB714A1E1B94D16000D68CB5 /* ios_app.xcdatamodeld in Sources */,
+				CA239A6F1B9F660400BEDC5E /* GTMNSString+HTML.m in Sources */,
 				FB99DEE21B9A1AFE007111B4 /* FeatureTableViewController.m in Sources */,
 				FB714A211B94D16000D68CB5 /* TestViewController.m in Sources */,
 				FB714A4E1B94FFE100D68CB5 /* DataParser.m in Sources */,

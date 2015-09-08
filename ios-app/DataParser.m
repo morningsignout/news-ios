@@ -8,6 +8,7 @@
 
 #import "DataParser.h"
 #import "URLParser.h"
+#import "NSString+HTML.h"
 #import <AFNetworking.h>
 
 AFHTTPRequestOperationManager *manager;
@@ -41,6 +42,7 @@ NSDateFormatter *dateToStringFormatter;
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
             data = (NSDictionary *)responseObject;
+             NSLog(@"%@",data);
             [[NSNotificationCenter defaultCenter] postNotificationName:@"dataLoaded" object:nil];
             dispatch_semaphore_signal(semaphore);
              
@@ -82,7 +84,7 @@ NSDateFormatter *dateToStringFormatter;
     int postid = (int)[parseData valueForKey:@"id"];
     
     // Get title
-    NSString* title = [parseData valueForKey:@"title"];
+    NSString* title = [[parseData valueForKey:@"title"] stringByDecodingHTMLEntities];
     
     // Get author
     NSDictionary *authorDict = [parseData valueForKey:@"author"];
