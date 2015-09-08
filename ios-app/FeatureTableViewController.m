@@ -17,6 +17,7 @@
 #import "Post.h"
 #import "FullPostViewController.h"
 #import "NavDropdownController.h"
+#import <UIImageView+AFNetworking.h>
 
 static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 
@@ -122,54 +123,54 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
         Post *rightPost = [self.posts objectAtIndex:(indexPath.row - 1) * 2 + 1];
         
         int cellType = indexPath.row % 2;
-        __block UIImage *image;
 
         if (cellType == 0) {
             TiledCellTypeA *cellTypeA = [tableView dequeueReusableCellWithIdentifier:@"A" forIndexPath:indexPath];
             
+            __weak Tile *left = cellTypeA.tileLeft;
             
-            cellTypeA.tileLeft.post = leftPost;
-            cellTypeA.tileLeft.title.text = leftPost.title;
-            dispatch_queue_t load = dispatch_queue_create("new queue", NULL);
-            dispatch_async(load, ^{
-                image = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:leftPost.thumbnailCoverImageURL]]];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [cellTypeA.tileLeft.image setImage:image];
-                });
-            });
+            left.post = leftPost;
+            left.title.text = leftPost.title;
             
-            cellTypeA.tileRight.post = rightPost;
-            cellTypeA.tileRight.title.text = rightPost.title;
-            dispatch_async(load, ^{
-                image = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:rightPost.thumbnailCoverImageURL]]];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [cellTypeA.tileRight.image setImage:image];
-                });
-            });
+            NSURLRequest *requestLeft = [NSURLRequest requestWithURL:[NSURL URLWithString:left.post.thumbnailCoverImageURL]];
+            [left.image setImageWithURLRequest:requestLeft placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                left.image.image = image;
+            } failure:nil];
             
+            __weak Tile *right = cellTypeA.tileRight;
+            
+            right.post = rightPost;
+            right.title.text = rightPost.title;
+            
+            NSURLRequest *requestRight = [NSURLRequest requestWithURL:[NSURL URLWithString:right.post.thumbnailCoverImageURL]];
+            [right.image setImageWithURLRequest:requestRight placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                right.image.image = image;
+            } failure:nil];
+
             return cellTypeA;
             
         } else if (cellType == 1) {
-            TiledCellTypeB *cellTypeB = [tableView dequeueReusableCellWithIdentifier:@"B" forIndexPath:indexPath];
+            TiledCellTypeA *cellTypeB = [tableView dequeueReusableCellWithIdentifier:@"B" forIndexPath:indexPath];
             
-            cellTypeB.tileLeft.post = leftPost;
-            cellTypeB.tileLeft.title.text = leftPost.title;
-            dispatch_queue_t load = dispatch_queue_create("new queue", NULL);
-            dispatch_async(load, ^{
-                image = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:leftPost.thumbnailCoverImageURL]]];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [cellTypeB.tileLeft.image setImage:image];
-                });
-            });
+            __weak Tile *left = cellTypeB.tileLeft;
             
-            cellTypeB.tileRight.post = rightPost;
-            cellTypeB.tileRight.title.text = rightPost.title;
-            dispatch_async(load, ^{
-                image = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:rightPost.thumbnailCoverImageURL]]];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [cellTypeB.tileRight.image setImage:image];
-                });
-            });
+            left.post = leftPost;
+            left.title.text = leftPost.title;
+            
+            NSURLRequest *requestLeft = [NSURLRequest requestWithURL:[NSURL URLWithString:left.post.thumbnailCoverImageURL]];
+            [left.image setImageWithURLRequest:requestLeft placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                left.image.image = image;
+            } failure:nil];
+            
+            __weak Tile *right = cellTypeB.tileRight;
+            
+            right.post = rightPost;
+            right.title.text = rightPost.title;
+            
+            NSURLRequest *requestRight = [NSURLRequest requestWithURL:[NSURL URLWithString:right.post.thumbnailCoverImageURL]];
+            [right.image setImageWithURLRequest:requestRight placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                right.image.image = image;
+            } failure:nil];
             
             return cellTypeB;
         }
