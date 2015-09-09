@@ -86,7 +86,7 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
         layout.minimumColumnSpacing = 10.0f;
         layout.minimumInteritemSpacing = 10.0f;
         
-        _collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 50.0f, self.view.bounds.size.width, self.view.bounds.size.height) collectionViewLayout:layout];
         _collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
@@ -106,12 +106,16 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
         _cellSizes = @[
                        
        // staggering causes some dequeue placement errors
-       [NSValue valueWithCGSize:CGSizeMake(1, 1.5)],
-       [NSValue valueWithCGSize:CGSizeMake(1, 1)],
-       [NSValue valueWithCGSize:CGSizeMake(1, 1.25)],
-       [NSValue valueWithCGSize:CGSizeMake(1, 1.33)]
+//       [NSValue valueWithCGSize:CGSizeMake(1, 1.5)],
+//       [NSValue valueWithCGSize:CGSizeMake(1, 1)],
+//       [NSValue valueWithCGSize:CGSizeMake(1, 1.25)],
+//       [NSValue valueWithCGSize:CGSizeMake(1, 1.33)]
 
-        
+       [NSValue valueWithCGSize:CGSizeMake(1, 1.5)],
+       [NSValue valueWithCGSize:CGSizeMake(1, 1.5)],
+       [NSValue valueWithCGSize:CGSizeMake(1, 1.5)],
+       [NSValue valueWithCGSize:CGSizeMake(1, 1.5)]
+       
 //       [NSValue valueWithCGSize:CGSizeMake(1, 2)],
 //       [NSValue valueWithCGSize:CGSizeMake(1, 1)],
 //       [NSValue valueWithCGSize:CGSizeMake(1, 1)],
@@ -152,6 +156,11 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
                                                           withReuseIdentifier:HEADER_IDENTIFIER
                                                                  forIndexPath:indexPath];
         
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                       initWithTarget:self action:@selector(showTopFeatured:)];
+        
+        [reusableView addGestureRecognizer:tap];
+        
         Post *post = [self.posts objectAtIndex:indexPath.item];
         reusableView.title.text = post.title;
         
@@ -160,7 +169,7 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
             reusableView.imageView.image = image;
         } failure:nil];
         
-        reusableView.backgroundColor = [UIColor lightGrayColor];
+        reusableView.backgroundColor = [UIColor whiteColor];
         
         return reusableView;
     }
@@ -180,14 +189,15 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     } failure:nil];
     
     cell.title.text = post.title;
-    
-    cell.backgroundColor = [UIColor lightGrayColor];
+    [cell.title sizeThatFits:cell.contentView.bounds.size];
     
     return cell;
     
 }
 
-
+- (void)showTopFeatured:(UITapGestureRecognizer *)recognizer {
+    [self performSegueWithIdentifier:SEGUE_IDENTIFIER sender:self.topFeatured];
+}
 
 
 #pragma mark - CHTCollectionViewDelegateWaterfallLayout
