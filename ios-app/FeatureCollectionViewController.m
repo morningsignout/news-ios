@@ -106,17 +106,17 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
         _cellSizes = @[
                        
        // staggering causes some dequeue placement errors
-       [NSValue valueWithCGSize:CGSizeMake(1, 1.5)],
-       [NSValue valueWithCGSize:CGSizeMake(1, 1)],
-       [NSValue valueWithCGSize:CGSizeMake(1, 1.25)],
-       [NSValue valueWithCGSize:CGSizeMake(1, 1.33)]
-       ];
-        
+//       [NSValue valueWithCGSize:CGSizeMake(1, 1.5)],
 //       [NSValue valueWithCGSize:CGSizeMake(1, 1)],
-//       [NSValue valueWithCGSize:CGSizeMake(1, 1)],
-//       [NSValue valueWithCGSize:CGSizeMake(1, 1)],
-//       [NSValue valueWithCGSize:CGSizeMake(1, 1)]
+//       [NSValue valueWithCGSize:CGSizeMake(1, 1.25)],
+//       [NSValue valueWithCGSize:CGSizeMake(1, 1.33)]
 //       ];
+        
+       [NSValue valueWithCGSize:CGSizeMake(1, 2)],
+       [NSValue valueWithCGSize:CGSizeMake(1, 1)],
+       [NSValue valueWithCGSize:CGSizeMake(1, 2)],
+       [NSValue valueWithCGSize:CGSizeMake(1, 1)]
+       ];
     }
     return _cellSizes;
 }
