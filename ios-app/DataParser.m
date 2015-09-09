@@ -42,7 +42,7 @@ NSDateFormatter *dateToStringFormatter;
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
             data = (NSDictionary *)responseObject;
-             NSLog(@"%@",data);
+            //NSLog(@"%@",data);
             [[NSNotificationCenter defaultCenter] postNotificationName:@"dataLoaded" object:nil];
             dispatch_semaphore_signal(semaphore);
              
@@ -84,7 +84,7 @@ NSDateFormatter *dateToStringFormatter;
     int postid = (int)[parseData valueForKey:@"id"];
     
     // Get title
-    NSString* title = [[parseData valueForKey:@"title"] stringByDecodingHTMLEntities];
+    NSString* title = [[parseData valueForKey:@"title_plain"] stringByDecodingHTMLEntities];
     
     // Get author
     NSDictionary *authorDict = [parseData valueForKey:@"author"];
