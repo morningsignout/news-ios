@@ -330,11 +330,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ios-app/FeatureCollectionViewController.m"
-            timestampString = "463525396.116259"
+            timestampString = "463529968.987102"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "209"
-            endingLineNumber = "209"
+            startingLineNumber = "242"
+            endingLineNumber = "242"
             landmarkName = "-collectionView:didSelectItemAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -346,11 +346,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ios-app/FeatureCollectionViewController.m"
-            timestampString = "463525396.116259"
+            timestampString = "463529968.987102"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "218"
-            endingLineNumber = "218"
+            startingLineNumber = "251"
+            endingLineNumber = "251"
             landmarkName = "-prepareForSegue:sender:"
             landmarkType = "5">
          </BreakpointContent>
@@ -361,13 +361,29 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ios-app/TileCollectionViewCell.m"
-            timestampString = "463525396.116259"
+            filePath = "ios-app/TileCollectionViewCellB.m"
+            timestampString = "463529998.846957"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
-            landmarkName = "-prepareForReuse"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "-excerpt"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios-app/FeatureCollectionViewController.m"
+            timestampString = "463529316.669521"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "206"
+            endingLineNumber = "206"
+            landmarkName = "-setTileInfoWithIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

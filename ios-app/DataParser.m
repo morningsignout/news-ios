@@ -95,7 +95,7 @@ NSDateFormatter *dateToStringFormatter;
     NSString* postUrl = [parseData valueForKey:@"url"];
     
     // Get excerpt
-    NSString* excerpt = [parseData valueForKey:@"excerpt"];
+    NSString* excerpt = [[parseData valueForKey:@"excerpt"] stringByConvertingHTMLToPlainText];
     
     // Get formatted date
         // format date from string into NSDate object

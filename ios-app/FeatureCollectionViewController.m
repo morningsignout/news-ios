@@ -9,11 +9,13 @@
 #import "FeatureCollectionViewController.h"
 #import "TileCollectionViewCell.h"
 #import "FeaturedTileCollectionViewCell.h"
+#import "TileCollectionViewCellB.h"
 #import "DataParser.h"
 #import <UIImageView+AFNetworking.h>
 #import "FullPostViewController.h"
 
 #define CELL_IDENTIFIER @"TileCell"
+#define CELL_IDENTIFIER_2 @"TileCell2"
 #define HEADER_IDENTIFIER @"TopFeatured"
 static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 
@@ -90,9 +92,11 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
         _collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
-        _collectionView.backgroundColor = [UIColor blackColor];
+        _collectionView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.7];
         [_collectionView registerClass:[TileCollectionViewCell class]
             forCellWithReuseIdentifier:CELL_IDENTIFIER];
+        [_collectionView registerClass:[TileCollectionViewCellB class]
+            forCellWithReuseIdentifier:CELL_IDENTIFIER_2];
         
         [_collectionView registerClass:[FeaturedTileCollectionViewCell class]
             forSupplementaryViewOfKind:CHTCollectionElementKindSectionHeader
@@ -144,9 +148,15 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    TileCollectionViewCell *cell = [self setTileInfoWithIndexPath:indexPath];
+    if (indexPath.item % 2 == 0) {
+        TileCollectionViewCell *cell = [self setTileInfoWithIndexPath:indexPath];
+        
+        return cell;
+    } else {
+        TileCollectionViewCellB *cell = [self setTileBInfo:indexPath];
+        return cell;
+    }
     
-    return cell;
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
@@ -163,6 +173,8 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
         
         Post *post = [self.posts objectAtIndex:indexPath.item];
         reusableView.title.text = post.title;
+        reusableView.excerpt.text = post.excerpt;
+
         
         NSURLRequest *requestLeft = [NSURLRequest requestWithURL:[NSURL URLWithString:post.thumbnailCoverImageURL]];
         [reusableView.imageView setImageWithURLRequest:requestLeft placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
@@ -189,10 +201,31 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     } failure:nil];
     
     cell.title.text = post.title;
-    [cell.title sizeThatFits:cell.contentView.bounds.size];
+    NSString *tagStr = @"";
+    for (NSString *tag in post.tags) {
+        tagStr = [tagStr stringByAppendingString:[NSString stringWithFormat:@"#%@ ", tag]];
+    }
+    cell.excerpt.text = tagStr;
     
     return cell;
+
     
+}
+
+- (TileCollectionViewCellB *)setTileBInfo:(NSIndexPath *)indexPath {
+    __weak TileCollectionViewCellB *cell = (TileCollectionViewCellB *)[self.collectionView dequeueReusableCellWithReuseIdentifier:CELL_IDENTIFIER_2 forIndexPath:indexPath];
+    
+    Post *post = [self.posts objectAtIndex:indexPath.item];
+    
+    NSURLRequest *requestLeft = [NSURLRequest requestWithURL:[NSURL URLWithString:post.thumbnailCoverImageURL]];
+    [cell.imageView setImageWithURLRequest:requestLeft placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        cell.imageView.image = image;
+    } failure:nil];
+    
+    cell.title.text = post.title;
+    cell.excerpt.text = post.excerpt;
+    
+    return cell;
 }
 
 - (void)showTopFeatured:(UITapGestureRecognizer *)recognizer {

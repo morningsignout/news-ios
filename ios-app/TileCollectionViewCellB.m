@@ -1,18 +1,17 @@
 //
-//  TileCollectionViewCell.m
+//  TileCollectionViewCellB.m
 //  ios-app
 //
-//  Created by Shannon Phu on 9/8/15.
+//  Created by Shannon Phu on 9/9/15.
 //  Copyright (c) 2015 Morning Sign Out Incorporated. All rights reserved.
 //
 
-#import "TileCollectionViewCell.h"
+#import "TileCollectionViewCellB.h"
 
-static const CGFloat titleHeight = 90.0f;
-static const CGFloat excerptHeight = 50.0f;
+static const CGFloat titleHeight = 60.0f;
+static const CGFloat excerptHeight = 75.0f;
 
-@implementation TileCollectionViewCell
-
+@implementation TileCollectionViewCellB
 - (UIImageView *)imageView {
     if (!_imageView) {
         CGRect contentBounds = CGRectMake(0, 0, self.contentView.bounds.size.width, self.contentView.bounds.size.height - titleHeight - excerptHeight);
@@ -26,7 +25,7 @@ static const CGFloat excerptHeight = 50.0f;
 }
 
 - (UILabel *)title {
-
+    
     if (!_title) {
         CGRect contentBounds = self.contentView.bounds;
         _title = [[UILabel alloc] initWithFrame:CGRectMake(0, self.contentView.bounds.size.height - titleHeight - excerptHeight, self.contentView.bounds.size.width, titleHeight)];
@@ -34,25 +33,10 @@ static const CGFloat excerptHeight = 50.0f;
         _title.lineBreakMode = NSLineBreakByWordWrapping;
         _title.numberOfLines = 3;
         _title.textAlignment = NSTextAlignmentCenter;
-        _title.backgroundColor = [UIColor whiteColor];
+        _title.backgroundColor = [UIColor lightGrayColor];
     }
-
+    
     return _title;
-}
-
-- (UILabel *)excerpt {
-    
-    if (!_excerpt) {
-        _excerpt = [[UILabel alloc] initWithFrame:CGRectMake(0, self.contentView.bounds.size.height - excerptHeight, self.contentView.bounds.size.width, excerptHeight)];
-        _excerpt.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        _excerpt.lineBreakMode = NSLineBreakByWordWrapping;
-        _excerpt.numberOfLines = 2;
-        _excerpt.textAlignment = NSTextAlignmentCenter;
-        _excerpt.backgroundColor = [UIColor lightGrayColor];
-        [_excerpt setFont:[UIFont systemFontOfSize:14]];
-    }
-    
-    return _excerpt;
 }
 
 - (id)initWithFrame:(CGRect)frame {
@@ -72,5 +56,19 @@ static const CGFloat excerptHeight = 50.0f;
     return self;
 }
 
+- (UILabel *)excerpt {
+    
+    if (!_excerpt) {
+        _excerpt = [[UILabel alloc] initWithFrame:CGRectMake(0, self.contentView.bounds.size.height - excerptHeight, self.contentView.bounds.size.width, excerptHeight)];
+        _excerpt.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _excerpt.lineBreakMode = NSLineBreakByWordWrapping;
+        _excerpt.numberOfLines = 3;
+        _excerpt.textAlignment = NSTextAlignmentCenter;
+        _excerpt.backgroundColor = [UIColor whiteColor];
+        [_excerpt setFont:[UIFont systemFontOfSize:12]];
+    }
+    
+    return _excerpt;
+}
 
 @end
