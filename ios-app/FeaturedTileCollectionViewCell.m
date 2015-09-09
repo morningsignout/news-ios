@@ -27,6 +27,7 @@ static const float IMAGE_TO_TILE_HEIGHT_PROPORTION = 0.75;
     if (!_title) {
         _title = [[UILabel alloc] initWithFrame:CGRectMake(0, self.imageView.frame.size.height, self.contentView.frame.size.width, (1 - IMAGE_TO_TILE_HEIGHT_PROPORTION - 0.05) * self.contentView.frame.size.height)];
         _title.lineBreakMode = NSLineBreakByWordWrapping;
+        _title.textAlignment = NSTextAlignmentCenter;
         _title.numberOfLines = 3;
     }
     

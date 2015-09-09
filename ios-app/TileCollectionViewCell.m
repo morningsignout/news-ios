@@ -29,7 +29,6 @@ static const CGFloat titleHeight = 75.0f;
 //        _title = [[UILabel alloc] initWithFrame:CGRectMake(0, self.contentView.bounds.size.height - titleHeight, self.contentView.bounds.size.width, titleHeight)];
         CGRect contentBounds = self.contentView.bounds;
         _title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, contentBounds.size.width, contentBounds.size.height / 2)];
-        NSLog(@"%f", contentBounds.size.height);
         _title.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _title.lineBreakMode = NSLineBreakByWordWrapping;
         _title.numberOfLines = 3;

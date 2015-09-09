@@ -488,53 +488,6 @@
                     <view key="view" contentMode="scaleToFill" id="fs2-ty-6ng">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gty-Ip-EhY">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="nDH-hB-2CL">
-                                    <size key="itemSize" width="242" height="291"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="70t-9o-l24" customClass="TileCollectionViewCell">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="242" height="291"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6j9-co-Nsn">
-                                                    <rect key="frame" x="0.0" y="0.0" width="242" height="217"/>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XQ7-sP-vOI">
-                                                    <rect key="frame" x="0.0" y="215" width="242" height="76"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="XQ7-sP-vOI" secondAttribute="trailing" id="3I7-UL-Jwl"/>
-                                            <constraint firstAttribute="trailing" secondItem="6j9-co-Nsn" secondAttribute="trailing" id="661-0j-lZn"/>
-                                            <constraint firstItem="XQ7-sP-vOI" firstAttribute="top" secondItem="6j9-co-Nsn" secondAttribute="bottom" constant="-2" id="HFS-c9-pxE"/>
-                                            <constraint firstItem="6j9-co-Nsn" firstAttribute="leading" secondItem="70t-9o-l24" secondAttribute="leading" id="JA8-e0-7YB"/>
-                                            <constraint firstAttribute="bottom" secondItem="XQ7-sP-vOI" secondAttribute="bottom" id="SDI-iw-Yw7"/>
-                                            <constraint firstItem="6j9-co-Nsn" firstAttribute="top" secondItem="70t-9o-l24" secondAttribute="top" id="frf-MD-DVp"/>
-                                            <constraint firstItem="XQ7-sP-vOI" firstAttribute="leading" secondItem="70t-9o-l24" secondAttribute="leading" id="sbO-CJ-bYQ"/>
-                                        </constraints>
-                                        <connections>
-                                            <outlet property="imageView" destination="6j9-co-Nsn" id="1aw-8A-Ohb"/>
-                                            <outlet property="title" destination="XQ7-sP-vOI" id="aiD-lw-VPW"/>
-                                        </connections>
-                                    </collectionViewCell>
-                                </cells>
-                            </collectionView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
