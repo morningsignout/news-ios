@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface TileCollectionViewCell : UICollectionViewCell
-@property (nonatomic, strong) UIImageView *imageView;
-@property (nonatomic, strong) UILabel *title;
+@property (nonatomic, strong) IBOutlet UIImageView *imageView;
+@property (nonatomic, strong) IBOutlet UILabel *title;
+
 @end

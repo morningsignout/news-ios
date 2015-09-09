@@ -80,17 +80,17 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     if (!_collectionView) {
         CHTCollectionViewWaterfallLayout *layout = [[CHTCollectionViewWaterfallLayout alloc] init];
         
-        layout.sectionInset = UIEdgeInsetsMake(4,4,4,4);
+        layout.sectionInset = UIEdgeInsetsMake(10,10,10,10);
         layout.headerHeight = self.view.frame.size.height / 1.5;
         // layout.footerHeight = 10;
-        layout.minimumColumnSpacing = 4.0f;
-        layout.minimumInteritemSpacing = 4.0;
+        layout.minimumColumnSpacing = 10.0f;
+        layout.minimumInteritemSpacing = 10.0f;
         
         _collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
         _collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
-        _collectionView.backgroundColor = [UIColor whiteColor];
+        _collectionView.backgroundColor = [UIColor blackColor];
         [_collectionView registerClass:[TileCollectionViewCell class]
             forCellWithReuseIdentifier:CELL_IDENTIFIER];
         
@@ -106,16 +106,23 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
         _cellSizes = @[
                        
        // staggering causes some dequeue placement errors
-//       [NSValue valueWithCGSize:CGSizeMake(1, 1.5)],
-//       [NSValue valueWithCGSize:CGSizeMake(1, 1)],
-//       [NSValue valueWithCGSize:CGSizeMake(1, 1.25)],
-//       [NSValue valueWithCGSize:CGSizeMake(1, 1.33)]
-//       ];
-        
-       [NSValue valueWithCGSize:CGSizeMake(1, 2)],
+       [NSValue valueWithCGSize:CGSizeMake(1, 1.5)],
        [NSValue valueWithCGSize:CGSizeMake(1, 1)],
-       [NSValue valueWithCGSize:CGSizeMake(1, 2)],
-       [NSValue valueWithCGSize:CGSizeMake(1, 1)]
+       [NSValue valueWithCGSize:CGSizeMake(1, 1.25)],
+       [NSValue valueWithCGSize:CGSizeMake(1, 1.33)]
+
+        
+//       [NSValue valueWithCGSize:CGSizeMake(1, 2)],
+//       [NSValue valueWithCGSize:CGSizeMake(1, 1)],
+//       [NSValue valueWithCGSize:CGSizeMake(1, 1)],
+//       [NSValue valueWithCGSize:CGSizeMake(1, 1)],
+//       [NSValue valueWithCGSize:CGSizeMake(1, 2)],
+//       [NSValue valueWithCGSize:CGSizeMake(1, 1)]
+       
+//       [NSValue valueWithCGSize:CGSizeMake(1, 2)],
+//       [NSValue valueWithCGSize:CGSizeMake(1, 1)],
+//       [NSValue valueWithCGSize:CGSizeMake(1, 1)]
+       
        ];
     }
     return _cellSizes;
@@ -133,18 +140,8 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    __weak TileCollectionViewCell *cell = (TileCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CELL_IDENTIFIER forIndexPath:indexPath];
+    TileCollectionViewCell *cell = [self setTileInfoWithIndexPath:indexPath];
     
-    Post *post = [self.posts objectAtIndex:indexPath.item];
-    
-    NSURLRequest *requestLeft = [NSURLRequest requestWithURL:[NSURL URLWithString:post.thumbnailCoverImageURL]];
-    [cell.imageView setImageWithURLRequest:requestLeft placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-        cell.imageView.image = image;
-    } failure:nil];
-    
-    cell.title.text = post.title;
-    
-    cell.backgroundColor = [UIColor lightGrayColor];
     return cell;
 }
 
@@ -171,9 +168,9 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     return nil;
 }
 
-- (TileCollectionViewCell *)setTileInfo:(UICollectionView *)collectionView WithIndexPath:(NSIndexPath *)indexPath {
+- (TileCollectionViewCell *)setTileInfoWithIndexPath:(NSIndexPath *)indexPath {
     
-    __weak TileCollectionViewCell *cell = (TileCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CELL_IDENTIFIER forIndexPath:indexPath];
+    __weak TileCollectionViewCell *cell = (TileCollectionViewCell *)[self.collectionView dequeueReusableCellWithReuseIdentifier:CELL_IDENTIFIER forIndexPath:indexPath];
     
     Post *post = [self.posts objectAtIndex:indexPath.item];
     
@@ -189,6 +186,8 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     return cell;
     
 }
+
+
 
 
 #pragma mark - CHTCollectionViewDelegateWaterfallLayout
