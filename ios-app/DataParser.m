@@ -40,9 +40,7 @@ NSDateFormatter *dateToStringFormatter;
     [manager GET:URLWithCount
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             
             data = (NSDictionary *)responseObject;
-             NSLog(@"%@",data);
             [[NSNotificationCenter defaultCenter] postNotificationName:@"dataLoaded" object:nil];
             dispatch_semaphore_signal(semaphore);
              

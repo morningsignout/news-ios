@@ -30,6 +30,9 @@
 		FBDEF3D11B9E4D31005BD9F4 /* DropdownMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDEF3CE1B9E4D31005BD9F4 /* DropdownMenuController.m */; };
 		FBDEF3D21B9E4D31005BD9F4 /* DropdownMenuSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDEF3D01B9E4D31005BD9F4 /* DropdownMenuSegue.m */; };
 		FBDEF3D81B9E857B005BD9F4 /* NavDropdownController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDEF3D71B9E857B005BD9F4 /* NavDropdownController.m */; };
+		FBEB3A751B9F8E4D00B57AAB /* FeatureCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEB3A741B9F8E4D00B57AAB /* FeatureCollectionViewController.m */; };
+		FBEB3A781B9F8EDF00B57AAB /* TileCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEB3A771B9F8EDF00B57AAB /* TileCollectionViewCell.m */; };
+		FBEB3A7B1B9F93DC00B57AAB /* FeaturedTileCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEB3A7A1B9F93DC00B57AAB /* FeaturedTileCollectionViewCell.m */; };
 		FBEB8E141B9CCB930080BBD1 /* FullPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEB8E131B9CCB930080BBD1 /* FullPostViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -89,6 +92,12 @@
 		FBDEF3D01B9E4D31005BD9F4 /* DropdownMenuSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropdownMenuSegue.m; sourceTree = "<group>"; };
 		FBDEF3D61B9E857B005BD9F4 /* NavDropdownController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavDropdownController.h; sourceTree = "<group>"; };
 		FBDEF3D71B9E857B005BD9F4 /* NavDropdownController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavDropdownController.m; sourceTree = "<group>"; };
+		FBEB3A731B9F8E4D00B57AAB /* FeatureCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeatureCollectionViewController.h; sourceTree = "<group>"; };
+		FBEB3A741B9F8E4D00B57AAB /* FeatureCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeatureCollectionViewController.m; sourceTree = "<group>"; };
+		FBEB3A761B9F8EDF00B57AAB /* TileCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TileCollectionViewCell.h; sourceTree = "<group>"; };
+		FBEB3A771B9F8EDF00B57AAB /* TileCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TileCollectionViewCell.m; sourceTree = "<group>"; };
+		FBEB3A791B9F93DC00B57AAB /* FeaturedTileCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeaturedTileCollectionViewCell.h; sourceTree = "<group>"; };
+		FBEB3A7A1B9F93DC00B57AAB /* FeaturedTileCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeaturedTileCollectionViewCell.m; sourceTree = "<group>"; };
 		FBEB8E121B9CCB930080BBD1 /* FullPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullPostViewController.h; sourceTree = "<group>"; };
 		FBEB8E131B9CCB930080BBD1 /* FullPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullPostViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -210,8 +219,8 @@
 			children = (
 				FBDEF3D61B9E857B005BD9F4 /* NavDropdownController.h */,
 				FBDEF3D71B9E857B005BD9F4 /* NavDropdownController.m */,
-				FB99DEE01B9A1AFE007111B4 /* FeatureTableViewController.h */,
-				FB99DEE11B9A1AFE007111B4 /* FeatureTableViewController.m */,
+				FBEB3A731B9F8E4D00B57AAB /* FeatureCollectionViewController.h */,
+				FBEB3A741B9F8E4D00B57AAB /* FeatureCollectionViewController.m */,
 				FBEB8E121B9CCB930080BBD1 /* FullPostViewController.h */,
 				FBEB8E131B9CCB930080BBD1 /* FullPostViewController.m */,
 				FBDEF3501B9E0436005BD9F4 /* WebLinksViewController.h */,
@@ -239,12 +248,8 @@
 		FB99DEE31B9A1BB1007111B4 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				FB99DEE41B9A1BD9007111B4 /* FeaturedStoryTableViewCell.h */,
-				FB99DEE51B9A1BD9007111B4 /* FeaturedStoryTableViewCell.m */,
-				FB99DEE71B9A1C01007111B4 /* TiledCell.h */,
-				FB99DEE81B9A1C01007111B4 /* TiledCell.m */,
-				FB0391751B9BC06600C16FE8 /* Tile.h */,
-				FB0391761B9BC06600C16FE8 /* Tile.m */,
+				FBEB3A721B9F8DB800B57AAB /* Tile Collection View */,
+				FBEB3A7C1B9FA6E000B57AAB /* Tile Table View */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -263,10 +268,36 @@
 		FBDEF3D91B9E9092005BD9F4 /* Extra Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				FB99DEE01B9A1AFE007111B4 /* FeatureTableViewController.h */,
+				FB99DEE11B9A1AFE007111B4 /* FeatureTableViewController.m */,
 				FB714A1F1B94D16000D68CB5 /* TestViewController.h */,
 				FB714A201B94D16000D68CB5 /* TestViewController.m */,
 			);
 			name = "Extra Controllers";
+			sourceTree = "<group>";
+		};
+		FBEB3A721B9F8DB800B57AAB /* Tile Collection View */ = {
+			isa = PBXGroup;
+			children = (
+				FBEB3A761B9F8EDF00B57AAB /* TileCollectionViewCell.h */,
+				FBEB3A771B9F8EDF00B57AAB /* TileCollectionViewCell.m */,
+				FBEB3A791B9F93DC00B57AAB /* FeaturedTileCollectionViewCell.h */,
+				FBEB3A7A1B9F93DC00B57AAB /* FeaturedTileCollectionViewCell.m */,
+			);
+			name = "Tile Collection View";
+			sourceTree = "<group>";
+		};
+		FBEB3A7C1B9FA6E000B57AAB /* Tile Table View */ = {
+			isa = PBXGroup;
+			children = (
+				FB99DEE41B9A1BD9007111B4 /* FeaturedStoryTableViewCell.h */,
+				FB99DEE51B9A1BD9007111B4 /* FeaturedStoryTableViewCell.m */,
+				FB99DEE71B9A1C01007111B4 /* TiledCell.h */,
+				FB99DEE81B9A1C01007111B4 /* TiledCell.m */,
+				FB0391751B9BC06600C16FE8 /* Tile.h */,
+				FB0391761B9BC06600C16FE8 /* Tile.m */,
+			);
+			name = "Tile Table View";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -409,7 +440,9 @@
 				CA239A701B9F660400BEDC5E /* NSString+HTML.m in Sources */,
 				FB714A421B94D1E500D68CB5 /* Post.m in Sources */,
 				FBDEF3D21B9E4D31005BD9F4 /* DropdownMenuSegue.m in Sources */,
+				FBEB3A751B9F8E4D00B57AAB /* FeatureCollectionViewController.m in Sources */,
 				FB714A1B1B94D16000D68CB5 /* AppDelegate.m in Sources */,
+				FBEB3A781B9F8EDF00B57AAB /* TileCollectionViewCell.m in Sources */,
 				FB0391771B9BC06600C16FE8 /* Tile.m in Sources */,
 				FB714A4B1B94FFCF00D68CB5 /* URLParser.m in Sources */,
 				FB714A451B94D20600D68CB5 /* Author.m in Sources */,
@@ -420,6 +453,7 @@
 				FB714A4E1B94FFE100D68CB5 /* DataParser.m in Sources */,
 				FBEB8E141B9CCB930080BBD1 /* FullPostViewController.m in Sources */,
 				FBDEF3D81B9E857B005BD9F4 /* NavDropdownController.m in Sources */,
+				FBEB3A7B1B9F93DC00B57AAB /* FeaturedTileCollectionViewCell.m in Sources */,
 				FB99DEE61B9A1BD9007111B4 /* FeaturedStoryTableViewCell.m in Sources */,
 				FBDEF3D11B9E4D31005BD9F4 /* DropdownMenuController.m in Sources */,
 				FB714A181B94D16000D68CB5 /* main.m in Sources */,
