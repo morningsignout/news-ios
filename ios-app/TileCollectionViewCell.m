@@ -35,6 +35,7 @@ static const CGFloat titleHeight = 75.0f;
         _title.numberOfLines = 3;
         _title.textAlignment = NSTextAlignmentCenter;
         _title.backgroundColor = [UIColor colorWithWhite:1 alpha:0.8];
+        _title.clipsToBounds = YES;
     }
     
     return _title;
@@ -68,7 +69,7 @@ static const CGFloat titleHeight = 75.0f;
     // update frame position of subviews
     self.imageView.frame = self.contentView.bounds;
 //    self.title.frame = CGRectMake(0, self.contentView.bounds.size.height - titleHeight, self.contentView.bounds.size.width, titleHeight);
-    self.title.bounds = CGRectMake(0, 0, self.contentView.bounds.size.width, self.contentView.bounds.size.height / 2);//self.contentView.bounds;
+    self.title.frame = CGRectMake(0, 0, self.contentView.bounds.size.width, self.contentView.bounds.size.height / 2);//self.contentView.bounds;
 }
 
 @end
