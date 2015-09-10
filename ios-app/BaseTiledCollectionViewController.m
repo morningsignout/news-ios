@@ -108,7 +108,7 @@ static NSString * const reuseIdentifier = @"Cell";
             [self refreshPosts:refreshPosts];
         });
     });
-    //[task resume];
+
 }
 
 - (NSArray *)getDataForPage:(int)pageNum {
@@ -247,7 +247,7 @@ static NSString * const reuseIdentifier = @"Cell";
     dispatch_queue_t q = dispatch_queue_create("refresh latest", NULL);
     dispatch_async(q, ^{
         
-        NSArray * refreshPosts = [DataParser DataForSearchTerm:@"health" InPage:1];
+        NSArray * refreshPosts = [self getDataForTypeOfView];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [(UIRefreshControl *)sender endRefreshing];

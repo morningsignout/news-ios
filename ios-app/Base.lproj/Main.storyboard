@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14C2055" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Fqc-MG-jsb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Fqc-MG-jsb">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -750,7 +750,7 @@
                         <viewControllerLayoutGuide type="bottom" id="IZi-Ry-q0s"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="765-dq-NMh">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="538"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hzM-wl-Tfx">
@@ -828,7 +828,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="wIN-Bq-KB4"/>
-        <segue reference="dt6-XE-3GA"/>
+        <segue reference="G2O-cY-Em3"/>
         <segue reference="DXn-2w-hPS"/>
     </inferredMetricsTieBreakers>
 </document>
