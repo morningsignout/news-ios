@@ -52,9 +52,10 @@
     
     NSArray *h = [DataParser DataForPostsInYear:2015 AndInPage:1];
     [self dump:h];
+     */
 
     NSArray *i = [DataParser DataForAuthorInfoAndPostsWithAuthorID:238];
-    [self dump:i];*/
+    [self dump:i];
 }
 
 - (void)dataDidLoad {

@@ -13,10 +13,11 @@
 @property (nonatomic) int ID;
 @property (strong, nonatomic) NSString *name; // includes full name when object-mapping
 @property (strong, nonatomic) NSString *about;
+@property (strong, nonatomic) NSString *email;
 
 // will use ID to get array of posts author has written
 
-- (instancetype)initWith:(int)ID Name:(NSString *)Name About:(NSString *)About;
+- (instancetype)initWith:(int)ID Name:(NSString *)name About:(NSString *)about AndEmail:(NSString *)email;
 - (void)printInfo;
 
 @end
