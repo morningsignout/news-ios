@@ -40,7 +40,7 @@ static CGFloat marginFromTop = 50.0f;
 - (NSArray *)getDataForTypeOfView {
     NSArray *data = [DataParser DataForFeaturedPostsWithPageNumber:self.page];
     self.topFeatured = data.firstObject;
-    return data;
+    return [data subarrayWithRange:NSMakeRange(1, data.count - 1)];
 }
 
 #pragma mark - UICollectionViewDataSource
