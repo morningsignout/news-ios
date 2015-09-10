@@ -56,17 +56,7 @@ static NSString * const reuseIdentifier = @"Cell";
     
     tileHeight = CGSizeMake(1, 1.5);
     
-    // Initialize Refresh Control
-    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    
-    // Configure Refresh Control
-    [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
-    
-    // Configure View Controller
-    //[self.collectionView setRefreshControl:refreshControl];
-    [self.collectionView addSubview:refreshControl];
-    
-    [self.collectionView setContentInset:UIEdgeInsetsMake(refreshControl.frame.size.height,0,0,0)];
+    [self.collectionView setContentInset:UIEdgeInsetsMake(62,0,0,0)];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -238,24 +228,6 @@ static NSString * const reuseIdentifier = @"Cell";
         else
             postVC.post = nil;
     }
-}
-
-- (void)refresh:(id)sender {
-    NSLog(@"Refreshing");
-    
-    dispatch_queue_t q = dispatch_queue_create("refresh latest", NULL);
-    dispatch_async(q, ^{
-        
-        NSArray * refreshPosts = [self getDataForTypeOfView];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [(UIRefreshControl *)sender endRefreshing];
-            
-            [self refreshPosts:refreshPosts];
-        });
-    });
-    
-    
 }
 
 #pragma mark <UICollectionViewDelegate>

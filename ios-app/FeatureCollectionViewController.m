@@ -29,6 +29,15 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     NSLog(@"super load done");
     contentType = FEATURED;
     
+    // Initialize Refresh Control
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    
+    // Configure Refresh Control
+    [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    
+    // Configure View Controller
+    [self.collectionView addSubview:refreshControl];
+    
 }
 
 #pragma mark - Accessors
@@ -71,6 +80,24 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     }
     
     return nil;
+}
+
+- (void)refresh:(id)sender {
+    NSLog(@"Refreshing");
+    
+    dispatch_queue_t q = dispatch_queue_create("refresh latest", NULL);
+    dispatch_async(q, ^{
+        
+        NSArray * refreshPosts = [self getDataForTypeOfView];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [(UIRefreshControl *)sender endRefreshing];
+            
+            [self refreshPosts:refreshPosts];
+        });
+    });
+    
+    
 }
 
 #pragma mark - Navigation
