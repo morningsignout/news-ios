@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "BaseTiledCollectionViewController.h"
 
-@interface SearchTableViewController : BaseTiledCollectionViewController
-
+@interface SearchViewController : BaseTiledCollectionViewController
 
 @end

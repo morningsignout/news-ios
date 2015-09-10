@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14C2055" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Fqc-MG-jsb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Fqc-MG-jsb">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -339,9 +339,9 @@
                                 </connections>
                             </containerView>
                             <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IrH-m8-TVH" userLabel="Menu">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="150"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dyk-Ii-OI4" userLabel="Button - Home">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dyk-Ii-OI4" userLabel="Button - Featured">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
                                         <color key="backgroundColor" red="0.039215687659999998" green="0.2823529541" blue="0.41960787770000002" alpha="1" colorSpace="deviceRGB"/>
                                         <constraints>
@@ -357,9 +357,10 @@
                                         </state>
                                         <connections>
                                             <action selector="listButtonAction:" destination="04Z-Sl-c2u" eventType="touchUpInside" id="QYW-mO-2ot"/>
+                                            <action selector="tapFeaturedButton:" destination="04Z-Sl-c2u" eventType="touchUpInside" id="9Yg-aj-dgR"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CVd-ix-RwQ" userLabel="Button - Profile">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CVd-ix-RwQ" userLabel="Button - Search">
                                         <rect key="frame" x="0.0" y="50" width="600" height="50"/>
                                         <color key="backgroundColor" red="0.231372565" green="0.52549022440000004" blue="0.52549022440000004" alpha="1" colorSpace="deviceRGB"/>
                                         <constraints>
@@ -374,9 +375,10 @@
                                         </state>
                                         <connections>
                                             <action selector="listButtonAction:" destination="04Z-Sl-c2u" eventType="touchUpInside" id="MYW-Am-1q5"/>
+                                            <action selector="tapSearchButton:" destination="04Z-Sl-c2u" eventType="touchUpInside" id="5bk-2b-neV"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xt4-XH-rur" userLabel="Button - Photos">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xt4-XH-rur" userLabel="Button - Categories">
                                         <rect key="frame" x="0.0" y="100" width="600" height="50"/>
                                         <color key="backgroundColor" red="0.47450983520000001" green="0.74117648599999997" blue="0.60392159219999997" alpha="1" colorSpace="deviceRGB"/>
                                         <constraints>
@@ -391,17 +393,39 @@
                                         </state>
                                         <connections>
                                             <action selector="listButtonAction:" destination="04Z-Sl-c2u" eventType="touchUpInside" id="VYa-Hh-Qqp"/>
+                                            <action selector="tapCategoryButton:" destination="04Z-Sl-c2u" eventType="touchUpInside" id="Rhs-0H-FGQ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iMh-Ut-B68" userLabel="Button - Bookmarks">
+                                        <rect key="frame" x="0.0" y="150" width="600" height="50"/>
+                                        <color key="backgroundColor" red="0.231372565" green="0.52549022440000004" blue="0.52549022440000004" alpha="1" colorSpace="deviceRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="ro2-t5-LRB"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Profile">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="listButtonAction:" destination="04Z-Sl-c2u" eventType="touchUpInside" id="PYE-Wc-93F"/>
+                                            <action selector="tapBookmarkButton:" destination="04Z-Sl-c2u" eventType="touchUpInside" id="E6u-5o-da7"/>
+                                            <action selector="tapSearchButton:" destination="04Z-Sl-c2u" eventType="touchUpInside" id="fzg-R2-GrL"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.039215687659999998" green="0.2823529541" blue="0.41960787770000002" alpha="1" colorSpace="deviceRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="CVd-ix-RwQ" secondAttribute="trailing" id="6hJ-tq-adX"/>
+                                    <constraint firstAttribute="trailing" secondItem="iMh-Ut-B68" secondAttribute="trailing" id="BSv-48-UY3"/>
                                     <constraint firstItem="Dyk-Ii-OI4" firstAttribute="leading" secondItem="IrH-m8-TVH" secondAttribute="leading" id="Kk8-GA-QNG"/>
                                     <constraint firstAttribute="trailing" secondItem="Dyk-Ii-OI4" secondAttribute="trailing" id="cH2-TS-x8y"/>
                                     <constraint firstItem="Xt4-XH-rur" firstAttribute="leading" secondItem="IrH-m8-TVH" secondAttribute="leading" id="oHQ-my-QQW"/>
                                     <constraint firstAttribute="trailing" secondItem="Xt4-XH-rur" secondAttribute="trailing" id="pVE-qL-vRa"/>
                                     <constraint firstItem="CVd-ix-RwQ" firstAttribute="leading" secondItem="IrH-m8-TVH" secondAttribute="leading" id="sCR-y5-ph9"/>
+                                    <constraint firstItem="iMh-Ut-B68" firstAttribute="leading" secondItem="IrH-m8-TVH" secondAttribute="leading" id="z3O-aL-cfB"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jKq-DV-vjz" userLabel="Menu Bar">
@@ -466,6 +490,8 @@
                         <outletCollection property="buttons" destination="Dyk-Ii-OI4" id="osc-w9-S1J"/>
                         <outletCollection property="buttons" destination="CVd-ix-RwQ" id="RA7-tK-uw1"/>
                         <outletCollection property="buttons" destination="Xt4-XH-rur" id="njM-R8-p4P"/>
+                        <outletCollection property="buttons" destination="iMh-Ut-B68" id="oAQ-9X-eHL"/>
+                        <segue destination="Ign-xr-Y8r" kind="custom" identifier="toSearch" customClass="FadeSegue" id="wIN-Bq-KB4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uZ9-qg-9zj" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -489,16 +515,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IS9-UY-Uad">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            <containerView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="osG-sd-4UD">
+                                <rect key="frame" x="0.0" y="62" width="600" height="538"/>
                                 <connections>
-                                    <segue destination="Isq-aP-Ld9" kind="embed" id="sIl-pe-3ur"/>
+                                    <segue destination="Rxn-ZQ-EJ5" kind="embed" id="O3I-5b-QjJ"/>
                                 </connections>
                             </containerView>
                             <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q9j-gQ-fZS" userLabel="Menu">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="150"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="199"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jll-te-Z4F" userLabel="Button - Home">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jll-te-Z4F" userLabel="Button - Featured">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
                                         <color key="backgroundColor" red="0.039215687659999998" green="0.2823529541" blue="0.41960787770000002" alpha="1" colorSpace="deviceRGB"/>
                                         <constraints>
@@ -514,9 +540,10 @@
                                         </state>
                                         <connections>
                                             <action selector="listButtonAction:" destination="Ign-xr-Y8r" eventType="touchUpInside" id="408-6q-jGC"/>
+                                            <action selector="tapFeaturedButton:" destination="Ign-xr-Y8r" eventType="touchUpInside" id="23Y-Rx-1cb"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ryS-ni-jt7" userLabel="Button - Profile">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ryS-ni-jt7" userLabel="Button - Search">
                                         <rect key="frame" x="0.0" y="50" width="600" height="50"/>
                                         <color key="backgroundColor" red="0.231372565" green="0.52549022440000004" blue="0.52549022440000004" alpha="1" colorSpace="deviceRGB"/>
                                         <constraints>
@@ -531,9 +558,10 @@
                                         </state>
                                         <connections>
                                             <action selector="listButtonAction:" destination="Ign-xr-Y8r" eventType="touchUpInside" id="WEw-Fv-mkB"/>
+                                            <action selector="tapSearchButton:" destination="Ign-xr-Y8r" eventType="touchUpInside" id="3le-Y6-Y3H"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="58A-dP-LiC" userLabel="Button - Photos">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="58A-dP-LiC" userLabel="Button - Categories">
                                         <rect key="frame" x="0.0" y="100" width="600" height="50"/>
                                         <color key="backgroundColor" red="0.47450983520000001" green="0.74117648599999997" blue="0.60392159219999997" alpha="1" colorSpace="deviceRGB"/>
                                         <constraints>
@@ -548,6 +576,25 @@
                                         </state>
                                         <connections>
                                             <action selector="listButtonAction:" destination="Ign-xr-Y8r" eventType="touchUpInside" id="eNc-fM-Pco"/>
+                                            <action selector="tapCategoryButton:" destination="Ign-xr-Y8r" eventType="touchUpInside" id="8a1-kd-cqX"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0cq-Gk-MBO" userLabel="Button - Bookmarks">
+                                        <rect key="frame" x="0.0" y="149" width="600" height="50"/>
+                                        <color key="backgroundColor" red="0.47450983520000001" green="0.74117648599999997" blue="0.60392159219999997" alpha="1" colorSpace="deviceRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="8gs-un-Nug"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Bookmarks">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="listButtonAction:" destination="Ign-xr-Y8r" eventType="touchUpInside" id="U3n-zG-ygN"/>
+                                            <action selector="tapBookmarkButton:" destination="Ign-xr-Y8r" eventType="touchUpInside" id="VwB-x0-pqL"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -558,6 +605,8 @@
                                     <constraint firstAttribute="trailing" secondItem="58A-dP-LiC" secondAttribute="trailing" id="EJq-d7-I3i"/>
                                     <constraint firstItem="58A-dP-LiC" firstAttribute="leading" secondItem="Q9j-gQ-fZS" secondAttribute="leading" id="Fwa-8Q-GPJ"/>
                                     <constraint firstItem="ryS-ni-jt7" firstAttribute="leading" secondItem="Q9j-gQ-fZS" secondAttribute="leading" id="JaA-XE-unh"/>
+                                    <constraint firstItem="0cq-Gk-MBO" firstAttribute="leading" secondItem="Q9j-gQ-fZS" secondAttribute="leading" id="j3b-Xb-pda"/>
+                                    <constraint firstAttribute="trailing" secondItem="0cq-Gk-MBO" secondAttribute="trailing" id="pVC-St-Vr4"/>
                                     <constraint firstAttribute="trailing" secondItem="ryS-ni-jt7" secondAttribute="trailing" id="rhv-fR-w5r"/>
                                 </constraints>
                             </view>
@@ -600,107 +649,50 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="osG-sd-4UD" firstAttribute="top" secondItem="KpQ-bz-JX4" secondAttribute="bottom" id="2dc-K4-Bbj"/>
+                            <constraint firstAttribute="bottom" secondItem="osG-sd-4UD" secondAttribute="bottom" id="5LB-MG-Q5M"/>
                             <constraint firstItem="KpQ-bz-JX4" firstAttribute="top" secondItem="g8t-kO-hkO" secondAttribute="top" id="6uF-zf-W9F"/>
-                            <constraint firstItem="IS9-UY-Uad" firstAttribute="bottom" secondItem="K0v-GN-2O2" secondAttribute="top" id="8fp-pd-8pK"/>
-                            <constraint firstItem="IS9-UY-Uad" firstAttribute="leading" secondItem="Q9j-gQ-fZS" secondAttribute="leading" id="BS3-j6-WaQ"/>
-                            <constraint firstItem="IS9-UY-Uad" firstAttribute="trailing" secondItem="KpQ-bz-JX4" secondAttribute="trailing" id="Ocv-1Z-dQK"/>
                             <constraint firstItem="KpQ-bz-JX4" firstAttribute="leading" secondItem="g8t-kO-hkO" secondAttribute="leading" id="Scg-LT-bCN"/>
-                            <constraint firstItem="IS9-UY-Uad" firstAttribute="top" secondItem="Q9j-gQ-fZS" secondAttribute="top" id="Uos-qk-vTh"/>
-                            <constraint firstItem="IS9-UY-Uad" firstAttribute="top" secondItem="KpQ-bz-JX4" secondAttribute="top" id="Vdv-qo-tDP"/>
+                            <constraint firstAttribute="trailing" secondItem="osG-sd-4UD" secondAttribute="trailing" id="aPI-rj-0Ai"/>
                             <constraint firstItem="Q9j-gQ-fZS" firstAttribute="leading" secondItem="g8t-kO-hkO" secondAttribute="leading" id="bQb-2L-rBd"/>
+                            <constraint firstItem="osG-sd-4UD" firstAttribute="leading" secondItem="g8t-kO-hkO" secondAttribute="leading" id="rKI-BT-0ij"/>
                             <constraint firstAttribute="trailing" secondItem="KpQ-bz-JX4" secondAttribute="trailing" id="siP-Fp-1KF"/>
-                            <constraint firstItem="IS9-UY-Uad" firstAttribute="top" secondItem="g8t-kO-hkO" secondAttribute="top" id="uLE-PJ-XBp"/>
                             <constraint firstAttribute="trailing" secondItem="Q9j-gQ-fZS" secondAttribute="trailing" id="yTH-Tx-o29"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="TVv-xB-w8F"/>
                     <connections>
-                        <outlet property="container" destination="IS9-UY-Uad" id="eyk-Kk-fEA"/>
+                        <outlet property="container" destination="osG-sd-4UD" id="jj4-OP-tsJ"/>
                         <outlet property="menu" destination="Q9j-gQ-fZS" id="yEv-qK-Ms8"/>
                         <outlet property="menuButton" destination="pUQ-gH-GBl" id="xoV-hT-UC2"/>
                         <outlet property="menubar" destination="KpQ-bz-JX4" id="inF-3o-Ew2"/>
+                        <outlet property="searchDisplayController" destination="CMe-fX-Gog" id="2tE-kZ-K1c"/>
                         <outlet property="titleLabel" destination="mJS-i2-NKj" id="qsx-TS-vAv"/>
                         <outletCollection property="buttons" destination="Jll-te-Z4F" id="bEi-aE-ycS"/>
                         <outletCollection property="buttons" destination="ryS-ni-jt7" id="xKY-BN-bm4"/>
                         <outletCollection property="buttons" destination="58A-dP-LiC" id="byn-8Z-O4f"/>
+                        <outletCollection property="buttons" destination="0cq-Gk-MBO" id="AyG-Vo-5aX"/>
+                        <segue destination="04Z-Sl-c2u" kind="custom" identifier="toFeatured" customClass="FadeSegue" id="gYp-U7-AsZ"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HMP-3c-fIG" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="nrO-WT-9aT">
                     <connections>
                         <action selector="displayGestureForTapRecognizer:" destination="Ign-xr-Y8r" id="ZiG-mS-G7c"/>
                     </connections>
                 </tapGestureRecognizer>
-            </objects>
-            <point key="canvasLocation" x="-504" y="1132"/>
-        </scene>
-        <!--Search Table View Controller-->
-        <scene sceneID="ZrH-AY-IHw">
-            <objects>
-                <viewController id="Isq-aP-Ld9" customClass="SearchTableViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="lM1-oX-B7u"/>
-                        <viewControllerLayoutGuide type="bottom" id="xRa-wR-44n"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="wlp-7L-puI">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J5A-qe-Q0w">
-                                <rect key="frame" x="0.0" y="130" width="600" height="470"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <segue destination="qFf-83-yyT" kind="embed" id="fIv-Vl-mOf"/>
-                                </connections>
-                            </containerView>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Ohc-oU-60o">
-                                <rect key="frame" x="0.0" y="78" width="600" height="44"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="Isq-aP-Ld9" id="gGD-CY-hWs"/>
-                                </connections>
-                            </searchBar>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="0.43529412150000002" blue="0.81176471709999998" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="J5A-qe-Q0w" firstAttribute="top" secondItem="lM1-oX-B7u" secondAttribute="bottom" constant="130" id="D2h-pP-96t"/>
-                            <constraint firstAttribute="trailing" secondItem="J5A-qe-Q0w" secondAttribute="trailing" id="Ngy-gC-G0N"/>
-                            <constraint firstItem="J5A-qe-Q0w" firstAttribute="bottom" secondItem="xRa-wR-44n" secondAttribute="top" id="Rsv-gg-pAj"/>
-                            <constraint firstItem="J5A-qe-Q0w" firstAttribute="top" secondItem="wlp-7L-puI" secondAttribute="top" constant="130" id="eG5-qa-VeQ"/>
-                            <constraint firstItem="J5A-qe-Q0w" firstAttribute="top" secondItem="Ohc-oU-60o" secondAttribute="bottom" constant="8" id="ekA-f2-Mwf"/>
-                            <constraint firstAttribute="trailing" secondItem="Ohc-oU-60o" secondAttribute="trailing" id="fOf-Ic-Hmh"/>
-                            <constraint firstItem="Ohc-oU-60o" firstAttribute="top" secondItem="wlp-7L-puI" secondAttribute="top" constant="78" id="sx6-d2-cBF"/>
-                            <constraint firstItem="Ohc-oU-60o" firstAttribute="leading" secondItem="wlp-7L-puI" secondAttribute="leading" id="vtP-S7-aoG"/>
-                            <constraint firstItem="J5A-qe-Q0w" firstAttribute="leading" secondItem="wlp-7L-puI" secondAttribute="leading" id="zTY-OA-vSP"/>
-                        </constraints>
-                    </view>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HMP-3c-fIG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="CMe-fX-Gog">
                     <connections>
-                        <outlet property="searchBar" destination="Ohc-oU-60o" id="RU0-fZ-rpS"/>
-                        <outlet property="searchDisplayController" destination="BHi-w4-v3s" id="GVT-C5-RXm"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bVc-N7-TSW" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="CHN-Jq-ygX">
-                    <connections>
-                        <outlet property="delegate" destination="Isq-aP-Ld9" id="s3C-2M-VDH"/>
-                        <outlet property="searchContentsController" destination="Isq-aP-Ld9" id="Ote-ZV-ub1"/>
-                        <outlet property="searchResultsDataSource" destination="Isq-aP-Ld9" id="bem-WG-IVb"/>
-                        <outlet property="searchResultsDelegate" destination="Isq-aP-Ld9" id="6d1-zD-kvI"/>
-                    </connections>
-                </searchDisplayController>
-                <searchDisplayController id="BHi-w4-v3s">
-                    <connections>
-                        <outlet property="delegate" destination="Isq-aP-Ld9" id="t3A-Dc-zDH"/>
-                        <outlet property="searchBar" destination="Ohc-oU-60o" id="hJe-sl-V4o"/>
-                        <outlet property="searchContentsController" destination="Isq-aP-Ld9" id="YVu-G7-aKi"/>
-                        <outlet property="searchResultsDataSource" destination="Isq-aP-Ld9" id="ThQ-t2-Suk"/>
-                        <outlet property="searchResultsDelegate" destination="Isq-aP-Ld9" id="qJZ-g8-ynQ"/>
+                        <outlet property="delegate" destination="Ign-xr-Y8r" id="ZfI-ol-o5g"/>
+                        <outlet property="searchContentsController" destination="Ign-xr-Y8r" id="mZP-KV-OjI"/>
+                        <outlet property="searchResultsDataSource" destination="Ign-xr-Y8r" id="Bz7-EX-pOL"/>
+                        <outlet property="searchResultsDelegate" destination="Ign-xr-Y8r" id="EKj-N8-OdF"/>
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="208" y="1126"/>
+            <point key="canvasLocation" x="-1284" y="1166"/>
         </scene>
         <!--Feature Collection View Controller-->
         <scene sceneID="phn-ig-E6L">
@@ -807,29 +799,31 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P5g-Yy-exQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1316" y="1132"/>
+            <point key="canvasLocation" x="-2096" y="1166"/>
         </scene>
-        <!--Base Tiled Collection View Controller-->
-        <scene sceneID="opM-g9-9db">
+        <!--Search View Controller-->
+        <scene sceneID="aXv-Nf-j1K">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="qFf-83-yyT" customClass="BaseTiledCollectionViewController" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="Rxn-ZQ-EJ5" customClass="SearchViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="thv-J3-9Nk"/>
-                        <viewControllerLayoutGuide type="bottom" id="Dzm-eU-43t"/>
+                        <viewControllerLayoutGuide type="top" id="lAw-77-TvF"/>
+                        <viewControllerLayoutGuide type="bottom" id="L61-IP-Mob"/>
                     </layoutGuides>
-                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="5hN-F9-L1u">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="470"/>
+                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="nPw-i1-LBZ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="538"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <toolbarItems/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="K3W-w2-bMW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LNc-4U-icW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="981" y="1125.5"/>
+            <point key="canvasLocation" x="-521" y="1174"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="wIN-Bq-KB4"/>
+        <segue reference="gYp-U7-AsZ"/>
         <segue reference="DXn-2w-hPS"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -9,7 +9,7 @@
 #import "NavDropdownController.h"
 
 NSString * const section[] = {
-    @"Featured", @"Search", @"Categories"
+    @"Featured", @"Search", @"Categories", @"Bookmarks"
 };
 
 @interface NavDropdownController ()
@@ -37,7 +37,7 @@ NSString * const section[] = {
     // EXAMPLE: To set the menubar background colour programmatically.
     // FYI: There is a bug where the color comes out differently when set programmatically
     // than when set in XCode Interface builder, and I don't know why.
-    //[self setMenubarBackground:[UIColor greenColor]];
+    [self setMenubarBackground:[UIColor darkGrayColor]];
     
     // Replace menu button with an IonIcon.
     [self.menuButton setTitle:@"Menu" forState:UIControlStateNormal];
@@ -58,6 +58,26 @@ NSString * const section[] = {
     //[self setFadeAmountWithAlpha:0.2f];
     
     
+}
+- (IBAction)tapFeaturedButton:(id)sender {
+    NSLog(@"tapped feature");
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self performSegueWithIdentifier:@"toFeatured" sender:self];
+    });
+    
+}
+
+- (IBAction)tapSearchButton:(id)sender {
+    NSLog(@"tapped Search");
+    [self performSegueWithIdentifier:@"toSearch" sender:self];
+}
+
+- (IBAction)tapCategoryButton:(id)sender {
+    NSLog(@"tapped category");
+}
+
+- (IBAction)tapBookmarkButton:(id)sender {
+    NSLog(@"tapped bookmark");
 }
 
 /*
