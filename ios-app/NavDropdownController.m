@@ -7,6 +7,7 @@
 //
 
 #import "NavDropdownController.h"
+#import "FadeSegue.h"
 
 NSString * const section[] = {
     @"Featured", @"Search", @"Categories", @"Bookmarks"
@@ -23,7 +24,7 @@ NSString * const section[] = {
     // Do any additional setup after loading the view.
 }
 
-- (void)viewDidAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
     // Customize your menu programmatically here.
     [self customizeMenu];
 }
@@ -59,12 +60,17 @@ NSString * const section[] = {
     
     
 }
-- (IBAction)tapFeaturedButton:(id)sender {
-    NSLog(@"tapped feature");
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self performSegueWithIdentifier:@"toFeatured" sender:self];
-    });
-    
+
+//- (IBAction)tapFeaturedButton:(id)sender {
+//    NSLog(@"tapped feature");
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [self performSegueWithIdentifier:@"toFeatured" sender:self];
+//    });
+//    
+//}
+
+- (IBAction)unwindToFeatureView:(UIStoryboardSegue *)unwindSegue {
+
 }
 
 - (IBAction)tapSearchButton:(id)sender {
