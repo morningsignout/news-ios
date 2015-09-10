@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="cbn-zy-xFG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14C2055" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Fqc-MG-jsb">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -514,7 +514,11 @@
                     </connections>
                 </tableViewController>
             </objects>
+<<<<<<< HEAD
             <point key="canvasLocation" x="-271" y="1132"/>
+=======
+            <point key="canvasLocation" x="-1316" y="1236"/>
+>>>>>>> frontend
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="O2e-qQ-cof">
@@ -594,7 +598,11 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KhO-Ue-n1F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+<<<<<<< HEAD
             <point key="canvasLocation" x="-1329" y="1132"/>
+=======
+            <point key="canvasLocation" x="-2054" y="1236"/>
+>>>>>>> frontend
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
