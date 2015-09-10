@@ -14,6 +14,7 @@
 
 @interface SearchTableViewController () <UISearchBarDelegate, UISearchResultsUpdating>
 
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) UISearchController *searchController;
 @property (strong, nonatomic) NSString *searchTerm;
 
@@ -35,12 +36,18 @@
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = self;
     self.searchController.dimsBackgroundDuringPresentation = NO;
-    self.searchController.searchBar.delegate = self;
-    [self.searchController.searchBar becomeFirstResponder];
-    //[self.searchController.searchBar sizeToFit];
-    self.searchController.searchBar.frame = CGRectMake(0, 0, self.view.bounds.size.width, 100);
-    [self.collectionView addSubview:self.searchController.searchBar];
+//    self.searchController.searchBar.delegate = self;
+//    [self.searchController.searchBar becomeFirstResponder];
+//
+//    [self.searchController.searchBar sizeToFit];
+//    [self.view addSubview:self.searchController.searchBar];
+//    self.searchController.searchBar.frame = CGRectMake(0, self.view.bounds.size.height - 100, self.view.bounds.size.width, 100);
+
+    self.searchBar.delegate = self;
+    [self.searchBar becomeFirstResponder];
     
+    [self.searchBar sizeToFit];
+
 }
 
 - (void)didReceiveMemoryWarning {

@@ -22,7 +22,8 @@
 #define HEADER_IDENTIFIER @"TopFeatured"
 
 static NSString * const SEGUE_IDENTIFIER = @"viewPost";
-static CGFloat marginFromTop = 50.0f;
+//static CGFloat marginFromTop = 50.0f;
+static CGFloat marginFromTop = 0;
 
 @interface BaseTiledCollectionViewController () {
     Post *seguePost;
