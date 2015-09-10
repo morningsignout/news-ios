@@ -98,16 +98,16 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)loadPosts {
     
     [self.spinner startAnimating];
-//    dispatch_queue_t q = dispatch_queue_create("refresh latest", NULL);
-//    dispatch_async(q, ^{
-//        
-//        NSArray * refreshPosts = [self getDataForPage:self.page];
-//        
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            
-//            [self refreshPosts:refreshPosts];
-//        });
-//    });
+    dispatch_queue_t q = dispatch_queue_create("refresh latest", NULL);
+    dispatch_async(q, ^{
+        
+        NSArray * refreshPosts = [self getDataForPage:self.page];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.spinner stopAnimating];
+            [self refreshPosts:refreshPosts];
+        });
+    });
     //[task resume];
 }
 
@@ -147,7 +147,7 @@ static NSString * const reuseIdentifier = @"Cell";
         _collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
-        _collectionView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.7];
+        _collectionView.backgroundColor = [UIColor clearColor];//colorWithWhite:0.9 alpha:0.7];
         [_collectionView registerClass:[TileCollectionViewCellA class]
             forCellWithReuseIdentifier:CELL_IDENTIFIER];
         [_collectionView registerClass:[TileCollectionViewCellB class]

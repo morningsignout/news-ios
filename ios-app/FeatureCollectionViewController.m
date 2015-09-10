@@ -26,7 +26,7 @@ static CGFloat marginFromTop = 50.0f;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.topFeatured = [[DataParser DataForRecentPostsWithPageNumber:1] firstObject];
+    //self.topFeatured = [[DataParser DataForRecentPostsWithPageNumber:1] firstObject];
     NSLog(@"super load done");
     contentType = FEATURED;
     
@@ -66,7 +66,7 @@ static CGFloat marginFromTop = 50.0f;
             reusableView.imageView.image = image;
         } failure:nil];
         
-        reusableView.backgroundColor = [UIColor whiteColor];
+        reusableView.backgroundColor = [UIColor clearColor];
         
         return reusableView;
     }

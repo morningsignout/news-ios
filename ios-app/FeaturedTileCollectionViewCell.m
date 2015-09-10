@@ -28,7 +28,7 @@
     self.excerpt.lineBreakMode = NSLineBreakByWordWrapping;
     self.excerpt.numberOfLines = 3;
     self.excerpt.textAlignment = NSTextAlignmentCenter;
-    self.excerpt.backgroundColor = [UIColor whiteColor];
+    self.excerpt.backgroundColor = [UIColor clearColor];
     [self.excerpt setFont:[UIFont systemFontOfSize:13]];
 }
 
