@@ -261,7 +261,21 @@ NSDateFormatter *dateToStringFormatter;
 
 // Returns an array of posts related to the query passed in
 + (NSArray *)DataForSearchTerm:(NSString *)query InPage:(int)page {
+    if ([query isEqualToString:@""] || !query) {
+        return nil;
+    }
     NSString *url = [URLParser URLForQuery:[URLParser URLForSearchTerm:query] WithPageNumber:page];
+    NSDictionary *parseData = [self parseDataFromURL:url];
+    
+    return [self parsePostsFromDictionaries:parseData];
+}
+
++ (NSArray *)DataForSearchTerm:(NSString *)query InPage:(int)page WithCount:(int)count {
+    if ([query isEqualToString:@""] || !query) {
+        return nil;
+    }
+    NSString *url = [URLParser URLForQuery:[URLParser URLForSearchTerm:query] WithPageNumber:page];
+    url = [URLParser URLForQuery:url WithCountLimit:count];
     NSDictionary *parseData = [self parseDataFromURL:url];
     
     return [self parsePostsFromDictionaries:parseData];

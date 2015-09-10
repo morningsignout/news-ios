@@ -27,60 +27,20 @@ static CGFloat marginFromTop = 50.0f;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.topFeatured = [[DataParser DataForRecentPostsWithPageNumber:1] firstObject];
+    contentType = FEATURED;
 }
 
 #pragma mark - Accessors
-
-//- (UICollectionView *)collectionView {
-//    if (!_collectionView) {
-//        CHTCollectionViewWaterfallLayout *layout = [[CHTCollectionViewWaterfallLayout alloc] init];
-//        
-//        layout.sectionInset = UIEdgeInsetsMake(10,10,10,10);
-//        layout.headerHeight = self.view.frame.size.height / 1.5;
-//        // layout.footerHeight = 10;
-//        layout.minimumColumnSpacing = 10.0f;
-//        layout.minimumInteritemSpacing = 10.0f;
-//        
-//        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, marginFromTop, self.view.bounds.size.width, self.view.bounds.size.height - marginFromTop) collectionViewLayout:layout];
-//        _collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-//        _collectionView.dataSource = self;
-//        _collectionView.delegate = self;
-//        _collectionView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.7];
-//        [_collectionView registerClass:[TileCollectionViewCellA class]
-//            forCellWithReuseIdentifier:CELL_IDENTIFIER];
-//        [_collectionView registerClass:[TileCollectionViewCellB class]
-//            forCellWithReuseIdentifier:CELL_IDENTIFIER_B];
-//        [_collectionView registerClass:[TileCollectionViewCellC class]
-//            forCellWithReuseIdentifier:CELL_IDENTIFIER_C];
-//        
-//        [_collectionView registerClass:[FeaturedTileCollectionViewCell class]
-//            forSupplementaryViewOfKind:CHTCollectionElementKindSectionHeader
-//                   withReuseIdentifier:HEADER_IDENTIFIER];
-//    }
-//    return _collectionView;
-//}
 
 - (BOOL)isFeaturedPage {
     return YES;
 }
 
-#pragma mark - UICollectionViewDataSource
+- (NSArray *)getDataForTypeOfView {
+    return [DataParser DataForFeaturedPostsWithPageNumber:self.page];
+}
 
-//- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-//    
-//    if (indexPath.item % 3 == 0) {
-//        TileCollectionViewCellA *cellA = (TileCollectionViewCellA *)[self setTileOfClass:@"TileCollectionViewCellA" WithIndexPath:indexPath];
-//        return cellA;
-//        
-//    } else if (indexPath.item % 3 == 1) {
-//        TileCollectionViewCellB *cellB = (TileCollectionViewCellB *)[self setTileOfClass:@"TileCollectionViewCellB" WithIndexPath:indexPath];
-//        return cellB;
-//    } else {
-//        TileCollectionViewCellC *cellC = (TileCollectionViewCellC *)[self setTileOfClass:@"TileCollectionViewCellC" WithIndexPath:indexPath];
-//        return cellC;
-//    }
-//    
-//}
+#pragma mark - UICollectionViewDataSource
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     
@@ -110,24 +70,26 @@ static CGFloat marginFromTop = 50.0f;
     return nil;
 }
 
+#pragma mark - Navigation
+
 - (void)showTopFeatured:(UITapGestureRecognizer *)recognizer {
     [self performSegueWithIdentifier:SEGUE_IDENTIFIER sender:self.topFeatured];
 }
 
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    if ([segue.identifier isEqualToString:SEGUE_IDENTIFIER] && [segue.destinationViewController isKindOfClass:[FullPostViewController class]]) {
-        FullPostViewController *postVC = segue.destinationViewController;
-        if ([sender isKindOfClass:[Post class]])
-            postVC.post = sender;
-        else
-            postVC.post = nil;
-    }
-}
+
+//// In a storyboard-based application, you will often want to do a little preparation before navigation
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//    // Get the new view controller using [segue destinationViewController].
+//    // Pass the selected object to the new view controller.
+//    if ([segue.identifier isEqualToString:SEGUE_IDENTIFIER] && [segue.destinationViewController isKindOfClass:[FullPostViewController class]]) {
+//        FullPostViewController *postVC = segue.destinationViewController;
+//        if ([sender isKindOfClass:[Post class]])
+//            postVC.post = sender;
+//        else
+//            postVC.post = nil;
+//    }
+//}
 
 
 @end

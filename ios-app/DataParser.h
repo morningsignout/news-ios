@@ -38,6 +38,7 @@
 + (NSArray *)DataForCategories;
 + (NSArray *)DataForIndexNavigation;
 + (NSArray *)DataForSearchTerm:(NSString *)query InPage:(int)page;
++ (NSArray *)DataForSearchTerm:(NSString *)query InPage:(int)page WithCount:(int)count;
 
 
 @end
