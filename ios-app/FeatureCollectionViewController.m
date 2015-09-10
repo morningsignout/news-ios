@@ -26,7 +26,8 @@ static CGFloat marginFromTop = 50.0f;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.topFeatured = [[DataParser DataForRecentPostsWithPageNumber:1] firstObject];
+    
+    NSLog(@"super load done");
     contentType = FEATURED;
 }
 
@@ -37,7 +38,9 @@ static CGFloat marginFromTop = 50.0f;
 }
 
 - (NSArray *)getDataForTypeOfView {
-    return [DataParser DataForFeaturedPostsWithPageNumber:self.page];
+    NSArray *data = [DataParser DataForFeaturedPostsWithPageNumber:self.page];
+    self.topFeatured = data.firstObject;
+    return data;
 }
 
 #pragma mark - UICollectionViewDataSource
