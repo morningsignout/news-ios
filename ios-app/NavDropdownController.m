@@ -8,6 +8,10 @@
 
 #import "NavDropdownController.h"
 
+NSString * const section[] = {
+    @"Featured", @"Search", @"Categories"
+};
+
 @interface NavDropdownController ()
 
 @end
@@ -37,6 +41,12 @@
     
     // Replace menu button with an IonIcon.
     [self.menuButton setTitle:@"Menu" forState:UIControlStateNormal];
+    
+    for (int i = 0; i < self.buttons.count; i++) {
+        UIButton *button = self.buttons[i];
+        [button setTitle:section[i] forState:UIControlStateNormal];
+    }
+
     
     //Uncomment to stop drop 'Triangle' from appearing
     //[self dropShapeShouldShowWhenOpen:NO];

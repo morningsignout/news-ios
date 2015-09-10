@@ -10,6 +10,7 @@
 #import "BaseTiledCollectionViewController.h"
 #import "DataParser.h"
 #import "Post.h"
+#import "NavDropdownController.h"
 
 @interface SearchTableViewController () <UISearchBarDelegate, UISearchResultsUpdating>
 
@@ -30,15 +31,16 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    self.definesPresentationContext = YES;
+    //self.definesPresentationContext = YES;
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = self;
     self.searchController.dimsBackgroundDuringPresentation = NO;
     self.searchController.searchBar.delegate = self;
     [self.searchController.searchBar becomeFirstResponder];
-    [self.searchController.searchBar sizeToFit];
+    //[self.searchController.searchBar sizeToFit];
+    self.searchController.searchBar.frame = CGRectMake(0, 0, self.view.bounds.size.width, 100);
     [self.collectionView addSubview:self.searchController.searchBar];
-
+    
 }
 
 - (void)didReceiveMemoryWarning {
