@@ -750,7 +750,7 @@
                         <viewControllerLayoutGuide type="bottom" id="IZi-Ry-q0s"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="765-dq-NMh">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="538"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hzM-wl-Tfx">
@@ -817,6 +817,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <toolbarItems/>
+                    <connections>
+                        <segue destination="ouP-Yc-jsf" kind="show" identifier="viewPost" id="dt6-XE-3GA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LNc-4U-icW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -825,6 +828,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="wIN-Bq-KB4"/>
+        <segue reference="dt6-XE-3GA"/>
         <segue reference="DXn-2w-hPS"/>
     </inferredMetricsTieBreakers>
 </document>
