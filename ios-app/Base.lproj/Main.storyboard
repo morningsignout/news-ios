@@ -357,7 +357,6 @@
                                         </state>
                                         <connections>
                                             <action selector="listButtonAction:" destination="04Z-Sl-c2u" eventType="touchUpInside" id="QYW-mO-2ot"/>
-                                            <action selector="tapFeaturedButton:" destination="04Z-Sl-c2u" eventType="touchUpInside" id="9Yg-aj-dgR"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CVd-ix-RwQ" userLabel="Button - Search">
@@ -491,7 +490,7 @@
                         <outletCollection property="buttons" destination="CVd-ix-RwQ" id="RA7-tK-uw1"/>
                         <outletCollection property="buttons" destination="Xt4-XH-rur" id="njM-R8-p4P"/>
                         <outletCollection property="buttons" destination="iMh-Ut-B68" id="oAQ-9X-eHL"/>
-                        <segue destination="Ign-xr-Y8r" kind="custom" identifier="toSearch" customClass="FadeSegue" id="wIN-Bq-KB4"/>
+                        <segue destination="Ign-xr-Y8r" kind="show" identifier="toSearch" id="wIN-Bq-KB4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uZ9-qg-9zj" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -540,12 +539,12 @@
                                         </state>
                                         <connections>
                                             <action selector="listButtonAction:" destination="Ign-xr-Y8r" eventType="touchUpInside" id="408-6q-jGC"/>
-                                            <action selector="tapFeaturedButton:" destination="Ign-xr-Y8r" eventType="touchUpInside" id="23Y-Rx-1cb"/>
+                                            <segue destination="wEK-UE-auq" kind="unwind" unwindAction="unwindToFeatureView:" id="nWu-Pw-F7j"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ryS-ni-jt7" userLabel="Button - Search">
                                         <rect key="frame" x="0.0" y="50" width="600" height="50"/>
-                                        <color key="backgroundColor" red="0.231372565" green="0.52549022440000004" blue="0.52549022440000004" alpha="1" colorSpace="deviceRGB"/>
+                                        <color key="backgroundColor" red="0.18431372549019609" green="0.45490196078431372" blue="0.45098039215686275" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="kQ5-n4-f0l"/>
                                         </constraints>
@@ -558,7 +557,6 @@
                                         </state>
                                         <connections>
                                             <action selector="listButtonAction:" destination="Ign-xr-Y8r" eventType="touchUpInside" id="WEw-Fv-mkB"/>
-                                            <action selector="tapSearchButton:" destination="Ign-xr-Y8r" eventType="touchUpInside" id="3le-Y6-Y3H"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="58A-dP-LiC" userLabel="Button - Categories">
@@ -581,7 +579,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0cq-Gk-MBO" userLabel="Button - Bookmarks">
                                         <rect key="frame" x="0.0" y="149" width="600" height="50"/>
-                                        <color key="backgroundColor" red="0.47450983520000001" green="0.74117648599999997" blue="0.60392159219999997" alpha="1" colorSpace="deviceRGB"/>
+                                        <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="8gs-un-Nug"/>
                                         </constraints>
@@ -674,7 +672,6 @@
                         <outletCollection property="buttons" destination="ryS-ni-jt7" id="xKY-BN-bm4"/>
                         <outletCollection property="buttons" destination="58A-dP-LiC" id="byn-8Z-O4f"/>
                         <outletCollection property="buttons" destination="0cq-Gk-MBO" id="AyG-Vo-5aX"/>
-                        <segue destination="04Z-Sl-c2u" kind="custom" identifier="toFeatured" customClass="FadeSegue" id="gYp-U7-AsZ"/>
                     </connections>
                 </viewController>
                 <tapGestureRecognizer id="nrO-WT-9aT">
@@ -683,6 +680,7 @@
                     </connections>
                 </tapGestureRecognizer>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HMP-3c-fIG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="wEK-UE-auq" userLabel="Exit" sceneMemberID="exit"/>
                 <searchDisplayController id="CMe-fX-Gog">
                     <connections>
                         <outlet property="delegate" destination="Ign-xr-Y8r" id="ZfI-ol-o5g"/>
@@ -827,7 +825,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="wIN-Bq-KB4"/>
-        <segue reference="gYp-U7-AsZ"/>
         <segue reference="DXn-2w-hPS"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -11,6 +11,7 @@
 #import "DataParser.h"
 #import "Post.h"
 #import "NavDropdownController.h"
+#import "FadeSegue.h"
 
 @interface SearchViewController () <UISearchBarDelegate, UISearchResultsUpdating>
 
