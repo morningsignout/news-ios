@@ -6,21 +6,20 @@
 //  Copyright (c) 2015 Morning Sign Out Incorporated. All rights reserved.
 //
 
-#import "SearchTableViewController.h"
+#import "SearchViewController.h"
 #import "BaseTiledCollectionViewController.h"
 #import "DataParser.h"
 #import "Post.h"
 #import "NavDropdownController.h"
 
-@interface SearchTableViewController () <UISearchBarDelegate, UISearchResultsUpdating>
+@interface SearchViewController () <UISearchBarDelegate, UISearchResultsUpdating>
 
-@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) UISearchController *searchController;
 @property (strong, nonatomic) NSString *searchTerm;
 
 @end
 
-@implementation SearchTableViewController
+@implementation SearchViewController
 
 - (void)viewDidLoad {
     contentType = SEARCH;
@@ -32,22 +31,21 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    //self.definesPresentationContext = YES;
+    self.definesPresentationContext = YES;
+    
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = self;
     self.searchController.dimsBackgroundDuringPresentation = NO;
-//    self.searchController.searchBar.delegate = self;
-//    [self.searchController.searchBar becomeFirstResponder];
-//
-//    [self.searchController.searchBar sizeToFit];
-//    [self.view addSubview:self.searchController.searchBar];
-//    self.searchController.searchBar.frame = CGRectMake(0, self.view.bounds.size.height - 100, self.view.bounds.size.width, 100);
+    self.searchController.searchBar.delegate = self;
+    //[self.searchController.searchBar becomeFirstResponder];
 
-    self.searchBar.delegate = self;
-    [self.searchBar becomeFirstResponder];
-    
-    [self.searchBar sizeToFit];
+    [self.searchController.searchBar sizeToFit];
+    [self.view addSubview:self.searchController.searchBar];
 
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [self.searchController.searchBar becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -64,12 +62,7 @@
     return [DataParser DataForSearchTerm:self.searchTerm InPage:self.page];
 }
 
-- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
-{
-//    if (!_searchTerm || [_searchTerm isEqualToString:@""]) {
-//        return;
-//    }
-    
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
     self.searchTerm = searchController.searchBar.text;
     
     dispatch_queue_t fetchQ = dispatch_queue_create("load search results", NULL);
@@ -96,10 +89,10 @@
     
     self.searchTerm = searchText;
     
-    //dispatch_queue_t fetchQ = dispatch_queue_create("load search results", NULL);
-    //dispatch_async(fetchQ, ^{
+    dispatch_queue_t fetchQ = dispatch_queue_create("load search results", NULL);
+    dispatch_async(fetchQ, ^{
         [self refreshPosts:[DataParser DataForSearchTerm:searchText InPage:self.page]];
-    //});
+    });
     
 }
 
