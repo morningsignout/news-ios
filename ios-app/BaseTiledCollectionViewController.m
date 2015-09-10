@@ -127,7 +127,6 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)refreshPosts:(NSArray *)newPosts {
     self.posts = newPosts;
     dispatch_async(dispatch_get_main_queue(), ^{
-        //[self.collectionView reloadItemsAtIndexPaths:[self.collectionView indexPathsForVisibleItems]];
         [self.collectionView reloadData];
         NSLog(@"reloaded new posts");
     });
