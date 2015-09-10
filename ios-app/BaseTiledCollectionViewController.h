@@ -9,9 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "CHTCollectionViewWaterfallLayout.h"
 
-@interface BaseTiledCollectionViewController : UIViewController <UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout>
+typedef enum ContentType { FEATURED, SEARCH, NONE } ContentType;
+
+@interface BaseTiledCollectionViewController : UIViewController <UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout> {
+    ContentType contentType;
+}
+
 @property (nonatomic, strong) IBOutlet UICollectionView *collectionView;
+@property (nonatomic) int page;
 
 - (BOOL)isFeaturedPage;
+- (NSArray *)getDataForTypeOfView;
+- (void)refreshPosts:(NSArray *)newPosts;
 
 @end

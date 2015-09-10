@@ -25,7 +25,6 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 static CGFloat marginFromTop = 50.0f;
 
 @interface BaseTiledCollectionViewController () {
-    int page;
     Post *seguePost;
     CGSize tileHeight;
 }
@@ -43,12 +42,12 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.collectionView];
+    contentType = NONE;
     
     // Start loading data from JSON page 1
-    page = 1;
+    self.page = 1;
     
-    
-    self.posts = [self getDataForPage:page];
+    self.posts = [self getDataForPage:self.page];
     
     tileHeight = CGSizeMake(1, 1.5);
 }
@@ -84,7 +83,19 @@ static NSString * const reuseIdentifier = @"Cell";
     if (pageNum <= 0 || pageNum > self.posts.count) {
         p = 1;
     }
-    return [DataParser DataForFeaturedPostsWithPageNumber:p];
+    NSArray *data = [self getDataForTypeOfView];
+    return data;
+}
+
+- (NSArray *)getDataForTypeOfView {
+    return nil;
+}
+
+- (void)refreshPosts:(NSArray *)newPosts {
+    self.posts = newPosts;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.collectionView reloadData];
+    });
 }
 
 #pragma mark - Accessors
@@ -167,6 +178,7 @@ static NSString * const reuseIdentifier = @"Cell";
     NSURLRequest *requestLeft = [NSURLRequest requestWithURL:[NSURL URLWithString:post.thumbnailCoverImageURL]];
     
     cell.title.text = post.title;
+    cell.imageView.image = nil;
     [cell.imageView setImageWithURLRequest:requestLeft placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
         cell.imageView.image = image;
     } failure:nil];
@@ -174,16 +186,25 @@ static NSString * const reuseIdentifier = @"Cell";
     return cell;
     
 }
-/*
+
 #pragma mark - Navigation
+ 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [self performSegueWithIdentifier:SEGUE_IDENTIFIER sender:[self.posts objectAtIndex:indexPath.item]];
+}
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:SEGUE_IDENTIFIER] && [segue.destinationViewController isKindOfClass:[FullPostViewController class]]) {
+        FullPostViewController *postVC = segue.destinationViewController;
+        if ([sender isKindOfClass:[Post class]])
+            postVC.post = sender;
+        else
+            postVC.post = nil;
+    }
 }
-*/
-
 
 #pragma mark <UICollectionViewDelegate>
 
