@@ -20,6 +20,35 @@
     [self addGestureRecognizer:recognizer];
 }
 
+- (UIImageView *)image {
+    if (!_image) {
+        CGRect contentBounds = self.frame;
+        _image = [[UIImageView alloc] initWithFrame:contentBounds];
+        _image.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        _image.contentMode = UIViewContentModeScaleAspectFill;
+        _image.clipsToBounds = YES;
+    }
+    
+    return _image;
+}
+
+- (UILabel *)title {
+    
+    if (!_title) {
+        CGRect contentBounds = super.frame;
+        //_title = [[UILabel alloc] initWithFrame:contentBounds];
+        _title = [[UILabel alloc] initWithFrame:CGRectMake(0, contentBounds.size.height - 75, contentBounds.size.width, 100)];
+        _title.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _title.lineBreakMode = NSLineBreakByWordWrapping;
+        _title.numberOfLines = 3;
+        _title.textAlignment = NSTextAlignmentCenter;
+        _title.backgroundColor = [UIColor colorWithWhite:1 alpha:0.4];
+    }
+    
+    return _title;
+}
+
+
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect {

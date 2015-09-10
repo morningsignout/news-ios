@@ -40,9 +40,8 @@ NSDateFormatter *dateToStringFormatter;
     [manager GET:URLWithCount
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             
             data = (NSDictionary *)responseObject;
-            //NSLog(@"%@",data);
+
             [[NSNotificationCenter defaultCenter] postNotificationName:@"dataLoaded" object:nil];
             dispatch_semaphore_signal(semaphore);
              
@@ -97,7 +96,7 @@ NSDateFormatter *dateToStringFormatter;
     NSString* postUrl = [parseData valueForKey:@"url"];
     
     // Get excerpt
-    NSString* excerpt = [parseData valueForKey:@"excerpt"];
+    NSString* excerpt = [[parseData valueForKey:@"excerpt"] stringByConvertingHTMLToPlainText];
     
     // Get formatted date
         // format date from string into NSDate object

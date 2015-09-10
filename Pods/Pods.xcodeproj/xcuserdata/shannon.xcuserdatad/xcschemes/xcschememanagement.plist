@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>CHTCollectionViewWaterfallLayout.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -22,7 +27,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>7208671DEA94EE11652C20B12DB710D9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>E0A0843C35E4406010926441E5E9C150</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EF98AF564BA6B261070198F8EBA39A09</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F357486D009F5B7DE15952EDD405DC1D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
