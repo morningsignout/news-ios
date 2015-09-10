@@ -27,12 +27,14 @@
 		FB99DEE61B9A1BD9007111B4 /* FeaturedStoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB99DEE51B9A1BD9007111B4 /* FeaturedStoryTableViewCell.m */; };
 		FB99DEE91B9A1C01007111B4 /* TiledCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB99DEE81B9A1C01007111B4 /* TiledCell.m */; };
 		FBBA5AB01BA0DC0600345D5F /* TileCollectionViewCellB.m in Sources */ = {isa = PBXBuildFile; fileRef = FBBA5AAF1BA0DC0600345D5F /* TileCollectionViewCellB.m */; };
+		FBBA5AB31BA0F19600345D5F /* BaseTileCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBBA5AB21BA0F19600345D5F /* BaseTileCollectionViewCell.m */; };
+		FBBA5AB61BA1012200345D5F /* TileCollectionViewCellC.m in Sources */ = {isa = PBXBuildFile; fileRef = FBBA5AB51BA1012200345D5F /* TileCollectionViewCellC.m */; };
 		FBDEF3521B9E0436005BD9F4 /* WebLinksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDEF3511B9E0436005BD9F4 /* WebLinksViewController.m */; };
 		FBDEF3D11B9E4D31005BD9F4 /* DropdownMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDEF3CE1B9E4D31005BD9F4 /* DropdownMenuController.m */; };
 		FBDEF3D21B9E4D31005BD9F4 /* DropdownMenuSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDEF3D01B9E4D31005BD9F4 /* DropdownMenuSegue.m */; };
 		FBDEF3D81B9E857B005BD9F4 /* NavDropdownController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDEF3D71B9E857B005BD9F4 /* NavDropdownController.m */; };
 		FBEB3A751B9F8E4D00B57AAB /* FeatureCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEB3A741B9F8E4D00B57AAB /* FeatureCollectionViewController.m */; };
-		FBEB3A781B9F8EDF00B57AAB /* TileCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEB3A771B9F8EDF00B57AAB /* TileCollectionViewCell.m */; };
+		FBEB3A781B9F8EDF00B57AAB /* TileCollectionViewCellA.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEB3A771B9F8EDF00B57AAB /* TileCollectionViewCellA.m */; };
 		FBEB3A7B1B9F93DC00B57AAB /* FeaturedTileCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEB3A7A1B9F93DC00B57AAB /* FeaturedTileCollectionViewCell.m */; };
 		FBEB8E141B9CCB930080BBD1 /* FullPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEB8E131B9CCB930080BBD1 /* FullPostViewController.m */; };
 /* End PBXBuildFile section */
@@ -87,6 +89,10 @@
 		FB99DEE81B9A1C01007111B4 /* TiledCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiledCell.m; sourceTree = "<group>"; };
 		FBBA5AAE1BA0DC0600345D5F /* TileCollectionViewCellB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TileCollectionViewCellB.h; sourceTree = "<group>"; };
 		FBBA5AAF1BA0DC0600345D5F /* TileCollectionViewCellB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TileCollectionViewCellB.m; sourceTree = "<group>"; };
+		FBBA5AB11BA0F19600345D5F /* BaseTileCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTileCollectionViewCell.h; sourceTree = "<group>"; };
+		FBBA5AB21BA0F19600345D5F /* BaseTileCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTileCollectionViewCell.m; sourceTree = "<group>"; };
+		FBBA5AB41BA1012200345D5F /* TileCollectionViewCellC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TileCollectionViewCellC.h; sourceTree = "<group>"; };
+		FBBA5AB51BA1012200345D5F /* TileCollectionViewCellC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TileCollectionViewCellC.m; sourceTree = "<group>"; };
 		FBDEF3501B9E0436005BD9F4 /* WebLinksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebLinksViewController.h; sourceTree = "<group>"; };
 		FBDEF3511B9E0436005BD9F4 /* WebLinksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebLinksViewController.m; sourceTree = "<group>"; };
 		FBDEF3CD1B9E4D31005BD9F4 /* DropdownMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropdownMenuController.h; sourceTree = "<group>"; };
@@ -97,8 +103,8 @@
 		FBDEF3D71B9E857B005BD9F4 /* NavDropdownController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavDropdownController.m; sourceTree = "<group>"; };
 		FBEB3A731B9F8E4D00B57AAB /* FeatureCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeatureCollectionViewController.h; sourceTree = "<group>"; };
 		FBEB3A741B9F8E4D00B57AAB /* FeatureCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeatureCollectionViewController.m; sourceTree = "<group>"; };
-		FBEB3A761B9F8EDF00B57AAB /* TileCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TileCollectionViewCell.h; sourceTree = "<group>"; };
-		FBEB3A771B9F8EDF00B57AAB /* TileCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TileCollectionViewCell.m; sourceTree = "<group>"; };
+		FBEB3A761B9F8EDF00B57AAB /* TileCollectionViewCellA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TileCollectionViewCellA.h; sourceTree = "<group>"; };
+		FBEB3A771B9F8EDF00B57AAB /* TileCollectionViewCellA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TileCollectionViewCellA.m; sourceTree = "<group>"; };
 		FBEB3A791B9F93DC00B57AAB /* FeaturedTileCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeaturedTileCollectionViewCell.h; sourceTree = "<group>"; };
 		FBEB3A7A1B9F93DC00B57AAB /* FeaturedTileCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeaturedTileCollectionViewCell.m; sourceTree = "<group>"; };
 		FBEB8E121B9CCB930080BBD1 /* FullPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullPostViewController.h; sourceTree = "<group>"; };
@@ -282,10 +288,14 @@
 		FBEB3A721B9F8DB800B57AAB /* Tile Collection View */ = {
 			isa = PBXGroup;
 			children = (
-				FBEB3A761B9F8EDF00B57AAB /* TileCollectionViewCell.h */,
-				FBEB3A771B9F8EDF00B57AAB /* TileCollectionViewCell.m */,
+				FBBA5AB11BA0F19600345D5F /* BaseTileCollectionViewCell.h */,
+				FBBA5AB21BA0F19600345D5F /* BaseTileCollectionViewCell.m */,
+				FBEB3A761B9F8EDF00B57AAB /* TileCollectionViewCellA.h */,
+				FBEB3A771B9F8EDF00B57AAB /* TileCollectionViewCellA.m */,
 				FBBA5AAE1BA0DC0600345D5F /* TileCollectionViewCellB.h */,
 				FBBA5AAF1BA0DC0600345D5F /* TileCollectionViewCellB.m */,
+				FBBA5AB41BA1012200345D5F /* TileCollectionViewCellC.h */,
+				FBBA5AB51BA1012200345D5F /* TileCollectionViewCellC.m */,
 				FBEB3A791B9F93DC00B57AAB /* FeaturedTileCollectionViewCell.h */,
 				FBEB3A7A1B9F93DC00B57AAB /* FeaturedTileCollectionViewCell.m */,
 			);
@@ -447,10 +457,11 @@
 				FBDEF3D21B9E4D31005BD9F4 /* DropdownMenuSegue.m in Sources */,
 				FBEB3A751B9F8E4D00B57AAB /* FeatureCollectionViewController.m in Sources */,
 				FB714A1B1B94D16000D68CB5 /* AppDelegate.m in Sources */,
-				FBEB3A781B9F8EDF00B57AAB /* TileCollectionViewCell.m in Sources */,
+				FBEB3A781B9F8EDF00B57AAB /* TileCollectionViewCellA.m in Sources */,
 				FB0391771B9BC06600C16FE8 /* Tile.m in Sources */,
 				FB714A4B1B94FFCF00D68CB5 /* URLParser.m in Sources */,
 				FB714A451B94D20600D68CB5 /* Author.m in Sources */,
+				FBBA5AB61BA1012200345D5F /* TileCollectionViewCellC.m in Sources */,
 				FB714A1E1B94D16000D68CB5 /* ios_app.xcdatamodeld in Sources */,
 				CA239A6F1B9F660400BEDC5E /* GTMNSString+HTML.m in Sources */,
 				FB99DEE21B9A1AFE007111B4 /* FeatureTableViewController.m in Sources */,
@@ -463,6 +474,7 @@
 				FBDEF3D11B9E4D31005BD9F4 /* DropdownMenuController.m in Sources */,
 				FBBA5AB01BA0DC0600345D5F /* TileCollectionViewCellB.m in Sources */,
 				FB714A181B94D16000D68CB5 /* main.m in Sources */,
+				FBBA5AB31BA0F19600345D5F /* BaseTileCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

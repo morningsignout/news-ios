@@ -1,5 +1,5 @@
 //
-//  TileCollectionViewCellB.h
+//  TileCollectionViewCellC.h
 //  ios-app
 //
 //  Created by Shannon Phu on 9/9/15.
@@ -8,6 +8,6 @@
 
 #import "BaseTileCollectionViewCell.h"
 
-@interface TileCollectionViewCellB : BaseTileCollectionViewCell
+@interface TileCollectionViewCellC : BaseTileCollectionViewCell
 
 @end

@@ -7,21 +7,26 @@
 //
 
 #import "FeatureCollectionViewController.h"
-#import "TileCollectionViewCell.h"
+#import "TileCollectionViewCellA.h"
 #import "FeaturedTileCollectionViewCell.h"
 #import "TileCollectionViewCellB.h"
 #import "DataParser.h"
 #import <UIImageView+AFNetworking.h>
 #import "FullPostViewController.h"
+#import "BaseTileCollectionViewCell.h"
+#import "TileCollectionViewCellC.h"
 
 #define CELL_IDENTIFIER @"TileCell"
-#define CELL_IDENTIFIER_2 @"TileCell2"
+#define CELL_IDENTIFIER_B @"TileCell2"
+#define CELL_IDENTIFIER_C @"TileCell3"
 #define HEADER_IDENTIFIER @"TopFeatured"
 static NSString * const SEGUE_IDENTIFIER = @"viewPost";
+static CGFloat marginFromTop = 50.0f;
 
 @interface FeatureCollectionViewController () {
     int page;
     Post *seguePost;
+    CGSize tileHeight;
 }
 @property (nonatomic, strong) NSArray *cellSizes;
 @property (strong, nonatomic) NSArray *posts;
@@ -40,6 +45,8 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     page = 1;
     self.topFeatured = [[DataParser DataForRecentPostsWithPageNumber:1] firstObject];
     self.posts = [self getDataForPage:page];
+    
+    tileHeight = CGSizeMake(1, 1.5);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -88,52 +95,23 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
         layout.minimumColumnSpacing = 10.0f;
         layout.minimumInteritemSpacing = 10.0f;
         
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 50.0f, self.view.bounds.size.width, self.view.bounds.size.height) collectionViewLayout:layout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, marginFromTop, self.view.bounds.size.width, self.view.bounds.size.height - marginFromTop) collectionViewLayout:layout];
         _collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         _collectionView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.7];
-        [_collectionView registerClass:[TileCollectionViewCell class]
+        [_collectionView registerClass:[TileCollectionViewCellA class]
             forCellWithReuseIdentifier:CELL_IDENTIFIER];
         [_collectionView registerClass:[TileCollectionViewCellB class]
-            forCellWithReuseIdentifier:CELL_IDENTIFIER_2];
+            forCellWithReuseIdentifier:CELL_IDENTIFIER_B];
+        [_collectionView registerClass:[TileCollectionViewCellC class]
+            forCellWithReuseIdentifier:CELL_IDENTIFIER_C];
         
         [_collectionView registerClass:[FeaturedTileCollectionViewCell class]
             forSupplementaryViewOfKind:CHTCollectionElementKindSectionHeader
                    withReuseIdentifier:HEADER_IDENTIFIER];
     }
     return _collectionView;
-}
-
-- (NSArray *)cellSizes {
-    if (!_cellSizes) {
-        _cellSizes = @[
-                       
-       // staggering causes some dequeue placement errors
-//       [NSValue valueWithCGSize:CGSizeMake(1, 1.5)],
-//       [NSValue valueWithCGSize:CGSizeMake(1, 1)],
-//       [NSValue valueWithCGSize:CGSizeMake(1, 1.25)],
-//       [NSValue valueWithCGSize:CGSizeMake(1, 1.33)]
-
-       [NSValue valueWithCGSize:CGSizeMake(1, 1.5)],
-       [NSValue valueWithCGSize:CGSizeMake(1, 1.5)],
-       [NSValue valueWithCGSize:CGSizeMake(1, 1.5)],
-       [NSValue valueWithCGSize:CGSizeMake(1, 1.5)]
-       
-//       [NSValue valueWithCGSize:CGSizeMake(1, 2)],
-//       [NSValue valueWithCGSize:CGSizeMake(1, 1)],
-//       [NSValue valueWithCGSize:CGSizeMake(1, 1)],
-//       [NSValue valueWithCGSize:CGSizeMake(1, 1)],
-//       [NSValue valueWithCGSize:CGSizeMake(1, 2)],
-//       [NSValue valueWithCGSize:CGSizeMake(1, 1)]
-       
-//       [NSValue valueWithCGSize:CGSizeMake(1, 2)],
-//       [NSValue valueWithCGSize:CGSizeMake(1, 1)],
-//       [NSValue valueWithCGSize:CGSizeMake(1, 1)]
-       
-       ];
-    }
-    return _cellSizes;
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -148,13 +126,16 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.item % 2 == 0) {
-        TileCollectionViewCell *cell = [self setTileInfoWithIndexPath:indexPath];
+    if (indexPath.item % 3 == 0) {
+        TileCollectionViewCellA *cellA = (TileCollectionViewCellA *)[self setTileOfClass:@"TileCollectionViewCellA" WithIndexPath:indexPath];
+        return cellA;
         
-        return cell;
+    } else if (indexPath.item % 3 == 1) {
+        TileCollectionViewCellB *cellB = (TileCollectionViewCellB *)[self setTileOfClass:@"TileCollectionViewCellB" WithIndexPath:indexPath];
+        return cellB;
     } else {
-        TileCollectionViewCellB *cell = [self setTileBInfo:indexPath];
-        return cell;
+        TileCollectionViewCellC *cellC = (TileCollectionViewCellC *)[self setTileOfClass:@"TileCollectionViewCellC" WithIndexPath:indexPath];
+        return cellC;
     }
     
 }
@@ -162,9 +143,8 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     
     if ([kind isEqualToString:CHTCollectionElementKindSectionHeader]) {
-        __weak FeaturedTileCollectionViewCell *reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind
-                                                          withReuseIdentifier:HEADER_IDENTIFIER
-                                                                 forIndexPath:indexPath];
+        __weak FeaturedTileCollectionViewCell *reusableView =
+        [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:HEADER_IDENTIFIER forIndexPath:indexPath];
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                        initWithTarget:self action:@selector(showTopFeatured:)];
@@ -176,7 +156,7 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
         reusableView.excerpt.text = post.excerpt;
 
         
-        NSURLRequest *requestLeft = [NSURLRequest requestWithURL:[NSURL URLWithString:post.thumbnailCoverImageURL]];
+        NSURLRequest *requestLeft = [NSURLRequest requestWithURL:[NSURL URLWithString:post.fullCoverImageURL]];
         [reusableView.imageView setImageWithURLRequest:requestLeft placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
             reusableView.imageView.image = image;
         } failure:nil];
@@ -189,43 +169,30 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     return nil;
 }
 
-- (TileCollectionViewCell *)setTileInfoWithIndexPath:(NSIndexPath *)indexPath {
+- (BaseTileCollectionViewCell *)setTileOfClass:(NSString *)cellClass WithIndexPath:(NSIndexPath *)indexPath {
     
-    __weak TileCollectionViewCell *cell = (TileCollectionViewCell *)[self.collectionView dequeueReusableCellWithReuseIdentifier:CELL_IDENTIFIER forIndexPath:indexPath];
+    __weak BaseTileCollectionViewCell *cell;
     
-    Post *post = [self.posts objectAtIndex:indexPath.item];
-    
-    NSURLRequest *requestLeft = [NSURLRequest requestWithURL:[NSURL URLWithString:post.thumbnailCoverImageURL]];
-    [cell.imageView setImageWithURLRequest:requestLeft placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-        cell.imageView.image = image;
-    } failure:nil];
-    
-    cell.title.text = post.title;
-    NSString *tagStr = @"";
-    for (NSString *tag in post.tags) {
-        tagStr = [tagStr stringByAppendingString:[NSString stringWithFormat:@"#%@ ", tag]];
+ 
+    if ([cellClass isEqualToString:@"TileCollectionViewCellA"]) {
+        cell = (TileCollectionViewCellA *)[self.collectionView dequeueReusableCellWithReuseIdentifier:CELL_IDENTIFIER forIndexPath:indexPath];
+    } else if ([cellClass isEqualToString:@"TileCollectionViewCellB"]) {
+        cell = (TileCollectionViewCellB *)[self.collectionView dequeueReusableCellWithReuseIdentifier:CELL_IDENTIFIER_B forIndexPath:indexPath];
+    } else if ([cellClass isEqualToString:@"TileCollectionViewCellC"]) {
+        cell = (TileCollectionViewCellC *)[self.collectionView dequeueReusableCellWithReuseIdentifier:CELL_IDENTIFIER_C forIndexPath:indexPath];
     }
-    cell.excerpt.text = tagStr;
-    
-    return cell;
-
-    
-}
-
-- (TileCollectionViewCellB *)setTileBInfo:(NSIndexPath *)indexPath {
-    __weak TileCollectionViewCellB *cell = (TileCollectionViewCellB *)[self.collectionView dequeueReusableCellWithReuseIdentifier:CELL_IDENTIFIER_2 forIndexPath:indexPath];
     
     Post *post = [self.posts objectAtIndex:indexPath.item];
     
     NSURLRequest *requestLeft = [NSURLRequest requestWithURL:[NSURL URLWithString:post.thumbnailCoverImageURL]];
+    
+    cell.title.text = post.title;
     [cell.imageView setImageWithURLRequest:requestLeft placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
         cell.imageView.image = image;
     } failure:nil];
     
-    cell.title.text = post.title;
-    cell.excerpt.text = post.excerpt;
-    
     return cell;
+
 }
 
 - (void)showTopFeatured:(UITapGestureRecognizer *)recognizer {
@@ -235,7 +202,7 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 
 #pragma mark - CHTCollectionViewDelegateWaterfallLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return [self.cellSizes[indexPath.item % 4] CGSizeValue];
+    return tileHeight;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
