@@ -514,11 +514,7 @@
                     </connections>
                 </tableViewController>
             </objects>
-<<<<<<< HEAD
-            <point key="canvasLocation" x="-271" y="1132"/>
-=======
             <point key="canvasLocation" x="-1316" y="1236"/>
->>>>>>> frontend
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="O2e-qQ-cof">
@@ -598,11 +594,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KhO-Ue-n1F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-<<<<<<< HEAD
-            <point key="canvasLocation" x="-1329" y="1132"/>
-=======
             <point key="canvasLocation" x="-2054" y="1236"/>
->>>>>>> frontend
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
