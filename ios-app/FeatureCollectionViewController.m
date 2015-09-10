@@ -26,8 +26,9 @@ static CGFloat marginFromTop = 50.0f;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.topFeatured = [[DataParser DataForRecentPostsWithPageNumber:1] firstObject];
+    //self.topFeatured = [[DataParser DataForRecentPostsWithPageNumber:1] firstObject];
     contentType = FEATURED;
+    
 }
 
 #pragma mark - Accessors
@@ -75,7 +76,6 @@ static CGFloat marginFromTop = 50.0f;
 - (void)showTopFeatured:(UITapGestureRecognizer *)recognizer {
     [self performSegueWithIdentifier:SEGUE_IDENTIFIER sender:self.topFeatured];
 }
-
 
 
 //// In a storyboard-based application, you will often want to do a little preparation before navigation

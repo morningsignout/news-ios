@@ -31,6 +31,7 @@ static CGFloat marginFromTop = 0;
 }
 @property (nonatomic, strong) NSArray *cellSizes;
 @property (strong, nonatomic) NSArray *posts;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @end
 
@@ -48,9 +49,24 @@ static NSString * const reuseIdentifier = @"Cell";
     // Start loading data from JSON page 1
     self.page = 1;
     
-    self.posts = [self getDataForPage:self.page];
+    //self.posts = [self getDataForPage:self.page];
+    NSLog(@"begin loading");
+    [self loadPosts];
+    NSLog(@"done loading");
     
     tileHeight = CGSizeMake(1, 1.5);
+    
+    // Initialize Refresh Control
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    
+    // Configure Refresh Control
+    [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    
+    // Configure View Controller
+    //[self.collectionView setRefreshControl:refreshControl];
+    [self.collectionView addSubview:refreshControl];
+    
+    [self.collectionView setContentInset:UIEdgeInsetsMake(refreshControl.frame.size.height,0,0,0)];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -79,6 +95,22 @@ static NSString * const reuseIdentifier = @"Cell";
     _collectionView.dataSource = nil;
 }
 
+- (void)loadPosts {
+    
+    [self.spinner startAnimating];
+//    dispatch_queue_t q = dispatch_queue_create("refresh latest", NULL);
+//    dispatch_async(q, ^{
+//        
+//        NSArray * refreshPosts = [self getDataForPage:self.page];
+//        
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            
+//            [self refreshPosts:refreshPosts];
+//        });
+//    });
+    //[task resume];
+}
+
 - (NSArray *)getDataForPage:(int)pageNum {
     int p = pageNum;
     if (pageNum <= 0 || pageNum > self.posts.count) {
@@ -95,7 +127,9 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)refreshPosts:(NSArray *)newPosts {
     self.posts = newPosts;
     dispatch_async(dispatch_get_main_queue(), ^{
+        //[self.collectionView reloadItemsAtIndexPaths:[self.collectionView indexPathsForVisibleItems]];
         [self.collectionView reloadData];
+        NSLog(@"reloaded new posts");
     });
 }
 
@@ -205,6 +239,24 @@ static NSString * const reuseIdentifier = @"Cell";
         else
             postVC.post = nil;
     }
+}
+
+- (void)refresh:(id)sender {
+    NSLog(@"Refreshing");
+    
+    dispatch_queue_t q = dispatch_queue_create("refresh latest", NULL);
+    dispatch_async(q, ^{
+        
+        NSArray * refreshPosts = [DataParser DataForSearchTerm:@"health" InPage:1];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [(UIRefreshControl *)sender endRefreshing];
+            
+            [self refreshPosts:refreshPosts];
+        });
+    });
+    
+    
 }
 
 #pragma mark <UICollectionViewDelegate>
