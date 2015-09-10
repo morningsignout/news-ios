@@ -477,10 +477,10 @@
             </objects>
             <point key="canvasLocation" x="-1316" y="442"/>
         </scene>
-        <!--Feature Collection View Controller-->
+        <!--Base Tiled Collection View Controller-->
         <scene sceneID="phn-ig-E6L">
             <objects>
-                <viewController id="XeS-a7-9cA" customClass="FeatureCollectionViewController" sceneMemberID="viewController">
+                <viewController id="XeS-a7-9cA" customClass="BaseTiledCollectionViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Elg-Eb-E45"/>
                         <viewControllerLayoutGuide type="bottom" id="TZi-wx-ayy"/>

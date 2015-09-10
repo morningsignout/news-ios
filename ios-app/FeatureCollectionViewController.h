@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Morning Sign Out Incorporated. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "CHTCollectionViewWaterfallLayout.h"
+#import "BaseTiledCollectionViewController.h"
 
-@interface FeatureCollectionViewController : UIViewController <UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout>
-@property (nonatomic, strong) IBOutlet UICollectionView *collectionView;
+@interface FeatureCollectionViewController : BaseTiledCollectionViewController <UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout>
+
 @end
