@@ -14,7 +14,6 @@
 
 #define HEADER_IDENTIFIER @"TopFeatured"
 static NSString * const SEGUE_IDENTIFIER = @"viewPost";
-static CGFloat marginFromTop = 50.0f;
 
 @interface FeatureCollectionViewController ()
 @property (strong, nonatomic) Post *topFeatured;

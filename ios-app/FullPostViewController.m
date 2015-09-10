@@ -44,7 +44,7 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
 #pragma mark - Web View Functions
 
 - (void)loadWebView {
-    NSString *filteredHTML = [self.post.body stringByReplacingOccurrencesOfString:@"\/" withString:@"/"];
+    NSString *filteredHTML = [self.post.body stringByReplacingOccurrencesOfString:@"\\/" withString:@"/"];
     filteredHTML = [filteredHTML stringByReplacingOccurrencesOfString:@"\"" withString:@"\""];
     NSString *containerFront = @"<div class=\"container\">";
     NSString *containerEnd = @"</div>";

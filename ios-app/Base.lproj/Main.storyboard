@@ -785,24 +785,6 @@
             </objects>
             <point key="canvasLocation" x="169" y="442"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="X5c-UA-dKv">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="e53-g7-SbC" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="7E2-rr-RVd">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="Ign-xr-Y8r" kind="relationship" relationship="rootViewController" id="Ajn-5q-cFg"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="P5g-Yy-exQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2096" y="1166"/>
-        </scene>
         <!--Search View Controller-->
         <scene sceneID="aXv-Nf-j1K">
             <objects>
@@ -827,7 +809,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="wIN-Bq-KB4"/>
         <segue reference="G2O-cY-Em3"/>
         <segue reference="DXn-2w-hPS"/>
     </inferredMetricsTieBreakers>

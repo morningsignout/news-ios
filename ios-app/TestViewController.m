@@ -22,10 +22,10 @@
     // Stress testing for performance. In the console after all output logged,
     // Ctrl-F for "SUCCESS" and find time difference to estimate average time requests take.
     
-    NSLog(@"Start");
+    //NSLog(@"Start");
     
     //Post*a = [DataParser DataForPostID:30562];
-    NSArray *c = [DataParser DataForPostWithTag:@"health" AndPageNumber:1];
+    //NSArray *c = [DataParser DataForPostWithTag:@"health" AndPageNumber:1];
     /*NSArray *a = [DataParser DataForPostsInMonth:11 Year:2014 AndPage:1];
     [self dump:a];
     
