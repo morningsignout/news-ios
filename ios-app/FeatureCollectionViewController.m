@@ -50,7 +50,9 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 - (NSArray *)getDataForTypeOfView {
     NSArray *data = [DataParser DataForFeaturedPostsWithPageNumber:self.page];
     self.topFeatured = data.firstObject;
-    return [data subarrayWithRange:NSMakeRange(1, data.count - 1)];
+    NSMutableArray *smallerTileData = [NSMutableArray arrayWithArray:[data subarrayWithRange:NSMakeRange(1, data.count - 1)]];
+    [smallerTileData addObject:[smallerTileData objectAtIndex:rand() % (smallerTileData.count - 1)]];
+    return smallerTileData;
 }
 
 #pragma mark - UICollectionViewDataSource

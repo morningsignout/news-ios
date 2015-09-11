@@ -50,7 +50,6 @@ static NSString * const reuseIdentifier = @"Cell";
     // Start loading data from JSON page 1
     self.page = 1;
     
-    //self.posts = [self getDataForPage:self.page];
     NSLog(@"begin loading");
     [self loadPosts];
     NSLog(@"done loading");
@@ -181,7 +180,7 @@ static NSString * const reuseIdentifier = @"Cell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.item >= self.posts.count) {
-        [self placeBottomSpinner];
+        [self.spinner startAnimating];
         [self fetchMoreItems];
     }
     
@@ -207,22 +206,6 @@ static NSString * const reuseIdentifier = @"Cell";
 
 
     return nil;
-}
-
-- (void)placeBottomSpinner {
-//    if (self.page < 2) {
-//        return;
-//    }
-//    
-//    if (!_bottomSpinner) {
-//        _bottomSpinner = [[UIActivityIndicatorView alloc]
-//                              initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-//        [self.view addSubview:self.bottomSpinner];
-//    }
-//    
-//    self.bottomSpinner.frame = CGRectMake(self.view.center.x - self.bottomSpinner.frame.size.width / 2, self.view.bounds.size.height - self.bottomSpinner.frame.size.height * 1.5, self.bottomSpinner.frame.size.width, self.bottomSpinner.frame.size.width);
-    
-    [self.spinner startAnimating];
 }
 
 - (UICollectionViewCell *)loadingCellForIndexPath:(NSIndexPath *)indexPath {
@@ -347,29 +330,5 @@ static NSString * const reuseIdentifier = @"Cell";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     return tileHeight;
 }
-
-#pragma mark - Scroll View Delegate
-
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//    CGFloat offsetY = scrollView.contentOffset.y;
-//    CGFloat contentHeight = scrollView.contentSize.height;
-//    if (offsetY > contentHeight - scrollView.frame.size.height) {
-//        //start loading new images
-//        NSLog(@"reach bottom");
-//        __block NSArray *newData;
-//        dispatch_queue_t q = dispatch_queue_create("load more posts", NULL);
-//        dispatch_async(q, ^{
-//            self.page++;
-//            NSLog(@"%d", self.page);
-//            newData = [self getDataForPage];
-//            NSLog(@"%@", newData);
-//            [self.posts addObjectsFromArray:newData];
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [self.collectionView reloadData];
-//            });
-//        });
-//        
-//    }
-//}
 
 @end

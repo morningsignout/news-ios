@@ -19,9 +19,11 @@ typedef enum ContentType { FEATURED, SEARCH, NONE } ContentType;
 @property (nonatomic, strong) IBOutlet UICollectionView *collectionView;
 @property (nonatomic) int page;
 
+
 - (BOOL)isFeaturedPage;
 - (NSArray *)getDataForTypeOfView;
 - (void)refreshPosts:(NSArray *)newPosts;
 - (Post*)getPostFromPosts:(int)index;
+- (void)fetchMoreItems;
 
 @end

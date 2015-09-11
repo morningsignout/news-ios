@@ -34,8 +34,6 @@ int flush = 0;
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    
-    
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = self;
     self.searchController.dimsBackgroundDuringPresentation = NO;
@@ -43,6 +41,7 @@ int flush = 0;
     self.searchController.searchBar.delegate = self;
     [self.searchController.searchBar sizeToFit];
     self.definesPresentationContext = YES;
+    //self.searchController.searchBar.keyboardAppearance = UIKeyboardAppearanceDark;
     
     [self.view addSubview:self.searchController.searchBar];
 
@@ -72,12 +71,10 @@ int flush = 0;
     
     dispatch_queue_t fetchQ = dispatch_queue_create("load search results", NULL);
     dispatch_async(fetchQ, ^{
-        //[self filterContentForSearchText:self.searchTerm scope:searchController.searchBar.selectedScopeButtonIndex];
-        //[self refreshPosts:[DataParser DataForSearchTerm:self.searchTerm InPage:self.page]];
-        //NSLog(@"changed %@",self.searchTerm);
         
         if([self.searchTerm length] == 0)
             return;
+        
         flush++;
         int yesFlush = flush;
         NSArray * refreshPosts = [DataParser DataForSearchTerm:self.searchTerm InPage:self.page];
