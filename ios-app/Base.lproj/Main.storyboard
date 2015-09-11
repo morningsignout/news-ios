@@ -692,6 +692,24 @@
             </objects>
             <point key="canvasLocation" x="-1284" y="1166"/>
         </scene>
+        <!--Category View Controller-->
+        <scene sceneID="5YB-xr-ZL3">
+            <objects>
+                <viewController id="ECj-Nj-98G" customClass="CategoryViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FBH-bd-zop"/>
+                        <viewControllerLayoutGuide type="bottom" id="vmw-44-EjG"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="roO-nK-wik">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lkb-fB-75c" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1316" y="2052"/>
+        </scene>
         <!--Feature Collection View Controller-->
         <scene sceneID="phn-ig-E6L">
             <objects>
