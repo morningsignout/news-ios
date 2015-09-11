@@ -13,7 +13,7 @@
 #import "NavDropdownController.h"
 #import "FadeSegue.h"
 
-@interface SearchViewController () <UISearchBarDelegate, UISearchResultsUpdating>
+@interface SearchViewController () <UISearchBarDelegate, UISearchResultsUpdating, UISearchControllerDelegate>
 
 @property (strong, nonatomic) UISearchController *searchController;
 @property (strong, nonatomic) NSString *searchTerm;
@@ -34,16 +34,16 @@ int flush = 0;
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    self.definesPresentationContext = YES;
+    
     
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = self;
     self.searchController.dimsBackgroundDuringPresentation = NO;
+    self.searchController.delegate = self;
     self.searchController.searchBar.delegate = self;
-    //[self.searchController.searchBar becomeFirstResponder];
-    //self.collectionView. = self.searchController.searchBar;
-
     [self.searchController.searchBar sizeToFit];
+    self.definesPresentationContext = YES;
+    
     [self.view addSubview:self.searchController.searchBar];
 
 }
@@ -51,7 +51,6 @@ int flush = 0;
 - (void)viewDidAppear:(BOOL)animated {
     NSLog(@"viewdidappear");
     [self.searchController setActive:YES];
-    [self.searchController.searchBar becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -94,28 +93,13 @@ int flush = 0;
     });
 }
 
-//#pragma mark Content Filtering
-//
-////searches while user enters in characters
-//- (void)filterContentForSearchText:(NSString*)searchText scope:(NSInteger)scope {
-//    // Update the filtered array based on the search text and scope.
-//    // Remove all objects from the filtered search array
-//    
-//    
-//    NSLog(@"changed %@",searchText);
-//    
-//    if([searchText length] == 0)
-//        return;
-//    
-//    
-//    self.searchTerm = searchText;
-//    
-//    //dispatch_queue_t fetchQ = dispatch_queue_create("load search results", NULL);
-//    //dispatch_async(fetchQ, ^{
-//        [self refreshPosts:[DataParser DataForSearchTerm:searchText InPage:self.page]];
-//    //});
-//    
-//}
+- (void)didPresentSearchController:(UISearchController *)searchController{
+    [searchController.searchBar becomeFirstResponder];
+}
+
+- (void)didDismissSearchController:(UISearchController *)searchController{
+    [searchController.searchBar resignFirstResponder];
+}
 
 /*
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
