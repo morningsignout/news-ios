@@ -16,6 +16,7 @@
     self = [super initWithFrame:frame];
     [self redoFrames];
     [self.contentView addSubview:self.excerpt];
+    self.title.backgroundColor = [UIColor clearColor];
     return self;
 }
 

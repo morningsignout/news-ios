@@ -37,7 +37,7 @@
         _title.lineBreakMode = NSLineBreakByWordWrapping;
         _title.numberOfLines = 3;
         _title.textAlignment = NSTextAlignmentCenter;
-        _title.backgroundColor = [UIColor clearColor];
+        _title.backgroundColor = [UIColor whiteColor];
     }
     
     return _title;

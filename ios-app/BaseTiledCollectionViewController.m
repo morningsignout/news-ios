@@ -132,11 +132,14 @@ static NSString * const reuseIdentifier = @"Cell";
         layout.minimumColumnSpacing = 10.0f;
         layout.minimumInteritemSpacing = 10.0f;
         
+        // Set up collection view UI
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, marginFromTop, self.view.bounds.size.width, self.view.bounds.size.height - marginFromTop) collectionViewLayout:layout];
         _collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
-        _collectionView.backgroundColor = [UIColor clearColor];//colorWithWhite:0.9 alpha:0.7];
+        _collectionView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.7];
+        
+        // Tell collection view what classes to use
         [_collectionView registerClass:[TileCollectionViewCellA class]
             forCellWithReuseIdentifier:CELL_IDENTIFIER];
         [_collectionView registerClass:[TileCollectionViewCellB class]
@@ -144,6 +147,7 @@ static NSString * const reuseIdentifier = @"Cell";
         [_collectionView registerClass:[TileCollectionViewCellC class]
             forCellWithReuseIdentifier:CELL_IDENTIFIER_C];
         
+        // Deal with if feature view showing
         if ([self isFeaturedPage]) {
             layout.headerHeight = self.view.frame.size.height / 1.5;
             [_collectionView registerClass:[FeaturedTileCollectionViewCell class]
