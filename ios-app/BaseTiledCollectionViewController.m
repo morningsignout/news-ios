@@ -20,6 +20,7 @@
 #define CELL_IDENTIFIER_B @"TileCell2"
 #define CELL_IDENTIFIER_C @"TileCell3"
 #define HEADER_IDENTIFIER @"TopFeatured"
+#define LOADING_CELL_IDENTIFIER @"Loading"
 
 static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 //static CGFloat marginFromTop = 50.0f;
@@ -30,7 +31,7 @@ static CGFloat marginFromTop = 0;
     CGSize tileHeight;
 }
 @property (nonatomic, strong) NSArray *cellSizes;
-@property (strong, nonatomic) NSArray *posts;
+@property (strong, nonatomic) NSMutableArray *posts;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @end
@@ -57,6 +58,7 @@ static NSString * const reuseIdentifier = @"Cell";
     tileHeight = CGSizeMake(1, 1.5);
     
     [self.collectionView setContentInset:UIEdgeInsetsMake(62,0,0,0)];
+    [self.view bringSubviewToFront:self.spinner];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -90,8 +92,8 @@ static NSString * const reuseIdentifier = @"Cell";
     [self.spinner startAnimating];
     dispatch_queue_t q = dispatch_queue_create("refresh latest", NULL);
     dispatch_async(q, ^{
-        
-        NSArray * refreshPosts = [self getDataForPage:self.page];
+    
+        NSArray * refreshPosts = [self getDataForPage];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.spinner stopAnimating];
@@ -101,10 +103,9 @@ static NSString * const reuseIdentifier = @"Cell";
 
 }
 
-- (NSArray *)getDataForPage:(int)pageNum {
-    int p = pageNum;
-    if (pageNum <= 0 || pageNum > self.posts.count) {
-        p = 1;
+- (NSArray *)getDataForPage {
+    if (self.page <= 0) {
+        return nil;
     }
     NSArray *data = [self getDataForTypeOfView];
     return data;
@@ -115,7 +116,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (void)refreshPosts:(NSArray *)newPosts {
-    self.posts = newPosts;
+    self.posts = [NSMutableArray arrayWithArray:newPosts];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.collectionView reloadData];
         NSLog(@"reloaded new posts");
@@ -146,6 +147,7 @@ static NSString * const reuseIdentifier = @"Cell";
             forCellWithReuseIdentifier:CELL_IDENTIFIER_B];
         [_collectionView registerClass:[TileCollectionViewCellC class]
             forCellWithReuseIdentifier:CELL_IDENTIFIER_C];
+        //[_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:LOADING_CELL_IDENTIFIER];
         
         // Deal with if feature view showing
         if ([self isFeaturedPage]) {
@@ -178,6 +180,16 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
+    if (indexPath.item >= self.posts.count) {
+        [self placeBottomSpinner];
+        [self fetchMoreItems];
+    }
+    
+    // pre-fetch the next 'page' of data.
+    else if(indexPath.item == (self.posts.count - 3)){
+        [self fetchMoreItems];
+    }
+    
     if (indexPath.item % 3 == 0) {
         TileCollectionViewCellA *cellA = (TileCollectionViewCellA *)[self setTileOfClass:@"TileCollectionViewCellA" WithIndexPath:indexPath];
         return cellA;
@@ -189,6 +201,68 @@ static NSString * const reuseIdentifier = @"Cell";
         TileCollectionViewCellC *cellC = (TileCollectionViewCellC *)[self setTileOfClass:@"TileCollectionViewCellC" WithIndexPath:indexPath];
         return cellC;
     }
+
+        
+    //return [self loadingCellForIndexPath:indexPath];
+
+
+    return nil;
+}
+
+- (void)placeBottomSpinner {
+//    if (self.page < 2) {
+//        return;
+//    }
+//    
+//    if (!_bottomSpinner) {
+//        _bottomSpinner = [[UIActivityIndicatorView alloc]
+//                              initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+//        [self.view addSubview:self.bottomSpinner];
+//    }
+//    
+//    self.bottomSpinner.frame = CGRectMake(self.view.center.x - self.bottomSpinner.frame.size.width / 2, self.view.bounds.size.height - self.bottomSpinner.frame.size.height * 1.5, self.bottomSpinner.frame.size.width, self.bottomSpinner.frame.size.width);
+    
+    [self.spinner startAnimating];
+}
+
+- (UICollectionViewCell *)loadingCellForIndexPath:(NSIndexPath *)indexPath {
+    
+    UICollectionViewCell *cell = (UICollectionViewCell *)[self.collectionView dequeueReusableCellWithReuseIdentifier:LOADING_CELL_IDENTIFIER forIndexPath:indexPath];
+    
+    return cell;
+}
+
+- (void)fetchMoreItems {
+    NSLog(@"FETCHING MORE ITEMS");
+    [self.spinner startAnimating];
+    
+    // Get next page of data
+    __block NSArray *newData;
+    dispatch_queue_t q = dispatch_queue_create("load more posts", NULL);
+    dispatch_async(q, ^{
+        self.page++;
+        NSLog(@"now on page %d of data", self.page);
+        newData = [self getDataForPage];
+        
+        // Simulate an async load
+        double delayInSeconds = 2 * NSEC_PER_SEC;
+        dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds);
+        dispatch_after(delay, dispatch_get_main_queue(), ^(void){
+            
+            // Add new data to local data
+            for (int i = 0; i < newData.count; i++) {
+                [self.posts addObject:newData[i]];
+            }
+            
+            // Reload collectionView
+            [self.collectionView reloadData];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.spinner stopAnimating];
+            });
+            
+        });
+    
+    });
     
 }
 
@@ -273,5 +347,29 @@ static NSString * const reuseIdentifier = @"Cell";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     return tileHeight;
 }
+
+#pragma mark - Scroll View Delegate
+
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    CGFloat offsetY = scrollView.contentOffset.y;
+//    CGFloat contentHeight = scrollView.contentSize.height;
+//    if (offsetY > contentHeight - scrollView.frame.size.height) {
+//        //start loading new images
+//        NSLog(@"reach bottom");
+//        __block NSArray *newData;
+//        dispatch_queue_t q = dispatch_queue_create("load more posts", NULL);
+//        dispatch_async(q, ^{
+//            self.page++;
+//            NSLog(@"%d", self.page);
+//            newData = [self getDataForPage];
+//            NSLog(@"%@", newData);
+//            [self.posts addObjectsFromArray:newData];
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [self.collectionView reloadData];
+//            });
+//        });
+//        
+//    }
+//}
 
 @end
