@@ -97,8 +97,9 @@ int flush = 0;
     [searchController.searchBar becomeFirstResponder];
 }
 
-- (void)didDismissSearchController:(UISearchController *)searchController{
-    [searchController.searchBar resignFirstResponder];
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [super collectionView:collectionView didSelectItemAtIndexPath:indexPath];
+    [self.searchController.searchBar resignFirstResponder];
 }
 
 /*
