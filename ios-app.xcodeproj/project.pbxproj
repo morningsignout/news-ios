@@ -11,6 +11,7 @@
 		CA239A6F1B9F660400BEDC5E /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = CA239A6C1B9F660400BEDC5E /* GTMNSString+HTML.m */; };
 		CA239A701B9F660400BEDC5E /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = CA239A6E1B9F660400BEDC5E /* NSString+HTML.m */; };
 		CA239A741B9FA9A400BEDC5E /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA239A731B9FA9A400BEDC5E /* SearchViewController.m */; };
+		CA7F86DD1BA296E9002E16CA /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA7F86DC1BA296E9002E16CA /* CategoryViewController.m */; };
 		FB0391771B9BC06600C16FE8 /* Tile.m in Sources */ = {isa = PBXBuildFile; fileRef = FB0391761B9BC06600C16FE8 /* Tile.m */; };
 		FB714A181B94D16000D68CB5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FB714A171B94D16000D68CB5 /* main.m */; };
 		FB714A1B1B94D16000D68CB5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FB714A1A1B94D16000D68CB5 /* AppDelegate.m */; };
@@ -62,6 +63,8 @@
 		CA239A6E1B9F660400BEDC5E /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTML.m"; sourceTree = "<group>"; };
 		CA239A721B9FA9A400BEDC5E /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		CA239A731B9FA9A400BEDC5E /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		CA7F86DB1BA296E9002E16CA /* CategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryViewController.h; sourceTree = "<group>"; };
+		CA7F86DC1BA296E9002E16CA /* CategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryViewController.m; sourceTree = "<group>"; };
 		FB0391751B9BC06600C16FE8 /* Tile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tile.h; sourceTree = "<group>"; };
 		FB0391761B9BC06600C16FE8 /* Tile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tile.m; sourceTree = "<group>"; };
 		FB714A121B94D16000D68CB5 /* ios-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -247,6 +250,8 @@
 				FBDEF3511B9E0436005BD9F4 /* WebLinksViewController.m */,
 				CA239A721B9FA9A400BEDC5E /* SearchViewController.h */,
 				CA239A731B9FA9A400BEDC5E /* SearchViewController.m */,
+				CA7F86DB1BA296E9002E16CA /* CategoryViewController.h */,
+				CA7F86DC1BA296E9002E16CA /* CategoryViewController.m */,
 				FBDEF3D91B9E9092005BD9F4 /* Extra Controllers */,
 			);
 			name = Controllers;
@@ -492,6 +497,7 @@
 				FBDEF3D11B9E4D31005BD9F4 /* DropdownMenuController.m in Sources */,
 				FBBA5AB01BA0DC0600345D5F /* TileCollectionViewCellB.m in Sources */,
 				FB714A181B94D16000D68CB5 /* main.m in Sources */,
+				CA7F86DD1BA296E9002E16CA /* CategoryViewController.m in Sources */,
 				FBBA5AB31BA0F19600345D5F /* BaseTileCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
