@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CHTCollectionViewWaterfallLayout.h"
+#import "Post.h"
 
 typedef enum ContentType { FEATURED, SEARCH, NONE } ContentType;
 
@@ -21,5 +22,6 @@ typedef enum ContentType { FEATURED, SEARCH, NONE } ContentType;
 - (BOOL)isFeaturedPage;
 - (NSArray *)getDataForTypeOfView;
 - (void)refreshPosts:(NSArray *)newPosts;
+- (Post*)getPostFromPosts:(int)index;
 
 @end

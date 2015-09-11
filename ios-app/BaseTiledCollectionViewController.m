@@ -162,6 +162,10 @@ static NSString * const reuseIdentifier = @"Cell";
     return NO;
 }
 
+- (Post*)getPostFromPosts:(int)index{
+    return [self.posts objectAtIndex:index];
+}
+
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
