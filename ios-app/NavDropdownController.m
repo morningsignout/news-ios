@@ -7,7 +7,7 @@
 //
 
 #import "NavDropdownController.h"
-#import "FadeSegue.h"
+#import "ContainerViewController.h"
 
 NSString * const section[] = {
     @"Featured", @"Search", @"Categories", @"Bookmarks"
@@ -15,24 +15,29 @@ NSString * const section[] = {
 
 @interface NavDropdownController ()
 
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *buttonOutletArray;
+@property (strong, nonatomic) ContainerViewController *containerVC;
+
 @end
 
 @implementation NavDropdownController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-}
+@synthesize buttons = _buttons;
 
+//- (void)viewDidLoad {
+//    [super viewDidLoad];
+//    // Do any additional setup after loading the view.
+//}
+//
 - (void)viewWillAppear:(BOOL)animated {
     // Customize your menu programmatically here.
     [self customizeMenu];
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+//
+//- (void)didReceiveMemoryWarning {
+//    [super didReceiveMemoryWarning];
+//    // Dispose of any resources that can be recreated.
+//}
 
 -(void) customizeMenu {
     // EXAMPLE: To set the menubar background colour programmatically.
@@ -73,17 +78,22 @@ NSString * const section[] = {
 
 }
 
-- (IBAction)tapSearchButton:(id)sender {
-    NSLog(@"tapped Search");
-    [self performSegueWithIdentifier:@"toSearch" sender:self];
-}
+//- (IBAction)tapSearchButton:(id)sender {
+//    NSLog(@"tapped Search");
+//    [self performSegueWithIdentifier:@"toSearch" sender:self];
+//}
+//
+//- (IBAction)tapCategoryButton:(id)sender {
+//    NSLog(@"tapped category");
+//}
+//
+//- (IBAction)tapBookmarkButton:(id)sender {
+//    NSLog(@"tapped bookmark");
+//}
 
-- (IBAction)tapCategoryButton:(id)sender {
-    NSLog(@"tapped category");
-}
-
-- (IBAction)tapBookmarkButton:(id)sender {
-    NSLog(@"tapped bookmark");
+- (IBAction)swapButtonPressed:(UIButton *)sender
+{
+    [self.containerVC swapViewControllersToIndex:(int)[self.buttonOutletArray indexOfObject:sender]];
 }
 
 /*
@@ -95,5 +105,12 @@ NSString * const section[] = {
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"embedContainer"]) {
+        self.containerVC = segue.destinationViewController;
+    }
+}
 
 @end

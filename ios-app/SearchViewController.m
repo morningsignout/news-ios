@@ -43,13 +43,17 @@ int flush = 0;
     self.definesPresentationContext = YES;
     //self.searchController.searchBar.keyboardAppearance = UIKeyboardAppearanceDark;
     
-    [self.view addSubview:self.searchController.searchBar];
+    //[self.view addSubview:self.searchController.searchBar];
 
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    NSLog(@"viewdidappear");
+- (void)viewWillAppear:(BOOL)animated {
     [self.searchController setActive:YES];
+    [self.view addSubview:self.searchController.searchBar];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self.searchController.searchBar removeFromSuperview];
 }
 
 - (void)didReceiveMemoryWarning {

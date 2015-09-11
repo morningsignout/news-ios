@@ -25,6 +25,8 @@
 		FB714A451B94D20600D68CB5 /* Author.m in Sources */ = {isa = PBXBuildFile; fileRef = FB714A441B94D20600D68CB5 /* Author.m */; };
 		FB714A4B1B94FFCF00D68CB5 /* URLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = FB714A4A1B94FFCF00D68CB5 /* URLParser.m */; };
 		FB714A4E1B94FFE100D68CB5 /* DataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = FB714A4D1B94FFE100D68CB5 /* DataParser.m */; };
+		FB72E7F61BA3525000F10356 /* ContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB72E7F51BA3525000F10356 /* ContainerViewController.m */; };
+		FB72E83A1BA3828500F10356 /* EmptySegue.m in Sources */ = {isa = PBXBuildFile; fileRef = FB72E8391BA3828500F10356 /* EmptySegue.m */; };
 		FB99DEE21B9A1AFE007111B4 /* FeatureTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB99DEE11B9A1AFE007111B4 /* FeatureTableViewController.m */; };
 		FB99DEE61B9A1BD9007111B4 /* FeaturedStoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB99DEE51B9A1BD9007111B4 /* FeaturedStoryTableViewCell.m */; };
 		FB99DEE91B9A1C01007111B4 /* TiledCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB99DEE81B9A1C01007111B4 /* TiledCell.m */; };
@@ -89,6 +91,10 @@
 		FB714A4A1B94FFCF00D68CB5 /* URLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLParser.m; sourceTree = "<group>"; };
 		FB714A4C1B94FFE100D68CB5 /* DataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataParser.h; sourceTree = "<group>"; };
 		FB714A4D1B94FFE100D68CB5 /* DataParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataParser.m; sourceTree = "<group>"; };
+		FB72E7F41BA3525000F10356 /* ContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainerViewController.h; sourceTree = "<group>"; };
+		FB72E7F51BA3525000F10356 /* ContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainerViewController.m; sourceTree = "<group>"; };
+		FB72E8381BA3828500F10356 /* EmptySegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmptySegue.h; sourceTree = "<group>"; };
+		FB72E8391BA3828500F10356 /* EmptySegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmptySegue.m; sourceTree = "<group>"; };
 		FB99DEE01B9A1AFE007111B4 /* FeatureTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeatureTableViewController.h; sourceTree = "<group>"; };
 		FB99DEE11B9A1AFE007111B4 /* FeatureTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeatureTableViewController.m; sourceTree = "<group>"; };
 		FB99DEE41B9A1BD9007111B4 /* FeaturedStoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeaturedStoryTableViewCell.h; sourceTree = "<group>"; };
@@ -240,6 +246,8 @@
 			children = (
 				FBDEF3D61B9E857B005BD9F4 /* NavDropdownController.h */,
 				FBDEF3D71B9E857B005BD9F4 /* NavDropdownController.m */,
+				FB72E7F41BA3525000F10356 /* ContainerViewController.h */,
+				FB72E7F51BA3525000F10356 /* ContainerViewController.m */,
 				FBEB3A731B9F8E4D00B57AAB /* FeatureCollectionViewController.h */,
 				FBEB3A741B9F8E4D00B57AAB /* FeatureCollectionViewController.m */,
 				FBBA5AB71BA107E900345D5F /* BaseTiledCollectionViewController.h */,
@@ -275,6 +283,8 @@
 		FB99DEE31B9A1BB1007111B4 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				FB72E8381BA3828500F10356 /* EmptySegue.h */,
+				FB72E8391BA3828500F10356 /* EmptySegue.m */,
 				FBC612031BA2215D005E4F27 /* FadeSegue.h */,
 				FBC612041BA2215D005E4F27 /* FadeSegue.m */,
 				FBEB3A721B9F8DB800B57AAB /* Tile Collection View */,
@@ -484,9 +494,11 @@
 				FB714A4B1B94FFCF00D68CB5 /* URLParser.m in Sources */,
 				FBBA5AB91BA107E900345D5F /* BaseTiledCollectionViewController.m in Sources */,
 				FB714A451B94D20600D68CB5 /* Author.m in Sources */,
+				FB72E7F61BA3525000F10356 /* ContainerViewController.m in Sources */,
 				FBBA5AB61BA1012200345D5F /* TileCollectionViewCellC.m in Sources */,
 				FB714A1E1B94D16000D68CB5 /* ios_app.xcdatamodeld in Sources */,
 				CA239A6F1B9F660400BEDC5E /* GTMNSString+HTML.m in Sources */,
+				FB72E83A1BA3828500F10356 /* EmptySegue.m in Sources */,
 				FB99DEE21B9A1AFE007111B4 /* FeatureTableViewController.m in Sources */,
 				FB714A211B94D16000D68CB5 /* TestViewController.m in Sources */,
 				FB714A4E1B94FFE100D68CB5 /* DataParser.m in Sources */,

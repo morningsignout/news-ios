@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Morning Sign Out Incorporated. All rights reserved.
 //
 
-#import "BaseTiledCollectionViewController.h"
+#import <UIKit/UIKit.h>
 
-@interface CategoryViewController : BaseTiledCollectionViewController
+@interface CategoryViewController : UIViewController
 
 @end

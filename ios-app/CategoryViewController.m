@@ -11,6 +11,8 @@
 
 @interface CategoryViewController ()
 
+@property (strong, nonatomic) NSArray *categoryNames;
+
 @end
 
 @implementation CategoryViewController
@@ -18,16 +20,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.categoryNames = [DataParser DataForCategories];
+    NSLog(@"%@", self.categoryNames);
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (NSArray *)getDataForTypeOfView {
-    NSArray *data = [DataParser DataForCategories];
-    return data;
 }
 
 /*

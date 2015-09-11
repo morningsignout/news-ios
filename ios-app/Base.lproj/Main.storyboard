@@ -333,9 +333,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2X7-kA-ZSj">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="62" width="600" height="538"/>
                                 <connections>
-                                    <segue destination="XeS-a7-9cA" kind="embed" id="xMM-tw-dGj"/>
+                                    <segue destination="v3g-s6-7sb" kind="embed" identifier="embedContainer" id="Pfj-e1-CaJ"/>
                                 </connections>
                             </containerView>
                             <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IrH-m8-TVH" userLabel="Menu">
@@ -357,6 +357,7 @@
                                         </state>
                                         <connections>
                                             <action selector="listButtonAction:" destination="04Z-Sl-c2u" eventType="touchUpInside" id="QYW-mO-2ot"/>
+                                            <action selector="swapButtonPressed:" destination="04Z-Sl-c2u" eventType="touchUpInside" id="r18-FK-qe2"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CVd-ix-RwQ" userLabel="Button - Search">
@@ -374,7 +375,7 @@
                                         </state>
                                         <connections>
                                             <action selector="listButtonAction:" destination="04Z-Sl-c2u" eventType="touchUpInside" id="MYW-Am-1q5"/>
-                                            <action selector="tapSearchButton:" destination="04Z-Sl-c2u" eventType="touchUpInside" id="5bk-2b-neV"/>
+                                            <action selector="swapButtonPressed:" destination="04Z-Sl-c2u" eventType="touchUpInside" id="Kbt-WG-4QH"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xt4-XH-rur" userLabel="Button - Categories">
@@ -392,7 +393,6 @@
                                         </state>
                                         <connections>
                                             <action selector="listButtonAction:" destination="04Z-Sl-c2u" eventType="touchUpInside" id="VYa-Hh-Qqp"/>
-                                            <action selector="tapCategoryButton:" destination="04Z-Sl-c2u" eventType="touchUpInside" id="Rhs-0H-FGQ"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iMh-Ut-B68" userLabel="Button - Bookmarks">
@@ -410,8 +410,6 @@
                                         </state>
                                         <connections>
                                             <action selector="listButtonAction:" destination="04Z-Sl-c2u" eventType="touchUpInside" id="PYE-Wc-93F"/>
-                                            <action selector="tapBookmarkButton:" destination="04Z-Sl-c2u" eventType="touchUpInside" id="E6u-5o-da7"/>
-                                            <action selector="tapSearchButton:" destination="04Z-Sl-c2u" eventType="touchUpInside" id="fzg-R2-GrL"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -430,10 +428,10 @@
                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jKq-DV-vjz" userLabel="Menu Bar">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="62"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Featured" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wue-Wl-9Kj">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Featured" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wue-Wl-9Kj">
                                         <rect key="frame" x="0.0" y="24" width="600" height="21"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="98" id="bQD-Bt-IxQ"/>
+                                            <constraint firstAttribute="width" constant="600" id="bQD-Bt-IxQ"/>
                                             <constraint firstAttribute="height" constant="21" id="uI7-nZ-FRd"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -474,7 +472,7 @@
                             <constraint firstAttribute="trailing" secondItem="jKq-DV-vjz" secondAttribute="trailing" id="IZz-Xj-waO"/>
                             <constraint firstItem="2X7-kA-ZSj" firstAttribute="leading" secondItem="ukp-MB-Qna" secondAttribute="leading" id="XXC-Jl-IIG"/>
                             <constraint firstAttribute="bottom" secondItem="2X7-kA-ZSj" secondAttribute="bottom" id="iEr-EH-puB"/>
-                            <constraint firstItem="2X7-kA-ZSj" firstAttribute="top" secondItem="ukp-MB-Qna" secondAttribute="top" id="kvK-Ht-VAT"/>
+                            <constraint firstItem="2X7-kA-ZSj" firstAttribute="top" secondItem="ukp-MB-Qna" secondAttribute="top" constant="62" id="kvK-Ht-VAT"/>
                             <constraint firstItem="jKq-DV-vjz" firstAttribute="top" secondItem="ukp-MB-Qna" secondAttribute="top" id="zQr-SX-Fa8"/>
                             <constraint firstItem="IrH-m8-TVH" firstAttribute="leading" secondItem="ukp-MB-Qna" secondAttribute="leading" id="zkn-P0-BoQ"/>
                         </constraints>
@@ -490,7 +488,10 @@
                         <outletCollection property="buttons" destination="CVd-ix-RwQ" id="RA7-tK-uw1"/>
                         <outletCollection property="buttons" destination="Xt4-XH-rur" id="njM-R8-p4P"/>
                         <outletCollection property="buttons" destination="iMh-Ut-B68" id="oAQ-9X-eHL"/>
-                        <segue destination="Ign-xr-Y8r" kind="show" identifier="toSearch" id="wIN-Bq-KB4"/>
+                        <outletCollection property="buttonOutletArray" destination="Dyk-Ii-OI4" id="ayW-I3-aa2"/>
+                        <outletCollection property="buttonOutletArray" destination="CVd-ix-RwQ" id="sUP-Sz-vTW"/>
+                        <outletCollection property="buttonOutletArray" destination="Xt4-XH-rur" id="iHV-CF-EEB"/>
+                        <outletCollection property="buttonOutletArray" destination="iMh-Ut-B68" id="dGI-7H-igV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uZ9-qg-9zj" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -500,7 +501,30 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-1316" y="442"/>
+            <point key="canvasLocation" x="-2882" y="620"/>
+        </scene>
+        <!--Container View Controller-->
+        <scene sceneID="V9E-tc-Se2">
+            <objects>
+                <viewController id="v3g-s6-7sb" customClass="ContainerViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Kvj-wW-GAJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="168-LW-3Yh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="RTZ-eF-gz6">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="538"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="XeS-a7-9cA" kind="custom" identifier="toFeatured" customClass="EmptySegue" id="re2-uZ-4Tt"/>
+                        <segue destination="Rxn-ZQ-EJ5" kind="custom" identifier="toSearch" customClass="EmptySegue" id="pds-4k-njF"/>
+                        <segue destination="ECj-Nj-98G" kind="custom" identifier="toCategory" customClass="EmptySegue" id="0r5-l8-mUy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Iel-bP-xJn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2154" y="651.5"/>
         </scene>
         <!--Nav Dropdown Controller-->
         <scene sceneID="fc7-J6-527">
@@ -516,9 +540,6 @@
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="osG-sd-4UD">
                                 <rect key="frame" x="0.0" y="62" width="600" height="538"/>
-                                <connections>
-                                    <segue destination="Rxn-ZQ-EJ5" kind="embed" id="O3I-5b-QjJ"/>
-                                </connections>
                             </containerView>
                             <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q9j-gQ-fZS" userLabel="Menu">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="199"/>
@@ -611,10 +632,10 @@
                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KpQ-bz-JX4" userLabel="Menu Bar">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="62"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Search" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mJS-i2-NKj">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mJS-i2-NKj">
                                         <rect key="frame" x="0.0" y="24" width="600" height="21"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="98" id="Jpl-bR-nbe"/>
+                                            <constraint firstAttribute="width" constant="600" id="Jpl-bR-nbe"/>
                                             <constraint firstAttribute="height" constant="21" id="UMw-FB-cEQ"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -662,7 +683,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="TVv-xB-w8F"/>
                     <connections>
-                        <outlet property="container" destination="osG-sd-4UD" id="jj4-OP-tsJ"/>
                         <outlet property="menu" destination="Q9j-gQ-fZS" id="yEv-qK-Ms8"/>
                         <outlet property="menuButton" destination="pUQ-gH-GBl" id="xoV-hT-UC2"/>
                         <outlet property="menubar" destination="KpQ-bz-JX4" id="inF-3o-Ew2"/>
@@ -690,12 +710,12 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="-1284" y="1166"/>
+            <point key="canvasLocation" x="-2630" y="1735"/>
         </scene>
         <!--Category View Controller-->
         <scene sceneID="5YB-xr-ZL3">
             <objects>
-                <viewController id="ECj-Nj-98G" customClass="CategoryViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="categoryView" id="ECj-Nj-98G" customClass="CategoryViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="FBH-bd-zop"/>
                         <viewControllerLayoutGuide type="bottom" id="vmw-44-EjG"/>
@@ -703,27 +723,35 @@
                     <view key="view" contentMode="scaleToFill" id="roO-nK-wik">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D8N-9Z-rcc">
+                                <rect key="frame" x="63" y="161" width="46" height="30"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lkb-fB-75c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1316" y="2052"/>
+            <point key="canvasLocation" x="-1315" y="1754"/>
         </scene>
         <!--Feature Collection View Controller-->
         <scene sceneID="phn-ig-E6L">
             <objects>
-                <viewController id="XeS-a7-9cA" customClass="FeatureCollectionViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="featureView" id="XeS-a7-9cA" customClass="FeatureCollectionViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Elg-Eb-E45"/>
                         <viewControllerLayoutGuide type="bottom" id="TZi-wx-ayy"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="fs2-ty-6ng">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="538"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="FAj-rq-mJf">
-                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="FAj-rq-mJf">
+                                <rect key="frame" x="290" y="260" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -732,6 +760,8 @@
                             <constraint firstItem="FAj-rq-mJf" firstAttribute="centerX" secondItem="fs2-ty-6ng" secondAttribute="centerX" id="TTl-o1-cmP"/>
                         </constraints>
                     </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="600" height="538"/>
                     <connections>
                         <outlet property="spinner" destination="FAj-rq-mJf" id="8He-fp-7HG"/>
                         <segue destination="ouP-Yc-jsf" kind="show" identifier="viewPost" id="G2O-cY-Em3"/>
@@ -739,7 +769,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U5h-Qg-JnS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-570" y="442"/>
+            <point key="canvasLocation" x="-1315" y="410.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="O2e-qQ-cof">
@@ -757,7 +787,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WS6-ha-063" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2054" y="442"/>
+            <point key="canvasLocation" x="-3620" y="620"/>
         </scene>
         <!--Full Post View Controller-->
         <scene sceneID="gIS-6F-kh7">
@@ -806,7 +836,7 @@
         <!--Search View Controller-->
         <scene sceneID="aXv-Nf-j1K">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="Rxn-ZQ-EJ5" customClass="SearchViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="searchView" automaticallyAdjustsScrollViewInsets="NO" id="Rxn-ZQ-EJ5" customClass="SearchViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lAw-77-TvF"/>
                         <viewControllerLayoutGuide type="bottom" id="L61-IP-Mob"/>
@@ -815,8 +845,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="538"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Stl-07-Lct">
-                                <rect key="frame" x="290" y="259" width="20" height="20"/>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Stl-07-Lct">
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -826,17 +856,19 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="600" height="538"/>
                     <connections>
                         <segue destination="ouP-Yc-jsf" kind="show" identifier="viewPost" id="dt6-XE-3GA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LNc-4U-icW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-521" y="1174"/>
+            <point key="canvasLocation" x="-1315" y="1060"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="G2O-cY-Em3"/>
         <segue reference="DXn-2w-hPS"/>
-        <segue reference="dt6-XE-3GA"/>
     </inferredMetricsTieBreakers>
 </document>
