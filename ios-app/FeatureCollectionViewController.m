@@ -11,6 +11,7 @@
 #import "DataParser.h"
 #import <UIImageView+AFNetworking.h>
 #import "FullPostViewController.h"
+#import "DropdownNavigationController.h"
 
 #define HEADER_IDENTIFIER @"TopFeatured"
 static NSString * const SEGUE_IDENTIFIER = @"viewPost";
@@ -39,6 +40,11 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     // Configure View Controller
     [self.collectionView addSubview:refreshControl];
     
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    DropdownNavigationController *navVC = (DropdownNavigationController *)self.parentViewController.parentViewController;
+    navVC.titleLabel.text = @"Featured";
 }
 
 #pragma mark - Accessors

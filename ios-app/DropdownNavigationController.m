@@ -9,11 +9,18 @@
 #import "DropdownNavigationController.h"
 #import "ContainerViewController.h"
 
+#define FEATURE_INDEX 0
+#define SEARCH_INDEX 1
+#define CATEGORIES_INDEX 2
+#define BOOKMARKS_INDEX 3
+
 NSString * const section[] = {
     @"Featured", @"Search", @"Categories", @"Bookmarks"
 };
 
-@interface DropdownNavigationController ()
+@interface DropdownNavigationController () {
+    int sectionCurrentlyOn;
+}
 
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *buttonOutletArray;
 @property (strong, nonatomic) ContainerViewController *containerVC;
@@ -28,12 +35,11 @@ NSString * const section[] = {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self customizeMenu];
+    sectionCurrentlyOn = FEATURE_INDEX;
 }
 
 -(void) customizeMenu {
-    // EXAMPLE: To set the menubar background colour programmatically.
-    // FYI: There is a bug where the color comes out differently when set programmatically
-    // than when set in XCode Interface builder, and I don't know why.
+    // To set the menubar background colour programmatically.
     [self setMenubarBackground:[UIColor darkGrayColor]];
     
     // Replace menu button with an IonIcon.
@@ -57,7 +63,14 @@ NSString * const section[] = {
 
 - (IBAction)swapButtonPressed:(UIButton *)sender
 {
-    [self.containerVC swapViewControllersToIndex:(int)[self.buttonOutletArray indexOfObject:sender]];
+    int index = (int)[self.buttonOutletArray indexOfObject:sender];
+    
+    if (index == sectionCurrentlyOn) {
+        return;
+    }
+    
+    [self.containerVC swapViewControllersToIndex:index];
+    sectionCurrentlyOn = index;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

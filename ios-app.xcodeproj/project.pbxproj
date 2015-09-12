@@ -34,10 +34,8 @@
 		FBBA5AB31BA0F19600345D5F /* BaseTileCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBBA5AB21BA0F19600345D5F /* BaseTileCollectionViewCell.m */; };
 		FBBA5AB61BA1012200345D5F /* TileCollectionViewCellC.m in Sources */ = {isa = PBXBuildFile; fileRef = FBBA5AB51BA1012200345D5F /* TileCollectionViewCellC.m */; };
 		FBBA5AB91BA107E900345D5F /* BaseTiledCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBBA5AB81BA107E900345D5F /* BaseTiledCollectionViewController.m */; };
-		FBC612051BA2215D005E4F27 /* FadeSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = FBC612041BA2215D005E4F27 /* FadeSegue.m */; };
 		FBDEF3521B9E0436005BD9F4 /* ExternalLinksWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDEF3511B9E0436005BD9F4 /* ExternalLinksWebViewController.m */; };
 		FBDEF3D11B9E4D31005BD9F4 /* DropdownMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDEF3CE1B9E4D31005BD9F4 /* DropdownMenuController.m */; };
-		FBDEF3D21B9E4D31005BD9F4 /* DropdownMenuSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDEF3D01B9E4D31005BD9F4 /* DropdownMenuSegue.m */; };
 		FBDEF3D81B9E857B005BD9F4 /* DropdownNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDEF3D71B9E857B005BD9F4 /* DropdownNavigationController.m */; };
 		FBEB3A751B9F8E4D00B57AAB /* FeatureCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEB3A741B9F8E4D00B57AAB /* FeatureCollectionViewController.m */; };
 		FBEB3A781B9F8EDF00B57AAB /* TileCollectionViewCellA.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEB3A771B9F8EDF00B57AAB /* TileCollectionViewCellA.m */; };
@@ -109,14 +107,10 @@
 		FBBA5AB51BA1012200345D5F /* TileCollectionViewCellC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TileCollectionViewCellC.m; sourceTree = "<group>"; };
 		FBBA5AB71BA107E900345D5F /* BaseTiledCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTiledCollectionViewController.h; sourceTree = "<group>"; };
 		FBBA5AB81BA107E900345D5F /* BaseTiledCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTiledCollectionViewController.m; sourceTree = "<group>"; };
-		FBC612031BA2215D005E4F27 /* FadeSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FadeSegue.h; sourceTree = "<group>"; };
-		FBC612041BA2215D005E4F27 /* FadeSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FadeSegue.m; sourceTree = "<group>"; };
 		FBDEF3501B9E0436005BD9F4 /* ExternalLinksWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExternalLinksWebViewController.h; sourceTree = "<group>"; };
 		FBDEF3511B9E0436005BD9F4 /* ExternalLinksWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExternalLinksWebViewController.m; sourceTree = "<group>"; };
 		FBDEF3CD1B9E4D31005BD9F4 /* DropdownMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropdownMenuController.h; sourceTree = "<group>"; };
 		FBDEF3CE1B9E4D31005BD9F4 /* DropdownMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropdownMenuController.m; sourceTree = "<group>"; };
-		FBDEF3CF1B9E4D31005BD9F4 /* DropdownMenuSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropdownMenuSegue.h; sourceTree = "<group>"; };
-		FBDEF3D01B9E4D31005BD9F4 /* DropdownMenuSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropdownMenuSegue.m; sourceTree = "<group>"; };
 		FBDEF3D61B9E857B005BD9F4 /* DropdownNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropdownNavigationController.h; sourceTree = "<group>"; };
 		FBDEF3D71B9E857B005BD9F4 /* DropdownNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropdownNavigationController.m; sourceTree = "<group>"; };
 		FBEB3A731B9F8E4D00B57AAB /* FeatureCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeatureCollectionViewController.h; sourceTree = "<group>"; };
@@ -285,8 +279,6 @@
 			children = (
 				FB72E8381BA3828500F10356 /* EmptySegue.h */,
 				FB72E8391BA3828500F10356 /* EmptySegue.m */,
-				FBC612031BA2215D005E4F27 /* FadeSegue.h */,
-				FBC612041BA2215D005E4F27 /* FadeSegue.m */,
 				FBEB3A721B9F8DB800B57AAB /* Tile Collection View */,
 				FBEB3A7C1B9FA6E000B57AAB /* Tile Table View */,
 			);
@@ -298,8 +290,6 @@
 			children = (
 				FBDEF3CD1B9E4D31005BD9F4 /* DropdownMenuController.h */,
 				FBDEF3CE1B9E4D31005BD9F4 /* DropdownMenuController.m */,
-				FBDEF3CF1B9E4D31005BD9F4 /* DropdownMenuSegue.h */,
-				FBDEF3D01B9E4D31005BD9F4 /* DropdownMenuSegue.m */,
 			);
 			path = DropdownMenu;
 			sourceTree = "<group>";
@@ -485,9 +475,7 @@
 				CA239A701B9F660400BEDC5E /* NSString+HTML.m in Sources */,
 				CA239A741B9FA9A400BEDC5E /* SearchViewController.m in Sources */,
 				FB714A421B94D1E500D68CB5 /* Post.m in Sources */,
-				FBDEF3D21B9E4D31005BD9F4 /* DropdownMenuSegue.m in Sources */,
 				FBEB3A751B9F8E4D00B57AAB /* FeatureCollectionViewController.m in Sources */,
-				FBC612051BA2215D005E4F27 /* FadeSegue.m in Sources */,
 				FB714A1B1B94D16000D68CB5 /* AppDelegate.m in Sources */,
 				FBEB3A781B9F8EDF00B57AAB /* TileCollectionViewCellA.m in Sources */,
 				FB0391771B9BC06600C16FE8 /* Tile.m in Sources */,

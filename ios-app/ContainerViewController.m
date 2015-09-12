@@ -22,9 +22,6 @@
 
 @interface ContainerViewController ()
 
-//@property (strong, nonatomic) UIViewController *initialVC;
-//@property (strong, nonatomic) UIViewController *currentVC;
-
 @property (strong, nonatomic) FeatureCollectionViewController *featureViewController;
 @property (strong, nonatomic) SearchViewController *searchViewController;
 @property (strong, nonatomic) CategoryViewController *categoryViewController;
@@ -46,6 +43,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    
     // Instead of creating new VCs on each seque we want to hang on to existing
     // instances if we have it. Remove the second condition of the following
     // two if statements to get new VC instances instead.
@@ -121,29 +119,14 @@
             break;
     }
     
-    UIViewController *newViewController = [self getViewControllerFromSegueIdentifier:self.currentSegueIdentifier];
-    
     // self.currentSegueIdentifier represents the view controller user is switching to
+    UIViewController *newViewController = [self getViewControllerFromSegueIdentifier:self.currentSegueIdentifier];
+
 
     if (newViewController) {
         [self swapFromViewController:oldViewController toViewController:newViewController];
         return;
     }
-    
-//    if (([self.currentSegueIdentifier isEqualToString:FeatureSegueIdentifier]) && self.featureViewController) {
-//        
-//        return;
-//    }
-//    else if (([self.currentSegueIdentifier isEqualToString:SearchSegueIdentifier]) && self.searchViewController) {
-//        [self swapFromViewController:oldViewController toViewController:self.searchViewController];
-//        return;
-//    }
-    
-    // in process
-//    if (([self.currentSegueIdentifier isEqualToString:CategorySegueIdentifier]) && self.categoryViewController) {
-//        [self swapFromViewController:self.featureViewController toViewController:self.searchViewController];
-//        return;
-//    }
     
     [self performSegueWithIdentifier:self.currentSegueIdentifier sender:nil];
 }

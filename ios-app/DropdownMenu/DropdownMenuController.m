@@ -21,7 +21,6 @@
  */
 
 #import "DropdownMenuController.h"
-#import "DropdownMenuSegue.h"
 
 
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
@@ -223,8 +222,9 @@ CAShapeLayer *closedMenuShape;
     [borderPath addLineToPoint:CGPointMake(trianglePosition+2*triangleSize, height)];
     [borderPath addLineToPoint:CGPointMake(width, height)];
     
-    [openMenuShape setPath:borderPath.CGPath];
-    [openMenuShape setStrokeColor:[[UIColor whiteColor] CGColor]];
+    // Bottom of nav border color
+    // [openMenuShape setPath:borderPath.CGPath];
+    // [openMenuShape setStrokeColor:[[UIColor whiteColor] CGColor]];
     
     [openMenuShape setBounds:CGRectMake(0.0f, 0.0f, height+triangleSize, width)];
     [openMenuShape setAnchorPoint:CGPointMake(0.0f, 0.0f)];
@@ -244,8 +244,9 @@ CAShapeLayer *closedMenuShape;
     [borderPath moveToPoint:CGPointMake(0, height)];
     [borderPath addLineToPoint:CGPointMake(width, height)];
     
-    [closedMenuShape setPath:borderPath.CGPath];
-    [closedMenuShape setStrokeColor:[[UIColor whiteColor] CGColor]];
+    // Bottom of nav border color
+    // [closedMenuShape setPath:borderPath.CGPath];
+    // [closedMenuShape setStrokeColor:[[UIColor whiteColor] CGColor]];
     
     [closedMenuShape setBounds:CGRectMake(0.0f, 0.0f, height, width)];
     [closedMenuShape setAnchorPoint:CGPointMake(0.0f, 0.0f)];
