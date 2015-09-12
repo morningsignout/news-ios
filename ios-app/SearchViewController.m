@@ -11,9 +11,6 @@
 #import "DataParser.h"
 #import "Post.h"
 #import "DropdownNavigationController.h"
-#import "FadeSegue.h"
-
-static CGFloat marginFromTop = 100.0f;
 
 @interface SearchViewController () <UISearchBarDelegate, UISearchResultsUpdating, UISearchControllerDelegate>
 
@@ -55,6 +52,8 @@ int flush = 0;
     [self.searchController setActive:YES];
     [self.collectionView addSubview:self.searchController.searchBar];
     self.navigationController.navigationBar.hidden = YES;
+    DropdownNavigationController *navVC = (DropdownNavigationController *)self.parentViewController.parentViewController;
+    navVC.titleLabel.text = @"Search";
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

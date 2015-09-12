@@ -8,6 +8,7 @@
 
 #import "CategoryViewController.h"
 #import "DataParser.h"
+#import "DropdownNavigationController.h"
 
 @interface CategoryViewController ()
 
@@ -22,6 +23,11 @@
     // Do any additional setup after loading the view.
     self.categoryNames = [DataParser DataForCategories];
     NSLog(@"%@", self.categoryNames);
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    DropdownNavigationController *navVC = (DropdownNavigationController *)self.parentViewController.parentViewController;
+    navVC.titleLabel.text = @"Categories";
 }
 
 - (void)didReceiveMemoryWarning {
