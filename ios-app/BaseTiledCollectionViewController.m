@@ -57,6 +57,7 @@ static NSString * const reuseIdentifier = @"Cell";
     
     //[self.collectionView setContentInset:UIEdgeInsetsMake(62,0,0,0)];
     [self.view bringSubviewToFront:self.spinner];
+    self.navigationController.navigationBarHidden = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -67,6 +68,7 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self updateLayoutForOrientation:[UIApplication sharedApplication].statusBarOrientation];
+    self.navigationController.navigationBarHidden = YES;
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {

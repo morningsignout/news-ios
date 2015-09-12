@@ -1,9 +1,9 @@
 //
 //  EmptySegue.h
-//  EmbeddedSwapping
+//  ios-app
 //
-//  Created by Michael Luton on 11/13/12.
-//  Copyright (c) 2012 Sandmoose Software. All rights reserved.
+//  Created by Shannon Phu on 9/11/15.
+//  Copyright (c) 2015 Morning Sign Out Incorporated. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

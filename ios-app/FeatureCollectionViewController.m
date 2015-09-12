@@ -45,6 +45,7 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 - (void)viewWillAppear:(BOOL)animated {
     DropdownNavigationController *navVC = (DropdownNavigationController *)self.parentViewController.parentViewController;
     navVC.titleLabel.text = @"Featured";
+    self.navigationController.navigationBarHidden = YES;
 }
 
 #pragma mark - Accessors
