@@ -18,6 +18,7 @@ static CGFloat marginFromTop = 100.0f;
 @interface SearchViewController () <UISearchBarDelegate, UISearchResultsUpdating, UISearchControllerDelegate>
 
 @property (strong, nonatomic) UISearchController *searchController;
+@property (strong, nonatomic) UISegmentedControl *segmentedControl;
 @property (strong, nonatomic) NSString *searchTerm;
 
 @end
@@ -35,6 +36,7 @@ int flush = 0;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self.collectionView setContentInset:UIEdgeInsetsMake(62,0,0,0)];
     
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = self;
@@ -44,17 +46,23 @@ int flush = 0;
     [self.searchController.searchBar sizeToFit];
     //self.searchController.searchBar.frame = CGRectMake(0, marginFromTop, self.view.bounds.size.width, self.searchController.searchBar.bounds.size.height);
     self.definesPresentationContext = YES;
-    //self.searchController.searchBar.keyboardAppearance = UIKeyboardAppearanceDark;
     
-    //self.collectionView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - marginFromTop);
-    //[self.view addSubview:self.searchController.searchBar];
+    NSArray *itemArray = [NSArray arrayWithObjects: @"All", @"Tags", @"Categories", nil];
+    self.segmentedControl = [[UISegmentedControl alloc] initWithItems:itemArray];
+    self.segmentedControl.frame = CGRectMake((self.view.frame.size.width-320)/2, 50, 320, 20);
+    self.segmentedControl.segmentedControlStyle = UISegmentedControlStylePlain;
+    [self.segmentedControl addTarget:self action:@selector(MySegmentControlAction:) forControlEvents: UIControlEventValueChanged];
+    self.segmentedControl.selectedSegmentIndex = 0;
 
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    
+    [self.view addSubview:self.searchController.searchBar];
+    [self.view addSubview:self.segmentedControl];
+    //self.navigationController.navigationBar.hidden = YES;
     [self.searchController setActive:YES];
-    [self.collectionView addSubview:self.searchController.searchBar];
-    self.navigationController.navigationBar.hidden = YES;
+    NSLog(@"set active");
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -100,12 +108,21 @@ int flush = 0;
 }
 
 - (void)didPresentSearchController:(UISearchController *)searchController{
+    NSLog(@"presenting");
     [searchController.searchBar becomeFirstResponder];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [super collectionView:collectionView didSelectItemAtIndexPath:indexPath];
     [self.searchController.searchBar resignFirstResponder];
+}
+
+- (void)MySegmentControlAction:(UISegmentedControl *)segment
+{
+    if(segment.selectedSegmentIndex == 0)
+    {
+        // code for the first button
+    }
 }
 
 /*

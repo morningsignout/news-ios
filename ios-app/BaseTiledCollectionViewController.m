@@ -55,7 +55,7 @@ static NSString * const reuseIdentifier = @"Cell";
     
     tileHeight = CGSizeMake(1, 1.5);
     
-    [self.collectionView setContentInset:UIEdgeInsetsMake(62,0,0,0)];
+    //[self.collectionView setContentInset:UIEdgeInsetsMake(62,0,0,0)];
     [self.view bringSubviewToFront:self.spinner];
 }
 
