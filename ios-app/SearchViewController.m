@@ -63,7 +63,7 @@ int flush = 0;
     NSLog(@"set active");
 =======
     [self.collectionView addSubview:self.searchController.searchBar];
-    self.navigationController.navigationBar.hidden = YES;
+    self.navigationController.navigationBarHidden = YES;
     DropdownNavigationController *navVC = (DropdownNavigationController *)self.parentViewController.parentViewController;
     navVC.titleLabel.text = @"Search";
 >>>>>>> origin/frontend
