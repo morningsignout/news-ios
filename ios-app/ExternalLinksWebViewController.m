@@ -6,16 +6,16 @@
 //  Copyright (c) 2015 Morning Sign Out Incorporated. All rights reserved.
 //
 
-#import "WebLinksViewController.h"
+#import "ExternalLinksWebViewController.h"
 #import <UIWebView+AFNetworking.h>
 #import <AFNetworking.h>
 
-@interface WebLinksViewController () <UIWebViewDelegate>
+@interface ExternalLinksWebViewController () <UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
 @end
 
-@implementation WebLinksViewController
+@implementation ExternalLinksWebViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

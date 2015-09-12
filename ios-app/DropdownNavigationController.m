@@ -6,21 +6,21 @@
 //  Copyright (c) 2015 Morning Sign Out Incorporated. All rights reserved.
 //
 
-#import "NavDropdownController.h"
+#import "DropdownNavigationController.h"
 #import "ContainerViewController.h"
 
 NSString * const section[] = {
     @"Featured", @"Search", @"Categories", @"Bookmarks"
 };
 
-@interface NavDropdownController ()
+@interface DropdownNavigationController ()
 
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *buttonOutletArray;
 @property (strong, nonatomic) ContainerViewController *containerVC;
 
 @end
 
-@implementation NavDropdownController
+@implementation DropdownNavigationController
 
 @synthesize buttons = _buttons;
 

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WebLinksViewController : UIViewController
+@interface ExternalLinksWebViewController : UIViewController
 @property (strong, nonatomic) NSURL *url;
 @end

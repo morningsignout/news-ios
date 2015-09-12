@@ -233,7 +233,7 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ios-app/NavDropdownController.m"
+            filePath = "ios-app/DropdownNavigationController.m"
             timestampString = "463721092.351156"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"

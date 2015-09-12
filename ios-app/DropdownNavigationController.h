@@ -8,6 +8,6 @@
 
 #import "DropdownMenuController.h"
 
-@interface NavDropdownController : DropdownMenuController
+@interface DropdownNavigationController : DropdownMenuController
 
 @end

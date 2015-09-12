@@ -8,7 +8,7 @@
 
 #import "FullPostViewController.h"
 #import "Post.h"
-#import "WebLinksViewController.h"
+#import "ExternalLinksWebViewController.h"
 
 static NSString * const header = @"<!-- Latest compiled and minified CSS --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"><!-- Optional theme --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css\"><!-- Latest compiled and minified JavaScript --><script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\"></script><!-- Yeon's CSS --><link rel=\"stylesheet\" href=\"http://morningsignout.com/wp-content/themes/mso/style.css?ver=4.3\"><meta charset=\"utf-8\"> \
     <style type=\"text/css\">.ssba {}.ssba img { width: 30px !important; padding: 0px; border:  0; box-shadow: none !important; display: inline !important; vertical-align: middle; } .ssba, .ssba a {text-decoration:none;border:0;background: none;font-family: Indie Flower;font-size: 20px;}</style>";
@@ -60,7 +60,7 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
         NSString *urlToOpen = [NSString stringWithFormat:@"%@",request.URL];
         NSURL* url = [NSURL URLWithString:urlToOpen];
         
-        WebLinksViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"LinkController"];
+        ExternalLinksWebViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"LinkController"];
         controller.url = url;
         
         // For push segue

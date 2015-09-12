@@ -15,7 +15,7 @@
 #import "Tile.h"
 #import "Post.h"
 #import "FullPostViewController.h"
-#import "NavDropdownController.h"
+#import "DropdownNavigationController.h"
 #import "NSString+HTML.h"
 #import <UIImageView+AFNetworking.h>
 
@@ -74,7 +74,7 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     [super viewDidAppear:animated];
     
     // Customize your menubar programmatically here.
-    NavDropdownController* menu = (NavDropdownController *) [self parentViewController];
+    DropdownNavigationController* menu = (DropdownNavigationController *) [self parentViewController];
     [menu setMenubarTitle:@"Features"];
 }
 

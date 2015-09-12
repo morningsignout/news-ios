@@ -15,7 +15,7 @@
 #import "BaseTileCollectionViewCell.h"
 #import "TileCollectionViewCellC.h"
 #import "FeaturedTileCollectionViewCell.h"
-#import "NavDropdownController.h"
+#import "DropdownNavigationController.h"
 
 #define CELL_IDENTIFIER @"TileCell"
 #define CELL_IDENTIFIER_B @"TileCell2"

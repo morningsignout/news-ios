@@ -10,7 +10,7 @@
 #import "BaseTiledCollectionViewController.h"
 #import "DataParser.h"
 #import "Post.h"
-#import "NavDropdownController.h"
+#import "DropdownNavigationController.h"
 #import "FadeSegue.h"
 
 static CGFloat marginFromTop = 100.0f;
