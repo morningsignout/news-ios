@@ -56,11 +56,7 @@ int flush = 0;
 - (void)viewWillAppear:(BOOL)animated {
     [self.view addSubview:self.searchController.searchBar];
     [self.view addSubview:self.segmentedControl];
-<<<<<<< HEAD
-    self.navigationController.navigationBar.hidden = YES;
-=======
     self.navigationController.navigationBarHidden = YES;
->>>>>>> origin/frontend
     [self.searchController setActive:YES];
     NSLog(@"set active");
     DropdownNavigationController *navVC = (DropdownNavigationController *)self.parentViewController.parentViewController;
