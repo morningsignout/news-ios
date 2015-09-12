@@ -57,7 +57,7 @@ int flush = 0;
     
     [self.view addSubview:self.searchController.searchBar];
     [self.view addSubview:self.segmentedControl];
-    //self.navigationController.navigationBar.hidden = YES;
+    self.navigationController.navigationBar.hidden = YES;
     [self.searchController setActive:YES];
     NSLog(@"set active");
     DropdownNavigationController *navVC = (DropdownNavigationController *)self.parentViewController.parentViewController;
@@ -118,9 +118,14 @@ int flush = 0;
 
 - (void)MySegmentControlAction:(UISegmentedControl *)segment
 {
-    if(segment.selectedSegmentIndex == 0)
-    {
+    if(segment.selectedSegmentIndex == 0){
         // code for the first button
+    }
+    else if(segment.selectedSegmentIndex == 1){
+        
+    }
+    else if(segment.selectedSegmentIndex == 2){
+        
     }
 }
 
