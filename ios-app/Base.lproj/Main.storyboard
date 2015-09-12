@@ -651,10 +651,29 @@
         <scene sceneID="aXv-Nf-j1K">
             <objects>
                 <viewController storyboardIdentifier="searchView" automaticallyAdjustsScrollViewInsets="NO" id="Rxn-ZQ-EJ5" customClass="SearchViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ubs-zc-lrc"/>
+                        <viewControllerLayoutGuide type="bottom" id="MOF-4h-Hlk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="W7z-eo-s0N">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="538"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ewr-Gv-Sfs">
+                                <rect key="frame" x="290" y="259" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="ewr-Gv-Sfs" secondAttribute="centerY" id="FdA-VH-iV0"/>
+                            <constraint firstAttribute="centerX" secondItem="ewr-Gv-Sfs" secondAttribute="centerX" id="mNq-3X-FSa"/>
+                        </constraints>
+                    </view>
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="538"/>
                     <connections>
+                        <outlet property="spinner" destination="ewr-Gv-Sfs" id="PdT-a1-7d4"/>
                         <segue destination="ouP-Yc-jsf" kind="show" identifier="viewPost" id="dt6-XE-3GA"/>
                     </connections>
                 </viewController>
@@ -664,7 +683,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="dt6-XE-3GA"/>
+        <segue reference="G2O-cY-Em3"/>
         <segue reference="DXn-2w-hPS"/>
     </inferredMetricsTieBreakers>
 </document>
