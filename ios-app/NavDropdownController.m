@@ -24,20 +24,11 @@ NSString * const section[] = {
 
 @synthesize buttons = _buttons;
 
-//- (void)viewDidLoad {
-//    [super viewDidLoad];
-//    // Do any additional setup after loading the view.
-//}
-//
-- (void)viewWillAppear:(BOOL)animated {
-    // Customize your menu programmatically here.
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
     [self customizeMenu];
 }
-//
-//- (void)didReceiveMemoryWarning {
-//    [super didReceiveMemoryWarning];
-//    // Dispose of any resources that can be recreated.
-//}
 
 -(void) customizeMenu {
     // EXAMPLE: To set the menubar background colour programmatically.
@@ -52,7 +43,6 @@ NSString * const section[] = {
         UIButton *button = self.buttons[i];
         [button setTitle:section[i] forState:UIControlStateNormal];
     }
-
     
     //Uncomment to stop drop 'Triangle' from appearing
     //[self dropShapeShouldShowWhenOpen:NO];
@@ -62,38 +52,19 @@ NSString * const section[] = {
     
     //Uncomment for increased fade effect (default is 0.5f)
     //[self setFadeAmountWithAlpha:0.2f];
-    
-    
-}
-
-//- (IBAction)tapFeaturedButton:(id)sender {
-//    NSLog(@"tapped feature");
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        [self performSegueWithIdentifier:@"toFeatured" sender:self];
-//    });
-//    
-//}
-
-- (IBAction)unwindToFeatureView:(UIStoryboardSegue *)unwindSegue {
 
 }
-
-//- (IBAction)tapSearchButton:(id)sender {
-//    NSLog(@"tapped Search");
-//    [self performSegueWithIdentifier:@"toSearch" sender:self];
-//}
-//
-//- (IBAction)tapCategoryButton:(id)sender {
-//    NSLog(@"tapped category");
-//}
-//
-//- (IBAction)tapBookmarkButton:(id)sender {
-//    NSLog(@"tapped bookmark");
-//}
 
 - (IBAction)swapButtonPressed:(UIButton *)sender
 {
     [self.containerVC swapViewControllersToIndex:(int)[self.buttonOutletArray indexOfObject:sender]];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"embedContainer"]) {
+        self.containerVC = segue.destinationViewController;
+    }
 }
 
 /*
@@ -105,12 +76,5 @@ NSString * const section[] = {
     // Pass the selected object to the new view controller.
 }
 */
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"embedContainer"]) {
-        self.containerVC = segue.destinationViewController;
-    }
-}
 
 @end

@@ -13,6 +13,8 @@
 #import "NavDropdownController.h"
 #import "FadeSegue.h"
 
+static CGFloat marginFromTop = 100.0f;
+
 @interface SearchViewController () <UISearchBarDelegate, UISearchResultsUpdating, UISearchControllerDelegate>
 
 @property (strong, nonatomic) UISearchController *searchController;
@@ -40,16 +42,18 @@ int flush = 0;
     self.searchController.delegate = self;
     self.searchController.searchBar.delegate = self;
     [self.searchController.searchBar sizeToFit];
+    //self.searchController.searchBar.frame = CGRectMake(0, marginFromTop, self.view.bounds.size.width, self.searchController.searchBar.bounds.size.height);
     self.definesPresentationContext = YES;
     //self.searchController.searchBar.keyboardAppearance = UIKeyboardAppearanceDark;
     
+    //self.collectionView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - marginFromTop);
     //[self.view addSubview:self.searchController.searchBar];
 
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [self.searchController setActive:YES];
-    [self.view addSubview:self.searchController.searchBar];
+    [self.collectionView addSubview:self.searchController.searchBar];
     self.navigationController.navigationBar.hidden = YES;
 }
 

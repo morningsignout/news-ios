@@ -15,6 +15,7 @@
 #import "BaseTileCollectionViewCell.h"
 #import "TileCollectionViewCellC.h"
 #import "FeaturedTileCollectionViewCell.h"
+#import "NavDropdownController.h"
 
 #define CELL_IDENTIFIER @"TileCell"
 #define CELL_IDENTIFIER_B @"TileCell2"
@@ -23,8 +24,6 @@
 #define LOADING_CELL_IDENTIFIER @"Loading"
 
 static NSString * const SEGUE_IDENTIFIER = @"viewPost";
-//static CGFloat marginFromTop = 50.0f;
-static CGFloat marginFromTop = 0;
 
 @interface BaseTiledCollectionViewController () {
     Post *seguePost;
@@ -133,8 +132,8 @@ static NSString * const reuseIdentifier = @"Cell";
         layout.minimumInteritemSpacing = 10.0f;
         
         // Set up collection view UI
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, marginFromTop, self.view.bounds.size.width, self.view.bounds.size.height - marginFromTop) collectionViewLayout:layout];
-//        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height) collectionViewLayout:layout];
+        //_collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, marginFromTop, self.view.bounds.size.width, self.view.bounds.size.height - marginFromTop) collectionViewLayout:layout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height) collectionViewLayout:layout];
         _collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
