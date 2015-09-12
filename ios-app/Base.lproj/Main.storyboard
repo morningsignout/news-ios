@@ -588,7 +588,7 @@
         <!--Navigation Controller-->
         <scene sceneID="O2e-qQ-cof">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="Fqc-MG-jsb" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Fqc-MG-jsb" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="InU-ba-cFG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
