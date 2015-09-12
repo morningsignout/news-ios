@@ -284,7 +284,7 @@
                         <viewControllerLayoutGuide type="bottom" id="TUK-cG-bAd"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="IOe-QC-WoP">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yLH-C5-Tsq">
@@ -318,7 +318,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C46-2m-3Vc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="915" y="442"/>
+            <point key="canvasLocation" x="527" y="456"/>
         </scene>
         <!--Dropdown Navigation Controller-->
         <scene sceneID="gI1-n1-WTu">
@@ -550,7 +550,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lkb-fB-75c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1261" y="1230"/>
+            <point key="canvasLocation" x="-1185" y="1218"/>
         </scene>
         <!--Feature Collection View Controller-->
         <scene sceneID="phn-ig-E6L">
@@ -645,7 +645,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RKv-tj-4Fy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="233" y="442"/>
+            <point key="canvasLocation" x="-155" y="456"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="aXv-Nf-j1K">
@@ -660,11 +660,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LNc-4U-icW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-777" y="599"/>
+            <point key="canvasLocation" x="-1149" y="593"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="dt6-XE-3GA"/>
         <segue reference="DXn-2w-hPS"/>
-        <segue reference="G2O-cY-Em3"/>
     </inferredMetricsTieBreakers>
 </document>

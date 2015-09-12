@@ -44,12 +44,19 @@ int flush = 0;
     //self.searchController.searchBar.frame = CGRectMake(0, marginFromTop, self.view.bounds.size.width, self.searchController.searchBar.bounds.size.height);
     self.definesPresentationContext = YES;
     
+    // Set up search segmented control
     NSArray *itemArray = [NSArray arrayWithObjects: @"All", @"Tags", @"Categories", nil];
     self.segmentedControl = [[UISegmentedControl alloc] initWithItems:itemArray];
     self.segmentedControl.frame = CGRectMake((self.view.frame.size.width-320)/2, 50, 320, 20);
     self.segmentedControl.segmentedControlStyle = UISegmentedControlStylePlain;
     [self.segmentedControl addTarget:self action:@selector(MySegmentControlAction:) forControlEvents: UIControlEventValueChanged];
     self.segmentedControl.selectedSegmentIndex = 0;
+    
+    // Set up segmented control background view
+    CGFloat marginSegmentedBackground = 20;
+    UIView *segmentedControlBackground = [[UIView alloc] initWithFrame:CGRectMake(0, self.segmentedControl.frame.origin.y - marginSegmentedBackground / 2, self.view.frame.size.width, self.segmentedControl.bounds.size.height + marginSegmentedBackground)];
+    segmentedControlBackground.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.9];
+    [self.view addSubview:segmentedControlBackground];
 
 }
 
