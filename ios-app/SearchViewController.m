@@ -50,6 +50,7 @@ int flush = 0;
 - (void)viewWillAppear:(BOOL)animated {
     [self.searchController setActive:YES];
     [self.view addSubview:self.searchController.searchBar];
+    self.navigationController.navigationBar.hidden = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

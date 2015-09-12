@@ -53,10 +53,10 @@
     // two if statements to get new VC instances instead.
     if ([segue.identifier isEqualToString:FeatureSegueIdentifier]) {
         self.featureViewController = segue.destinationViewController;
-    }
-    
-    if ([segue.identifier isEqualToString:SearchSegueIdentifier]) {
+    } else if ([segue.identifier isEqualToString:SearchSegueIdentifier]) {
         self.searchViewController = segue.destinationViewController;
+    } else if ([segue.identifier isEqualToString:CategorySegueIdentifier]) {
+        self.categoryViewController = segue.destinationViewController;
     }
     
     // If we're going to the first view controller.
@@ -76,10 +76,12 @@
             [segue.destinationViewController didMoveToParentViewController:self];
         }
     }
-    // By definition the second view controller will always be swapped with the
-    // first one.
+    // swap view controllers
     else if ([segue.identifier isEqualToString:SearchSegueIdentifier]) {
         [self swapFromViewController:[self.childViewControllers objectAtIndex:0] toViewController:self.searchViewController];
+    }
+    else if ([segue.identifier isEqualToString:CategorySegueIdentifier]) {
+        [self swapFromViewController:[self.childViewControllers objectAtIndex:0] toViewController:self.categoryViewController];
     }
 }
 
@@ -92,7 +94,7 @@
     [fromViewController willMoveToParentViewController:nil];
     [self addChildViewController:toViewController];
     
-    [self transitionFromViewController:fromViewController toViewController:toViewController duration:1.0 options:UIViewAnimationOptionTransitionCrossDissolve animations:nil completion:^(BOOL finished) {
+    [self transitionFromViewController:fromViewController toViewController:toViewController duration:0.5 options:UIViewAnimationOptionTransitionCrossDissolve animations:nil completion:^(BOOL finished) {
         [fromViewController removeFromParentViewController];
         [toViewController didMoveToParentViewController:self];
         self.transitionInProgress = NO;
@@ -108,7 +110,8 @@
     }
     
     self.transitionInProgress = YES;
-//    self.currentSegueIdentifier = ([self.currentSegueIdentifier isEqualToString:FeatureSegueIdentifier]) ? SearchSegueIdentifier : FeatureSegueIdentifier;
+    
+    UIViewController *oldViewController = [self getViewControllerFromSegueIdentifier:self.currentSegueIdentifier];
     
     switch (index) {
         case FEATURE_INDEX:
@@ -124,18 +127,42 @@
             break;
     }
     
+    UIViewController *newViewController = [self getViewControllerFromSegueIdentifier:self.currentSegueIdentifier];
     
-    if (([self.currentSegueIdentifier isEqualToString:FeatureSegueIdentifier]) && self.featureViewController) {
-        [self swapFromViewController:self.searchViewController toViewController:self.featureViewController];
+    // self.currentSegueIdentifier represents the view controller user is switching to
+
+    if (newViewController) {
+        [self swapFromViewController:oldViewController toViewController:newViewController];
         return;
     }
     
-    if (([self.currentSegueIdentifier isEqualToString:SearchSegueIdentifier]) && self.searchViewController) {
-        [self swapFromViewController:self.featureViewController toViewController:self.searchViewController];
-        return;
-    }
+//    if (([self.currentSegueIdentifier isEqualToString:FeatureSegueIdentifier]) && self.featureViewController) {
+//        
+//        return;
+//    }
+//    else if (([self.currentSegueIdentifier isEqualToString:SearchSegueIdentifier]) && self.searchViewController) {
+//        [self swapFromViewController:oldViewController toViewController:self.searchViewController];
+//        return;
+//    }
+    
+    // in process
+//    if (([self.currentSegueIdentifier isEqualToString:CategorySegueIdentifier]) && self.categoryViewController) {
+//        [self swapFromViewController:self.featureViewController toViewController:self.searchViewController];
+//        return;
+//    }
     
     [self performSegueWithIdentifier:self.currentSegueIdentifier sender:nil];
+}
+
+- (UIViewController *)getViewControllerFromSegueIdentifier:(NSString *)identifier {
+    if ([identifier isEqualToString:FeatureSegueIdentifier]) {
+        return self.featureViewController;
+    } else if ([identifier isEqualToString:SearchSegueIdentifier]) {
+        return self.searchViewController;
+    } else if ([identifier isEqualToString:CategorySegueIdentifier]) {
+        return self.categoryViewController;
+    }
+    return nil;
 }
 
 
