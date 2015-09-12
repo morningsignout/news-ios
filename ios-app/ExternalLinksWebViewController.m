@@ -22,28 +22,8 @@
     // Do any additional setup after loading the view.
     
     self.webView.delegate = self;
-    
-    NSURLRequest *req = [NSURLRequest requestWithURL:self.url];
-    
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:req];
-    [operation setCompletionBlockWithSuccess: ^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        NSString *stringResponse = [[NSString alloc] initWithData:responseObject
-                                                         encoding:NSUTF8StringEncoding];
-        [self.webView loadHTMLString:stringResponse baseURL:nil];
-        
-    } failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        [self.webView loadHTMLString:error.localizedDescription baseURL:nil];
-        
-    }];
-    
-    [operation start];
-    
-    
-
-    //NSURLRequest *request = [NSURLRequest requestWithURL:self.url];
-    //[self.webView loadRequest:request];
+    NSURLRequest *request = [NSURLRequest requestWithURL:self.url];
+    [self.webView loadRequest:request];
 }
 
 - (void)didReceiveMemoryWarning {
