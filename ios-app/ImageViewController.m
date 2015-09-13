@@ -45,15 +45,14 @@
 
 - (void)setImg:(UIImage *)img
 {
+    _scrollView.zoomScale = 1.0;
     self.imgView.image = img;
-    self.imgView.frame = CGRectMake(0, 100, self.img.size.width, self.img.size.height);
-//    self.imgView.center = self.scrollView.center;
-    
+    self.imgView.frame = CGRectMake((self.view.frame.size.width - self.img.size.width) / 2, self.view.frame.size.height / 2 - self.img.size.height / 2, self.img.size.width, self.img.size.height);
     self.imgView.contentMode = UIViewContentModeCenter;
     if (self.imgView.bounds.size.width > img.size.width && self.imgView.bounds.size.height > img.size.height) {
         self.imgView.contentMode = UIViewContentModeScaleAspectFit;
     }
-    _scrollView.zoomScale = 2;
+    
 }
 
 -(void)setScrollView:(UIScrollView *)scrollView{
@@ -89,6 +88,16 @@
 // required zooming method in UIScrollViewDelegate protocol
 -(UIView*)viewForZoomingInScrollView:(UIScrollView *)scrollView{
     return self.imgView;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    UIView *subView = [scrollView.subviews objectAtIndex:0];
+    
+    CGFloat offsetX = MAX((scrollView.bounds.size.width - scrollView.contentSize.width) * 0.5, 0.0);
+    CGFloat offsetY = MAX((scrollView.bounds.size.height - scrollView.contentSize.height) * 0.5, 0.0);
+    
+    subView.center = CGPointMake(scrollView.contentSize.width * 0.5 + offsetX,
+                                 scrollView.contentSize.height * 0.5 + offsetY);
 }
 
 - (IBAction)dismissImage:(id)sender {
