@@ -12,7 +12,7 @@
 
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UILabel *title;
-@property (nonatomic, strong) UILabel *excerpt;
+@property (nonatomic, strong) UITextView *excerpt;
 
 @property (nonatomic) CGFloat titleHeight;
 @property (nonatomic) CGFloat excerptHeight;

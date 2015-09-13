@@ -641,11 +641,62 @@
                     <connections>
                         <outlet property="postTitle" destination="fym-3V-zWc" id="ZlB-3b-HPd"/>
                         <outlet property="webView" destination="hzM-wl-Tfx" id="OCO-Sr-tXa"/>
+                        <segue destination="MBu-8J-WPZ" kind="presentation" identifier="showImage" id="tUj-8o-OQk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RKv-tj-4Fy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-155" y="456"/>
+        </scene>
+        <!--Image View Controller-->
+        <scene sceneID="aLR-ca-tU6">
+            <objects>
+                <viewController id="MBu-8J-WPZ" customClass="ImageViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="s6b-Xg-2aM"/>
+                        <viewControllerLayoutGuide type="bottom" id="BCX-X9-yhg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3mv-pe-geS">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Rtr-vg-gNl">
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QNd-Lt-BKd">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0sJ-8n-meo">
+                                <rect key="frame" x="16" y="20" width="35" height="30"/>
+                                <state key="normal" title="Back">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="dismissImage:" destination="MBu-8J-WPZ" eventType="touchUpInside" id="xPG-3n-2HK"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="QNd-Lt-BKd" firstAttribute="top" secondItem="3mv-pe-geS" secondAttribute="top" id="1jn-WS-Wse"/>
+                            <constraint firstAttribute="centerX" secondItem="Rtr-vg-gNl" secondAttribute="centerX" id="AxC-Ns-Ett"/>
+                            <constraint firstItem="0sJ-8n-meo" firstAttribute="leading" secondItem="3mv-pe-geS" secondAttribute="leading" constant="16" id="CrE-g5-Z1R"/>
+                            <constraint firstItem="0sJ-8n-meo" firstAttribute="top" secondItem="3mv-pe-geS" secondAttribute="top" constant="20" id="Ndr-HB-FtF"/>
+                            <constraint firstAttribute="trailing" secondItem="QNd-Lt-BKd" secondAttribute="trailing" id="Qbx-Zc-0rz"/>
+                            <constraint firstItem="QNd-Lt-BKd" firstAttribute="leading" secondItem="3mv-pe-geS" secondAttribute="leading" id="aMm-c6-usU"/>
+                            <constraint firstAttribute="centerY" secondItem="Rtr-vg-gNl" secondAttribute="centerY" id="gIX-fO-gsu"/>
+                            <constraint firstAttribute="bottom" secondItem="QNd-Lt-BKd" secondAttribute="bottom" id="sI4-1r-19T"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="scrollView" destination="QNd-Lt-BKd" id="hMM-Ei-NVT"/>
+                        <outlet property="spinner" destination="Rtr-vg-gNl" id="0Kp-wi-Zya"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="B5a-ia-mIA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="34" y="1155"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="aXv-Nf-j1K">

@@ -24,13 +24,14 @@
     CGSize contentSize = self.contentView.bounds.size;
     self.title.frame = CGRectMake(0, contentSize.height - self.excerptHeight - self.titleHeight, contentSize.width, self.titleHeight);
     
-    self.excerpt = [[UILabel alloc] initWithFrame:CGRectMake(0, contentSize.height - self.excerptHeight, contentSize.width, self.excerptHeight)];
+    self.excerpt = [[UITextView alloc] initWithFrame:CGRectMake(0, contentSize.height - self.excerptHeight, contentSize.width, self.excerptHeight)];
     self.excerpt.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.excerpt.lineBreakMode = NSLineBreakByWordWrapping;
-    self.excerpt.numberOfLines = 3;
+    self.excerpt.textContainerInset = UIEdgeInsetsMake(10, 0, 10, 0);
+    self.excerpt.scrollEnabled = YES;
     self.excerpt.textAlignment = NSTextAlignmentCenter;
     self.excerpt.backgroundColor = [UIColor clearColor];
     [self.excerpt setFont:[UIFont systemFontOfSize:13]];
+    [self.excerpt setEditable:NO];
 }
 
 @end
