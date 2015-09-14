@@ -69,6 +69,7 @@
 
 - (void)startDownload
 {
+    self.spinner.hidden = NO;
     [self.spinner startAnimating];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:self.photoURL];
@@ -79,6 +80,7 @@
         self.imgView.image = responseObject;
         [self.scrollView addSubview:self.imgView];
         [self.spinner stopAnimating];
+        self.spinner.hidden = YES;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Image error: %@", error);
         self.contentUnavailableLabel.hidden = NO;

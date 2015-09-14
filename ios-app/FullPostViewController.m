@@ -51,7 +51,7 @@ float captionFontSize = 1.2;
     // Dispose of any resources that can be recreated.
 }
 
-- (void)setFontSize {
+- (NSString *)setFontSize {
     fontSizeStyle = [NSString stringWithFormat:@"<script> \
                      var all = document.getElementsByTagName(\"p\"); \
                      for (var i = 0; i < all.length; i++) { \
@@ -65,6 +65,7 @@ float captionFontSize = 1.2;
                      caption.style.fontSize = '%frem'; \
                      } \
                      </script>", mainFontSize, captionFontSize];
+    return fontSizeStyle;
 }
 
 #pragma mark - Web View Functions
@@ -79,7 +80,7 @@ float captionFontSize = 1.2;
     filteredHTML = [header stringByAppendingString:filteredHTML];
     self.html = filteredHTML;
     
-    filteredHTML = [filteredHTML stringByAppendingString:fontSizeStyle];
+    filteredHTML = [filteredHTML stringByAppendingString:[self setFontSize]];
 
     [self.webView loadHTMLString:self.html baseURL:nil];
 }
@@ -116,9 +117,9 @@ float captionFontSize = 1.2;
     mainFontSize += 0.1;
     captionFontSize += 0.05;
     [self setFontSize];
-    self.html = [self.html stringByAppendingString:fontSizeStyle];
+    NSString *alteredHTML = [self.html stringByAppendingString:[self setFontSize]];
     
-    [self.webView loadHTMLString:self.html baseURL:nil];
+    [self.webView loadHTMLString:alteredHTML baseURL:nil];
 }
 
 #pragma mark - Navigation

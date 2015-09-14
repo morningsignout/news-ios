@@ -34,10 +34,11 @@
         _title = [[UILabel alloc] initWithFrame:contentBounds];
         
         _title.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        _title.lineBreakMode = NSLineBreakByWordWrapping;
-        _title.numberOfLines = 3;
+        _title.lineBreakMode = NSLineBreakByTruncatingTail;
+        _title.numberOfLines = 4;
         _title.textAlignment = NSTextAlignmentCenter;
         _title.backgroundColor = [UIColor whiteColor];
+        _title.adjustsFontSizeToFitWidth = YES;
     }
     
     return _title;
