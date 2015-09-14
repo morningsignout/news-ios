@@ -112,6 +112,10 @@ int flush = 0;
     });
 }
 
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+    [self.spinner startAnimating];
+}
+
 - (void)didPresentSearchController:(UISearchController *)searchController{
     NSLog(@"presenting");
     [searchController.searchBar becomeFirstResponder];

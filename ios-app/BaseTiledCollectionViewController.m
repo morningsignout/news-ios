@@ -31,7 +31,7 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 }
 @property (nonatomic, strong) NSArray *cellSizes;
 @property (strong, nonatomic) NSMutableArray *posts;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+@property (strong, nonatomic) UIView *bottomSpinnerBackground;
 
 @end
 
@@ -49,9 +49,7 @@ static NSString * const reuseIdentifier = @"Cell";
     // Start loading data from JSON page 1
     self.page = 1;
     
-    NSLog(@"begin loading");
     [self loadPosts];
-    NSLog(@"done loading");
     
     tileHeight = CGSizeMake(1, 1.5);
     
@@ -119,6 +117,7 @@ static NSString * const reuseIdentifier = @"Cell";
     self.posts = [NSMutableArray arrayWithArray:newPosts];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.collectionView reloadData];
+        [self.spinner stopAnimating];
         NSLog(@"reloaded new posts");
     });
 }
@@ -148,7 +147,6 @@ static NSString * const reuseIdentifier = @"Cell";
             forCellWithReuseIdentifier:CELL_IDENTIFIER_B];
         [_collectionView registerClass:[TileCollectionViewCellC class]
             forCellWithReuseIdentifier:CELL_IDENTIFIER_C];
-        //[_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:LOADING_CELL_IDENTIFIER];
         
         // Deal with if feature view showing
         if ([self isFeaturedPage]) {
@@ -191,6 +189,7 @@ static NSString * const reuseIdentifier = @"Cell";
         [self fetchMoreItems];
     }
     
+
     if (indexPath.item % 3 == 0) {
         TileCollectionViewCellA *cellA = (TileCollectionViewCellA *)[self setTileOfClass:@"TileCollectionViewCellA" WithIndexPath:indexPath];
         return cellA;
@@ -203,23 +202,16 @@ static NSString * const reuseIdentifier = @"Cell";
         return cellC;
     }
 
-        
-    //return [self loadingCellForIndexPath:indexPath];
-
-
     return nil;
-}
-
-- (UICollectionViewCell *)loadingCellForIndexPath:(NSIndexPath *)indexPath {
-    
-    UICollectionViewCell *cell = (UICollectionViewCell *)[self.collectionView dequeueReusableCellWithReuseIdentifier:LOADING_CELL_IDENTIFIER forIndexPath:indexPath];
-    
-    return cell;
 }
 
 - (void)fetchMoreItems {
     NSLog(@"FETCHING MORE ITEMS");
-    [self.spinner startAnimating];
+    if (self.page > 0) {
+        [self.spinner removeFromSuperview];
+    } else {
+        [self.spinner startAnimating];
+    }
     
     // Get next page of data
     __block NSArray *newData;
@@ -243,6 +235,8 @@ static NSString * const reuseIdentifier = @"Cell";
             [self.collectionView reloadData];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.spinner stopAnimating];
+                [self.bottomSpinner stopAnimating];
+                self.bottomSpinnerBackground.hidden = YES;
             });
             
         });
@@ -331,6 +325,32 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark - CHTCollectionViewDelegateWaterfallLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     return tileHeight;
+}
+
+#pragma mark - Scroll View Delegate
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    float bottomEdge = scrollView.contentOffset.y + scrollView.frame.size.height;
+    if (bottomEdge >= scrollView.contentSize.height - self.view.frame.size.height / 3) {
+        // we are at the end
+        NSLog(@"reached bottom");
+        [self.bottomSpinner startAnimating];
+        
+    }
+}
+
+- (UIActivityIndicatorView *)bottomSpinner {
+    if (!_bottomSpinner) {
+        _bottomSpinnerBackground = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 75, self.view.frame.size.width, 75)];
+        _bottomSpinnerBackground.backgroundColor = [UIColor colorWithWhite:1 alpha:0.85];
+        [self.view addSubview:_bottomSpinnerBackground];
+        
+        _bottomSpinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        _bottomSpinner.frame = CGRectMake(self.view.center.x - 15, self.view.frame.size.height - 50, 30, 30);
+        [self.view addSubview:_bottomSpinner];
+    }
+    self.bottomSpinnerBackground.hidden = NO;
+    return _bottomSpinner;
 }
 
 @end
