@@ -14,7 +14,8 @@
 static NSString * const header = @"<!-- Latest compiled and minified CSS --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"><!-- Optional theme --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css\"><!-- Latest compiled and minified JavaScript --><script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\"></script><!-- Yeon's CSS --><link rel=\"stylesheet\" href=\"http://morningsignout.com/wp-content/themes/mso/style.css?ver=4.3\"><meta charset=\"utf-8\"> \
     <style type=\"text/css\">.ssba {}.ssba img { width: 30px !important; padding: 0px; border:  0; box-shadow: none !important; display: inline !important; vertical-align: middle; } .ssba, .ssba a {text-decoration:none;border:0;background: none;font-family: Indie Flower;font-size: 20px;}</style>";
 
-float fontSize = 1.5;
+float mainFontSize = 1.5;
+float captionFontSize = 1.2;
 
 @interface FullPostViewController () <UIWebViewDelegate> {
     NSString *fontSizeStyle;
@@ -61,9 +62,9 @@ float fontSize = 1.5;
                      var captions = document.getElementsByTagName(\"figcaption\"); \
                      for (var i = 0; i < captions.length; i++) { \
                      var caption = captions[i]; \
-                     caption.style.fontSize = '1.2rem'; \
+                     caption.style.fontSize = '%frem'; \
                      } \
-                     </script>", fontSize];
+                     </script>", mainFontSize, captionFontSize];
 }
 
 #pragma mark - Web View Functions
@@ -113,7 +114,8 @@ float fontSize = 1.5;
 }
 
 - (IBAction)increaseFontSize:(id)sender {
-    fontSize += 0.1;
+    mainFontSize += 0.1;
+    captionFontSize += 0.05;
     [self setFontSize];
     self.html = [self.html stringByAppendingString:fontSizeStyle];
     
