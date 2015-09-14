@@ -26,9 +26,8 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //self.topFeatured = [[DataParser DataForRecentPostsWithPageNumber:1] firstObject];
+    
     self.topFeatured = [super getPostFromPosts:0];
-    NSLog(@"super load done");
     contentType = FEATURED;
     
     // Initialize Refresh Control

@@ -14,11 +14,15 @@
 static NSString * const header = @"<!-- Latest compiled and minified CSS --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"><!-- Optional theme --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css\"><!-- Latest compiled and minified JavaScript --><script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\"></script><!-- Yeon's CSS --><link rel=\"stylesheet\" href=\"http://morningsignout.com/wp-content/themes/mso/style.css?ver=4.3\"><meta charset=\"utf-8\"> \
     <style type=\"text/css\">.ssba {}.ssba img { width: 30px !important; padding: 0px; border:  0; box-shadow: none !important; display: inline !important; vertical-align: middle; } .ssba, .ssba a {text-decoration:none;border:0;background: none;font-family: Indie Flower;font-size: 20px;}</style>";
 
+float fontSize = 1.5;
 
-@interface FullPostViewController () <UIWebViewDelegate>
+@interface FullPostViewController () <UIWebViewDelegate> {
+    NSString *fontSizeStyle;
+}
 
 @property (weak, nonatomic) IBOutlet UILabel *postTitle;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (strong, nonatomic) NSString *html;
 
 @end
 
@@ -30,6 +34,9 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
     self.webView.delegate = self;
     
     self.postTitle.text = self.post.title;
+
+    [self setFontSize];
+    
     [self loadWebView];
 }
 
@@ -43,6 +50,22 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
     // Dispose of any resources that can be recreated.
 }
 
+- (void)setFontSize {
+    fontSizeStyle = [NSString stringWithFormat:@"<script> \
+                     var all = document.getElementsByTagName(\"p\"); \
+                     for (var i = 0; i < all.length; i++) { \
+                     var par = all[i]; \
+                     par.style.fontSize = '%frem'; \
+                     } \
+                     \
+                     var captions = document.getElementsByTagName(\"figcaption\"); \
+                     for (var i = 0; i < captions.length; i++) { \
+                     var caption = captions[i]; \
+                     caption.style.fontSize = '1.2rem'; \
+                     } \
+                     </script>", fontSize];
+}
+
 #pragma mark - Web View Functions
 
 - (void)loadWebView {
@@ -53,8 +76,11 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
     filteredHTML = [containerFront stringByAppendingString:filteredHTML];
     filteredHTML = [filteredHTML stringByAppendingString:containerEnd];
     filteredHTML = [header stringByAppendingString:filteredHTML];
+    self.html = filteredHTML;
     
-    [self.webView loadHTMLString:filteredHTML baseURL:nil];
+    filteredHTML = [filteredHTML stringByAppendingString:fontSizeStyle];
+
+    [self.webView loadHTMLString:self.html baseURL:nil];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
@@ -86,6 +112,13 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
     return YES;
 }
 
+- (IBAction)increaseFontSize:(id)sender {
+    fontSize += 0.1;
+    [self setFontSize];
+    self.html = [self.html stringByAppendingString:fontSizeStyle];
+    
+    [self.webView loadHTMLString:self.html baseURL:nil];
+}
 
 #pragma mark - Navigation
 

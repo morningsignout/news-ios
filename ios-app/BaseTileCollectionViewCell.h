@@ -17,7 +17,4 @@
 @property (nonatomic) CGFloat titleHeight;
 @property (nonatomic) CGFloat excerptHeight;
 
-//- (CGFloat)titleHeight:(CGFloat)height;
-//- (CGFloat)excerptHeight:(CGFloat)height;
-
 @end

@@ -45,7 +45,7 @@
 
 - (void)setImg:(UIImage *)img
 {
-    _scrollView.zoomScale = 1.5;
+    _scrollView.zoomScale = 1.2;
     self.imgView.image = img;
     self.imgView.frame = CGRectMake((self.view.frame.size.width - self.img.size.width) / 2, self.view.frame.size.height / 2 - self.img.size.height / 2, self.img.size.width, self.img.size.height);
     self.imgView.contentMode = UIViewContentModeCenter;
