@@ -21,8 +21,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.categoryNames = [DataParser DataForCategories];
-    NSLog(@"%@", self.categoryNames);
+    dispatch_queue_t myQueue = dispatch_queue_create("My Queue",NULL);
+    dispatch_async(myQueue, ^{
+        self.categoryNames = [DataParser DataForCategories];
+        NSLog(@"%@", self.categoryNames);
+    });
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
