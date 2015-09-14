@@ -92,7 +92,6 @@ float captionFontSize = 1.2;
         // Check if image was tapped
         NSString *fileType = [urlToOpen substringFromIndex: [urlToOpen length] - 4];
         if ([fileType isEqualToString:@".jpg"] || [fileType isEqualToString:@".png"]) {
-            NSLog(@"image!");
             [self performSegueWithIdentifier:@"showImage" sender:url];
             return NO;
         }

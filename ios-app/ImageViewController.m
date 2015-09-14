@@ -11,6 +11,7 @@
 #import <AFNetworking.h>
 
 @interface ImageViewController () <UIScrollViewDelegate>
+@property (weak, nonatomic) IBOutlet UILabel *contentUnavailableLabel;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (strong, nonatomic) UIImageView *imgView;
@@ -22,6 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.contentUnavailableLabel.hidden = YES;
     [self startDownload];
 }
 
@@ -79,6 +81,7 @@
         [self.spinner stopAnimating];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Image error: %@", error);
+        self.contentUnavailableLabel.hidden = NO;
     }];
     [requestOperation start];
     
