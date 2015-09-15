@@ -217,7 +217,22 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
     if (![context save:&error]) {
         NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
     }
+}
 
+- (void)bookmarkPost {
+    // Check if this post has been saved already.
+    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Post"];
+    id post = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    
+    // If post already saved before, notify user and give choice to un-bookmark
+    if (post) {
+        return;
+    }
+    
+    // Else if not saved before, save it into core data now
+    NSManagedObject *bookmarkedPost = [NSEntityDescription insertNewObjectForEntityForName:@"Post" inManagedObjectContext:managedObjectContext];
+    [bookmarkedPost setValue:[NSNumber numberWithInt:self.post.ID] forKey:@"id"];
 }
 
 #pragma mark - Navigation

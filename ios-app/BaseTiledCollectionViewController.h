@@ -26,5 +26,6 @@ typedef enum ContentType { FEATURED, SEARCH, NONE } ContentType;
 - (void)refreshPosts:(NSArray *)newPosts;
 - (Post*)getPostFromPosts:(int)index;
 - (void)fetchMoreItems;
+- (void)setUpClassesForCollectionViewLayout:(CHTCollectionViewWaterfallLayout *)layout;
 
 @end
