@@ -585,6 +585,67 @@
             </objects>
             <point key="canvasLocation" x="-1261" y="8"/>
         </scene>
+        <!--Author View Controller-->
+        <scene sceneID="YLg-CM-qVi">
+            <objects>
+                <viewController id="1YA-5E-fmx" customClass="AuthorViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5lG-wU-Ocz"/>
+                        <viewControllerLayoutGuide type="bottom" id="beQ-uq-7kB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nHV-jS-Wmk">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iyl-7a-TzA">
+                                <rect key="frame" x="16" y="28" width="568" height="39"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AlK-eh-rZc">
+                                <rect key="frame" x="16" y="75" width="568" height="27"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="22"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="about" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q9o-8O-NJ0">
+                                <rect key="frame" x="109" y="110" width="383" height="55"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="I28-e8-lQ2">
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="AlK-eh-rZc" firstAttribute="top" secondItem="Iyl-7a-TzA" secondAttribute="bottom" constant="8" id="3ON-p4-aJH"/>
+                            <constraint firstAttribute="centerY" secondItem="I28-e8-lQ2" secondAttribute="centerY" id="3yX-ax-ICV"/>
+                            <constraint firstAttribute="centerX" secondItem="I28-e8-lQ2" secondAttribute="centerX" id="ATG-NT-g6k"/>
+                            <constraint firstItem="Q9o-8O-NJ0" firstAttribute="leading" secondItem="nHV-jS-Wmk" secondAttribute="leading" constant="109" id="Drk-mg-CTK"/>
+                            <constraint firstItem="Iyl-7a-TzA" firstAttribute="top" secondItem="nHV-jS-Wmk" secondAttribute="top" constant="28" id="HF1-UV-108"/>
+                            <constraint firstAttribute="centerX" secondItem="I28-e8-lQ2" secondAttribute="centerX" id="OKy-nA-R9g"/>
+                            <constraint firstAttribute="trailing" secondItem="AlK-eh-rZc" secondAttribute="trailing" constant="16" id="TlG-3F-GWl"/>
+                            <constraint firstAttribute="trailing" secondItem="Iyl-7a-TzA" secondAttribute="trailing" constant="16" id="byf-xK-8kY"/>
+                            <constraint firstItem="Iyl-7a-TzA" firstAttribute="leading" secondItem="nHV-jS-Wmk" secondAttribute="leading" constant="16" id="fNy-L5-ZHb"/>
+                            <constraint firstItem="Q9o-8O-NJ0" firstAttribute="top" secondItem="AlK-eh-rZc" secondAttribute="bottom" constant="8" id="u12-IN-O15"/>
+                            <constraint firstAttribute="trailing" secondItem="Q9o-8O-NJ0" secondAttribute="trailing" constant="108" id="usQ-sj-GPj"/>
+                            <constraint firstItem="AlK-eh-rZc" firstAttribute="leading" secondItem="nHV-jS-Wmk" secondAttribute="leading" constant="16" id="van-kZ-OQK"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="aboutLabel" destination="Q9o-8O-NJ0" id="YnR-SY-jEW"/>
+                        <outlet property="emailLabel" destination="AlK-eh-rZc" id="Cqa-Tr-dbH"/>
+                        <outlet property="nameLabel" destination="Iyl-7a-TzA" id="rpA-GT-cBR"/>
+                        <outlet property="spinner" destination="I28-e8-lQ2" id="Xwh-7e-qEx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LTY-bl-cW3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-193" y="-251"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="O2e-qQ-cof">
             <objects>
@@ -669,11 +730,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Rtr-vg-gNl">
-                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Rtr-vg-gNl">
+                                <rect key="frame" x="282" y="282" width="37" height="37"/>
                             </activityIndicatorView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QNd-Lt-BKd">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QNd-Lt-BKd">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <subviews>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Content Not Available" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s7F-y3-ccW">
+                                        <rect key="frame" x="198" y="254" width="205" height="91"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="29"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="centerY" secondItem="s7F-y3-ccW" secondAttribute="centerY" id="oOB-Pb-oP1"/>
+                                    <constraint firstAttribute="centerX" secondItem="s7F-y3-ccW" secondAttribute="centerX" id="qck-Oq-Dkl"/>
+                                </constraints>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0sJ-8n-meo">
                                 <rect key="frame" x="16" y="20" width="35" height="30"/>
@@ -699,6 +772,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="contentUnavailableLabel" destination="s7F-y3-ccW" id="5nX-Wd-7V9"/>
                         <outlet property="scrollView" destination="QNd-Lt-BKd" id="hMM-Ei-NVT"/>
                         <outlet property="spinner" destination="Rtr-vg-gNl" id="0Kp-wi-Zya"/>
                     </connections>
@@ -743,7 +817,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="dt6-XE-3GA"/>
         <segue reference="DXn-2w-hPS"/>
+        <segue reference="G2O-cY-Em3"/>
     </inferredMetricsTieBreakers>
 </document>

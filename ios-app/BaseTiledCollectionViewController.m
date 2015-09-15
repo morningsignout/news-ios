@@ -235,8 +235,7 @@ static NSString * const reuseIdentifier = @"Cell";
             [self.collectionView reloadData];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.spinner stopAnimating];
-                [self.bottomSpinner stopAnimating];
-                self.bottomSpinnerBackground.hidden = YES;
+                [self showNoMoreContent];
             });
             
         });
@@ -335,8 +334,13 @@ static NSString * const reuseIdentifier = @"Cell";
         // we are at the end
         NSLog(@"reached bottom");
         [self.bottomSpinner startAnimating];
-        
+        [self performSelector:@selector(showNoMoreContent) withObject:nil afterDelay:4];
     }
+}
+
+- (void)showNoMoreContent {
+    [self.bottomSpinner stopAnimating];
+    self.bottomSpinnerBackground.hidden = YES;
 }
 
 - (UIActivityIndicatorView *)bottomSpinner {
