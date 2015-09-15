@@ -10,10 +10,12 @@
 #import "FeatureCollectionViewController.h"
 #import "SearchViewController.h"
 #import "CategoryViewController.h"
+#import "BookmarkTableViewController.h"
 
 #define FeatureSegueIdentifier @"toFeatured"
 #define SearchSegueIdentifier @"toSearch"
 #define CategorySegueIdentifier @"toCategory"
+#define BookmarksSegueIdentifier @"toBookmarks"
 
 #define FEATURE_INDEX 0
 #define SEARCH_INDEX 1
@@ -25,6 +27,7 @@
 @property (strong, nonatomic) FeatureCollectionViewController *featureViewController;
 @property (strong, nonatomic) SearchViewController *searchViewController;
 @property (strong, nonatomic) CategoryViewController *categoryViewController;
+@property (strong, nonatomic) BookmarkTableViewController *bookmarkViewController;
 
 @property (strong, nonatomic) NSString *currentSegueIdentifier;
 @property (assign, nonatomic) BOOL transitionInProgress;
@@ -53,6 +56,8 @@
         self.searchViewController = segue.destinationViewController;
     } else if ([segue.identifier isEqualToString:CategorySegueIdentifier]) {
         self.categoryViewController = segue.destinationViewController;
+    } else if ([segue.identifier isEqualToString:BookmarksSegueIdentifier]) {
+        self.bookmarkViewController = segue.destinationViewController;
     }
     
     // If we're going to the first view controller.
@@ -78,6 +83,9 @@
     }
     else if ([segue.identifier isEqualToString:CategorySegueIdentifier]) {
         [self swapFromViewController:[self.childViewControllers objectAtIndex:0] toViewController:self.categoryViewController];
+    }
+    else if ([segue.identifier isEqualToString:BookmarksSegueIdentifier]) {
+        [self swapFromViewController:[self.childViewControllers objectAtIndex:0] toViewController:self.bookmarkViewController];
     }
 }
 
@@ -115,6 +123,9 @@
         case CATEGORIES_INDEX:
             self.currentSegueIdentifier = CategorySegueIdentifier;
             break;
+        case BOOKMARKS_INDEX:
+            self.currentSegueIdentifier = BookmarksSegueIdentifier;
+            break;
         default:
             break;
     }
@@ -138,6 +149,9 @@
         return self.searchViewController;
     } else if ([identifier isEqualToString:CategorySegueIdentifier]) {
         return self.categoryViewController;
+    }
+    else if ([identifier isEqualToString:BookmarksSegueIdentifier]) {
+        return self.bookmarkViewController;
     }
     return nil;
 }
