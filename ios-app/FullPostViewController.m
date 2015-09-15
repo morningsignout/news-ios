@@ -11,21 +11,22 @@
 #import "ExternalLinksWebViewController.h"
 #import "ImageViewController.h"
 #import <AFNetworking.h>
+#import <CoreData/CoreData.h>
 
 static NSString * const header = @"<!-- Latest compiled and minified CSS --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"><!-- Optional theme --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css\"><!-- Latest compiled and minified JavaScript --><script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\"></script><!-- Yeon's CSS --><link rel=\"stylesheet\" href=\"http://morningsignout.com/wp-content/themes/mso/style.css?ver=4.3\"><meta charset=\"utf-8\"> \
     <style type=\"text/css\">.ssba {}.ssba img { width: 30px !important; padding: 0px; border:  0; box-shadow: none !important; display: inline !important; vertical-align: middle; } .ssba, .ssba a {text-decoration:none;border:0;background: none;font-family: Indie Flower;font-size: 20px;}</style>";
 
-float mainFontSize = 1.5;
-float captionFontSize = 1.2;
-
 @interface FullPostViewController () <UIWebViewDelegate> {
     NSString *fontSizeStyle;
+    float mainFontSize;
+    float captionFontSize;
 }
 
 @property (strong, nonatomic) UILabel *postTitle;
 @property (weak, nonatomic) IBOutlet UIImageView *coverImageView;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (strong, nonatomic) NSString *html;
+@property (strong, nonatomic) NSArray *font;
 
 @end
 
@@ -40,14 +41,29 @@ float captionFontSize = 1.2;
     [self.navigationController.navigationBar setBarTintColor:[UIColor darkGrayColor]];
     UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:nil];
     UIBarButtonItem *bookmarkItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:nil];
-    UIBarButtonItem *fontItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(increaseFontSize)];
+    UIBarButtonItem *fontIncItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(increaseFontSize)];
+    UIBarButtonItem *fontDecItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:@selector(decreaseFontSize)];
     
-    NSArray *actionButtonItems = @[shareItem, bookmarkItem, fontItem];
+    NSArray *actionButtonItems = @[shareItem, bookmarkItem, fontIncItem, fontDecItem];
     self.navigationItem.rightBarButtonItems = actionButtonItems;
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     
     [self loadPostImage];
-    [self setFontSize];
+    
+    // Retrieve user font size preference if was previously saved
+    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Font"];
+    self.font = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    if (self.font.firstObject) {
+        NSNumber *numberFormatFloat = [self.font.firstObject valueForKey:@"mainSize"];
+        mainFontSize = [numberFormatFloat floatValue];
+        numberFormatFloat = [self.font.firstObject valueForKey:@"captionSize"];
+        captionFontSize = [numberFormatFloat floatValue];
+    } else {
+        mainFontSize = 1.5;
+        captionFontSize = 1.2;
+    }
+    
     [self loadWebView];
 }
 
@@ -59,6 +75,16 @@ float captionFontSize = 1.2;
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (NSManagedObjectContext *)managedObjectContext
+{
+    NSManagedObjectContext *context = nil;
+    id delegate = [[UIApplication sharedApplication] delegate];
+    if ([delegate performSelector:@selector(managedObjectContext)]) {
+        context = [delegate managedObjectContext];
+    }
+    return context;
 }
 
 - (void)loadPostImage {
@@ -118,8 +144,9 @@ float captionFontSize = 1.2;
     self.html = filteredHTML;
     
     filteredHTML = [filteredHTML stringByAppendingString:[self setFontSize]];
-
-    [self.webView loadHTMLString:self.html baseURL:nil];
+    
+    
+    [self.webView loadHTMLString:filteredHTML baseURL:nil];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
@@ -153,10 +180,44 @@ float captionFontSize = 1.2;
 - (void)increaseFontSize {
     mainFontSize += 0.1;
     captionFontSize += 0.05;
-    [self setFontSize];
-    NSString *alteredHTML = [self.html stringByAppendingString:[self setFontSize]];
+    [self reflectFontChangesOnHTML];
+}
+
+- (void)decreaseFontSize {
+    mainFontSize -= 0.1;
+    captionFontSize -= 0.05;
+    [self reflectFontChangesOnHTML];
+}
+
+- (void)reflectFontChangesOnHTML {
+    [self storeFontSize];
     
+    NSString *alteredHTML = [self.html stringByAppendingString:[self setFontSize]];
     [self.webView loadHTMLString:alteredHTML baseURL:nil];
+}
+
+- (void)storeFontSize {
+    NSManagedObjectContext *context = [self managedObjectContext];
+    NSManagedObjectModel *savedFont = self.font.firstObject;
+    
+    if (savedFont) {
+        // Update existing device
+        [savedFont setValue:[NSNumber numberWithFloat:mainFontSize] forKey:@"mainSize"];
+        [savedFont setValue:[NSNumber numberWithFloat:captionFontSize] forKey:@"captionSize"];
+        
+    } else {
+        // Create a new managed object
+        NSManagedObject *newFont = [NSEntityDescription insertNewObjectForEntityForName:@"Font" inManagedObjectContext:context];
+        [newFont setValue:[NSNumber numberWithFloat:mainFontSize] forKey:@"mainSize"];
+        [newFont setValue:[NSNumber numberWithFloat:captionFontSize] forKey:@"captionSize"];
+    }
+    
+    NSError *error = nil;
+    // Save the object to persistent store
+    if (![context save:&error]) {
+        NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
+    }
+
 }
 
 #pragma mark - Navigation
