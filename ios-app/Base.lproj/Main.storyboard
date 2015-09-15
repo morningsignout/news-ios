@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rsw-Gw-bd1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Fqc-MG-jsb">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -415,6 +415,7 @@
                                         </state>
                                         <connections>
                                             <action selector="listButtonAction:" destination="04Z-Sl-c2u" eventType="touchUpInside" id="PYE-Wc-93F"/>
+                                            <action selector="swapButtonPressed:" destination="04Z-Sl-c2u" eventType="touchUpInside" id="gN7-Aa-PG9"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -525,7 +526,7 @@
                         <segue destination="XeS-a7-9cA" kind="custom" identifier="toFeatured" customClass="EmptySegue" id="re2-uZ-4Tt"/>
                         <segue destination="Rxn-ZQ-EJ5" kind="custom" identifier="toSearch" customClass="EmptySegue" id="pds-4k-njF"/>
                         <segue destination="ECj-Nj-98G" kind="custom" identifier="toCategory" customClass="EmptySegue" id="0r5-l8-mUy"/>
-                        <segue destination="rsw-Gw-bd1" kind="custom" customClass="EmptySegue" id="Ya2-XO-xeV"/>
+                        <segue destination="rsw-Gw-bd1" kind="custom" identifier="toBookmarks" customClass="EmptySegue" id="Ya2-XO-xeV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Iel-bP-xJn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -678,7 +679,7 @@
                         <viewControllerLayoutGuide type="bottom" id="IZi-Ry-q0s"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="765-dq-NMh">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="538"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hzM-wl-Tfx">
@@ -786,7 +787,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="bookmarkCell" rowHeight="426" id="Qdr-1e-yIo" customClass="BookmarkTableViewCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="bookmarkCell" rowHeight="426" id="Qdr-1e-yIo" customClass="BookmarkTableViewCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Qdr-1e-yIo" id="gd6-QJ-YMf">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -831,6 +832,7 @@
                                     <outlet property="excerptLabel" destination="m8q-jJ-8v4" id="0XW-UD-bHP"/>
                                     <outlet property="imageView" destination="ooU-aQ-r3j" id="BDP-Uw-vsr"/>
                                     <outlet property="titleLabel" destination="ocR-iO-ogQ" id="fBs-yJ-pvn"/>
+                                    <segue destination="ouP-Yc-jsf" kind="show" identifier="viewPost" id="4l3-Df-QUo"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -880,7 +882,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="dt6-XE-3GA"/>
+        <segue reference="4l3-Df-QUo"/>
         <segue reference="DXn-2w-hPS"/>
     </inferredMetricsTieBreakers>
 </document>

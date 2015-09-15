@@ -10,8 +10,11 @@
 #import "DataParser.h"
 #import "BookmarkTableViewCell.h"
 #import <UIImageView+AFNetworking.h>
+#import "DropdownNavigationController.h"
+#import "FullPostViewController.h"
 
 #define CELL_IDENTIFIER @"bookmarkCell"
+static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 
 @interface BookmarkTableViewController ()
 @property (strong, nonatomic) NSArray *bookmarks;
@@ -27,7 +30,20 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    self.bookmarks = [DataParser DataForRecentPostsWithPageNumber:1];
+    
+    dispatch_queue_t myQueue = dispatch_queue_create("My Queue",NULL);
+    dispatch_async(myQueue, ^{
+        self.bookmarks = [DataParser DataForRecentPostsWithPageNumber:1];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+    });
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    DropdownNavigationController *navVC = (DropdownNavigationController *)self.parentViewController.parentViewController;
+    navVC.titleLabel.text = @"Bookmarks";
+    self.navigationController.navigationBarHidden = YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,13 +54,11 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
     return self.bookmarks.count;
 }
@@ -101,14 +115,20 @@
 }
 */
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:SEGUE_IDENTIFIER] && [segue.destinationViewController isKindOfClass:[FullPostViewController class]]) {
+        FullPostViewController *postVC = segue.destinationViewController;
+        NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
+        Post *post = [self.bookmarks objectAtIndex:selectedIndexPath.row];
+        postVC.post = post;
+    }
 }
-*/
+
 
 @end
