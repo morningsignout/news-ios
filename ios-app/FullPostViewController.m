@@ -10,6 +10,7 @@
 #import "Post.h"
 #import "ExternalLinksWebViewController.h"
 #import "ImageViewController.h"
+#import <AFNetworking.h>
 
 static NSString * const header = @"<!-- Latest compiled and minified CSS --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"><!-- Optional theme --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css\"><!-- Latest compiled and minified JavaScript --><script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\"></script><!-- Yeon's CSS --><link rel=\"stylesheet\" href=\"http://morningsignout.com/wp-content/themes/mso/style.css?ver=4.3\"><meta charset=\"utf-8\"> \
     <style type=\"text/css\">.ssba {}.ssba img { width: 30px !important; padding: 0px; border:  0; box-shadow: none !important; display: inline !important; vertical-align: middle; } .ssba, .ssba a {text-decoration:none;border:0;background: none;font-family: Indie Flower;font-size: 20px;}</style>";
@@ -22,6 +23,7 @@ float captionFontSize = 1.2;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *postTitle;
+@property (weak, nonatomic) IBOutlet UIImageView *coverImageView;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (strong, nonatomic) NSString *html;
 
@@ -33,22 +35,49 @@ float captionFontSize = 1.2;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.webView.delegate = self;
-    
     self.postTitle.text = self.post.title;
-
-    [self setFontSize];
     
+    [self.navigationController.navigationBar setBarTintColor:[UIColor darkGrayColor]];
+    UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:nil];
+    UIBarButtonItem *bookmarkItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:nil];
+    UIBarButtonItem *fontItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(increaseFontSize)];
+    
+    NSArray *actionButtonItems = @[shareItem, bookmarkItem, fontItem];
+    self.navigationItem.rightBarButtonItems = actionButtonItems;
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    
+    [self loadPostImage];
+    [self setFontSize];
     [self loadWebView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [[self navigationController] setNavigationBarHidden:NO animated:YES];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)loadPostImage {
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.post.fullCoverImageURL]];
+    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    requestOperation.responseSerializer = [AFImageResponseSerializer serializer];
+    [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        UIImage *image = responseObject;
+        self.coverImageView.image = image;
+        self.coverImageView.contentMode = UIViewContentModeScaleAspectFit;
+        self.coverImageView.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, image.size.width, image.size.height);
+        UILabel *titlePost = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.origin.y + image.size.height, self.view.frame.size.width, 50)];
+        titlePost.backgroundColor = [UIColor colorWithWhite:1 alpha:0.5];
+        [self.view addSubview:titlePost];
+        titlePost.text = self.post.title;
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Image error: %@", error);
+    }];
+    [requestOperation start];
 }
 
 - (NSString *)setFontSize {
@@ -113,7 +142,7 @@ float captionFontSize = 1.2;
     return YES;
 }
 
-- (IBAction)increaseFontSize:(id)sender {
+- (void)increaseFontSize {
     mainFontSize += 0.1;
     captionFontSize += 0.05;
     [self setFontSize];
