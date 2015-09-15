@@ -20,6 +20,7 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 
 @interface BookmarkTableViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) NSMutableArray *bookmarks;
+@property (strong, nonatomic) NSMutableArray *coreDataPostIDs;
 @end
 
 @implementation BookmarkTableViewController
@@ -46,8 +47,8 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Post"];
     
     // Pull out all the posts IDs previously saved and request for their post content
-    NSArray *storedBookmarks = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-    for (NSManagedObject *bookmark in storedBookmarks) {
+    self.coreDataPostIDs = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    for (NSManagedObject *bookmark in self.coreDataPostIDs) {
         int postID = [[bookmark valueForKey:@"id"] intValue];
         Post *bookmarkedPost = [DataParser DataForPostID:postID];
         
@@ -109,6 +110,32 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     return cell;
 }
 
+- (IBAction)removeFromBookmarks:(id)sender {
+    NSLog(@"remove");
+    
+    // Get index of cell
+    CGPoint buttonPosition = [sender convertPoint:CGPointZero
+                                           toView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
+    NSUInteger cellIndex = indexPath.row;
+    
+    // Remove from core data and NSMutableArray
+    [self.bookmarks removeObjectAtIndex:cellIndex];
+    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    
+    NSManagedObjectContext *context = [self managedObjectContext];
+    NSManagedObject *removeThisPost = [self.coreDataPostIDs objectAtIndex:indexPath.row];
+    [context deleteObject:removeThisPost];
+    [self.coreDataPostIDs removeObject:removeThisPost];
+        
+    NSError *error = nil;
+    if (![context save:&error]) {
+        NSLog(@"Can't Delete! %@ %@", error, [error localizedDescription]);
+        return;
+    }
+    
+    [self.tableView reloadData];
+}
 
 /*
 // Override to support conditional editing of the table view.

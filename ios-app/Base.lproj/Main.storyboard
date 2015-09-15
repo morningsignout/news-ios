@@ -813,6 +813,17 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M4l-Bp-XsN">
+                                            <rect key="frame" x="534" y="8" width="58" height="30"/>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                            <state key="normal" title="Remove">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="removeFromBookmarks:" destination="rsw-Gw-bd1" eventType="touchUpInside" id="Dhb-bt-W8K"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="ooU-aQ-r3j" secondAttribute="trailing" id="5cP-E0-GKz"/>
@@ -825,7 +836,9 @@
                                         <constraint firstItem="m8q-jJ-8v4" firstAttribute="leading" secondItem="gd6-QJ-YMf" secondAttribute="leadingMargin" id="cLG-ma-v7m"/>
                                         <constraint firstItem="ooU-aQ-r3j" firstAttribute="leading" secondItem="gd6-QJ-YMf" secondAttribute="leading" id="pL9-Hf-nPu"/>
                                         <constraint firstItem="m8q-jJ-8v4" firstAttribute="top" secondItem="ocR-iO-ogQ" secondAttribute="bottom" constant="8" symbolic="YES" id="rkP-ZJ-aK8"/>
+                                        <constraint firstAttribute="trailing" secondItem="M4l-Bp-XsN" secondAttribute="trailing" constant="8" id="uZl-MS-Eu0"/>
                                         <constraint firstItem="m8q-jJ-8v4" firstAttribute="bottom" secondItem="gd6-QJ-YMf" secondAttribute="bottomMargin" id="w1y-6s-GVC"/>
+                                        <constraint firstItem="M4l-Bp-XsN" firstAttribute="top" secondItem="gd6-QJ-YMf" secondAttribute="top" constant="8" id="zlq-sw-9Or"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
