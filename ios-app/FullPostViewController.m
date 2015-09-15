@@ -111,7 +111,7 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
         [self.view addSubview:_postTitle];
     }
 
-    return _postTitle;
+    return _postTitle; 
 }
 
 - (NSString *)setFontSize {
