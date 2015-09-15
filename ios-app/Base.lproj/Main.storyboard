@@ -267,7 +267,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="cgw-Gy-Fyt"/>
                     <connections>
-                        <outlet property="postTitle" destination="Cy2-ly-Dn9" id="A0e-Rp-bkd"/>
                         <outlet property="webView" destination="nQ8-pB-mLD" id="DYq-6P-JJd"/>
                     </connections>
                 </viewController>

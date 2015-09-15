@@ -22,7 +22,7 @@ float captionFontSize = 1.2;
     NSString *fontSizeStyle;
 }
 
-@property (weak, nonatomic) IBOutlet UILabel *postTitle;
+@property (strong, nonatomic) UILabel *postTitle;
 @property (weak, nonatomic) IBOutlet UIImageView *coverImageView;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (strong, nonatomic) NSString *html;
@@ -70,14 +70,22 @@ float captionFontSize = 1.2;
         self.coverImageView.image = image;
         self.coverImageView.contentMode = UIViewContentModeScaleAspectFit;
         self.coverImageView.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, image.size.width, image.size.height);
-        UILabel *titlePost = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.origin.y + image.size.height, self.view.frame.size.width, 50)];
-        titlePost.backgroundColor = [UIColor colorWithWhite:1 alpha:0.5];
-        [self.view addSubview:titlePost];
-        titlePost.text = self.post.title;
+        
+        self.postTitle.text = self.post.title;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Image error: %@", error);
     }];
     [requestOperation start];
+}
+
+- (UILabel *)postTitle {
+    if (!_postTitle) {
+        _postTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, self.coverImageView.bounds.size.height - 50, self.view.frame.size.width, 50)];
+        _postTitle.backgroundColor = [UIColor colorWithWhite:1 alpha:0.5];
+        [self.view addSubview:_postTitle];
+    }
+
+    return _postTitle;
 }
 
 - (NSString *)setFontSize {
