@@ -24,11 +24,12 @@
     
     //NSLog(@"Start");
     
-    //Post*a = [DataParser DataForPostID:30562];
+    Post*a = [DataParser DataForPostID:30562];
     //NSArray *c = [DataParser DataForPostWithTag:@"health" AndPageNumber:1];
-    /*NSArray *a = [DataParser DataForPostsInMonth:11 Year:2014 AndPage:1];
-    [self dump:a];
+    //NSArray *a = [DataParser DataForPostsInMonth:11 Year:2014 AndPage:1];
+    [a printInfo];
     
+    /*
     Post *b = [DataParser DataForPostID:9575];
     [b printInfo];
     

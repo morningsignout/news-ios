@@ -7,48 +7,78 @@
 //
 
 #import "BookmarkTableViewController.h"
-#import "DataParser.h"
 #import "BookmarkTableViewCell.h"
 #import <UIImageView+AFNetworking.h>
 #import "DropdownNavigationController.h"
 #import "FullPostViewController.h"
+#import <CoreData/CoreData.h>
+#import "Post.h"
+#import "DataParser.h"
 
 #define CELL_IDENTIFIER @"bookmarkCell"
 static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 
-@interface BookmarkTableViewController ()
-@property (strong, nonatomic) NSArray *bookmarks;
+@interface BookmarkTableViewController () <UITableViewDataSource, UITableViewDelegate>
+@property (strong, nonatomic) NSMutableArray *bookmarks;
 @end
 
 @implementation BookmarkTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    dispatch_queue_t myQueue = dispatch_queue_create("My Queue",NULL);
-    dispatch_async(myQueue, ^{
-        self.bookmarks = [DataParser DataForRecentPostsWithPageNumber:1];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-        });
-    });
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     DropdownNavigationController *navVC = (DropdownNavigationController *)self.parentViewController.parentViewController;
     navVC.titleLabel.text = @"Bookmarks";
     self.navigationController.navigationBarHidden = YES;
+   
+    // Pull core data content
+    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Post"];
+    
+    // Pull out all the posts IDs previously saved and request for their post content
+    NSArray *storedBookmarks = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    for (NSManagedObject *bookmark in storedBookmarks) {
+        int postID = [[bookmark valueForKey:@"id"] intValue];
+        Post *bookmarkedPost = [DataParser DataForPostID:postID];
+        
+        BOOL exists = NO;
+        // If array already has the post, dont add it to the data source
+        for (Post* post in self.bookmarks) {
+            if (post.ID == postID) {
+                exists = YES;
+                break;
+            }
+        }
+        
+        if (!exists) {
+            [self.bookmarks addObject:bookmarkedPost];
+        }
+    }
+    
+    [self.tableView reloadData];
+
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (NSMutableArray *)bookmarks {
+    if (!_bookmarks) {
+        _bookmarks = [NSMutableArray array];
+    }
+    return _bookmarks;
 }
 
 #pragma mark - Table view data source
@@ -62,7 +92,6 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     // Return the number of rows in the section.
     return self.bookmarks.count;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     BookmarkTableViewCell *cell = (BookmarkTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER forIndexPath:indexPath];
@@ -114,6 +143,18 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     return YES;
 }
 */
+
+#pragma mark - Core Data
+
+- (NSManagedObjectContext *)managedObjectContext
+{
+    NSManagedObjectContext *context = nil;
+    id delegate = [[UIApplication sharedApplication] delegate];
+    if ([delegate performSelector:@selector(managedObjectContext)]) {
+        context = [delegate managedObjectContext];
+    }
+    return context;
+}
 
 
 #pragma mark - Navigation

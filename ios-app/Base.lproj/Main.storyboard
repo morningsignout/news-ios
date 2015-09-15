@@ -836,10 +836,6 @@
                                 </connections>
                             </tableViewCell>
                         </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="rsw-Gw-bd1" id="kli-ue-mFo"/>
-                            <outlet property="delegate" destination="rsw-Gw-bd1" id="9d4-u1-woJ"/>
-                        </connections>
                     </tableView>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t4N-s6-4us" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -81,7 +81,8 @@ NSDateFormatter *dateToStringFormatter;
 + (Post *)parsePostFromDictionary:(NSDictionary*)parseData{
 
     // Get ID
-    int postid = (int)[parseData valueForKey:@"id"];
+    NSString *IDNumber = [NSString stringWithFormat:@"%@", [parseData valueForKey:@"id"]];
+    int postid = [IDNumber intValue];
     
     // Get title
     NSString* title = [[parseData valueForKey:@"title_plain"] stringByDecodingHTMLEntities];

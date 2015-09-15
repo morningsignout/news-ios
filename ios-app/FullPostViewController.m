@@ -40,7 +40,7 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
     
     [self.navigationController.navigationBar setBarTintColor:[UIColor darkGrayColor]];
     UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:nil];
-    UIBarButtonItem *bookmarkItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:nil];
+    UIBarButtonItem *bookmarkItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(bookmarkPost)];
     UIBarButtonItem *fontIncItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(increaseFontSize)];
     UIBarButtonItem *fontDecItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:@selector(decreaseFontSize)];
     
@@ -220,19 +220,28 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
 }
 
 - (void)bookmarkPost {
-    // Check if this post has been saved already.
+    // Pull out all the posts previously bookmarked
     NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Post"];
-    id post = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    NSArray *bookmarks = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     
     // If post already saved before, notify user and give choice to un-bookmark
-    if (post) {
-        return;
+    for (id bookmark in bookmarks) {
+        int postID = [[bookmark valueForKey:@"id"] intValue];
+        if (postID == self.post.ID) {
+            return;
+        }
     }
     
     // Else if not saved before, save it into core data now
     NSManagedObject *bookmarkedPost = [NSEntityDescription insertNewObjectForEntityForName:@"Post" inManagedObjectContext:managedObjectContext];
     [bookmarkedPost setValue:[NSNumber numberWithInt:self.post.ID] forKey:@"id"];
+    
+    NSError *error = nil;
+    // Save the object to persistent store
+    if (![managedObjectContext save:&error]) {
+        NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
+    }
 }
 
 #pragma mark - Navigation
