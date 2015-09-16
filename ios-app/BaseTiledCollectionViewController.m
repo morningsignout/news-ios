@@ -54,6 +54,7 @@ static NSString * const reuseIdentifier = @"Cell";
     tileHeight = CGSizeMake(1, 1.5);
     
     //[self.collectionView setContentInset:UIEdgeInsetsMake(62,0,0,0)];
+    [self.collectionView setContentInset:UIEdgeInsetsMake(0,0,75,0)];
     [self.view bringSubviewToFront:self.spinner];
     self.navigationController.navigationBarHidden = YES;
 }
@@ -184,7 +185,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (![self getEndOfPosts] && indexPath.item >= self.posts.count - 3) {
+    if (![self getEndOfPosts] && indexPath.item == self.posts.count - 3) {
         [self.spinner startAnimating];
         [self fetchMoreItems];
     }
@@ -217,7 +218,7 @@ static NSString * const reuseIdentifier = @"Cell";
     } else {
         [self.spinner startAnimating];
     }
-    
+
     // Get next page of data
     __block NSArray *newData;
     dispatch_queue_t q = dispatch_queue_create("load more posts", NULL);
@@ -343,6 +344,7 @@ static NSString * const reuseIdentifier = @"Cell";
     if (bottomEdge >= scrollView.contentSize.height - self.view.frame.size.height / 3) {
         // we are at the end
         NSLog(@"reached bottom");
+        
         [self.bottomSpinner startAnimating];
         [self performSelector:@selector(showNoMoreContent) withObject:nil afterDelay:4];
     }

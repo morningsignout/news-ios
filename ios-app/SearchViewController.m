@@ -42,7 +42,7 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    [self.collectionView setContentInset:UIEdgeInsetsMake(70,0,0,0)];
+    [self.collectionView setContentInset:UIEdgeInsetsMake(70,0,75,0)];
     
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = self;
@@ -115,7 +115,7 @@
         
         self.flush++;
         NSArray* refreshPosts;
-        int yesFlush = self.flush;
+        int yesFlush = (int)self.flush;
         if(self.segmentedControl.selectedSegmentIndex == 0)
             refreshPosts = [DataParser DataForSearchTerm:self.searchTerm InPage:self.page];
         else if(self.segmentedControl.selectedSegmentIndex == 1)
@@ -137,11 +137,11 @@
     });
 }
 
-//- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-//    self.spinner.hidden = NO;
-//    [self.spinner startAnimating];
-//    [self.collectionView setContentOffset:CGPointZero animated:YES];
-//}
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    self.spinner.hidden = NO;
+    [self.spinner startAnimating];
+    //[self.collectionView setContentOffset:CGPointZero animated:YES];
+}
 
 - (void)didPresentSearchController:(UISearchController *)searchController{
     NSLog(@"presenting");
