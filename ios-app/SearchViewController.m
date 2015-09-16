@@ -113,7 +113,9 @@ int flush = 0;
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    self.spinner.hidden = NO;
     [self.spinner startAnimating];
+    [self.collectionView setContentOffset:CGPointZero animated:YES];
 }
 
 - (void)didPresentSearchController:(UISearchController *)searchController{

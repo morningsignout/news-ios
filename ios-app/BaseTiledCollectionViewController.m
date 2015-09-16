@@ -140,23 +140,28 @@ static NSString * const reuseIdentifier = @"Cell";
         _collectionView.delegate = self;
         _collectionView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.7];
         
-        // Tell collection view what classes to use
-        [_collectionView registerClass:[TileCollectionViewCellA class]
-            forCellWithReuseIdentifier:CELL_IDENTIFIER];
-        [_collectionView registerClass:[TileCollectionViewCellB class]
-            forCellWithReuseIdentifier:CELL_IDENTIFIER_B];
-        [_collectionView registerClass:[TileCollectionViewCellC class]
-            forCellWithReuseIdentifier:CELL_IDENTIFIER_C];
-        
-        // Deal with if feature view showing
-        if ([self isFeaturedPage]) {
-            layout.headerHeight = self.view.frame.size.height / 1.5;
-            [_collectionView registerClass:[FeaturedTileCollectionViewCell class]
-                forSupplementaryViewOfKind:CHTCollectionElementKindSectionHeader
-                       withReuseIdentifier:HEADER_IDENTIFIER];
-        }
+        [self setUpClassesForCollectionViewLayout:layout];
     }
     return _collectionView;
+}
+
+- (void)setUpClassesForCollectionViewLayout:(CHTCollectionViewWaterfallLayout *)layout {
+    // Tell collection view what classes to use
+    [_collectionView registerClass:[TileCollectionViewCellA class]
+        forCellWithReuseIdentifier:CELL_IDENTIFIER];
+    [_collectionView registerClass:[TileCollectionViewCellB class]
+        forCellWithReuseIdentifier:CELL_IDENTIFIER_B];
+    [_collectionView registerClass:[TileCollectionViewCellC class]
+        forCellWithReuseIdentifier:CELL_IDENTIFIER_C];
+    
+    // Deal with if feature view showing
+    if ([self isFeaturedPage]) {
+        layout.headerHeight = self.view.frame.size.height / 1.5;
+        [_collectionView registerClass:[FeaturedTileCollectionViewCell class]
+            forSupplementaryViewOfKind:CHTCollectionElementKindSectionHeader
+                   withReuseIdentifier:HEADER_IDENTIFIER];
+    }
+
 }
 
 - (BOOL)isFeaturedPage {
@@ -208,7 +213,7 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)fetchMoreItems {
     NSLog(@"FETCHING MORE ITEMS");
     if (self.page > 0) {
-        [self.spinner removeFromSuperview];
+        self.spinner.hidden = YES;
     } else {
         [self.spinner startAnimating];
     }
