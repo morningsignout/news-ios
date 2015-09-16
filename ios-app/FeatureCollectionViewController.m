@@ -18,14 +18,18 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 
 @interface FeatureCollectionViewController ()
 @property (strong, nonatomic) Post *topFeatured;
+@property (nonatomic) bool end;
 @end
 
 @implementation FeatureCollectionViewController
+
 
 #pragma mark - Life Cycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.end = false;
     
     self.topFeatured = [super getPostFromPosts:0];
     contentType = FEATURED;
@@ -109,6 +113,14 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     });
     
     
+}
+
+- (void) setEndOfPosts:(bool)set{
+    self.end = set;
+}
+
+- (BOOL) getEndOfPosts{
+    return self.end;
 }
 
 #pragma mark - Navigation

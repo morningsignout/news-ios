@@ -184,15 +184,15 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.item >= self.posts.count) {
+    if (![self getEndOfPosts] && indexPath.item >= self.posts.count - 3) {
         [self.spinner startAnimating];
         [self fetchMoreItems];
     }
     
     // pre-fetch the next 'page' of data.
-    else if(indexPath.item == (self.posts.count - 3)){
-        [self fetchMoreItems];
-    }
+//    else if(indexPath.item == (self.posts.count - 3)){
+//        [self fetchMoreItems];
+//    }
     
 
     if (indexPath.item % 3 == 0) {
@@ -225,7 +225,10 @@ static NSString * const reuseIdentifier = @"Cell";
         self.page++;
         NSLog(@"now on page %d of data", self.page);
         newData = [self getDataForPage];
-        
+        if([newData count] < 28){
+            [self setEndOfPosts:true];
+            NSLog(@"end of posts reached");
+        }
         // Simulate an async load
         double delayInSeconds = 2 * NSEC_PER_SEC;
         dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds);
@@ -334,6 +337,8 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark - Scroll View Delegate
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if([self getEndOfPosts])
+        return;
     float bottomEdge = scrollView.contentOffset.y + scrollView.frame.size.height;
     if (bottomEdge >= scrollView.contentSize.height - self.view.frame.size.height / 3) {
         // we are at the end
@@ -360,6 +365,14 @@ static NSString * const reuseIdentifier = @"Cell";
     }
     self.bottomSpinnerBackground.hidden = NO;
     return _bottomSpinner;
+}
+
+- (void) setEndOfPosts:(bool)set{
+    return;
+}
+
+- (BOOL) getEndOfPosts{
+    return nil;
 }
 
 @end

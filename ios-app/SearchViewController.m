@@ -17,23 +17,32 @@
 @property (strong, nonatomic) UISearchController *searchController;
 @property (strong, nonatomic) UISegmentedControl *segmentedControl;
 @property (strong, nonatomic) NSString *searchTerm;
+@property (strong, nonatomic) NSArray *all;
+@property (strong, nonatomic) NSArray *tags;
+@property (strong, nonatomic) NSArray *current;
+@property (nonatomic) bool end;
+@property (nonatomic) NSInteger flush;
 
 @end
 
 @implementation SearchViewController
 
-int flush = 0;
-
 - (void)viewDidLoad {
     contentType = SEARCH;
     [super viewDidLoad];
     
+    self.end = false;
+    self.flush = 0;
+    
+    _all = nil;
+    _tags = nil;
+    _current = nil;
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    [self.collectionView setContentInset:UIEdgeInsetsMake(62,0,0,0)];
+    [self.collectionView setContentInset:UIEdgeInsetsMake(70,0,0,0)];
     
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = self;
@@ -64,13 +73,19 @@ int flush = 0;
     [self.view addSubview:self.searchController.searchBar];
     [self.view addSubview:self.segmentedControl];
     self.navigationController.navigationBarHidden = YES;
-    [self.searchController setActive:YES];
+    //[self.searchController setActive:YES];
     NSLog(@"set active");
     DropdownNavigationController *navVC = (DropdownNavigationController *)self.parentViewController.parentViewController;
     navVC.titleLabel.text = @"Search";
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    NSLog(@"view did apper");
+    [self.searchController setActive:YES];
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
+    self.searchController.active = NO;
     [self.searchController.searchBar removeFromSuperview];
 }
 
@@ -82,6 +97,7 @@ int flush = 0;
 #pragma mark - CollectionView data source
 
 - (NSArray *)getDataForTypeOfView {
+    NSLog(@"getting data for view");
     if (!_searchTerm || [_searchTerm isEqualToString:@""]) {
         return nil;
     }
@@ -97,13 +113,22 @@ int flush = 0;
         if([self.searchTerm length] == 0)
             return;
         
-        flush++;
-        int yesFlush = flush;
-        NSArray * refreshPosts = [DataParser DataForSearchTerm:self.searchTerm InPage:self.page];
+        self.flush++;
+        NSArray* refreshPosts;
+        int yesFlush = self.flush;
+        if(self.segmentedControl.selectedSegmentIndex == 0)
+            refreshPosts = [DataParser DataForSearchTerm:self.searchTerm InPage:self.page];
+        else if(self.segmentedControl.selectedSegmentIndex == 1)
+            refreshPosts = [DataParser DataForPostWithTag:self.searchTerm AndPageNumber:self.page];
         
-        if(flush == yesFlush){
-            flush = 0;
+        if(self.flush == yesFlush){
+            self.flush = 0;
+            if(self.segmentedControl.selectedSegmentIndex == 0)
+                self.all = refreshPosts;
+            else if(self.segmentedControl.selectedSegmentIndex == 1)
+                self.tags = refreshPosts;
             [self refreshPosts:refreshPosts];
+            
         }
         else{
             refreshPosts = nil;
@@ -112,11 +137,11 @@ int flush = 0;
     });
 }
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    self.spinner.hidden = NO;
-    [self.spinner startAnimating];
-    [self.collectionView setContentOffset:CGPointZero animated:YES];
-}
+//- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+//    self.spinner.hidden = NO;
+//    [self.spinner startAnimating];
+//    [self.collectionView setContentOffset:CGPointZero animated:YES];
+//}
 
 - (void)didPresentSearchController:(UISearchController *)searchController{
     NSLog(@"presenting");
@@ -128,13 +153,23 @@ int flush = 0;
     [self.searchController.searchBar resignFirstResponder];
 }
 
+- (void) setEndOfPosts:(bool)set{
+    self.end = set;
+}
+
+- (BOOL) getEndOfPosts{
+    return self.end;
+}
+
 - (void)MySegmentControlAction:(UISegmentedControl *)segment
 {
     if(segment.selectedSegmentIndex == 0){
-        // code for the first button
+        // segment "all"
+        [self refreshPosts:_all];
     }
     else if(segment.selectedSegmentIndex == 1){
-        
+        // segment "tags"
+        [self refreshPosts:_tags];
     }
     else if(segment.selectedSegmentIndex == 2){
         
