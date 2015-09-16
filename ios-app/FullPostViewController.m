@@ -97,7 +97,8 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
         self.coverImageView.contentMode = UIViewContentModeScaleAspectFit;
         self.coverImageView.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, image.size.width, image.size.height);
         
-        self.postTitle.text = self.post.title;
+        self.postTitle.text = [NSString stringWithFormat:@" %@ \n %@",self.post.title, self.post.author.name];
+        self.postTitle.numberOfLines = 0;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Image error: %@", error);
     }];
