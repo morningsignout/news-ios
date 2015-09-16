@@ -46,27 +46,35 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Post"];
     
-    // Pull out all the posts IDs previously saved and request for their post content
-    self.coreDataPostIDs = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-    for (NSManagedObject *bookmark in self.coreDataPostIDs) {
-        int postID = [[bookmark valueForKey:@"id"] intValue];
-        Post *bookmarkedPost = [DataParser DataForPostID:postID];
-        
-        BOOL exists = NO;
-        // If array already has the post, dont add it to the data source
-        for (Post* post in self.bookmarks) {
-            if (post.ID == postID) {
-                exists = YES;
-                break;
+    dispatch_queue_t myQueue = dispatch_queue_create("My Queue",NULL);
+    dispatch_async(myQueue, ^{
+    
+        // Pull out all the posts IDs previously saved and request for their post content
+        self.coreDataPostIDs = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+        for (NSManagedObject *bookmark in self.coreDataPostIDs) {
+            int postID = [[bookmark valueForKey:@"id"] intValue];
+            Post *bookmarkedPost = [DataParser DataForPostID:postID];
+            
+            BOOL exists = NO;
+            // If array already has the post, dont add it to the data source
+            for (Post* post in self.bookmarks) {
+                if (post.ID == postID) {
+                    exists = YES;
+                    break;
+                }
+            }
+            
+            if (!exists) {
+                [self.bookmarks addObject:bookmarkedPost];
             }
         }
         
-        if (!exists) {
-            [self.bookmarks addObject:bookmarkedPost];
-        }
-    }
-    
-    [self.tableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+        
+        
+    });
 
 }
 

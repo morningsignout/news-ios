@@ -63,13 +63,22 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
         mainFontSize = 1.5;
         captionFontSize = 1.2;
     }
-    
-    [self loadWebView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
+    NSString *filteredHTML = [self.post.body stringByReplacingOccurrencesOfString:@"\\/" withString:@"/"];
+    filteredHTML = [filteredHTML stringByReplacingOccurrencesOfString:@"\"" withString:@"\""];
+    NSString *containerFront = @"<div class=\"container\">";
+    NSString *containerEnd = @"</div>";
+    filteredHTML = [containerFront stringByAppendingString:filteredHTML];
+    filteredHTML = [filteredHTML stringByAppendingString:containerEnd];
+    filteredHTML = [header stringByAppendingString:filteredHTML];
+    self.html = filteredHTML;
+    
+    [self loadWebView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -134,18 +143,7 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
 #pragma mark - Web View Functions
 
 - (void)loadWebView {
-    NSString *filteredHTML = [self.post.body stringByReplacingOccurrencesOfString:@"\\/" withString:@"/"];
-    filteredHTML = [filteredHTML stringByReplacingOccurrencesOfString:@"\"" withString:@"\""];
-    NSString *containerFront = @"<div class=\"container\">";
-    NSString *containerEnd = @"</div>";
-    filteredHTML = [containerFront stringByAppendingString:filteredHTML];
-    filteredHTML = [filteredHTML stringByAppendingString:containerEnd];
-    filteredHTML = [header stringByAppendingString:filteredHTML];
-    self.html = filteredHTML;
-    
-    filteredHTML = [filteredHTML stringByAppendingString:[self setFontSize]];
-    
-    
+    NSString *filteredHTML = [self.html stringByAppendingString:[self setFontSize]];
     [self.webView loadHTMLString:filteredHTML baseURL:nil];
 }
 
