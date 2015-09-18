@@ -15,11 +15,11 @@
 @interface SearchViewController () <UISearchBarDelegate, UISearchResultsUpdating, UISearchControllerDelegate>
 
 @property (strong, nonatomic) UISearchController *searchController;
-@property (strong, nonatomic) UISegmentedControl *segmentedControl;
+//@property (strong, nonatomic) UISegmentedControl *segmentedControl;
 @property (strong, nonatomic) NSString *searchTerm;
-@property (strong, nonatomic) NSArray *all;
-@property (strong, nonatomic) NSArray *tags;
-@property (strong, nonatomic) NSArray *current;
+//@property (strong, nonatomic) NSArray *all;
+//@property (strong, nonatomic) NSArray *tags;
+//@property (strong, nonatomic) NSArray *current;
 @property (nonatomic) bool end;
 @property (nonatomic) NSInteger flush;
 
@@ -34,9 +34,9 @@
     self.end = false;
     self.flush = 0;
     
-    _all = nil;
-    _tags = nil;
-    _current = nil;
+//    _all = nil;
+//    _tags = nil;
+//    _current = nil;
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -54,24 +54,24 @@
     self.definesPresentationContext = YES;
     
     // Set up search segmented control
-    NSArray *itemArray = [NSArray arrayWithObjects: @"All", @"Tags", @"Categories", nil];
-    self.segmentedControl = [[UISegmentedControl alloc] initWithItems:itemArray];
-    self.segmentedControl.frame = CGRectMake((self.view.frame.size.width-320)/2, 50, 320, 20);
-    self.segmentedControl.segmentedControlStyle = UISegmentedControlStylePlain;
-    [self.segmentedControl addTarget:self action:@selector(MySegmentControlAction:) forControlEvents: UIControlEventValueChanged];
-    self.segmentedControl.selectedSegmentIndex = 0;
-    
-    // Set up segmented control background view
-    CGFloat marginSegmentedBackground = 20;
-    UIView *segmentedControlBackground = [[UIView alloc] initWithFrame:CGRectMake(0, self.segmentedControl.frame.origin.y - marginSegmentedBackground / 2, self.view.frame.size.width, self.segmentedControl.bounds.size.height + marginSegmentedBackground)];
-    segmentedControlBackground.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.9];
-    [self.view addSubview:segmentedControlBackground];
+//    NSArray *itemArray = [NSArray arrayWithObjects: @"All", @"Tags", @"Categories", nil];
+//    self.segmentedControl = [[UISegmentedControl alloc] initWithItems:itemArray];
+//    self.segmentedControl.frame = CGRectMake((self.view.frame.size.width-320)/2, 50, 320, 20);
+//    self.segmentedControl.segmentedControlStyle = UISegmentedControlStylePlain;
+//    [self.segmentedControl addTarget:self action:@selector(MySegmentControlAction:) forControlEvents: UIControlEventValueChanged];
+//    self.segmentedControl.selectedSegmentIndex = 0;
+//    
+//    // Set up segmented control background view
+//    CGFloat marginSegmentedBackground = 20;
+//    UIView *segmentedControlBackground = [[UIView alloc] initWithFrame:CGRectMake(0, self.segmentedControl.frame.origin.y - marginSegmentedBackground / 2, self.view.frame.size.width, self.segmentedControl.bounds.size.height + marginSegmentedBackground)];
+//    segmentedControlBackground.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.9];
+//    [self.view addSubview:segmentedControlBackground];
 
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [self.view addSubview:self.searchController.searchBar];
-    [self.view addSubview:self.segmentedControl];
+    //[self.view addSubview:self.segmentedControl];
     self.navigationController.navigationBarHidden = YES;
     //[self.searchController setActive:YES];
     NSLog(@"set active");
@@ -116,17 +116,17 @@
         self.flush++;
         NSArray* refreshPosts;
         int yesFlush = (int)self.flush;
-        if(self.segmentedControl.selectedSegmentIndex == 0)
+        //if(self.segmentedControl.selectedSegmentIndex == 0)
             refreshPosts = [DataParser DataForSearchTerm:self.searchTerm InPage:self.page];
-        else if(self.segmentedControl.selectedSegmentIndex == 1)
-            refreshPosts = [DataParser DataForPostWithTag:self.searchTerm AndPageNumber:self.page];
+        //else if(self.segmentedControl.selectedSegmentIndex == 1)
+        //    refreshPosts = [DataParser DataForPostWithTag:self.searchTerm AndPageNumber:self.page];
         
         if(self.flush == yesFlush){
             self.flush = 0;
-            if(self.segmentedControl.selectedSegmentIndex == 0)
-                self.all = refreshPosts;
-            else if(self.segmentedControl.selectedSegmentIndex == 1)
-                self.tags = refreshPosts;
+//            if(self.segmentedControl.selectedSegmentIndex == 0)
+//                self.all = refreshPosts;
+//            else if(self.segmentedControl.selectedSegmentIndex == 1)
+//                self.tags = refreshPosts;
             [self refreshPosts:refreshPosts];
             
         }
@@ -161,20 +161,20 @@
     return self.end;
 }
 
-- (void)MySegmentControlAction:(UISegmentedControl *)segment
-{
-    if(segment.selectedSegmentIndex == 0){
-        // segment "all"
-        [self refreshPosts:_all];
-    }
-    else if(segment.selectedSegmentIndex == 1){
-        // segment "tags"
-        [self refreshPosts:_tags];
-    }
-    else if(segment.selectedSegmentIndex == 2){
-        
-    }
-}
+//- (void)MySegmentControlAction:(UISegmentedControl *)segment
+//{
+//    if(segment.selectedSegmentIndex == 0){
+//        // segment "all"
+//        [self refreshPosts:_all];
+//    }
+//    else if(segment.selectedSegmentIndex == 1){
+//        // segment "tags"
+//        [self refreshPosts:_tags];
+//    }
+//    else if(segment.selectedSegmentIndex == 2){
+//        
+//    }
+//}
 
 /*
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
