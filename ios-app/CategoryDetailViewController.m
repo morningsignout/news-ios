@@ -1,23 +1,19 @@
 //
-//  CategoryViewController.m
+//  CategoryDetailViewController.m
 //  ios-app
 //
-//  Created by Brandon Pon on 9/10/15.
+//  Created by Shannon Phu on 9/18/15.
 //  Copyright (c) 2015 Morning Sign Out Incorporated. All rights reserved.
 //
 
-#import "CategoryViewController.h"
-#import "DataParser.h"
-#import "DropdownNavigationController.h"
 #import "CategoryDetailViewController.h"
+#import "DataParser.h"
 
-@interface CategoryViewController ()
-
-@property (strong, nonatomic) NSArray *categoryNames;
+@interface CategoryDetailViewController ()
 
 @end
 
-@implementation CategoryViewController
+@implementation CategoryDetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -25,9 +21,8 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    DropdownNavigationController *navVC = (DropdownNavigationController *)self.parentViewController.parentViewController;
-    navVC.titleLabel.text = @"Categories";
-    self.navigationController.navigationBarHidden = YES;
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -35,17 +30,18 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (NSArray *)getDataForTypeOfView {
+    return [DataParser DataForCategory:self.categoryType AndPageNumber:self.page];
+}
 
+/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    
-    CategoryDetailViewController *newVC = segue.destinationViewController;
-    newVC.categoryType = segue.identifier;
 }
-
+*/
 
 @end

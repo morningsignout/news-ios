@@ -546,10 +546,64 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D8N-9Z-rcc">
-                                <rect key="frame" x="63" y="161" width="46" height="30"/>
-                                <state key="normal" title="Button">
+                                <rect key="frame" x="68" y="106" width="123" height="124"/>
+                                <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Research">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="BHk-BR-qCY" kind="show" identifier="research" id="7S1-BF-6Xa"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CJN-Li-kKj">
+                                <rect key="frame" x="207" y="106" width="123" height="124"/>
+                                <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Wellness">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="BHk-BR-qCY" kind="show" identifier="wellness" id="BYW-pU-SZU"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oe0-Hr-Go3">
+                                <rect key="frame" x="207" y="238" width="123" height="124"/>
+                                <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Medicine">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="BHk-BR-qCY" kind="show" identifier="medicine" id="U1R-ZS-QNW"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hIr-jV-j32">
+                                <rect key="frame" x="207" y="370" width="123" height="124"/>
+                                <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Healthcare">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="BHk-BR-qCY" kind="show" identifier="healthcare" id="tMx-ve-VY8"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g2o-TD-0HB">
+                                <rect key="frame" x="68" y="370" width="123" height="124"/>
+                                <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Public Health">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="BHk-BR-qCY" kind="show" identifier="public-health" id="aeG-JU-Dur"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U92-0R-Umb">
+                                <rect key="frame" x="68" y="238" width="123" height="124"/>
+                                <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Premedical">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="BHk-BR-qCY" kind="show" identifier="premed_advice" id="cVt-Gv-cPt"/>
+                                </connections>
                             </button>
                         </subviews>
                     </view>
@@ -557,6 +611,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lkb-fB-75c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-987" y="1599"/>
+        </scene>
+        <!--Category Detail View Controller-->
+        <scene sceneID="QsV-uG-1j9">
+            <objects>
+                <viewController id="BHk-BR-qCY" customClass="CategoryDetailViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Nzk-ol-97P"/>
+                        <viewControllerLayoutGuide type="bottom" id="HeP-7q-V2A"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="D6P-K4-Kyx">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="AwG-db-vG7">
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="AwG-db-vG7" secondAttribute="centerY" id="KGi-5W-O2X"/>
+                            <constraint firstAttribute="centerX" secondItem="AwG-db-vG7" secondAttribute="centerX" id="PKY-5b-Pm7"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="spinner" destination="AwG-db-vG7" id="Uhk-Za-Vpc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EAe-EP-lK6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-297" y="1599"/>
         </scene>
         <!--Feature Collection View Controller-->
         <scene sceneID="phn-ig-E6L">
@@ -606,19 +690,19 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iyl-7a-TzA">
                                 <rect key="frame" x="16" y="28" width="568" height="39"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="32"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AlK-eh-rZc">
                                 <rect key="frame" x="16" y="75" width="568" height="27"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="22"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="about" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q9o-8O-NJ0">
                                 <rect key="frame" x="109" y="110" width="383" height="55"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="I28-e8-lQ2">
@@ -776,7 +860,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B5a-ia-mIA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-145" y="1277"/>
+            <point key="canvasLocation" x="461" y="1251"/>
         </scene>
         <!--Bookmark Table View Controller-->
         <scene sceneID="SmE-QM-ozf">
@@ -798,7 +882,7 @@
                                                 <constraint firstAttribute="height" constant="46" id="sYA-pz-zf8"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ooU-aQ-r3j">
@@ -810,7 +894,7 @@
                                                 <constraint firstAttribute="height" constant="45" id="0XC-su-u2R"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M4l-Bp-XsN">
@@ -891,7 +975,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="4l3-Df-QUo"/>
         <segue reference="DXn-2w-hPS"/>
+        <segue reference="4l3-Df-QUo"/>
+        <segue reference="aeG-JU-Dur"/>
     </inferredMetricsTieBreakers>
 </document>

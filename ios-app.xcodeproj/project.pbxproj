@@ -27,6 +27,7 @@
 		FB714A4E1B94FFE100D68CB5 /* DataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = FB714A4D1B94FFE100D68CB5 /* DataParser.m */; };
 		FB72E7F61BA3525000F10356 /* ContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB72E7F51BA3525000F10356 /* ContainerViewController.m */; };
 		FB72E83A1BA3828500F10356 /* EmptySegue.m in Sources */ = {isa = PBXBuildFile; fileRef = FB72E8391BA3828500F10356 /* EmptySegue.m */; };
+		FB798E2D1BAD182C00F98139 /* CategoryDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB798E2C1BAD182C00F98139 /* CategoryDetailViewController.m */; };
 		FB997E461BA5557D0080CABD /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB997E451BA5557D0080CABD /* ImageViewController.m */; };
 		FB99DEE21B9A1AFE007111B4 /* FeatureTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB99DEE11B9A1AFE007111B4 /* FeatureTableViewController.m */; };
 		FB99DEE61B9A1BD9007111B4 /* FeaturedStoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB99DEE51B9A1BD9007111B4 /* FeaturedStoryTableViewCell.m */; };
@@ -97,6 +98,8 @@
 		FB72E7F51BA3525000F10356 /* ContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainerViewController.m; sourceTree = "<group>"; };
 		FB72E8381BA3828500F10356 /* EmptySegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmptySegue.h; sourceTree = "<group>"; };
 		FB72E8391BA3828500F10356 /* EmptySegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmptySegue.m; sourceTree = "<group>"; };
+		FB798E2B1BAD182C00F98139 /* CategoryDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryDetailViewController.h; sourceTree = "<group>"; };
+		FB798E2C1BAD182C00F98139 /* CategoryDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryDetailViewController.m; sourceTree = "<group>"; };
 		FB997E441BA5557D0080CABD /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
 		FB997E451BA5557D0080CABD /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
 		FB99DEE01B9A1AFE007111B4 /* FeatureTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeatureTableViewController.h; sourceTree = "<group>"; };
@@ -268,6 +271,8 @@
 				CA239A731B9FA9A400BEDC5E /* SearchViewController.m */,
 				CA7F86DB1BA296E9002E16CA /* CategoryViewController.h */,
 				CA7F86DC1BA296E9002E16CA /* CategoryViewController.m */,
+				FB798E2B1BAD182C00F98139 /* CategoryDetailViewController.h */,
+				FB798E2C1BAD182C00F98139 /* CategoryDetailViewController.m */,
 				FBDA71D21BA7803800D68C4A /* AuthorViewController.h */,
 				FBDA71D31BA7803800D68C4A /* AuthorViewController.m */,
 				FBD0291B1BA8995200101D73 /* BookmarkTableViewController.h */,
@@ -509,6 +514,7 @@
 				FB714A1E1B94D16000D68CB5 /* ios_app.xcdatamodeld in Sources */,
 				CA239A6F1B9F660400BEDC5E /* GTMNSString+HTML.m in Sources */,
 				FB72E83A1BA3828500F10356 /* EmptySegue.m in Sources */,
+				FB798E2D1BAD182C00F98139 /* CategoryDetailViewController.m in Sources */,
 				FB99DEE21B9A1AFE007111B4 /* FeatureTableViewController.m in Sources */,
 				FB714A211B94D16000D68CB5 /* TestViewController.m in Sources */,
 				FB714A4E1B94FFE100D68CB5 /* DataParser.m in Sources */,
