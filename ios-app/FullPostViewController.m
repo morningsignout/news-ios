@@ -238,14 +238,6 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
         if (postID == self.post.ID) {
             return;
         }
-    // Check if this post has been saved already.
-    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Post"];
-    id post = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-    
-    // If post already saved before, notify user and give choice to un-bookmark
-    if (post) {
-        return;
     }
     
     // Else if not saved before, save it into core data now
@@ -257,8 +249,8 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
     if (![managedObjectContext save:&error]) {
         NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
     }
-    }
 }
+
 
 #pragma mark - Navigation
 

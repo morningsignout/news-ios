@@ -937,7 +937,7 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M4l-Bp-XsN">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M4l-Bp-XsN">
                                             <rect key="frame" x="534" y="8" width="58" height="30"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                             <state key="normal" title="Remove">
@@ -951,6 +951,7 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="ooU-aQ-r3j" secondAttribute="trailing" id="5cP-E0-GKz"/>
+                                        <constraint firstAttribute="trailing" secondItem="M4l-Bp-XsN" secondAttribute="trailing" constant="8" id="7oC-bP-JVX"/>
                                         <constraint firstItem="m8q-jJ-8v4" firstAttribute="centerX" secondItem="gd6-QJ-YMf" secondAttribute="centerX" id="9KS-bP-wbN"/>
                                         <constraint firstItem="m8q-jJ-8v4" firstAttribute="centerX" secondItem="ooU-aQ-r3j" secondAttribute="centerX" id="J1m-Xm-WW2"/>
                                         <constraint firstItem="ocR-iO-ogQ" firstAttribute="trailing" secondItem="m8q-jJ-8v4" secondAttribute="trailing" id="RF4-BP-kQA"/>
@@ -959,6 +960,7 @@
                                         <constraint firstItem="ooU-aQ-r3j" firstAttribute="top" secondItem="gd6-QJ-YMf" secondAttribute="top" id="bI4-DQ-l34"/>
                                         <constraint firstItem="m8q-jJ-8v4" firstAttribute="leading" secondItem="gd6-QJ-YMf" secondAttribute="leadingMargin" id="cLG-ma-v7m"/>
                                         <constraint firstItem="ooU-aQ-r3j" firstAttribute="leading" secondItem="gd6-QJ-YMf" secondAttribute="leading" id="pL9-Hf-nPu"/>
+                                        <constraint firstItem="M4l-Bp-XsN" firstAttribute="top" secondItem="gd6-QJ-YMf" secondAttribute="top" constant="8" id="rM3-mn-GYg"/>
                                         <constraint firstItem="m8q-jJ-8v4" firstAttribute="top" secondItem="ocR-iO-ogQ" secondAttribute="bottom" constant="8" symbolic="YES" id="rkP-ZJ-aK8"/>
                                     </constraints>
                                 </tableViewCellContentView>
