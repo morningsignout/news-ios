@@ -12,6 +12,7 @@
 #import "ImageViewController.h"
 #import <AFNetworking.h>
 #import <CoreData/CoreData.h>
+#import "ArticleLabels.h"
 
 static NSString * const header = @"<!-- Latest compiled and minified CSS --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"><!-- Optional theme --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css\"><!-- Latest compiled and minified JavaScript --><script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\"></script><!-- Yeon's CSS --><link rel=\"stylesheet\" href=\"http://morningsignout.com/wp-content/themes/mso/style.css?ver=4.3\"><meta charset=\"utf-8\"> \
     <style type=\"text/css\">.ssba {}.ssba img { width: 30px !important; padding: 0px; border:  0; box-shadow: none !important; display: inline !important; vertical-align: middle; } .ssba, .ssba a {text-decoration:none;border:0;background: none;font-family: Indie Flower;font-size: 20px;}</style>";
@@ -22,11 +23,12 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
     float captionFontSize;
 }
 
-@property (strong, nonatomic) UILabel *postTitle;
+//@property (strong, nonatomic) UILabel *postTitle;
 @property (weak, nonatomic) IBOutlet UIImageView *coverImageView;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (strong, nonatomic) NSString *html;
 @property (strong, nonatomic) NSArray *font;
+@property (weak, nonatomic) IBOutlet ArticleLabels *postInfoLabels;
 
 @end
 
@@ -36,7 +38,7 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.webView.delegate = self;
-    self.postTitle.text = self.post.title;
+//    self.postTitle.text = self.post.title;
     
     [self.navigationController.navigationBar setBarTintColor:[UIColor darkGrayColor]];
     UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:nil];
@@ -63,6 +65,8 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
         mainFontSize = 1.5;
         captionFontSize = 1.2;
     }
+    [self setUpLabels];
+    [self loadWebView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -106,21 +110,26 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
         self.coverImageView.contentMode = UIViewContentModeScaleAspectFit;
         self.coverImageView.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, image.size.width, image.size.height);
         
-        self.postTitle.text = self.post.title;
+//        self.postTitle.text = [NSString stringWithFormat:@" %@ \n %@",self.post.title, self.post.author.name];
+//        self.postTitle.numberOfLines = 0;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Image error: %@", error);
     }];
     [requestOperation start];
 }
 
-- (UILabel *)postTitle {
-    if (!_postTitle) {
-        _postTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, self.coverImageView.bounds.size.height - 50, self.view.frame.size.width, 50)];
-        _postTitle.backgroundColor = [UIColor colorWithWhite:1 alpha:0.5];
-        [self.view addSubview:_postTitle];
-    }
+//- (UILabel *)postTitle {
+//    if (!_postTitle) {
+//        _postTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, self.coverImageView.bounds.size.height - 50, self.view.frame.size.width, 50)];
+//        _postTitle.backgroundColor = [UIColor colorWithWhite:1 alpha:0.5];
+//        [self.view addSubview:_postTitle];
+//    }
+//
+//    return _postTitle;
+//}
 
-    return _postTitle; 
+- (void)setUpLabels {
+    self.postInfoLabels.titleLabel.text = self.post.title;
 }
 
 - (NSString *)setFontSize {
@@ -229,6 +238,14 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
         if (postID == self.post.ID) {
             return;
         }
+    // Check if this post has been saved already.
+    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Post"];
+    id post = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    
+    // If post already saved before, notify user and give choice to un-bookmark
+    if (post) {
+        return;
     }
     
     // Else if not saved before, save it into core data now
@@ -239,6 +256,7 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
     // Save the object to persistent store
     if (![managedObjectContext save:&error]) {
         NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
+    }
     }
 }
 
