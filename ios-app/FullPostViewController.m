@@ -14,22 +14,24 @@
 #import <CoreData/CoreData.h>
 #import "ArticleLabels.h"
 #import "Constants.h"
+#import "PostHeaderInfo.h"
 
 static NSString * const header = @"<!-- Latest compiled and minified CSS --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"><!-- Optional theme --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css\"><!-- Latest compiled and minified JavaScript --><script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\"></script><!-- Yeon's CSS --><link rel=\"stylesheet\" href=\"http://morningsignout.com/wp-content/themes/mso/style.css?ver=4.3\"><meta charset=\"utf-8\"> \
     <style type=\"text/css\">.ssba {}.ssba img { width: 30px !important; padding: 0px; border:  0; box-shadow: none !important; display: inline !important; vertical-align: middle; } .ssba, .ssba a {text-decoration:none;border:0;background: none;font-family: Indie Flower;font-size: 20px;}</style>";
 
-@interface FullPostViewController () <UIWebViewDelegate> {
+@interface FullPostViewController () <UIWebViewDelegate, UIScrollViewDelegate> {
     NSString *fontSizeStyle;
     float mainFontSize;
     float captionFontSize;
 }
 
-//@property (strong, nonatomic) UILabel *postTitle;
 @property (weak, nonatomic) IBOutlet UIImageView *coverImageView;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (strong, nonatomic) NSString *html;
 @property (strong, nonatomic) NSArray *font;
 @property (weak, nonatomic) IBOutlet ArticleLabels *postInfoLabels;
+@property (weak, nonatomic) IBOutlet PostHeaderInfo *header;
+
 
 @end
 
@@ -39,8 +41,8 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.webView.delegate = self;
+    self.webView.scrollView.delegate = self;
     [self setupNavigationBarStyle];
-    [self loadPostImage];
     
     // Retrieve user font size preference if was previously saved
     NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
@@ -55,6 +57,8 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
         mainFontSize = 1.5;
         captionFontSize = 1.2;
     }
+    
+    [self loadPostImage];
     [self setUpLabels];
     [self loadWebView];
 }
@@ -109,30 +113,17 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
     requestOperation.responseSerializer = [AFImageResponseSerializer serializer];
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         UIImage *image = responseObject;
-        self.coverImageView.image = image;
-        self.coverImageView.contentMode = UIViewContentModeScaleAspectFit;
-        self.coverImageView.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, image.size.width, image.size.height);
-        
-//        self.postTitle.text = [NSString stringWithFormat:@" %@ \n %@",self.post.title, self.post.author.name];
-//        self.postTitle.numberOfLines = 0;
+        self.header.coverImage.image = image;
+        self.header.coverImage.contentMode = UIViewContentModeScaleToFill;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Image error: %@", error);
     }];
     [requestOperation start];
 }
 
-//- (UILabel *)postTitle {
-//    if (!_postTitle) {
-//        _postTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, self.coverImageView.bounds.size.height - 50, self.view.frame.size.width, 50)];
-//        _postTitle.backgroundColor = [UIColor colorWithWhite:1 alpha:0.5];
-//        [self.view addSubview:_postTitle];
-//    }
-//
-//    return _postTitle;
-//}
-
 - (void)setUpLabels {
-    self.postInfoLabels.titleLabel.text = self.post.title;
+    self.header.articleLabels.frame = CGRectMake(0, self.header.coverImage.frame.size.height, self.view.frame.size.width, 200);
+    self.header.articleLabels.titleLabel.text = self.post.title;
 }
 
 - (NSString *)setFontSize {
@@ -267,6 +258,16 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
     }
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    if (!self.header.isHidden) {
+        [UIView animateWithDuration:0.75 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            self.webView.frame = CGRectMake(0, 75, self.view.frame.size.width, self.view.frame.size.height - 75);
+            self.header.frame = CGRectMake(0, -400, self.header.frame.size.width, self.header.frame.size.height);
+        } completion:^(BOOL finished){
+            self.header.hidden= YES;
+        }];
+    }
 
+}
 
 @end
