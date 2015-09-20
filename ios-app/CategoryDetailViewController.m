@@ -8,6 +8,7 @@
 
 #import "CategoryDetailViewController.h"
 #import "DataParser.h"
+#import "Constants.h"
 
 @interface CategoryDetailViewController ()
 
@@ -18,6 +19,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.navigationController.navigationBar setBarTintColor:[UIColor kNavBackgroundColor]];
+    self.navigationController.navigationBar.tintColor = [UIColor kNavTextColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

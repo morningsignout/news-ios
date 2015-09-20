@@ -13,6 +13,7 @@
 #import <AFNetworking.h>
 #import <CoreData/CoreData.h>
 #import "ArticleLabels.h"
+#import "Constants.h"
 
 static NSString * const header = @"<!-- Latest compiled and minified CSS --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"><!-- Optional theme --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css\"><!-- Latest compiled and minified JavaScript --><script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\"></script><!-- Yeon's CSS --><link rel=\"stylesheet\" href=\"http://morningsignout.com/wp-content/themes/mso/style.css?ver=4.3\"><meta charset=\"utf-8\"> \
     <style type=\"text/css\">.ssba {}.ssba img { width: 30px !important; padding: 0px; border:  0; box-shadow: none !important; display: inline !important; vertical-align: middle; } .ssba, .ssba a {text-decoration:none;border:0;background: none;font-family: Indie Flower;font-size: 20px;}</style>";
@@ -38,18 +39,7 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.webView.delegate = self;
-//    self.postTitle.text = self.post.title;
-    
-    [self.navigationController.navigationBar setBarTintColor:[UIColor darkGrayColor]];
-    UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:nil];
-    UIBarButtonItem *bookmarkItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(bookmarkPost)];
-    UIBarButtonItem *fontIncItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(increaseFontSize)];
-    UIBarButtonItem *fontDecItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:@selector(decreaseFontSize)];
-    
-    NSArray *actionButtonItems = @[shareItem, bookmarkItem, fontIncItem, fontDecItem];
-    self.navigationItem.rightBarButtonItems = actionButtonItems;
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    
+    [self setupNavigationBarStyle];
     [self loadPostImage];
     
     // Retrieve user font size preference if was previously saved
@@ -88,6 +78,19 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)setupNavigationBarStyle {
+    [self.navigationController.navigationBar setBarTintColor:[UIColor kNavBackgroundColor]];
+    self.navigationController.navigationBar.tintColor = [UIColor kNavTextColor];
+    
+    UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:nil];
+    UIBarButtonItem *bookmarkItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(bookmarkPost)];
+    UIBarButtonItem *fontIncItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(increaseFontSize)];
+    UIBarButtonItem *fontDecItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:@selector(decreaseFontSize)];
+    
+    NSArray *actionButtonItems = @[shareItem, bookmarkItem, fontIncItem, fontDecItem];
+    self.navigationItem.rightBarButtonItems = actionButtonItems;
 }
 
 - (NSManagedObjectContext *)managedObjectContext
