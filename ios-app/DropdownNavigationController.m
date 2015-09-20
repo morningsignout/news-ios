@@ -8,6 +8,7 @@
 
 #import "DropdownNavigationController.h"
 #import "ContainerViewController.h"
+#import "Constants.h"
 
 #define FEATURE_INDEX 0
 #define SEARCH_INDEX 1
@@ -40,7 +41,7 @@ NSString * const section[] = {
 
 -(void) customizeMenu {
     // To set the menubar background colour programmatically.
-    [self setMenubarBackground:[UIColor darkGrayColor]];
+    [self setMenubarBackground:[UIColor kNavBackgroundColor]];
     
     // Replace menu button with an IonIcon.
     [self.menuButton setTitle:@"Menu" forState:UIControlStateNormal];

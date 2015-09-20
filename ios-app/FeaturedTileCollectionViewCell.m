@@ -11,12 +11,12 @@
 @implementation FeaturedTileCollectionViewCell
 
 - (id)initWithFrame:(CGRect)frame {
-    self.titleHeight = 50.0f;
-    self.excerptHeight = 60.0f;
+    self.titleHeight = kFeaturedTileTitleHeight;
+    self.excerptHeight = kFeaturedTileExcerptHeight;
     self = [super initWithFrame:frame];
     [self redoFrames];
     [self.contentView addSubview:self.excerpt];
-    self.title.backgroundColor = [UIColor clearColor];
+    self.title.backgroundColor = [UIColor kCollectionViewBackgroundColor];
     return self;
 }
 
@@ -29,7 +29,7 @@
     self.excerpt.textContainerInset = UIEdgeInsetsMake(10, 0, 10, 0);
     self.excerpt.scrollEnabled = YES;
     self.excerpt.textAlignment = NSTextAlignmentCenter;
-    self.excerpt.backgroundColor = [UIColor clearColor];
+    self.excerpt.backgroundColor = [UIColor kCollectionViewBackgroundColor];
     [self.excerpt setFont:[UIFont systemFontOfSize:13]];
     [self.excerpt setEditable:NO];
 }

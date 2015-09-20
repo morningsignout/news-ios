@@ -37,7 +37,7 @@
         _title.lineBreakMode = NSLineBreakByTruncatingTail;
         _title.numberOfLines = 4;
         _title.textAlignment = NSTextAlignmentCenter;
-        _title.backgroundColor = [UIColor whiteColor];
+        _title.backgroundColor = [UIColor kTileTitleBackgroundColor];
         _title.adjustsFontSizeToFitWidth = YES;
     }
     

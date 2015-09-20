@@ -46,8 +46,8 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Post"];
     
-//    dispatch_queue_t myQueue = dispatch_queue_create("My Queue",NULL);
-//    dispatch_async(myQueue, ^{
+    dispatch_queue_t myQueue = dispatch_queue_create("My Queue",NULL);
+    dispatch_async(myQueue, ^{
     
         // Pull out all the posts IDs previously saved and request for their post content
         self.coreDataPostIDs = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
@@ -69,13 +69,10 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
             }
         }
         
-//        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
-//        });
-//        
-//        
-//    });
-    
+        });
+    });
 }
 
 - (void)didReceiveMemoryWarning {

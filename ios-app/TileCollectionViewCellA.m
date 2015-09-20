@@ -13,7 +13,7 @@
 @implementation TileCollectionViewCellA
 
 - (id)initWithFrame:(CGRect)frame {
-    self.titleHeight = 90.0f;
+    self.titleHeight = kTileTitleHeight_A;
     self.excerptHeight = 0;
     self = [super initWithFrame:frame];
     return self;

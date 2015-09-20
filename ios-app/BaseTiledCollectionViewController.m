@@ -358,7 +358,7 @@ static NSString * const reuseIdentifier = @"Cell";
 - (UIActivityIndicatorView *)bottomSpinner {
     if (!_bottomSpinner) {
         _bottomSpinnerBackground = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 75, self.view.frame.size.width, 75)];
-        _bottomSpinnerBackground.backgroundColor = [UIColor colorWithWhite:1 alpha:0.85];
+        _bottomSpinnerBackground.backgroundColor = [UIColor kBottomSpinnerBackgroundColor];
         [self.view addSubview:_bottomSpinnerBackground];
         
         _bottomSpinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];

@@ -11,7 +11,7 @@
 @implementation TileCollectionViewCellC
 
 - (id)initWithFrame:(CGRect)frame {
-    self.titleHeight = 60.0f;
+    self.titleHeight = kTileTitleHeight_C;
     self.excerptHeight = 0;
     self = [super initWithFrame:frame];
     return self;
