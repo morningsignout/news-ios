@@ -60,12 +60,6 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
     
     [self loadPostImage];
     [self setUpLabels];
-    [self loadWebView];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
     
     NSString *filteredHTML = [self.post.body stringByReplacingOccurrencesOfString:@"\\/" withString:@"/"];
     filteredHTML = [filteredHTML stringByReplacingOccurrencesOfString:@"\"" withString:@"\""];
@@ -77,6 +71,11 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
     self.html = filteredHTML;
     
     [self loadWebView];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -260,11 +259,16 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     if (!self.header.isHidden) {
+        self.webView.scrollView.scrollEnabled = NO;
+        self.webView.scrollView.bounces = NO;
+        
         [UIView animateWithDuration:0.75 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             self.webView.frame = CGRectMake(0, 75, self.view.frame.size.width, self.view.frame.size.height - 75);
             self.header.frame = CGRectMake(0, -400, self.header.frame.size.width, self.header.frame.size.height);
         } completion:^(BOOL finished){
             self.header.hidden= YES;
+            self.webView.scrollView.scrollEnabled = YES;
+            self.webView.scrollView.bounces = YES;
         }];
     }
 
