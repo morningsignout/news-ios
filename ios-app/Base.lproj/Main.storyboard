@@ -764,7 +764,7 @@
                         <viewControllerLayoutGuide type="bottom" id="IZi-Ry-q0s"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="765-dq-NMh">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="538"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hzM-wl-Tfx">
@@ -1014,8 +1014,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="4l3-Df-QUo"/>
         <segue reference="aeG-JU-Dur"/>
-        <segue reference="G2O-cY-Em3"/>
         <segue reference="DXn-2w-hPS"/>
     </inferredMetricsTieBreakers>
 </document>

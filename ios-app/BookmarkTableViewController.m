@@ -21,6 +21,7 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 @interface BookmarkTableViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) NSMutableArray *bookmarks;
 @property (strong, nonatomic) NSMutableArray *coreDataPostIDs;
+@property (strong, nonatomic) UIActivityIndicatorView *spinner;
 @end
 
 @implementation BookmarkTableViewController
@@ -35,6 +36,12 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    // Place activity indicator
+    self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [self.view addSubview:self.spinner];
+    self.spinner.frame = CGRectMake(self.view.frame.size.width / 2, self.view.frame.size.height / 2, 30, 30);
+    [self.spinner startAnimating];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -71,6 +78,7 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
+            [self.spinner stopAnimating];
         });
     });
 }
