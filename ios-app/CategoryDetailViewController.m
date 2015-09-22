@@ -11,12 +11,15 @@
 #import "Constants.h"
 #import <CoreData/CoreData.h>
 
+#define ENTITY_NAME @"Subscription"
+#define ENTITY_ATTRIBUTE @"categoryName"
+
 @interface CategoryDetailViewController ()
 @property (nonatomic) bool end;
 @property (nonatomic) bool subscribed;
-@property (strong, nonatomic) NSArray* subscribedCategories;
+@property (strong, nonatomic) NSMutableArray* subscribedCategories;
 @property (strong, nonatomic) UIBarButtonItem * subscribe;
-
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @end
 
 @implementation CategoryDetailViewController
@@ -27,34 +30,22 @@
     // Do any additional setup after loading the view.
     [self.navigationController.navigationBar setBarTintColor:[UIColor kNavBackgroundColor]];
     self.navigationController.navigationBar.tintColor = [UIColor kNavTextColor];
-    self.subscribe = [[UIBarButtonItem alloc] initWithTitle:@"Subscribe" style:UIBarButtonItemStylePlain target:self action:@selector(subscribeCategory)];
-    NSArray *actionButtonItems = @[self.subscribe];
-    self.navigationItem.rightBarButtonItems = actionButtonItems;
-    
-    
-    
 }
 
-- (void) viewDidAppear:(BOOL)animated{
-    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
-    NSError * error = nil;
-    self.subscribed = false;
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Subscribed"];
-    //NSEntityDescription *entity = [NSEntityDescription entityForName:@"Subscribed" inManagedObjectContext:managedObjectContext];
-    //[fetchRequest setEntity:entity];
-//    NSUInteger count = [managedObjectContext countForFetchRequest:fetchRequest error:&error];
-//    
-//    if(error){
-//        NSLog(@"aiyah");
-//        return;
-//    }
-//    NSLog(@"good");
-    self.subscribedCategories = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
+    //self.navigationController.navigationBar.tintColor = [UIColor kNavTextColor];
     
-    //check if category is subscribed
+    // Deal with loading subscription info from core data
+    self.subscribed = false;
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:ENTITY_NAME];
+    self.subscribedCategories = [[self.managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    
+    //check if this category is subscribed to
     for (id sub in self.subscribedCategories) {
-        NSString * s = [[sub valueForKey:@"id"] stringValue];
-        if ([s isEqualToString:self.navigationItem.title]) {
+        NSString * s = [sub valueForKey:ENTITY_ATTRIBUTE];
+        if ([s isEqualToString:self.categoryType]) {
             self.subscribed = true;
             break;
         }
@@ -62,35 +53,61 @@
     [self updateSubscribe];
 }
 
-- (void)subscribeCategory {
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 
-    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+- (UIBarButtonItem *)subscribe {
+    if (!_subscribe) {
+        
+        NSString *subscribeButtonText;
+        if (self.subscribed) {
+            subscribeButtonText = @"Unsubscribe";
+        } else {
+            subscribeButtonText = @"Subscribe";
+        }
+        
+        _subscribe = [[UIBarButtonItem alloc] initWithTitle:subscribeButtonText style:UIBarButtonItemStylePlain target:self action:@selector(subscribeCategory)];
+        NSArray *actionButtonItems = @[_subscribe];
+        self.navigationItem.rightBarButtonItems = actionButtonItems;
+    }
+    return _subscribe;
+}
+
+- (void)subscribeCategory {
     
-    //subscribing
+    //subscribing from this category
     if(!self.subscribed){
-        NSManagedObject *subscribedCategory = [NSEntityDescription insertNewObjectForEntityForName:@"Subscribed" inManagedObjectContext:managedObjectContext];
-        [subscribedCategory setValue:self.navigationItem.title forKey:@"id"];
+        NSManagedObject *subscribedCategory = [NSEntityDescription insertNewObjectForEntityForName:ENTITY_NAME inManagedObjectContext:self.managedObjectContext];
+        [subscribedCategory setValue:self.categoryType forKey:ENTITY_ATTRIBUTE];
         self.subscribed = true;
+        [self.subscribedCategories addObject:subscribedCategory];
         [self updateSubscribe];
     }
 
-    //unsubscribing
-    else if(self.subscribed){
-        //NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Subscribed"];
-        for(id sub in self.subscribedCategories){
-            NSString * s = [[sub valueForKey:@"id"] stringValue];
-            if ([s isEqualToString:self.navigationItem.title]) {
-                [managedObjectContext delete:sub];
+    //unsubscribing from this category
+    else if (self.subscribed) {
+        
+        for (NSManagedObject *sub in self.subscribedCategories){
+            NSString *s = [sub valueForKey:ENTITY_ATTRIBUTE];
+            
+            if ([s isEqualToString:self.categoryType]) {
+                [self.managedObjectContext deleteObject:sub];
                 self.subscribed = false;
                 [self updateSubscribe];
                 break;
             }
         }
-//        [fetchRequest setEntity:[NSEntityDescription entityForName:@"Subscribed" inManagedObjectContext:managedObjectContext]];
-//        [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"content == %d",self.navigationItem.title]];
     }
-    [self updateSubscribe];
     
+    NSError *error = nil;
+    if (![self.managedObjectContext save:&error]) {
+        NSLog(@"Can't Delete! %@ %@", error, [error localizedDescription]);
+        return;
+    }
+
+    [self updateSubscribe];
 }
 
 - (void)updateSubscribe{
@@ -110,18 +127,6 @@
         context = [delegate managedObjectContext];
     }
     return context;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden = NO;
-    //self.navigationController.navigationBar.tintColor = [UIColor kNavTextColor];
-    //self.navigationItem.
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (NSArray *)getDataForTypeOfView {

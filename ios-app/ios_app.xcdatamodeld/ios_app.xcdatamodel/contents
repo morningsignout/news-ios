@@ -7,8 +7,12 @@
     <entity name="Post" syncable="YES">
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
     </entity>
+    <entity name="Subscription" syncable="YES">
+        <attribute name="categoryName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="Post" positionX="-63" positionY="-18" width="128" height="60"/>
         <element name="Font" positionX="-54" positionY="0" width="128" height="75"/>
+        <element name="Post" positionX="-63" positionY="-18" width="128" height="60"/>
+        <element name="Subscription" positionX="-54" positionY="9" width="128" height="60"/>
     </elements>
 </model>
