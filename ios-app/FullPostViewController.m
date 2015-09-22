@@ -25,13 +25,11 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
     float captionFontSize;
 }
 
-@property (weak, nonatomic) IBOutlet UIImageView *coverImageView;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (strong, nonatomic) NSString *html;
 @property (strong, nonatomic) NSArray *font;
-@property (weak, nonatomic) IBOutlet ArticleLabels *postInfoLabels;
 @property (weak, nonatomic) IBOutlet PostHeaderInfo *header;
-
+@property (nonatomic) CGFloat lastContentOffset;
 
 @end
 
@@ -42,6 +40,7 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
     // Do any additional setup after loading the view.
     self.webView.delegate = self;
     self.webView.scrollView.delegate = self;
+    self.webView.translatesAutoresizingMaskIntoConstraints = YES;
     [self setupNavigationBarStyle];
     
     // Retrieve user font size preference if was previously saved
@@ -147,6 +146,8 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
 - (void)loadWebView {
     NSString *filteredHTML = [self.html stringByAppendingString:[self setFontSize]];
     [self.webView loadHTMLString:filteredHTML baseURL:nil];
+    self.webView.frame = CGRectMake(0, self.header.frame.size.height, self.view
+                                    .frame.size.width, self.view.frame.size.height);
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
@@ -262,16 +263,41 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
         self.webView.scrollView.scrollEnabled = NO;
         self.webView.scrollView.bounces = NO;
         
-        [UIView animateWithDuration:0.75 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
             self.webView.frame = CGRectMake(0, 75, self.view.frame.size.width, self.view.frame.size.height - 75);
-            self.header.frame = CGRectMake(0, -400, self.header.frame.size.width, self.header.frame.size.height);
         } completion:^(BOOL finished){
             self.header.hidden= YES;
             self.webView.scrollView.scrollEnabled = YES;
-            self.webView.scrollView.bounces = YES;
+            //self.webView.scrollView.bounces = YES;
         }];
+        
+    } else {
+        if (scrollView.contentOffset.y == 0) {
+            self.header.hidden = NO;
+            [UIView animateWithDuration:0.5 animations:^{
+                self.webView.frame = CGRectMake(0, 500, self.view.frame.size.width, self.view.frame.size.height - 500);
+            } completion:^(BOOL finished){
+                
+            }];
+        }
     }
 
 }
+
+//- (void)scrollViewDidScroll:(UIScrollView*)scrollView
+//{
+//    float scrollViewHeight = scrollView.frame.size.height;
+//    float scrollContentSizeHeight = scrollView.contentSize.height;
+//    float scrollOffset = scrollView.contentOffset.y;
+//    
+//    if (scrollOffset == 0)
+//    {
+//        // then we are at the top
+//    }
+//    else if (scrollOffset + scrollViewHeight == scrollContentSizeHeight)
+//    {
+//        // then we are at the end
+//    }
+//}
 
 @end
