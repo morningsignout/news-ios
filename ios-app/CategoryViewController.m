@@ -45,6 +45,7 @@
     
     CategoryDetailViewController *newVC = segue.destinationViewController;
     newVC.categoryType = segue.identifier;
+    newVC.navigationItem.title = ((UIButton*)sender).titleLabel.text;
 }
 
 
