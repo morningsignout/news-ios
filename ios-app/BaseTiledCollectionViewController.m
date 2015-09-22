@@ -187,6 +187,7 @@ static NSString * const reuseIdentifier = @"Cell";
     
     if (![self getEndOfPosts] && indexPath.item == self.posts.count - 3) {
         [self.spinner startAnimating];
+        NSLog(@"still fetching");
         [self fetchMoreItems];
     }
     
