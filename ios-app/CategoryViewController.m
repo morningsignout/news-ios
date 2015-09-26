@@ -43,9 +43,11 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     
-    CategoryDetailViewController *newVC = segue.destinationViewController;
-    newVC.categoryType = segue.identifier;
-    newVC.navigationItem.title = ((UIButton*)sender).titleLabel.text;
+    if ([segue.destinationViewController isKindOfClass:[CategoryDetailViewController class]]) {
+        CategoryDetailViewController *newVC = segue.destinationViewController;
+        newVC.categoryType = segue.identifier;
+        newVC.navigationItem.title = ((UIButton*)sender).titleLabel.text;
+    }
 }
 
 
