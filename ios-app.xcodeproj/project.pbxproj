@@ -34,6 +34,7 @@
 		FB99DEE21B9A1AFE007111B4 /* FeatureTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB99DEE11B9A1AFE007111B4 /* FeatureTableViewController.m */; };
 		FB99DEE61B9A1BD9007111B4 /* FeaturedStoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB99DEE51B9A1BD9007111B4 /* FeaturedStoryTableViewCell.m */; };
 		FB99DEE91B9A1C01007111B4 /* TiledCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB99DEE81B9A1C01007111B4 /* TiledCell.m */; };
+		FBA9E9C91BB7A00F00049B79 /* SubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA9E9C81BB7A00F00049B79 /* SubscriptionViewController.m */; };
 		FBBA5AB01BA0DC0600345D5F /* TileCollectionViewCellB.m in Sources */ = {isa = PBXBuildFile; fileRef = FBBA5AAF1BA0DC0600345D5F /* TileCollectionViewCellB.m */; };
 		FBBA5AB31BA0F19600345D5F /* BaseTileCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBBA5AB21BA0F19600345D5F /* BaseTileCollectionViewCell.m */; };
 		FBBA5AB61BA1012200345D5F /* TileCollectionViewCellC.m in Sources */ = {isa = PBXBuildFile; fileRef = FBBA5AB51BA1012200345D5F /* TileCollectionViewCellC.m */; };
@@ -115,6 +116,8 @@
 		FB99DEE51B9A1BD9007111B4 /* FeaturedStoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeaturedStoryTableViewCell.m; sourceTree = "<group>"; };
 		FB99DEE71B9A1C01007111B4 /* TiledCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiledCell.h; sourceTree = "<group>"; };
 		FB99DEE81B9A1C01007111B4 /* TiledCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiledCell.m; sourceTree = "<group>"; };
+		FBA9E9C71BB7A00F00049B79 /* SubscriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionViewController.h; sourceTree = "<group>"; };
+		FBA9E9C81BB7A00F00049B79 /* SubscriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionViewController.m; sourceTree = "<group>"; };
 		FBBA5AAE1BA0DC0600345D5F /* TileCollectionViewCellB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TileCollectionViewCellB.h; sourceTree = "<group>"; };
 		FBBA5AAF1BA0DC0600345D5F /* TileCollectionViewCellB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TileCollectionViewCellB.m; sourceTree = "<group>"; };
 		FBBA5AB11BA0F19600345D5F /* BaseTileCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTileCollectionViewCell.h; sourceTree = "<group>"; };
@@ -282,6 +285,8 @@
 				CA7F86DC1BA296E9002E16CA /* CategoryViewController.m */,
 				FB798E2B1BAD182C00F98139 /* CategoryDetailViewController.h */,
 				FB798E2C1BAD182C00F98139 /* CategoryDetailViewController.m */,
+				FBA9E9C71BB7A00F00049B79 /* SubscriptionViewController.h */,
+				FBA9E9C81BB7A00F00049B79 /* SubscriptionViewController.m */,
 				FBDA71D21BA7803800D68C4A /* AuthorViewController.h */,
 				FBDA71D31BA7803800D68C4A /* AuthorViewController.m */,
 				FBD0291B1BA8995200101D73 /* BookmarkTableViewController.h */,
@@ -539,6 +544,7 @@
 				FBDEF3D81B9E857B005BD9F4 /* DropdownNavigationController.m in Sources */,
 				FBD0291D1BA8995200101D73 /* BookmarkTableViewController.m in Sources */,
 				FBDA71D41BA7803800D68C4A /* AuthorViewController.m in Sources */,
+				FBA9E9C91BB7A00F00049B79 /* SubscriptionViewController.m in Sources */,
 				FBEB3A7B1B9F93DC00B57AAB /* FeaturedTileCollectionViewCell.m in Sources */,
 				FB99DEE61B9A1BD9007111B4 /* FeaturedStoryTableViewCell.m in Sources */,
 				FBDEF3D11B9E4D31005BD9F4 /* DropdownMenuController.m in Sources */,

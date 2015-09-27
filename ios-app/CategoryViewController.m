@@ -14,6 +14,7 @@
 @interface CategoryViewController ()
 
 @property (strong, nonatomic) NSArray *categoryNames;
+@property (weak, nonatomic) IBOutlet UIView *containerView;
 
 @end
 
@@ -22,6 +23,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    UISwipeGestureRecognizer *swipeDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(moveContainerDown)];
+    [swipeDown setDirection:UISwipeGestureRecognizerDirectionDown];
+    
+    UISwipeGestureRecognizer *swipeUp = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(moveContainerUp)];
+    [swipeUp setDirection:UISwipeGestureRecognizerDirectionUp];
+    
+    [self.containerView addGestureRecognizer:swipeDown];
+    [self.containerView addGestureRecognizer:swipeUp];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -35,6 +45,17 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)moveContainerDown {
+    [UIView animateWithDuration:1.0 animations:^{
+        self.containerView.frame = CGRectMake(0, 9 * self.view.frame.size.height / 10, self.view.frame.size.width, self.containerView.bounds.size.height);
+    }];
+}
+
+- (void)moveContainerUp {
+    [UIView animateWithDuration:1.0 animations:^{
+        self.containerView.frame = CGRectMake(0, self.view.frame.size.height / 2.5, self.view.frame.size.width, self.containerView.bounds.size.height);
+    }];
+}
 
 #pragma mark - Navigation
 

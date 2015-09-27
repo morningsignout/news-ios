@@ -134,7 +134,6 @@ static NSString * const reuseIdentifier = @"Cell";
         layout.minimumInteritemSpacing = 10.0f;
         
         // Set up collection view UI
-        //_collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, marginFromTop, self.view.bounds.size.width, self.view.bounds.size.height - marginFromTop) collectionViewLayout:layout];
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height) collectionViewLayout:layout];
         _collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _collectionView.dataSource = self;
@@ -190,11 +189,6 @@ static NSString * const reuseIdentifier = @"Cell";
         NSLog(@"still fetching");
         [self fetchMoreItems];
     }
-    
-    // pre-fetch the next 'page' of data.
-//    else if(indexPath.item == (self.posts.count - 3)){
-//        [self fetchMoreItems];
-//    }
     
 
     if (indexPath.item % 3 == 0) {
@@ -339,13 +333,12 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark - Scroll View Delegate
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    if([self getEndOfPosts])
-        return;
+//    NSNumber *end = [NSNumber numberWithBool:[self getEndOfPosts]];
+//    if(end)
+//        return;
     float bottomEdge = scrollView.contentOffset.y + scrollView.frame.size.height;
     if (bottomEdge >= scrollView.contentSize.height - self.view.frame.size.height / 3) {
         // we are at the end
-        NSLog(@"reached bottom");
-        
         [self.bottomSpinner startAnimating];
         [self performSelector:@selector(showNoMoreContent) withObject:nil afterDelay:4];
     }
@@ -374,7 +367,7 @@ static NSString * const reuseIdentifier = @"Cell";
     return;
 }
 
-- (BOOL) getEndOfPosts{
+- (BOOL)getEndOfPosts{
     return nil;
 }
 

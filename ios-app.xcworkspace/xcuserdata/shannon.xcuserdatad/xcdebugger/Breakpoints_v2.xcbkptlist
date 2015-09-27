@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ios-app/CategoryDetailViewController.m"
-            timestampString = "464642119.496604"
+            timestampString = "465019746.367963"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
             landmarkName = "-managedObjectContext"
             landmarkType = "5">
          </BreakpointContent>
@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ios-app/CategoryDetailViewController.m"
-            timestampString = "464642119.496604"
+            timestampString = "465019746.367963"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
             landmarkName = "-subscribeCategory"
             landmarkType = "5">
          </BreakpointContent>
@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ios-app/CategoryDetailViewController.m"
-            timestampString = "464642119.496604"
+            timestampString = "465019746.367963"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
             landmarkName = "-subscribeCategory"
             landmarkType = "5">
          </BreakpointContent>
@@ -186,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ios-app/SubscriptionViewController.m"
-            timestampString = "464924573.68977"
+            timestampString = "465023985.62686"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "20"
-            endingLineNumber = "20">
+            startingLineNumber = "80"
+            endingLineNumber = "80">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -200,11 +200,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ios-app/SubscriptionViewController.m"
-            timestampString = "464924659.185763"
+            timestampString = "465023985.62686"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "16"
-            endingLineNumber = "16">
+            startingLineNumber = "76"
+            endingLineNumber = "76">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

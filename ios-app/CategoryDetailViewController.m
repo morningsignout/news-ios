@@ -30,6 +30,8 @@
     // Do any additional setup after loading the view.
     [self.navigationController.navigationBar setBarTintColor:[UIColor kNavBackgroundColor]];
     self.navigationController.navigationBar.tintColor = [UIColor kNavTextColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:[UIColor kNavTextColor]}];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
