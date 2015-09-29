@@ -30,7 +30,6 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
 @property (strong, nonatomic) NSArray *font;
 @property (weak, nonatomic) IBOutlet PostHeaderInfo *header;
 @property (nonatomic) CGFloat lastContentOffset;
-@property (strong, nonatomic) ArticleLabels *postInfoLabels;
 
 @end
 
@@ -122,11 +121,12 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
 
 - (void)setUpLabels {
     self.header.articleLabels.frame = CGRectMake(0, self.header.coverImage.frame.size.height, self.view.frame.size.width, 200);
-    self.postInfoLabels.titleLabel.text = self.post.title;
-    self.postInfoLabels.authorLabel.text = self.post.author.name;
-    self.postInfoLabels.dateLabel.text = self.post.date;
-    self.postInfoLabels.categoriesLabel.text = [self.post.category componentsJoinedByString:@", "];
-    self.postInfoLabels.tagsLabel.text = [self.post.tags componentsJoinedByString:@", "];
+    
+    self.header.articleLabels.titleLabel.text = self.post.title;
+    self.header.articleLabels.authorLabel.text = self.post.author.name;
+    self.header.articleLabels.dateLabel.text = self.post.date;
+    self.header.articleLabels.categoriesLabel.text = [self.post.category componentsJoinedByString:@", "];
+    self.header.articleLabels.tagsLabel.text = [self.post.tags componentsJoinedByString:@", "];
 }
 
 - (NSString *)setFontSize {
