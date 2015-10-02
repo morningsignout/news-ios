@@ -17,7 +17,7 @@
 #import "PostHeaderInfo.h"
 
 static NSString * const header = @"<!-- Latest compiled and minified CSS --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"><!-- Optional theme --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css\"><!-- Latest compiled and minified JavaScript --><script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\"></script><!-- Yeon's CSS --><link rel=\"stylesheet\" href=\"http://morningsignout.com/wp-content/themes/mso/style.css?ver=4.3\"><meta charset=\"utf-8\"> \
-    <style type=\"text/css\">.ssba {}.ssba img { width: 30px !important; padding: 0px; border:  0; box-shadow: none !important; display: inline !important; vertical-align: middle; } .ssba, .ssba a {text-decoration:none;border:0;background: none;font-family: Indie Flower;font-size: 20px;}</style>";
+    <style type=\"text/css\">.ssba {}.ssba img { width: 30px !important; padding: 0px; border:  0; box-shadow: none !important; display: inline !important; vertical-align: middle; } .ssba, .ssba a {text-decoration:none;border:0;background: none;font-family: Indie Flower;font-size: 20px;}</style><br>";
 
 @interface FullPostViewController () <UIWebViewDelegate, UIScrollViewDelegate> {
     NSString *fontSizeStyle;
@@ -263,46 +263,28 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
     }
 }
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    if (!self.header.isHidden) {
-        self.webView.scrollView.scrollEnabled = NO;
-        self.webView.scrollView.bounces = NO;
-        
-        [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-            self.webView.frame = CGRectMake(0, 75, self.view.frame.size.width, self.view.frame.size.height - 75);
-        } completion:^(BOOL finished){
-            self.header.hidden= YES;
-            self.webView.scrollView.scrollEnabled = YES;
-            //self.webView.scrollView.bounces = YES;
+- (void)scrollViewDidScroll:(UIScrollView*)scrollView
+{
+    float scrollViewHeight = scrollView.frame.size.height;
+    float scrollContentSizeHeight = scrollView.contentSize.height;
+    float scrollOffset = scrollView.contentOffset.y;
+    
+    if (scrollOffset > 0)
+    {
+        // then we are at the top
+        [UIView animateWithDuration:0.5 animations:^{
+            self.webView.frame = CGRectMake(0, 60, self.view.frame.size.width, self.view.frame.size.height - 60);
         }];
-        
-    } else {
-        if (scrollView.contentOffset.y == 0) {
-            self.header.hidden = NO;
-            [UIView animateWithDuration:0.5 animations:^{
-                self.webView.frame = CGRectMake(0, 500, self.view.frame.size.width, self.view.frame.size.height - 500);
-            } completion:^(BOOL finished){
-                
-            }];
-        }
     }
-
+    else if (scrollOffset < -80) {
+        [UIView animateWithDuration:0.5 animations:^{
+            self.webView.frame = CGRectMake(0, 500, self.view.frame.size.width, self.view.frame.size.height - 500);
+        }];
+    }
+    else if (scrollOffset + scrollViewHeight == scrollContentSizeHeight)
+    {
+        // then we are at the end
+    }
 }
-
-//- (void)scrollViewDidScroll:(UIScrollView*)scrollView
-//{
-//    float scrollViewHeight = scrollView.frame.size.height;
-//    float scrollContentSizeHeight = scrollView.contentSize.height;
-//    float scrollOffset = scrollView.contentOffset.y;
-//    
-//    if (scrollOffset == 0)
-//    {
-//        // then we are at the top
-//    }
-//    else if (scrollOffset + scrollViewHeight == scrollContentSizeHeight)
-//    {
-//        // then we are at the end
-//    }
-//}
 
 @end
