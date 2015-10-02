@@ -17,9 +17,9 @@
 #import "PostHeaderInfo.h"
 
 static NSString * const header = @"<!-- Latest compiled and minified CSS --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"><!-- Optional theme --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css\"><!-- Latest compiled and minified JavaScript --><script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\"></script><!-- Yeon's CSS --><link rel=\"stylesheet\" href=\"http://morningsignout.com/wp-content/themes/mso/style.css?ver=4.3\"><meta charset=\"utf-8\"> \
-    <style type=\"text/css\">.ssba {}.ssba img { width: 30px !important; padding: 0px; border:  0; box-shadow: none !important; display: inline !important; vertical-align: middle; } .ssba, .ssba a {text-decoration:none;border:0;background: none;font-family: Indie Flower;font-size: 20px;}</style><br>";
+    <style type=\"text/css\">.ssba {}.ssba img { width: 30px !important; padding: 0px; border:  0; box-shadow: none !important; display: inline !important; vertical-align: middle; } .ssba, .ssba a {text-decoration:none;border:0;background: none;font-family: Indie Flower;font-size: 20px;}</style><div style=\"padding:5px;background-color:white;box-shadow:none;\"></div>";
 
-static const CGFloat navMargin = 70;
+static const CGFloat initialWebViewYOffset = 510;
 
 @interface FullPostViewController () <UIWebViewDelegate, UIScrollViewDelegate> {
     NSString *fontSizeStyle;
@@ -80,10 +80,6 @@ static const CGFloat navMargin = 70;
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    self.header.coverImage.image = nil;
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -120,8 +116,6 @@ static const CGFloat navMargin = 70;
         UIImage *image = responseObject;
         self.header.coverImage.image = image;
         self.header.coverImage.contentMode = UIViewContentModeScaleAspectFill;
-//        self.header.articleLabels.frame = CGRectMake(0, 0, self.view.frame.size.width, 150);
-//        self.webView.frame = CGRectMake(0, image.size.height + navMargin + 150, self.view.frame.size.width, self.view.frame.size.height - image.size.height + navMargin + 150);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Image error: %@", error);
     }];
@@ -160,8 +154,7 @@ static const CGFloat navMargin = 70;
 - (void)loadWebView {
     NSString *filteredHTML = [self.html stringByAppendingString:[self setFontSize]];
     [self.webView loadHTMLString:filteredHTML baseURL:nil];
-    self.webView.frame = CGRectMake(0, self.header.frame.size.height, self.view
-                                    .frame.size.width, self.view.frame.size.height);
+    self.webView.frame = CGRectMake(0, initialWebViewYOffset, self.view.frame.size.width, self.view.frame.size.height - initialWebViewYOffset);
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
@@ -291,7 +284,7 @@ static const CGFloat navMargin = 70;
     }
     else if (scrollOffset < -80) {
         [UIView animateWithDuration:0.5 animations:^{
-            self.webView.frame = CGRectMake(0, self.header.coverImage.image.size.height + navMargin + 150, self.view.frame.size.width, self.view.frame.size.height - self.header.coverImage.image.size.height + navMargin + 150);
+            self.webView.frame = CGRectMake(0, initialWebViewYOffset, self.view.frame.size.width, self.view.frame.size.height - initialWebViewYOffset);
         } completion:^(BOOL completed){
             scrolled = NO;
         }];
