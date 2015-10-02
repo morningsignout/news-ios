@@ -9,6 +9,7 @@
 #import "DropdownNavigationController.h"
 #import "ContainerViewController.h"
 #import "Constants.h"
+#import <IonIcons.h>
 
 #define FEATURE_INDEX 0
 #define SEARCH_INDEX 1
@@ -44,11 +45,28 @@ NSString * const section[] = {
     [self setMenubarBackground:[UIColor kNavBackgroundColor]];
     
     // Replace menu button with an IonIcon.
-    [self.menuButton setTitle:@"Menu" forState:UIControlStateNormal];
+    [self.menuButton setTitle:nil forState:UIControlStateNormal];
+    [self.menuButton setImage:[IonIcons imageWithIcon:ion_navicon size:30.0f color:[UIColor whiteColor]] forState:UIControlStateNormal];
     
     for (int i = 0; i < self.buttons.count; i++) {
         UIButton *button = self.buttons[i];
         [button setTitle:section[i] forState:UIControlStateNormal];
+        
+        if (i == 0) {
+            [button setImage:[IonIcons imageWithIcon:ion_music_note size:20.0f color:[UIColor whiteColor]] forState:UIControlStateNormal];
+        } else if (i == 1) {
+            [button setImage:[IonIcons imageWithIcon:ion_mouse size:20.0f color:[UIColor whiteColor]] forState:UIControlStateNormal];
+        } else if (i == 2) {
+            [button setImage:[IonIcons imageWithIcon:ion_model_s size:20.0f color:[UIColor whiteColor]] forState:UIControlStateNormal];
+        } else if (i == 3) {
+            [button setImage:[IonIcons imageWithIcon:ion_map size:20.0f color:[UIColor whiteColor]] forState:UIControlStateNormal];
+        }
+        
+        // Set the title and icon position
+        [button sizeToFit];
+        button.titleEdgeInsets = UIEdgeInsetsMake(0, -button.imageView.frame.size.width-10, 0, button.imageView.frame.size.width);
+        button.imageEdgeInsets = UIEdgeInsetsMake(0, button.titleLabel.frame.size.width, 0, -button.titleLabel.frame.size.width);
+
     }
     
     //Uncomment to stop drop 'Triangle' from appearing

@@ -21,13 +21,16 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - CHTCollectionViewWaterfallLayout (0.9.2)
+  - ionicons (2.0.2)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5)
   - CHTCollectionViewWaterfallLayout
+  - ionicons
 
 SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
   CHTCollectionViewWaterfallLayout: 43232febcb3e4d3985cd758718cbe499b21b822f
+  ionicons: 5062e3d28d955e2f68cf2b11df2e194c5e6c6147
 
 COCOAPODS: 0.38.2
