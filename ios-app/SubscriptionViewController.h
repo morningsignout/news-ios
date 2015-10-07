@@ -10,4 +10,8 @@
 
 @interface SubscriptionViewController : BaseTiledCollectionViewController
 
+
++ (void) updateCategories;
+
+
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "CategoryDetailViewController.h"
+#import "SubscriptionViewController.h"
 #import "DataParser.h"
 #import "Constants.h"
 #import <CoreData/CoreData.h>
@@ -78,6 +79,9 @@
 }
 
 - (void)subscribeCategory {
+    
+    //inform subscribeview to update
+    [SubscriptionViewController updateCategories];
     
     //subscribing from this category
     if(!self.subscribed){

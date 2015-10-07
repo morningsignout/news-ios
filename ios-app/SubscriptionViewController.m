@@ -17,20 +17,37 @@
 @interface SubscriptionViewController ()
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) NSMutableArray *subscribedContent;
+
 @end
 
 @implementation SubscriptionViewController
 
+static bool needtoRefresh;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    needtoRefresh = false;
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    if(needtoRefresh){
+        needtoRefresh = false;
+        [super loadPosts];
+    }
 }
 
 - (NSArray *)getDataForTypeOfView {
+    self.subscribedContent = nil;
     [self insertIntoSubscribedContent];
     return self.subscribedContent;
 }
 
++ (void)updateCategories {
+    needtoRefresh = true;
+}
+
 - (void)insertIntoSubscribedContent {
+    NSLog((@"attempting to fetch data"));
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:ENTITY_NAME];
     NSArray *subscribedCategories = [[self.managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     
