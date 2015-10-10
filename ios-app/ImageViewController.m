@@ -84,6 +84,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Image error: %@", error);
         self.contentUnavailableLabel.hidden = NO;
+        self.spinner.hidden = YES;
     }];
     [requestOperation start];
     

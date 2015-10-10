@@ -82,8 +82,9 @@ NSString * const section[] = {
 
 - (IBAction)swapButtonPressed:(UIButton *)sender
 {
-    int index = (int)[self.buttonOutletArray indexOfObject:sender];
     
+    int index = (int)[self.buttonOutletArray indexOfObject:sender];
+    NSLog(@"%d", index);
     if (index == sectionCurrentlyOn) {
         return;
     }

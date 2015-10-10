@@ -23,6 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.navigationItem.title = @"Categories";
     
     UISwipeGestureRecognizer *swipeDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(moveContainerDown)];
     [swipeDown setDirection:UISwipeGestureRecognizerDirectionDown];
@@ -40,6 +41,10 @@
     self.navigationController.navigationBarHidden = YES;
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [self moveContainerDown];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -47,13 +52,13 @@
 
 - (void)moveContainerDown {
     [UIView animateWithDuration:1.0 animations:^{
-        self.containerView.frame = CGRectMake(0, 9 * self.view.frame.size.height / 10, self.view.frame.size.width, self.containerView.bounds.size.height);
+        self.containerView.frame = CGRectMake(0, 9 * self.view.frame.size.height / 10, self.view.frame.size.width, self.view.frame.size.height);
     }];
 }
 
 - (void)moveContainerUp {
     [UIView animateWithDuration:1.0 animations:^{
-        self.containerView.frame = CGRectMake(0, self.view.frame.size.height / 2.5, self.view.frame.size.width, self.containerView.bounds.size.height);
+        self.containerView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     }];
 }
 

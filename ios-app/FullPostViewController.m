@@ -60,7 +60,6 @@ static const CGFloat initialWebViewYOffset = 510;
         captionFontSize = 1.2;
     }
     
-    [self loadPostImage];
     [self setUpLabels];
     
     NSString *filteredHTML = [self.post.body stringByReplacingOccurrencesOfString:@"\\/" withString:@"/"];
@@ -78,6 +77,11 @@ static const CGFloat initialWebViewYOffset = 510;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self loadPostImage];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    self.header.coverImage.image = nil;
 }
 
 - (void)didReceiveMemoryWarning {
