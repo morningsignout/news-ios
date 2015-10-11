@@ -25,7 +25,7 @@ static const CGFloat initialWebViewYOffset = 510;
     NSString *fontSizeStyle;
     float mainFontSize;
     float captionFontSize;
-    bool scrolled;
+    bool scrolled, loaded;
 }
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
@@ -33,6 +33,7 @@ static const CGFloat initialWebViewYOffset = 510;
 @property (strong, nonatomic) NSArray *font;
 @property (weak, nonatomic) IBOutlet PostHeaderInfo *header;
 @property (nonatomic) CGFloat lastContentOffset;
+@property (weak, nonatomic) IBOutlet UIProgressView *progressView;
 
 @end
 
@@ -45,6 +46,10 @@ static const CGFloat initialWebViewYOffset = 510;
     self.webView.scrollView.delegate = self;
     self.webView.translatesAutoresizingMaskIntoConstraints = YES;
     [self setupNavigationBarStyle];
+    
+    [self.header.coverImage setUserInteractionEnabled:YES];
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedCoverImage:)];
+    [self.header.coverImage addGestureRecognizer:tapRecognizer];
     
     // Retrieve user font size preference if was previously saved
     NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
@@ -256,6 +261,11 @@ static const CGFloat initialWebViewYOffset = 510;
     }
 }
 
+- (void)tappedCoverImage:(UITapGestureRecognizer *)tap {
+    NSLog(@"tapp");
+    [self performSegueWithIdentifier:@"showImage" sender:[NSURL URLWithString:self.post.fullCoverImageURL]];
+}
+
 
 #pragma mark - Navigation
 
@@ -298,5 +308,30 @@ static const CGFloat initialWebViewYOffset = 510;
         // then we are at the end
     }
 }
+
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+    loaded = NO;
+    self.progressView.hidden = NO;
+    [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(loadUpdated) userInfo:nil repeats:YES];
+    self.progressView.progress = 0;
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [UIView animateWithDuration:1.5 animations:^{
+        self.progressView.progress = 1;
+    } completion:^(BOOL completed){
+        self.progressView.hidden = YES;
+        loaded = YES;
+    }];
+}
+
+-(void)loadUpdated {
+    if (!loaded) {
+        [UIView animateWithDuration:0.1 animations:^{
+            self.progressView.progress += 0.02;
+        }];
+    }
+}
+
 
 @end

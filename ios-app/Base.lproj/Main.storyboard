@@ -315,14 +315,29 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hw1-QE-ngB">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="20"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Wd8-E3-lGI">
+                                <rect key="frame" x="0.0" y="65" width="600" height="2"/>
+                                <color key="tintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </progressView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Hw1-QE-ngB" firstAttribute="leading" secondItem="IOe-QC-WoP" secondAttribute="leading" id="1oK-KW-UiL"/>
+                            <constraint firstItem="Hw1-QE-ngB" firstAttribute="top" secondItem="IOe-QC-WoP" secondAttribute="top" id="5oz-HB-7nP"/>
                             <constraint firstAttribute="bottom" secondItem="yLH-C5-Tsq" secondAttribute="bottom" id="5yC-24-zhx"/>
                             <constraint firstItem="yLH-C5-Tsq" firstAttribute="leading" secondItem="IOe-QC-WoP" secondAttribute="leading" id="8Jd-nQ-Y8p"/>
+                            <constraint firstItem="Wd8-E3-lGI" firstAttribute="leading" secondItem="IOe-QC-WoP" secondAttribute="leading" id="8XC-DI-tSO"/>
                             <constraint firstItem="yLH-C5-Tsq" firstAttribute="top" secondItem="7LF-vg-aUS" secondAttribute="bottom" id="Cz6-yk-CwU"/>
                             <constraint firstAttribute="trailing" secondItem="yLH-C5-Tsq" secondAttribute="trailing" id="Lsh-JH-2Gc"/>
+                            <constraint firstAttribute="trailing" secondItem="Hw1-QE-ngB" secondAttribute="trailing" id="SFI-6U-egc"/>
+                            <constraint firstItem="yLH-C5-Tsq" firstAttribute="top" secondItem="Wd8-E3-lGI" secondAttribute="top" id="W0z-3U-ntD"/>
+                            <constraint firstAttribute="trailing" secondItem="Wd8-E3-lGI" secondAttribute="trailing" id="buh-J4-D0O"/>
                             <constraint firstItem="7LF-vg-aUS" firstAttribute="top" secondItem="IOe-QC-WoP" secondAttribute="top" constant="20" id="o5T-4L-Llh"/>
+                            <constraint firstItem="7LF-vg-aUS" firstAttribute="top" secondItem="Hw1-QE-ngB" secondAttribute="bottom" id="pL4-fs-jvB"/>
                             <constraint firstAttribute="trailing" secondItem="7LF-vg-aUS" secondAttribute="trailing" id="s6S-R1-q2r"/>
                             <constraint firstItem="7LF-vg-aUS" firstAttribute="trailing" secondItem="yLH-C5-Tsq" secondAttribute="trailing" id="vVe-Wa-5Dl"/>
                             <constraint firstItem="7LF-vg-aUS" firstAttribute="leading" secondItem="IOe-QC-WoP" secondAttribute="leading" id="xlZ-7X-feV"/>
@@ -330,6 +345,8 @@
                     </view>
                     <connections>
                         <outlet property="navigationBar" destination="7LF-vg-aUS" id="gRd-5Y-RNp"/>
+                        <outlet property="progressView" destination="Wd8-E3-lGI" id="Yej-3e-XwV"/>
+                        <outlet property="statusBarBackground" destination="Hw1-QE-ngB" id="INQ-Xt-WVP"/>
                         <outlet property="webView" destination="yLH-C5-Tsq" id="Npc-PX-Cco"/>
                     </connections>
                 </viewController>
@@ -600,7 +617,7 @@
                                     <segue destination="BHk-BR-qCY" kind="show" identifier="medicine" id="U1R-ZS-QNW"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hIr-jV-j32">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hIr-jV-j32">
                                 <rect key="frame" x="404" y="226" width="180" height="199"/>
                                 <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Healthcare">
@@ -623,7 +640,7 @@
                                     <segue destination="BHk-BR-qCY" kind="show" identifier="public-health" id="aeG-JU-Dur"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U92-0R-Umb">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U92-0R-Umb">
                                 <rect key="frame" x="404" y="8" width="180" height="199"/>
                                 <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Premedical">
@@ -633,7 +650,7 @@
                                     <segue destination="BHk-BR-qCY" kind="show" identifier="premed_advice" id="cVt-Gv-cPt"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6eA-sB-uuB">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6eA-sB-uuB">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6UP-uf-yCR">
@@ -918,6 +935,7 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sRv-BC-rd8">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="353"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="353" id="doY-9b-bpo"/>
                                         </constraints>
@@ -1009,17 +1027,23 @@
                                 <rect key="frame" x="0.0" y="460" width="600" height="140"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </webView>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="9AU-AI-VBe">
+                                <rect key="frame" x="0.0" y="1" width="600" height="2"/>
+                            </progressView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="9AU-AI-VBe" firstAttribute="leading" secondItem="HHL-ZV-zye" secondAttribute="leading" id="4Dm-na-xPv"/>
                             <constraint firstItem="hzM-wl-Tfx" firstAttribute="top" secondItem="Mgc-hQ-lPN" secondAttribute="bottom" constant="460" id="9BC-Ju-XSV"/>
                             <constraint firstItem="hzM-wl-Tfx" firstAttribute="bottom" secondItem="IZi-Ry-q0s" secondAttribute="top" id="Ekf-7p-RJv"/>
                             <constraint firstItem="hzM-wl-Tfx" firstAttribute="leading" secondItem="765-dq-NMh" secondAttribute="leading" id="OkM-5p-Ef7"/>
                             <constraint firstItem="HHL-ZV-zye" firstAttribute="leading" secondItem="765-dq-NMh" secondAttribute="leading" id="QIs-8o-PLk"/>
                             <constraint firstAttribute="trailing" secondItem="hzM-wl-Tfx" secondAttribute="trailing" id="RAh-aX-pF4"/>
+                            <constraint firstItem="9AU-AI-VBe" firstAttribute="top" secondItem="Mgc-hQ-lPN" secondAttribute="bottom" constant="1" id="RxH-JP-5KJ"/>
                             <constraint firstItem="hzM-wl-Tfx" firstAttribute="trailing" secondItem="HHL-ZV-zye" secondAttribute="trailing" id="Yca-8Y-Zjg"/>
                             <constraint firstItem="hzM-wl-Tfx" firstAttribute="leading" secondItem="HHL-ZV-zye" secondAttribute="leading" id="gou-ae-Jcd"/>
                             <constraint firstAttribute="trailing" secondItem="hzM-wl-Tfx" secondAttribute="trailing" id="id3-1V-Iu1"/>
+                            <constraint firstItem="9AU-AI-VBe" firstAttribute="trailing" secondItem="HHL-ZV-zye" secondAttribute="trailing" id="idf-by-leQ"/>
                             <constraint firstAttribute="trailing" secondItem="HHL-ZV-zye" secondAttribute="trailing" id="lZu-zV-opc"/>
                             <constraint firstItem="IZi-Ry-q0s" firstAttribute="top" secondItem="HHL-ZV-zye" secondAttribute="bottom" constant="139" id="tHi-xp-0Wm"/>
                             <constraint firstAttribute="bottom" secondItem="hzM-wl-Tfx" secondAttribute="bottom" id="vGl-Me-DI3"/>
@@ -1030,6 +1054,7 @@
                     <modalPageSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="header" destination="HHL-ZV-zye" id="00h-ik-Ok7"/>
+                        <outlet property="progressView" destination="9AU-AI-VBe" id="oiF-Yr-f8m"/>
                         <outlet property="webView" destination="hzM-wl-Tfx" id="OCO-Sr-tXa"/>
                         <segue destination="MBu-8J-WPZ" kind="presentation" identifier="showImage" id="tUj-8o-OQk"/>
                     </connections>

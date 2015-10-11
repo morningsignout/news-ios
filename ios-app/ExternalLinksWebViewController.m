@@ -9,10 +9,16 @@
 #import "ExternalLinksWebViewController.h"
 #import <UIWebView+AFNetworking.h>
 #import <AFNetworking.h>
+#import "Constants.h"
 
-@interface ExternalLinksWebViewController () <UIWebViewDelegate>
+@interface ExternalLinksWebViewController () <UIWebViewDelegate> {
+    BOOL loaded;
+}
+
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
+@property (weak, nonatomic) IBOutlet UIView *statusBarBackground;
+@property (weak, nonatomic) IBOutlet UIProgressView *progressView;
 
 @end
 
@@ -21,7 +27,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self.navigationBar setBarTintColor:[UIColor darkGrayColor]];
+    [self.navigationBar setBarTintColor:[UIColor kNavBackgroundColor]];
+    self.statusBarBackground.backgroundColor = [UIColor kNavBackgroundColor];
     
     self.webView.delegate = self;
     NSURLRequest *request = [NSURLRequest requestWithURL:self.url];
@@ -51,6 +58,30 @@
 
 - (IBAction)returnToApp:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+    loaded = NO;
+    self.progressView.hidden = NO;
+    [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(loadUpdated) userInfo:nil repeats:YES];
+    self.progressView.progress = 0;
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [UIView animateWithDuration:1.5 animations:^{
+        self.progressView.progress = 1;
+    } completion:^(BOOL completed){
+        self.progressView.hidden = YES;
+        loaded = YES;
+    }];
+}
+
+-(void)loadUpdated {
+    if (!loaded) {
+        [UIView animateWithDuration:0.1 animations:^{
+            self.progressView.progress += 0.02;
+        }];
+    }
 }
 
 /*
