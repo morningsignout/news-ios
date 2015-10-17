@@ -98,7 +98,7 @@ static const CGFloat initialWebViewYOffset = 510;
     [self.navigationController.navigationBar setBarTintColor:[UIColor kNavBackgroundColor]];
     self.navigationController.navigationBar.tintColor = [UIColor kNavTextColor];
     
-    UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:nil];
+    UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(share)];
     UIBarButtonItem *bookmarkItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(bookmarkPost)];
     UIBarButtonItem *fontIncItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(increaseFontSize)];
     UIBarButtonItem *fontDecItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:@selector(decreaseFontSize)];
@@ -204,6 +204,28 @@ static const CGFloat initialWebViewYOffset = 510;
     mainFontSize -= 0.1;
     captionFontSize -= 0.05;
     [self reflectFontChangesOnHTML];
+}
+
+- (void)share
+{
+    NSString *textToShare = @"Look at this awesome website for aspiring iOS Developers!";
+    NSURL *myWebsite = [NSURL URLWithString:@"http://www.codingexplorer.com/"];
+    
+    NSArray *objectsToShare = @[textToShare, myWebsite];
+    
+    UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
+    
+//    NSArray *excludeActivities = @[UIActivityTypeMail,
+//                                   UIActivityTypeMessage,
+//                                   UIActivityTypePrint,
+//                                   UIActivityTypePostToFacebook,
+//                                   UIActivityTypePostToTwitter,
+//                                   UIActivityTypePostToWeibo,
+//                                   UIActivityTypeCopyToPasteboard];
+//    
+//    activityVC.excludedActivityTypes = excludeActivities;
+    
+    [self presentViewController:activityVC animated:YES completion:nil];
 }
 
 - (void)reflectFontChangesOnHTML {

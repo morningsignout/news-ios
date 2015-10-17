@@ -108,6 +108,8 @@ CAShapeLayer *closedMenuShape;
     self.menu.hidden = NO;
     self.menu.translatesAutoresizingMaskIntoConstraints = YES;
     
+    self.container.userInteractionEnabled = NO;
+    
     [closedMenuShape removeFromSuperlayer];
     
     if (shouldDisplayDropShape)
@@ -149,6 +151,8 @@ CAShapeLayer *closedMenuShape;
     // Set the border layer to hidden menu state
     [openMenuShape removeFromSuperlayer];
     [[[self view] layer] addSublayer:closedMenuShape];
+    
+    self.container.userInteractionEnabled = YES;
     
     // Set new origin of menu
     CGRect menuFrame = self.menu.frame;
