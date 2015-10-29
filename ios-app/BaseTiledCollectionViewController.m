@@ -57,6 +57,8 @@ static NSString * const reuseIdentifier = @"Cell";
     [self.collectionView setContentInset:UIEdgeInsetsMake(0,0,75,0)];
     [self.view bringSubviewToFront:self.spinner];
     self.navigationController.navigationBarHidden = YES;
+    
+    self.collectionView.userInteractionEnabled = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -118,6 +120,7 @@ static NSString * const reuseIdentifier = @"Cell";
     self.posts = [NSMutableArray arrayWithArray:newPosts];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.collectionView reloadData];
+        self.collectionView.userInteractionEnabled = YES;
         [self.spinner stopAnimating];
         NSLog(@"reloaded new posts");
     });

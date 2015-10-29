@@ -43,6 +43,8 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     // Configure View Controller
     [self.collectionView addSubview:refreshControl];
     
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
