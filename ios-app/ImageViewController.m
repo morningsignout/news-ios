@@ -47,24 +47,33 @@
 
 - (void)setImg:(UIImage *)img
 {
-    _scrollView.zoomScale = 1.2;
+    //_scrollView.zoomScale = 1.2;
+    
     self.imgView.image = img;
-    self.imgView.frame = CGRectMake((self.view.frame.size.width - self.img.size.width) / 2, self.view.frame.size.height / 2 - self.img.size.height / 2, self.img.size.width, self.img.size.height);
+    self.scrollView.minimumZoomScale = self.scrollView.bounds.size.width / self.imgView.image.size.width;
+    if (self.scrollView.zoomScale < self.scrollView.minimumZoomScale)
+        self.scrollView.zoomScale = self.scrollView.minimumZoomScale;
+    
+    self.imgView.frame = CGRectMake((self.view.frame.size.width  - self.img.size.width) / 2, (self.view.frame.size.height  - self.img.size.height) / 2 , self.img.size.width, self.img.size.height);
     self.imgView.contentMode = UIViewContentModeCenter;
     if (self.imgView.bounds.size.width > img.size.width && self.imgView.bounds.size.height > img.size.height) {
         self.imgView.contentMode = UIViewContentModeScaleAspectFit;
     }
+    _scrollView.contentSize = self.img.size;
+    NSLog(@"set image");
     
 }
 
 -(void)setScrollView:(UIScrollView *)scrollView{
     _scrollView = scrollView;
+
     // setting up zooming for scrollView
     _scrollView.minimumZoomScale = 1.0;
     _scrollView.maximumZoomScale = 5.0;
     
     _scrollView.delegate = self;
-    _scrollView.contentSize = self.imgView.bounds.size;
+    _scrollView.contentSize = self.img.size;
+    NSLog(@"set scrollview");
 }
 
 - (void)startDownload
@@ -81,6 +90,8 @@
         [self.scrollView addSubview:self.imgView];
         [self.spinner stopAnimating];
         self.spinner.hidden = YES;
+        NSLog(@"done requesting");
+        [self setImg:self.img];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Image error: %@", error);
         self.contentUnavailableLabel.hidden = NO;
@@ -96,15 +107,16 @@
     return self.imgView;
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    UIView *subView = [scrollView.subviews objectAtIndex:0];
-    
+
+/*- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    UIView *subView =  [scrollView.subviews objectAtIndex:0];// _imgView;//
+    NSLog(@"did scroll");
     CGFloat offsetX = MAX((scrollView.bounds.size.width - scrollView.contentSize.width) * 0.5, 0.0);
     CGFloat offsetY = MAX((scrollView.bounds.size.height - scrollView.contentSize.height) * 0.5, 0.0);
     
     subView.center = CGPointMake(scrollView.contentSize.width * 0.5 + offsetX,
                                  scrollView.contentSize.height * 0.5 + offsetY);
-}
+}*/
 
 - (IBAction)dismissImage:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
