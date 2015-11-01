@@ -18,7 +18,9 @@
 #define CELL_IDENTIFIER @"bookmarkCell"
 static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 
-@interface BookmarkTableViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface BookmarkTableViewController () <UITableViewDataSource, UITableViewDelegate> {
+    NSDictionary *attributes;
+}
 @property (strong, nonatomic) NSMutableArray *bookmarks;
 @property (strong, nonatomic) NSMutableArray *coreDataPostIDs;
 @property (strong, nonatomic) UIActivityIndicatorView *spinner;
@@ -35,7 +37,13 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    // Set up style and attributes
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
+    style.firstLineHeadIndent = 10.0;
+    style.headIndent = 10;
+    style.tailIndent = 0;
+    attributes = @{NSParagraphStyleAttributeName : style};
     
     // Place activity indicator
     self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -115,33 +123,7 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     cell.titleLabel.text = post.title;
     cell.excerptLabel.text = post.excerpt;
     cell.imageView.image = nil;
-    cell.backgroundColor = [UIColor colorWithRed:242/255.0
-                                           green:242/255.0
-                                            blue:242/255.0
-                                           alpha:1.0];
-    // Set up image shadows
-    cell.imageView.layer.masksToBounds = NO;
-    cell.imageView.layer.cornerRadius = 4;
-    cell.imageView.layer.shadowRadius = 1;
-    cell.imageView.layer.shadowOffset = CGSizeMake(0, 1);
-    cell.imageView.layer.shadowOpacity = 0.25;
-    // Set up container
-    cell.imageContainerView.layer.masksToBounds = NO;
-    cell.imageContainerView.layer.cornerRadius = 4;
-    cell.imageContainerView.layer.shadowRadius = 1;
-    cell.imageContainerView.layer.shadowOffset = CGSizeMake(0, 1);
-    cell.imageContainerView.layer.shadowOpacity = 0.25;
-    // Set up fonts
-    cell.titleLabel.font = [UIFont fontWithName:@"Avenir-Black" size:20];
-    cell.titleLabel.textColor = [UIColor blackColor];
-    cell.excerptLabel.font = [UIFont fontWithName:@"Avenir-Book" size:12];
-    cell.excerptLabel.textColor = [UIColor blackColor];
-    // Set up style and attributes
-    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
-    style.firstLineHeadIndent = 10.0;
-    style.headIndent = 10;
-    style.tailIndent = 0;
-    NSDictionary *attributes = @{NSParagraphStyleAttributeName : style};
+    
     NSAttributedString *title = [[NSAttributedString alloc] initWithString:cell.titleLabel.text attributes:attributes];
     NSAttributedString *excerpt = [[NSAttributedString alloc] initWithString:cell.excerptLabel.text attributes:attributes];
     cell.titleLabel.attributedText = title;
