@@ -140,11 +140,12 @@ static const CGFloat initialWebViewYOffset = 450;
     self.header.articleLabels.frame = CGRectMake(0, self.header.coverImage.frame.size.height + 70, self.view.frame.size.width, 150);
     
     self.header.articleLabels.titleLabel.text = self.post.title;
-    //self.header.articleLabels.authorLabel.text = self.post.author.name;
     self.header.articleLabels.dateLabel.text = self.post.date;
     self.header.articleLabels.categoriesLabel.text = [self.post.category componentsJoinedByString:@", "];
     self.header.articleLabels.tagsLabel.text = [self.post.tags componentsJoinedByString:@", "];
     
+    
+    // add underline to authorlabel text by making it a NSMutableAttributeString
     NSString *author = self.post.author.name;
     NSMutableAttributedString *uAuthor = [[NSMutableAttributedString alloc] initWithString:author];
     
@@ -154,7 +155,6 @@ static const CGFloat initialWebViewYOffset = 450;
                              }
                      range:NSMakeRange(0, uAuthor.length)];
     
-    //self.header.articleLabels.authorLabel.textAlignment = NSTextAlignmentCenter;
     [self.header.articleLabels.authorLabel setAttributedText:uAuthor];
 }
 

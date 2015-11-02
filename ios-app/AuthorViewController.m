@@ -31,6 +31,13 @@
     self.nameLabel.text = self.author.name;
     self.emailLabel.text = self.author.email;
     self.aboutLabel.text = self.author.about;
+    
+    [self.aboutLabel sizeToFit];
+    
+//    self.aboutLabel.lineBreakMode = UILinebreakmode.
+//    self.aboutLabel.numberOfLines = 0;
+    
+    //[self.aboutLabel setPreferredMaxLayoutWidth:200.0];
 }
 
 - (void)didReceiveMemoryWarning {
