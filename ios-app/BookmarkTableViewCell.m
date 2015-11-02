@@ -14,6 +14,11 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    
+    // Optimize shadows
+    self.imageContainerView.opaque = YES;
+    self.layer.shouldRasterize = YES;
+    self.layer.rasterizationScale = [UIScreen mainScreen].scale;
     self.backgroundColor = [UIColor colorWithRed:242/255.0
                                            green:242/255.0
                                             blue:242/255.0
