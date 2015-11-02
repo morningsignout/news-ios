@@ -17,12 +17,16 @@
     
     // Optimize shadows
     self.imageContainerView.opaque = YES;
+    self.imageView.opaque = YES;
     self.layer.shouldRasterize = YES;
     self.layer.rasterizationScale = [UIScreen mainScreen].scale;
     self.backgroundColor = [UIColor colorWithRed:242/255.0
                                            green:242/255.0
                                             blue:242/255.0
                                            alpha:1.0];
+    // Hints the OS for finding size of cell
+    self.imageView.layer.shadowPath = [[UIBezierPath bezierPathWithRect:self.imageView.bounds]CGPath ];
+    self.imageContainerView.layer.shadowPath = [[UIBezierPath bezierPathWithRect:self.imageView.bounds]CGPath ];
     
     // Set up image shadows
     self.imageView.layer.masksToBounds = NO;
@@ -41,7 +45,10 @@
     self.titleLabel.textColor = [UIColor blackColor];
     self.excerptLabel.font = [UIFont fontWithName:@"Avenir-Book" size:12];
     self.excerptLabel.textColor = [UIColor blackColor];
-
+    
+    // Take out extra shadow
+    self.imageView.layer.shadowPath = nil;
+    self.imageContainerView.layer.shadowPath = nil;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
