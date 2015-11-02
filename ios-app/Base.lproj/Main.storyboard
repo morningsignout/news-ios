@@ -955,6 +955,7 @@
                         <outlet property="emailLabel" destination="AlK-eh-rZc" id="Cqa-Tr-dbH"/>
                         <outlet property="nameLabel" destination="Iyl-7a-TzA" id="rpA-GT-cBR"/>
                         <outlet property="spinner" destination="I28-e8-lQ2" id="Xwh-7e-qEx"/>
+                        <segue destination="ouP-Yc-jsf" kind="show" identifier="viewPost" id="Vfi-6j-2um"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LTY-bl-cW3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1341,7 +1342,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="BYW-pU-SZU"/>
-        <segue reference="uaM-eg-Of4"/>
         <segue reference="DXn-2w-hPS"/>
+        <segue reference="Vfi-6j-2um"/>
     </inferredMetricsTieBreakers>
 </document>
