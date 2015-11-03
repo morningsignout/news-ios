@@ -137,25 +137,39 @@ static const CGFloat initialWebViewYOffset = 450;
 }
 
 - (void)setUpLabels {
+    //UIColor *blue = [UIColor colorWithRed:0.125 green:0.498 blue:0.722 alpha:1];          // from website
+    UIColor *blue = [UIColor colorWithRed:0.11 green:0.38 blue:0.541 alpha:1];              // darker version
+    UIColor *lighterblue = [UIColor colorWithRed:0.388 green:0.698 blue:0.898 alpha:1];     // from website
+    //UIColor *lighterblue = [UIColor colorWithRed:0.29 green:0.573 blue:0.757 alpha:1];    // darker version
+    
     self.header.articleLabels.frame = CGRectMake(0, self.header.coverImage.frame.size.height + 70, self.view.frame.size.width, 150);
+    [self.header.articleLabels setBackgroundColor:[[UIColor whiteColor] colorWithAlphaComponent:0.75]];
     
     self.header.articleLabels.titleLabel.text = self.post.title;
-    self.header.articleLabels.dateLabel.text = self.post.date;
-    self.header.articleLabels.categoriesLabel.text = [self.post.category componentsJoinedByString:@", "];
-    self.header.articleLabels.tagsLabel.text = [self.post.tags componentsJoinedByString:@", "];
+    [self.header.articleLabels.titleLabel setTextColor:blue];
     
+    self.header.articleLabels.dateLabel.text = self.post.date;
+    [self.header.articleLabels.dateLabel setTextColor:blue];
+    
+    self.header.articleLabels.categoriesLabel.text = [self.post.category componentsJoinedByString:@", "];
+    [self.header.articleLabels.categoriesLabel setTextColor:[UIColor whiteColor]];
+    [self.header.articleLabels.categoriesLabel setBackgroundColor:lighterblue];
+    
+    self.header.articleLabels.tagsLabel.text = [self.post.tags componentsJoinedByString:@", "];
+    [self.header.articleLabels.tagsLabel setTextColor:blue];
     
     // add underline to authorlabel text by making it a NSMutableAttributeString
     NSString *author = self.post.author.name;
     NSMutableAttributedString *uAuthor = [[NSMutableAttributedString alloc] initWithString:author];
     
     [uAuthor addAttributes:@{
-                             NSUnderlineColorAttributeName :[UIColor whiteColor],
+                             NSUnderlineColorAttributeName : blue,
                              NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle | NSUnderlinePatternSolid),
                              }
                      range:NSMakeRange(0, uAuthor.length)];
     
     [self.header.articleLabels.authorLabel setAttributedText:uAuthor];
+    [self.header.articleLabels.authorLabel setTextColor:blue];
 }
 
 - (NSString *)setFontSize {

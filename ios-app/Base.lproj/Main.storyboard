@@ -991,7 +991,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HHL-ZV-zye" userLabel="Header Info View" customClass="PostHeaderInfo">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HHL-ZV-zye" userLabel="Header Info View" customClass="PostHeaderInfo">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="397"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sRv-BC-rd8">
@@ -1045,13 +1045,13 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="54" id="o0P-Jh-iEp"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                         <animations/>
-                                        <color key="backgroundColor" red="0.098039217293262482" green="0.098039217293262482" blue="0.098039217293262482" alpha="0.48999999999999999" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstItem="Lwf-nW-aIm" firstAttribute="leading" secondItem="uZ2-XI-Ima" secondAttribute="trailing" constant="25" id="1ye-Ie-8zR"/>
                                             <constraint firstItem="foJ-Vh-WpO" firstAttribute="top" secondItem="pOo-mf-rsM" secondAttribute="top" constant="34" id="34k-iW-xBd"/>
@@ -1099,7 +1099,7 @@
                                     <constraint firstAttribute="height" constant="208" id="mJR-sd-7I5"/>
                                 </constraints>
                             </webView>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="9AU-AI-VBe">
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="9AU-AI-VBe">
                                 <rect key="frame" x="0.0" y="1" width="600" height="2"/>
                                 <animations/>
                             </progressView>
