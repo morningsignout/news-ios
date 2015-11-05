@@ -8,6 +8,7 @@
 
 #import "AuthorViewController.h"
 #import "DataParser.h"
+#import "Constants.h"
 
 @interface AuthorViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -19,23 +20,34 @@
 @implementation AuthorViewController
 
 - (void)viewDidLoad {
-    self.author = [[Author alloc] initWith:238 Name:@"example name" About:@"example about" AndEmail:@"example email"];
-    
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    self.collectionView.frame = CGRectMake(0, 150, self.collectionView.bounds.size.width, self.collectionView.bounds.size.height - 150);
+    self.navigationController.navigationBarHidden = NO;
+    [self setupNavigationBarStyle];
+    self.collectionView.frame = CGRectMake(0, 300, self.collectionView.bounds.size.width, self.collectionView.bounds.size.height - 300);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     self.nameLabel.text = self.author.name;
     self.emailLabel.text = self.author.email;
     self.aboutLabel.text = self.author.about;
+    
+    [self.aboutLabel sizeToFit];
+    
+//    self.aboutLabel.lineBreakMode = UILinebreakmode.
+//    self.aboutLabel.numberOfLines = 0;
+    
+    //[self.aboutLabel setPreferredMaxLayoutWidth:200.0];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)setupNavigationBarStyle {
+    [self.navigationController.navigationBar setBarTintColor:[UIColor kNavBackgroundColor]];
+    self.navigationController.navigationBar.tintColor = [UIColor kNavTextColor];
 }
 
 - (NSArray *)getDataForTypeOfView {
