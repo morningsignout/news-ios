@@ -18,7 +18,9 @@
 #define CELL_IDENTIFIER @"bookmarkCell"
 static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 
-@interface BookmarkTableViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface BookmarkTableViewController () <UITableViewDataSource, UITableViewDelegate> {
+    NSDictionary *attributes;
+}
 @property (strong, nonatomic) NSMutableArray *bookmarks;
 @property (strong, nonatomic) NSMutableArray *coreDataPostIDs;
 @property (strong, nonatomic) UIActivityIndicatorView *spinner;
@@ -35,7 +37,13 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    // Set up style and attributes
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
+    style.firstLineHeadIndent = 10.0;
+    style.headIndent = 10;
+    style.tailIndent = 0;
+    attributes = @{NSParagraphStyleAttributeName : style};
     
     // Place activity indicator
     self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -115,6 +123,12 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     cell.titleLabel.text = post.title;
     cell.excerptLabel.text = post.excerpt;
     cell.imageView.image = nil;
+    
+    NSAttributedString *title = [[NSAttributedString alloc] initWithString:cell.titleLabel.text attributes:attributes];
+    NSAttributedString *excerpt = [[NSAttributedString alloc] initWithString:cell.excerptLabel.text attributes:attributes];
+    cell.titleLabel.attributedText = title;
+    cell.excerptLabel.attributedText = excerpt;
+    
     NSURLRequest *requestLeft = [NSURLRequest requestWithURL:[NSURL URLWithString:post.fullCoverImageURL]];
     [cell.imageView setImageWithURLRequest:requestLeft placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
         cell.imageView.image = image;

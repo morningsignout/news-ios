@@ -9,6 +9,6 @@
 
 
 #### Git Workflow
-Let's try to work on separate branches for development and only push changes to master once they are fully functional and "production ready".
+Let's try to work on separate branches for development and only merge changes to a functional 'dev' branch once they are  "production ready".
 
-Checkout [this](http://rogerdudler.github.io/git-guide/) guide for help on git. 
+When merging your branches, use the option no fast-forwards.
