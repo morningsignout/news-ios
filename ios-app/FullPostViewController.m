@@ -12,9 +12,11 @@
 #import "ImageViewController.h"
 #import <AFNetworking.h>
 #import <CoreData/CoreData.h>
+#import <Social/Social.h>
 #import "ArticleLabels.h"
 #import "Constants.h"
 #import "PostHeaderInfo.h"
+
 
 static NSString * const header = @"<!-- Latest compiled and minified CSS --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"><!-- Optional theme --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css\"><!-- Latest compiled and minified JavaScript --><script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\"></script><!-- Yeon's CSS --><link rel=\"stylesheet\" href=\"http://morningsignout.com/wp-content/themes/mso/style.css?ver=4.3\"><meta charset=\"utf-8\"> \
     <style type=\"text/css\">.ssba {}.ssba img { width: 30px !important; padding: 0px; border:  0; box-shadow: none !important; display: inline !important; vertical-align: middle; } .ssba, .ssba a {text-decoration:none;border:0;background: none;font-family: Indie Flower;font-size: 20px;}</style><div style=\"padding:5px;background-color:white;box-shadow:none;\"></div>";
@@ -208,22 +210,25 @@ static const CGFloat initialWebViewYOffset = 450;
 
 - (void)share
 {
-    NSString *textToShare = @"Look at this awesome website for aspiring iOS Developers!";
-    NSURL *myWebsite = [NSURL URLWithString:@"http://www.codingexplorer.com/"];
-    
-    NSArray *objectsToShare = @[textToShare, myWebsite];
+    NSString *textToShare = @"Check out this article!\n";
+    NSString *urlLink = [NSString stringWithFormat:@"http://morningsignout.com/%@/",
+                         [self.post.title stringByReplacingOccurrencesOfString:@" "
+                                                                    withString:@"-"]];
+    NSArray *objectsToShare = @[textToShare, urlLink];
     
     UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
     
-//    NSArray *excludeActivities = @[UIActivityTypeMail,
-//                                   UIActivityTypeMessage,
-//                                   UIActivityTypePrint,
-//                                   UIActivityTypePostToFacebook,
-//                                   UIActivityTypePostToTwitter,
-//                                   UIActivityTypePostToWeibo,
-//                                   UIActivityTypeCopyToPasteboard];
-//    
-//    activityVC.excludedActivityTypes = excludeActivities;
+    NSArray *excludeActivities = @[
+                                    UIActivityTypeAddToReadingList,
+                                    UIActivityTypeAirDrop,
+                                    UIActivityTypeAssignToContact,
+                                    UIActivityTypeCopyToPasteboard,
+                                    UIActivityTypeOpenInIBooks,
+                                    UIActivityTypeSaveToCameraRoll,
+                                    UIActivityTypePrint,
+                                  ];
+    activityVC.excludedActivityTypes = excludeActivities;
+
     
     [self presentViewController:activityVC animated:YES completion:nil];
 }
