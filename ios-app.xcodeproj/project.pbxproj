@@ -29,6 +29,7 @@
 		FB72E7F61BA3525000F10356 /* ContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB72E7F51BA3525000F10356 /* ContainerViewController.m */; };
 		FB72E83A1BA3828500F10356 /* EmptySegue.m in Sources */ = {isa = PBXBuildFile; fileRef = FB72E8391BA3828500F10356 /* EmptySegue.m */; };
 		FB798E2D1BAD182C00F98139 /* CategoryDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB798E2C1BAD182C00F98139 /* CategoryDetailViewController.m */; };
+		FB7B011C1BEF483900552AA9 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7B011B1BEF483900552AA9 /* Comment.m */; };
 		FB7E9E6B1BAE27EB00F265E2 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7E9E6A1BAE27EB00F265E2 /* Constants.m */; };
 		FB7E9E6E1BAF35D500F265E2 /* PostHeaderInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7E9E6D1BAF35D500F265E2 /* PostHeaderInfo.m */; };
 		FB997E461BA5557D0080CABD /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB997E451BA5557D0080CABD /* ImageViewController.m */; };
@@ -106,6 +107,8 @@
 		FB72E8391BA3828500F10356 /* EmptySegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmptySegue.m; sourceTree = "<group>"; };
 		FB798E2B1BAD182C00F98139 /* CategoryDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryDetailViewController.h; sourceTree = "<group>"; };
 		FB798E2C1BAD182C00F98139 /* CategoryDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryDetailViewController.m; sourceTree = "<group>"; };
+		FB7B011A1BEF483900552AA9 /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
+		FB7B011B1BEF483900552AA9 /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
 		FB7E9E691BAE1F2100F265E2 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		FB7E9E6A1BAE27EB00F265E2 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		FB7E9E6C1BAF35D500F265E2 /* PostHeaderInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostHeaderInfo.h; sourceTree = "<group>"; };
@@ -311,6 +314,8 @@
 				FB714A411B94D1E500D68CB5 /* Post.m */,
 				FB714A431B94D20600D68CB5 /* Author.h */,
 				FB714A441B94D20600D68CB5 /* Author.m */,
+				FB7B011A1BEF483900552AA9 /* Comment.h */,
+				FB7B011B1BEF483900552AA9 /* Comment.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -553,6 +558,7 @@
 				FB99DEE61B9A1BD9007111B4 /* FeaturedStoryTableViewCell.m in Sources */,
 				FBDEF3D11B9E4D31005BD9F4 /* DropdownMenuController.m in Sources */,
 				FBBA5AB01BA0DC0600345D5F /* TileCollectionViewCellB.m in Sources */,
+				FB7B011C1BEF483900552AA9 /* Comment.m in Sources */,
 				FB714A181B94D16000D68CB5 /* main.m in Sources */,
 				CA7F86DD1BA296E9002E16CA /* CategoryViewController.m in Sources */,
 				FBBA5AB31BA0F19600345D5F /* BaseTileCollectionViewCell.m in Sources */,

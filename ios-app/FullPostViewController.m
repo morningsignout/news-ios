@@ -16,6 +16,8 @@
 #import "Constants.h"
 #import "PostHeaderInfo.h"
 #include "AuthorViewController.h"
+#import "DataParser.h"
+#include "Comment.h"
 
 static NSString * const header = @"<!-- Latest compiled and minified CSS --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"><!-- Optional theme --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css\"><!-- Latest compiled and minified JavaScript --><script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\"></script><!-- Yeon's CSS --><link rel=\"stylesheet\" href=\"http://morningsignout.com/wp-content/themes/mso/style.css?ver=4.3\"><meta charset=\"utf-8\"> \
     <style type=\"text/css\">.ssba {}.ssba img { width: 30px !important; padding: 0px; border:  0; box-shadow: none !important; display: inline !important; vertical-align: middle; } .ssba, .ssba a {text-decoration:none;border:0;background: none;font-family: Indie Flower;font-size: 20px;}</style><div style=\"padding:5px;background-color:white;box-shadow:none;\"></div>";
@@ -107,8 +109,9 @@ static const CGFloat initialWebViewYOffset = 450;
     UIBarButtonItem *bookmarkItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(bookmarkPost)];
     UIBarButtonItem *fontIncItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(increaseFontSize)];
     UIBarButtonItem *fontDecItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:@selector(decreaseFontSize)];
+    UIBarButtonItem *commentItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(loadComments)];
     
-    NSArray *actionButtonItems = @[shareItem, bookmarkItem, fontIncItem, fontDecItem];
+    NSArray *actionButtonItems = @[shareItem, bookmarkItem, fontIncItem, fontDecItem, commentItem];
     self.navigationItem.rightBarButtonItems = actionButtonItems;
 }
 
@@ -311,6 +314,14 @@ static const CGFloat initialWebViewYOffset = 450;
     // Save the object to persistent store
     if (![managedObjectContext save:&error]) {
         NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
+    }
+}
+
+
+- (void)loadComments {
+    NSArray *comments = [DataParser DataForCommentsWithThreadID:self.post.disqusThreadID];
+    for (Comment *comment in comments) {
+        [comment print];
     }
 }
 

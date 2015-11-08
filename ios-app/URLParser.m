@@ -10,6 +10,8 @@
 
 static NSString * const BASE_URL = @"http://morningsignout.com/?json=";
 
+static NSString * const DISQUS_BASE_URL = @"https://disqus.com/api/3.0/threads/listPosts.json?api_key=CaEN4GfINnGs2clsprUxiFw1Uj2IGhtpAtRpGSOH7OenWsZN0HxaAqyE5vgu9aP2&forum=morningsignout&thread=";
+
 @implementation URLParser
 
 
@@ -92,6 +94,8 @@ static NSString * const BASE_URL = @"http://morningsignout.com/?json=";
     return [NSString stringWithFormat:@"%@&page=%d", OLD_URL, page];
 }
 
-
++ (NSString *)URLForDisqusThreadWithThreadID:(NSString *)threadID {
+    return [NSString stringWithFormat:@"%@%@", DISQUS_BASE_URL, threadID];
+}
 
 @end
