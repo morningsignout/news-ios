@@ -16,6 +16,7 @@
 		B42B72F31BF047FE00B524D8 /* CDPost.m in Sources */ = {isa = PBXBuildFile; fileRef = B42B72E91BF047FE00B524D8 /* CDPost.m */; };
 		B42B72F41BF047FE00B524D8 /* CDCategory+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B42B72EB1BF047FE00B524D8 /* CDCategory+CoreDataProperties.m */; };
 		B42B72F51BF047FE00B524D8 /* CDCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = B42B72ED1BF047FE00B524D8 /* CDCategory.m */; };
+		B42B72F91BF04BCE00B524D8 /* CoreDataControl.m in Sources */ = {isa = PBXBuildFile; fileRef = B42B72F81BF04BCE00B524D8 /* CoreDataControl.m */; };
 		CA239A6F1B9F660400BEDC5E /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = CA239A6C1B9F660400BEDC5E /* GTMNSString+HTML.m */; };
 		CA239A701B9F660400BEDC5E /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = CA239A6E1B9F660400BEDC5E /* NSString+HTML.m */; };
 		CA239A741B9FA9A400BEDC5E /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA239A731B9FA9A400BEDC5E /* SearchViewController.m */; };
@@ -91,6 +92,8 @@
 		B42B72EB1BF047FE00B524D8 /* CDCategory+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CDCategory+CoreDataProperties.m"; path = "CoreDataLibrary/CDCategory+CoreDataProperties.m"; sourceTree = "<group>"; };
 		B42B72EC1BF047FE00B524D8 /* CDCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDCategory.h; path = CoreDataLibrary/CDCategory.h; sourceTree = "<group>"; };
 		B42B72ED1BF047FE00B524D8 /* CDCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDCategory.m; path = CoreDataLibrary/CDCategory.m; sourceTree = "<group>"; };
+		B42B72F71BF04BCE00B524D8 /* CoreDataControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreDataControl.h; path = CoreDataLibrary/CoreDataControl.h; sourceTree = "<group>"; };
+		B42B72F81BF04BCE00B524D8 /* CoreDataControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreDataControl.m; path = CoreDataLibrary/CoreDataControl.m; sourceTree = "<group>"; };
 		CA239A6B1B9F660400BEDC5E /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
 		CA239A6C1B9F660400BEDC5E /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
 		CA239A6D1B9F660400BEDC5E /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HTML.h"; sourceTree = "<group>"; };
@@ -208,6 +211,8 @@
 		B42B72F61BF0480700B524D8 /* CoreDataLibrary */ = {
 			isa = PBXGroup;
 			children = (
+				B42B72F71BF04BCE00B524D8 /* CoreDataControl.h */,
+				B42B72F81BF04BCE00B524D8 /* CoreDataControl.m */,
 				B42B72DE1BF047FE00B524D8 /* CDAuthor+CoreDataProperties.h */,
 				B42B72DF1BF047FE00B524D8 /* CDAuthor+CoreDataProperties.m */,
 				B42B72E01BF047FE00B524D8 /* CDAuthor.h */,
@@ -568,6 +573,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB997E461BA5557D0080CABD /* ImageViewController.m in Sources */,
+				B42B72F91BF04BCE00B524D8 /* CoreDataControl.m in Sources */,
 				B42B72F41BF047FE00B524D8 /* CDCategory+CoreDataProperties.m in Sources */,
 				FB7E9E6E1BAF35D500F265E2 /* PostHeaderInfo.m in Sources */,
 				FBD8676A1BAA2188006F4BF6 /* ArticleLabels.m in Sources */,
