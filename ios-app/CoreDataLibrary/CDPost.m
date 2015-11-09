@@ -63,7 +63,7 @@ fromManagedObjectContext:(NSManagedObjectContext *)context
     if (!matches || error || matches.count > 1) {
         NSLog(@"Error when fetching CDPost");
     } else if (matches.count == 1) {
-        NSLog(@"Core Data found Post to delete: %d, ", identity);
+        NSLog(@"Core Data found Post to delete: %d", identity);
         NSManagedObject *object = [matches firstObject];
         [context deleteObject:object];
     } else {
