@@ -27,9 +27,11 @@
     if (!matches || error || matches.count > 1) {
         NSLog(@"Error when fetching CDPost");
     } else if (matches.count == 1) {
+        NSLog(@"Core Data found Post: %d", post.ID);
         nPost = [matches firstObject];
     } else {
-        nPost = [NSEntityDescription insertNewObjectForEntityForName:@"CDAuthor" inManagedObjectContext:context];
+        NSLog(@"Core Data didn't find Post, inserting Post: %d", post.ID);
+        nPost = [NSEntityDescription insertNewObjectForEntityForName:@"CDPost" inManagedObjectContext:context];
         nPost.identity = post.ID;
         nPost.body = post.body;
         nPost.date = post.date;

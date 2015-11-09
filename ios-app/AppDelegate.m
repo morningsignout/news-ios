@@ -7,6 +7,14 @@
 //
 
 #import "AppDelegate.h"
+#import "CoreDataControl.h"
+#import "CDPost.h"
+#import "CDAuthor.h"
+#import "CDTag.h"
+#import "CDCategory.h"
+
+#import "Post.h"
+#import "Author.h"
 
 @interface AppDelegate ()
 

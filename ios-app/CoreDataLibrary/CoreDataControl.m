@@ -14,6 +14,17 @@
 
 @implementation CoreDataControl
 
++ (CoreDataControl *)sharedControl
+{
+    static CoreDataControl *_sharedControl = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _sharedControl = [[CoreDataControl alloc] init];
+    });
+    
+    return _sharedControl;
+}
+
 #pragma mark - Core Data stack
 
 @synthesize managedObjectContext = _managedObjectContext;

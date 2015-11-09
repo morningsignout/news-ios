@@ -24,8 +24,10 @@
     if (!matches || error || matches.count > 1) {
         NSLog(@"Error when fetching CDAuthor");
     } else if (matches.count == 1) {
+        NSLog(@"Core Data found Author: %d", author.ID);
         nAuthor = [matches firstObject];
     } else {
+        NSLog(@"Core Data didn't find Author, inserting Author: %d", author.ID);
         nAuthor = [NSEntityDescription insertNewObjectForEntityForName:@"CDAuthor" inManagedObjectContext:context];
         nAuthor.identity = author.ID;
         nAuthor.name = author.name;

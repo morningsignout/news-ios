@@ -11,7 +11,7 @@
 
 #import "CDPost.h"
 
-@class CDCategory, CDTag, CDAuthor;
+@class CDTag, CDCategory, CDAuthor;
 
 NS_ASSUME_NONNULL_BEGIN
 

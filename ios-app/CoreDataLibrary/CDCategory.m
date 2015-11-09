@@ -23,8 +23,10 @@
     if (!matches || error || matches.count > 1) {
         NSLog(@"Error when fetching CDCategory");
     } else if (matches.count == 1) {
+        NSLog(@"Core Data found Category: %@", name);
         nCategory = [matches firstObject];
     } else {
+        NSLog(@"Core Data didn't find Category, inserting Category: %@", name);
         nCategory = [NSEntityDescription insertNewObjectForEntityForName:@"CDCategory" inManagedObjectContext:context];
         nCategory.name = name;
     }

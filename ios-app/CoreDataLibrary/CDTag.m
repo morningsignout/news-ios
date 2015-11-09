@@ -23,8 +23,10 @@ inManagedObjectContext:(NSManagedObjectContext *)context
     if (!matches || error || matches.count > 1) {
         NSLog(@"Error when fetching CDTag");
     } else if (matches.count == 1) {
+        NSLog(@"Core Data found Tag: %@", name);
         nTag = [matches firstObject];
     } else {
+        NSLog(@"Core Data didn't find Tag, inserting Tag: %@", name);
         nTag = [NSEntityDescription insertNewObjectForEntityForName:@"CDTag" inManagedObjectContext:context];
         nTag.name = name;
     }
