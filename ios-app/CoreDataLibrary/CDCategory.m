@@ -10,6 +10,26 @@
 
 @implementation CDCategory
 
-// Insert code here to add functionality to your managed object subclass
++ (CDCategory *)categoryWithName:(NSString *)name
+          inManagedObjectContext:(NSManagedObjectContext *)context
+{
+    CDCategory *nCategory = nil;
+    
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CDCategory"];
+    request.predicate = [NSPredicate predicateWithFormat:@"name ==[c] %@", name];
+    NSError *error;
+    NSArray *matches = [context executeFetchRequest:request error:&error];
+    
+    if (!matches || error || matches.count > 1) {
+        NSLog(@"Error when fetching CDCategory");
+    } else if (matches.count == 1) {
+        nCategory = [matches firstObject];
+    } else {
+        nCategory = [NSEntityDescription insertNewObjectForEntityForName:@"CDCategory" inManagedObjectContext:context];
+        nCategory.name = name;
+    }
+    
+    return nCategory;
+}
 
 @end

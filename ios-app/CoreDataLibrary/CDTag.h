@@ -13,7 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CDTag : NSManagedObject
 
-// Insert code here to declare functionality of your managed object subclass
++ (CDTag *)tagWithName:(NSString *)name
+inManagedObjectContext:(NSManagedObjectContext *)context;
 
 @end
 

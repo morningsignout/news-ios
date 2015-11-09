@@ -11,9 +11,7 @@
 
 #import "CDPost.h"
 
-@class CDAuthor;
-@class CDTag;
-@class CDCategory;
+@class CDCategory, CDTag, CDAuthor;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSString *date;
 @property (nullable, nonatomic, retain) NSString *excerpt;
 @property (nullable, nonatomic, retain) NSString *fullCoverImageURL;
-@property (nonatomic) int32_t id;
+@property (nonatomic) int32_t identity;
 @property (nullable, nonatomic, retain) NSString *thumbnailCoverImageURL;
 @property (nullable, nonatomic, retain) NSString *title;
 @property (nullable, nonatomic, retain) NSString *url;

@@ -13,7 +13,7 @@
 
 @implementation CDAuthor (CoreDataProperties)
 
-@dynamic id;
+@dynamic identity;
 @dynamic name;
 @dynamic about;
 @dynamic email;

@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CDAuthor (CoreDataProperties)
 
-@property (nonatomic) int32_t id;
+@property (nonatomic) int32_t identity;
 @property (nullable, nonatomic, retain) NSString *name;
 @property (nullable, nonatomic, retain) NSString *about;
 @property (nullable, nonatomic, retain) NSString *email;

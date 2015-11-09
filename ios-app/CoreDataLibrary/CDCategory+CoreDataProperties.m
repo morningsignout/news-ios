@@ -14,6 +14,6 @@
 @implementation CDCategory (CoreDataProperties)
 
 @dynamic name;
-@dynamic post;
+@dynamic posts;
 
 @end

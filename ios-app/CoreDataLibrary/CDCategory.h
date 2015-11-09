@@ -9,13 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class CDPost;
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CDCategory : NSManagedObject
 
-// Insert code here to declare functionality of your managed object subclass
++ (CDCategory *)categoryWithName:(NSString *)name
+          inManagedObjectContext:(NSManagedObjectContext *)context;
 
 @end
 

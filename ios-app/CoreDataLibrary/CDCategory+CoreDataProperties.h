@@ -18,7 +18,16 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CDCategory (CoreDataProperties)
 
 @property (nullable, nonatomic, retain) NSString *name;
-@property (nullable, nonatomic, retain) CDPost *post;
+@property (nullable, nonatomic, retain) NSSet<CDPost *> *posts;
+
+@end
+
+@interface CDCategory (CoreDataGeneratedAccessors)
+
+- (void)addPostsObject:(CDPost *)value;
+- (void)removePostsObject:(CDPost *)value;
+- (void)addPosts:(NSSet<CDPost *> *)values;
+- (void)removePosts:(NSSet<CDPost *> *)values;
 
 @end
 

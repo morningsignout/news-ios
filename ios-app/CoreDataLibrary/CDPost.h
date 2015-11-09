@@ -9,13 +9,14 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class CDAuthor, CDTag;
+@class Post;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CDPost : NSManagedObject
 
-// Insert code here to declare functionality of your managed object subclass
++ (CDPost *)postWithPost:(Post *)post
+  inManagedObjectContext:(NSManagedObjectContext *)context;
 
 @end
 

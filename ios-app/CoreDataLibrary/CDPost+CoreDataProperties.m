@@ -17,7 +17,7 @@
 @dynamic date;
 @dynamic excerpt;
 @dynamic fullCoverImageURL;
-@dynamic id;
+@dynamic identity;
 @dynamic thumbnailCoverImageURL;
 @dynamic title;
 @dynamic url;

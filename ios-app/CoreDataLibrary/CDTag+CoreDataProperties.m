@@ -14,6 +14,6 @@
 @implementation CDTag (CoreDataProperties)
 
 @dynamic name;
-@dynamic post;
+@dynamic posts;
 
 @end
