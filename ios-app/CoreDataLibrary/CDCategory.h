@@ -16,6 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (CDCategory *)categoryWithName:(NSString *)name
           inManagedObjectContext:(NSManagedObjectContext *)context;
 
++ (void)deleteCategoryWithName:(NSString *)name
+      fromManagedObjectContext:(NSManagedObjectContext *)context;
+
 @end
 
 NS_ASSUME_NONNULL_END

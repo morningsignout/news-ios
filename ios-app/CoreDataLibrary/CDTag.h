@@ -16,6 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (CDTag *)tagWithName:(NSString *)name
 inManagedObjectContext:(NSManagedObjectContext *)context;
 
++ (void)deleteTagWithName:(NSString *)name
+ fromManagedObjectContext:(NSManagedObjectContext *)context;
+
 @end
 
 NS_ASSUME_NONNULL_END

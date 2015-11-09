@@ -52,4 +52,23 @@
     return nPost;
 }
 
++ (void)deletePostWithID:(int)identity
+fromManagedObjectContext:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CDPost"];
+    request.predicate = [NSPredicate predicateWithFormat:@"identity == %d", identity];
+    NSError *error;
+    NSArray *matches = [context executeFetchRequest:request error:&error];
+    
+    if (!matches || error || matches.count > 1) {
+        NSLog(@"Error when fetching CDPost");
+    } else if (matches.count == 1) {
+        NSLog(@"Core Data found Post to delete: %d, ", identity);
+        NSManagedObject *object = [matches firstObject];
+        [context deleteObject:object];
+    } else {
+        NSLog(@"Core Data didn't find Post: %d", identity);
+    }
+}
+
 @end

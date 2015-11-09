@@ -34,4 +34,23 @@ inManagedObjectContext:(NSManagedObjectContext *)context
     return nTag;
 }
 
++ (void)deleteTagWithName:(NSString *)name
+ fromManagedObjectContext:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CDTag"];
+    request.predicate = [NSPredicate predicateWithFormat:@"name == %d", name];
+    NSError *error;
+    NSArray *matches = [context executeFetchRequest:request error:&error];
+    
+    if (!matches || error || matches.count > 1) {
+        NSLog(@"Error when fetching CDTag");
+    } else if (matches.count == 1) {
+        NSLog(@"Core Data found Tag to delete: %@, ", name);
+        NSManagedObject *object = [matches firstObject];
+        [context deleteObject:object];
+    } else {
+        NSLog(@"Core Data didn't find Tag: %@", name);
+    }
+}
+
 @end

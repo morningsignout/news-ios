@@ -18,6 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (CDPost *)postWithPost:(Post *)post
   inManagedObjectContext:(NSManagedObjectContext *)context;
 
++ (void)deletePostWithID:(int)identity
+fromManagedObjectContext:(NSManagedObjectContext *)context;
+
 @end
 
 NS_ASSUME_NONNULL_END

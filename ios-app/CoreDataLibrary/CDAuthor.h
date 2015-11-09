@@ -18,6 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (CDAuthor *)authorWithAuthor:(Author *)author
         inManagedObjectContext:(NSManagedObjectContext *)context;
 
++ (void)deleteAuthorWithID:(int)identity
+  fromManagedObjectContext:(NSManagedObjectContext *)context;
+
 @end
 
 NS_ASSUME_NONNULL_END

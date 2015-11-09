@@ -38,4 +38,23 @@
     return nAuthor;
 }
 
++ (void)deleteAuthorWithID:(int)identity
+  fromManagedObjectContext:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CDAuthor"];
+    request.predicate = [NSPredicate predicateWithFormat:@"identity == %d", identity];
+    NSError *error;
+    NSArray *matches = [context executeFetchRequest:request error:&error];
+    
+    if (!matches || error || matches.count > 1) {
+        NSLog(@"Error when fetching CDAuthor");
+    } else if (matches.count == 1) {
+        NSLog(@"Core Data found Author to delete: %d, ", identity);
+        NSManagedObject *object = [matches firstObject];
+        [context deleteObject:object];
+    } else {
+        NSLog(@"Core Data didn't find Author: %d", identity);
+    }
+}
+
 @end

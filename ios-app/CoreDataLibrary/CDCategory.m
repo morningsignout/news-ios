@@ -34,4 +34,23 @@
     return nCategory;
 }
 
++ (void)deleteCategoryWithName:(NSString *)name
+      fromManagedObjectContext:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CDCategory"];
+    request.predicate = [NSPredicate predicateWithFormat:@"name == %d", name];
+    NSError *error;
+    NSArray *matches = [context executeFetchRequest:request error:&error];
+    
+    if (!matches || error || matches.count > 1) {
+        NSLog(@"Error when fetching CDCategory");
+    } else if (matches.count == 1) {
+        NSLog(@"Core Data found Category to delete: %@, ", name);
+        NSManagedObject *object = [matches firstObject];
+        [context deleteObject:object];
+    } else {
+        NSLog(@"Core Data didn't find Category: %@", name);
+    }
+}
+
 @end
