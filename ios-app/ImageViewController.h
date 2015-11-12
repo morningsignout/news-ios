@@ -10,4 +10,5 @@
 
 @interface ImageViewController : UIViewController
 @property (strong, nonatomic) NSURL *photoURL;
+- (void)handleDoubleTap:(UIGestureRecognizer *)gestureRecognizer;
 @end
