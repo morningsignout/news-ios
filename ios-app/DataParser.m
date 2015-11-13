@@ -89,7 +89,8 @@ NSDateFormatter *dateToStringFormatter;
     
     // Get author
     NSDictionary *authorDict = [parseData valueForKey:@"author"];
-    Author *author = [[Author alloc] initWith:(int)[authorDict valueForKey:@"id"] Name:[authorDict valueForKey:@"name"] About:[authorDict valueForKey:@"description"] AndEmail:[authorDict valueForKey:@"email"]];
+    int authorID = [[authorDict valueForKeyPath:@"id"] intValue];
+    Author *author = [[Author alloc] initWith:authorID Name:[authorDict valueForKey:@"name"] About:[authorDict valueForKey:@"description"] AndEmail:[authorDict valueForKey:@"email"]];
     
     // Get content
     NSString* content = [parseData valueForKey:@"content"];
