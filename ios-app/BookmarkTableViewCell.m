@@ -41,9 +41,9 @@
     self.imageContainerView.layer.shadowOffset = CGSizeMake(0, 1);
     self.imageContainerView.layer.shadowOpacity = 0.25;
     // Set up fonts
-    self.titleLabel.font = [UIFont fontWithName:@"Avenir-Black" size:20];
+    self.titleLabel.font = [UIFont systemFontOfSize:20];
     self.titleLabel.textColor = [UIColor blackColor];
-    self.excerptLabel.font = [UIFont fontWithName:@"Avenir-Book" size:12];
+    self.excerptLabel.font = [UIFont systemFontOfSize:12];
     self.excerptLabel.textColor = [UIColor blackColor];
     
     // Take out extra shadow
