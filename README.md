@@ -9,15 +9,6 @@
 
 
 #### Git Workflow
-Let's try to work on separate branches for development and only push changes to master once they are fully functional and "production ready".
+Let's try to work on separate branches for development and only merge changes to a functional 'dev' branch once they are  "production ready".
 
-Checkout [this](http://rogerdudler.github.io/git-guide/) guide for help on git. 
-
-##### Branch info:
-If you're working on URLParser, push to branch urlparse
-
-`git push origin urlparse`
-
-If you're working on DataParser, push to branch dataparse
-
-`git push origin dataparse`
+When merging your branches, use the option no fast-forwards.

@@ -64,9 +64,9 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     if (self.page == 1) {
         self.topFeatured = data.firstObject;
     }
-    NSMutableArray *smallerTileData = [NSMutableArray arrayWithArray:[data subarrayWithRange:NSMakeRange(1, data.count - 1)]];
-    [smallerTileData addObject:[smallerTileData objectAtIndex:rand() % (smallerTileData.count - 1)]];
-    return smallerTileData;
+    //NSMutableArray *smallerTileData = [NSMutableArray arrayWithArray:[data subarrayWithRange:NSMakeRange(1, data.count - 1)]];
+    //[smallerTileData addObject:[smallerTileData objectAtIndex:rand() % (smallerTileData.count - 1)]];
+    return data;
 }
 
 #pragma mark - UICollectionViewDataSource
