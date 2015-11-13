@@ -1173,9 +1173,12 @@
                                     <constraint firstAttribute="trailing" secondItem="s7F-y3-ccW" secondAttribute="trailing" constant="197" id="sZl-mz-kvc"/>
                                 </constraints>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0sJ-8n-meo">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0sJ-8n-meo">
                                 <rect key="frame" x="16" y="20" width="35" height="30"/>
                                 <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="35" id="EBj-Vy-DgH"/>
+                                </constraints>
                                 <state key="normal" title="Back">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1190,11 +1193,11 @@
                         <constraints>
                             <constraint firstItem="QNd-Lt-BKd" firstAttribute="top" secondItem="3mv-pe-geS" secondAttribute="top" id="1jn-WS-Wse"/>
                             <constraint firstAttribute="centerX" secondItem="Rtr-vg-gNl" secondAttribute="centerX" id="AxC-Ns-Ett"/>
-                            <constraint firstItem="0sJ-8n-meo" firstAttribute="top" secondItem="3mv-pe-geS" secondAttribute="top" constant="20" symbolic="YES" id="PXh-WD-BK4"/>
+                            <constraint firstItem="0sJ-8n-meo" firstAttribute="leading" secondItem="3mv-pe-geS" secondAttribute="leadingMargin" constant="-4" id="PV6-4J-MzA"/>
                             <constraint firstAttribute="trailing" secondItem="QNd-Lt-BKd" secondAttribute="trailing" id="Qbx-Zc-0rz"/>
                             <constraint firstItem="QNd-Lt-BKd" firstAttribute="leading" secondItem="3mv-pe-geS" secondAttribute="leading" id="aMm-c6-usU"/>
-                            <constraint firstItem="0sJ-8n-meo" firstAttribute="leading" secondItem="3mv-pe-geS" secondAttribute="leadingMargin" id="dqd-Ba-hHN"/>
                             <constraint firstAttribute="centerY" secondItem="Rtr-vg-gNl" secondAttribute="centerY" id="gIX-fO-gsu"/>
+                            <constraint firstItem="0sJ-8n-meo" firstAttribute="top" secondItem="3mv-pe-geS" secondAttribute="top" constant="20" symbolic="YES" id="npA-6L-rdC"/>
                             <constraint firstAttribute="bottom" secondItem="QNd-Lt-BKd" secondAttribute="bottom" id="sI4-1r-19T"/>
                         </constraints>
                     </view>
