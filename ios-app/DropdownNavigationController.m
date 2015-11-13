@@ -53,13 +53,13 @@ NSString * const section[] = {
         [button setTitle:section[i] forState:UIControlStateNormal];
         
         if (i == 0) {
-            [button setImage:[IonIcons imageWithIcon:ion_music_note size:20.0f color:[UIColor whiteColor]] forState:UIControlStateNormal];
+            [button setImage:[IonIcons imageWithIcon:ion_ios_pulse_strong size:20.0f color:[UIColor whiteColor]] forState:UIControlStateNormal];
         } else if (i == 1) {
-            [button setImage:[IonIcons imageWithIcon:ion_mouse size:20.0f color:[UIColor whiteColor]] forState:UIControlStateNormal];
+            [button setImage:[IonIcons imageWithIcon:ion_ios_search_strong size:20.0f color:[UIColor whiteColor]] forState:UIControlStateNormal];
         } else if (i == 2) {
-            [button setImage:[IonIcons imageWithIcon:ion_model_s size:20.0f color:[UIColor whiteColor]] forState:UIControlStateNormal];
+            [button setImage:[IonIcons imageWithIcon:ion_ios_albums_outline size:25.0f color:[UIColor whiteColor]] forState:UIControlStateNormal];
         } else if (i == 3) {
-            [button setImage:[IonIcons imageWithIcon:ion_map size:20.0f color:[UIColor whiteColor]] forState:UIControlStateNormal];
+            [button setImage:[IonIcons imageWithIcon:ion_bookmark size:20.0f color:[UIColor whiteColor]] forState:UIControlStateNormal];
         }
         
         // Set the title and icon position
