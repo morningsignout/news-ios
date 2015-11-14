@@ -60,12 +60,12 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 }
 
 - (NSArray *)getDataForTypeOfView {
-    NSArray *data = [DataParser DataForFeaturedPostsWithPageNumber:self.page];
+    NSMutableArray *data = [NSMutableArray arrayWithArray:[DataParser DataForFeaturedPostsWithPageNumber:self.page]];
     if (self.page == 1) {
         self.topFeatured = data.firstObject;
+        [data removeObjectAtIndex:0];
+        [data addObject:self.topFeatured];
     }
-    //NSMutableArray *smallerTileData = [NSMutableArray arrayWithArray:[data subarrayWithRange:NSMakeRange(1, data.count - 1)]];
-    //[smallerTileData addObject:[smallerTileData objectAtIndex:rand() % (smallerTileData.count - 1)]];
     return data;
 }
 

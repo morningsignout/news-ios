@@ -14,6 +14,7 @@
 #import <CoreData/CoreData.h>
 #import "Post.h"
 #import "DataParser.h"
+#import "Constants.h"
 
 #define CELL_IDENTIFIER @"bookmarkCell"
 static NSString * const SEGUE_IDENTIFIER = @"viewPost";

@@ -10,6 +10,8 @@
 #import <UIKit/UIKit.h>
 #import "Constants.h"
 
+#define rgba(r, g, b, a)  [UIColor colorWithRed:((r) / 255.0) green:((g) / 255.0) blue:((b) / 255.0) alpha:a]
+
 @implementation UIColor (Extensions)
 
 // Nav Colors
@@ -23,12 +25,12 @@
 
 // Collection View Color
 + (UIColor*) kCollectionViewBackgroundColor {
-    return [UIColor colorWithWhite:0.9 alpha:0.7];
+    return [UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]];
 }
 
 // Tile Colors
 + (UIColor*) kTileTitleBackgroundColor {
-    return [UIColor whiteColor];
+    return [UIColor colorWithWhite:1 alpha:0.7];
 }
 
 + (UIColor*) kTileTitleTextColor {

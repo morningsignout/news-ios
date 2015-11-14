@@ -16,7 +16,7 @@
     self = [super initWithFrame:frame];
     [self redoFrames];
     [self.contentView addSubview:self.excerpt];
-    self.title.backgroundColor = [UIColor kCollectionViewBackgroundColor];
+    self.title.backgroundColor = [UIColor kTileTitleBackgroundColor];
     return self;
 }
 
@@ -27,11 +27,11 @@
     self.excerpt = [[UITextView alloc] initWithFrame:CGRectMake(0, contentSize.height - self.excerptHeight, contentSize.width, self.excerptHeight)];
     self.excerpt.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.excerpt.textContainerInset = UIEdgeInsetsMake(10, 0, 10, 0);
-    self.excerpt.scrollEnabled = YES;
+    // self.excerpt.scrollEnabled = YES;
     self.excerpt.textAlignment = NSTextAlignmentCenter;
-    self.excerpt.backgroundColor = [UIColor kCollectionViewBackgroundColor];
+    self.excerpt.backgroundColor = [UIColor kTileTitleBackgroundColor];
     [self.excerpt setFont:[UIFont systemFontOfSize:13]];
-    [self.excerpt setEditable:NO];
+    //[self.excerpt setEditable:NO];
 }
 
 @end

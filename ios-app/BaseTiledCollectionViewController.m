@@ -122,7 +122,6 @@ static NSString * const reuseIdentifier = @"Cell";
         [self.collectionView reloadData];
         self.collectionView.userInteractionEnabled = YES;
         [self.spinner stopAnimating];
-        NSLog(@"reloaded new posts");
     });
 }
 
@@ -141,7 +140,8 @@ static NSString * const reuseIdentifier = @"Cell";
         _collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
-        _collectionView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.7];
+        //_collectionView.backgroundColor = [UIColor kCollectionViewBackgroundColor];
+        self.collectionView.layer.contents = (id)[UIImage imageNamed:@"background"].CGImage;
         
         [self setUpClassesForCollectionViewLayout:layout];
     }
@@ -189,7 +189,6 @@ static NSString * const reuseIdentifier = @"Cell";
     
     if (![self getEndOfPosts] && indexPath.item == self.posts.count - 3) {
         [self.spinner startAnimating];
-        NSLog(@"still fetching");
         [self fetchMoreItems];
     }
     
@@ -210,7 +209,6 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (void)fetchMoreItems {
-    NSLog(@"FETCHING MORE ITEMS");
     if (self.page > 0) {
         self.spinner.hidden = YES;
     } else {
@@ -222,11 +220,9 @@ static NSString * const reuseIdentifier = @"Cell";
     dispatch_queue_t q = dispatch_queue_create("load more posts", NULL);
     dispatch_async(q, ^{
         self.page++;
-        NSLog(@"now on page %d of data", self.page);
         newData = [self getDataForPage];
         if([newData count] < 28){
             [self setEndOfPosts:true];
-            NSLog(@"end of posts reached");
         }
         // Simulate an async load
         double delayInSeconds = 2 * NSEC_PER_SEC;
@@ -336,9 +332,6 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark - Scroll View Delegate
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-//    NSNumber *end = [NSNumber numberWithBool:[self getEndOfPosts]];
-//    if(end)
-//        return;
     float bottomEdge = scrollView.contentOffset.y + scrollView.frame.size.height;
     if (bottomEdge >= scrollView.contentSize.height - self.view.frame.size.height / 3) {
         // we are at the end
