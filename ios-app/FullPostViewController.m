@@ -211,10 +211,8 @@ static const CGFloat initialWebViewYOffset = 450;
 - (void)share
 {
     NSString *textToShare = @"Check out this article!\n";
-    NSString *urlLink = [NSString stringWithFormat:@"http://morningsignout.com/%@/",
-                         [self.post.title stringByReplacingOccurrencesOfString:@" "
-                                                                    withString:@"-"]];
-    NSArray *objectsToShare = @[textToShare, urlLink];
+
+    NSArray *objectsToShare = @[textToShare, self.post.url];
     
     UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
     

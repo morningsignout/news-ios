@@ -43,8 +43,8 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     style.firstLineHeadIndent = 10.0;
     style.headIndent = 10;
     style.tailIndent = 0;
+    style.lineBreakMode = NSLineBreakByWordWrapping;
     attributes = @{NSParagraphStyleAttributeName : style};
-    
     // Place activity indicator
     self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     [self.view addSubview:self.spinner];
@@ -63,7 +63,7 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     
     dispatch_queue_t myQueue = dispatch_queue_create("My Queue",NULL);
     dispatch_async(myQueue, ^{
-    
+        
         // Pull out all the posts IDs previously saved and request for their post content
         self.coreDataPostIDs = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
         for (NSManagedObject *bookmark in self.coreDataPostIDs) {
@@ -119,16 +119,18 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     BookmarkTableViewCell *cell = (BookmarkTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER forIndexPath:indexPath];
     
     // Configure the cell...
-    Post *post = [self.bookmarks objectAtIndex:indexPath.row];
-    cell.titleLabel.text = post.title;
-    cell.excerptLabel.text = post.excerpt;
-    cell.imageView.image = nil;
-    
-    NSAttributedString *title = [[NSAttributedString alloc] initWithString:cell.titleLabel.text attributes:attributes];
-    NSAttributedString *excerpt = [[NSAttributedString alloc] initWithString:cell.excerptLabel.text attributes:attributes];
-    cell.titleLabel.attributedText = title;
-    cell.excerptLabel.attributedText = excerpt;
-    
+    Post *post                          = [self.bookmarks objectAtIndex:indexPath.row];
+    cell.titleLabel.text                = post.title;
+    cell.excerptLabel.text              = post.excerpt;
+    cell.imageView.image                = nil;
+    cell.imageView.contentMode          = UIViewContentModeScaleAspectFill;
+    cell.imageView.clipsToBounds        = YES;
+    NSAttributedString *title           = [[NSAttributedString alloc] initWithString:cell.titleLabel.text
+                                                                          attributes:attributes];
+    NSAttributedString *excerpt         = [[NSAttributedString alloc] initWithString:cell.excerptLabel.text
+                                                                          attributes:attributes];
+    cell.titleLabel.attributedText      = title;
+    cell.excerptLabel.attributedText    = excerpt;
     NSURLRequest *requestLeft = [NSURLRequest requestWithURL:[NSURL URLWithString:post.fullCoverImageURL]];
     [cell.imageView setImageWithURLRequest:requestLeft placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
         cell.imageView.image = image;
