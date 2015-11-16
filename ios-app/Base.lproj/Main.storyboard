@@ -30,7 +30,7 @@
                                 <rect key="frame" x="0.0" y="22" width="600" height="114"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oPp-et-88Y" id="ovh-SI-Rtp">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="114"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="113.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OK0-Kw-y3z">
@@ -64,7 +64,7 @@
                                 <rect key="frame" x="0.0" y="136" width="600" height="200"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OGE-KO-GcP" id="bbY-fr-YRq">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="199.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e4x-kG-WMa" customClass="Tile">
@@ -153,7 +153,7 @@
                                 <rect key="frame" x="0.0" y="336" width="600" height="200"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ik7-Yz-PSe" id="l1E-KS-Qgk">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="199.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ppL-55-dS3" customClass="Tile">
@@ -1225,7 +1225,7 @@
                                 <rect key="frame" x="0.0" y="22" width="600" height="342"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Qdr-1e-yIo" id="gd6-QJ-YMf">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="342"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="341.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6qt-gm-3lc">
@@ -1284,11 +1284,11 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M4l-Bp-XsN">
-                                                    <rect key="frame" x="547" y="5" width="31" height="28"/>
+                                                    <rect key="frame" x="549" y="3" width="31" height="28"/>
                                                     <animations/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="28" id="huE-gc-IWM"/>
-                                                        <constraint firstAttribute="width" constant="31" id="v2a-oe-CmT"/>
+                                                        <constraint firstAttribute="height" constant="28" id="X5e-rc-oUE"/>
+                                                        <constraint firstAttribute="width" constant="31" id="arO-mo-z0y"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                                     <state key="normal">
@@ -1305,14 +1305,14 @@
                                             <constraints>
                                                 <constraint firstItem="ocR-iO-ogQ" firstAttribute="top" secondItem="ooU-aQ-r3j" secondAttribute="bottom" constant="1" id="BAB-dq-ZUw"/>
                                                 <constraint firstAttribute="trailing" secondItem="ocR-iO-ogQ" secondAttribute="trailing" constant="8" id="E6J-pL-oYV"/>
+                                                <constraint firstItem="M4l-Bp-XsN" firstAttribute="top" secondItem="6qt-gm-3lc" secondAttribute="top" constant="3" id="ExB-bc-IZd"/>
                                                 <constraint firstItem="ooU-aQ-r3j" firstAttribute="top" secondItem="6qt-gm-3lc" secondAttribute="top" id="FxM-vG-LHR"/>
-                                                <constraint firstAttribute="trailing" secondItem="M4l-Bp-XsN" secondAttribute="trailing" constant="6" id="KlD-4X-pfR"/>
                                                 <constraint firstAttribute="trailing" secondItem="ooU-aQ-r3j" secondAttribute="trailing" id="S7f-oX-RBl"/>
-                                                <constraint firstItem="M4l-Bp-XsN" firstAttribute="top" secondItem="6qt-gm-3lc" secondAttribute="top" constant="5" id="UPf-VI-OCu"/>
                                                 <constraint firstItem="rW2-B0-R3Q" firstAttribute="leading" secondItem="6qt-gm-3lc" secondAttribute="leading" constant="8" id="VRC-Xg-Xsg"/>
                                                 <constraint firstItem="ocR-iO-ogQ" firstAttribute="top" secondItem="ooU-aQ-r3j" secondAttribute="bottom" constant="1" id="Y1X-CJ-N99"/>
                                                 <constraint firstItem="ooU-aQ-r3j" firstAttribute="leading" secondItem="6qt-gm-3lc" secondAttribute="leading" id="ZWo-3z-eDa"/>
                                                 <constraint firstAttribute="bottom" secondItem="xqo-kX-jbi" secondAttribute="bottom" constant="1" id="eqB-5d-HaN"/>
+                                                <constraint firstAttribute="trailing" secondItem="M4l-Bp-XsN" secondAttribute="trailing" constant="4" id="frC-L0-JVz"/>
                                                 <constraint firstAttribute="height" constant="339" id="l0Z-0k-xSQ"/>
                                                 <constraint firstItem="ocR-iO-ogQ" firstAttribute="leading" secondItem="6qt-gm-3lc" secondAttribute="leading" constant="8" id="lot-3Z-7vc"/>
                                                 <constraint firstAttribute="trailing" secondItem="co6-jZ-lMh" secondAttribute="trailing" constant="8" id="mWa-ID-gbn"/>

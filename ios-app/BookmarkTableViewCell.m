@@ -27,9 +27,9 @@
 
     [self.removeButton setImage:[IonIcons imageWithIcon:ion_close_circled
                                                    size:20.0f
-                                                  color:[UIColor colorWithRed:255.0
-                                                                        green:0
-                                                                         blue:0
+                                                  color:[UIColor colorWithRed:1.0
+                                                                        green:1.0
+                                                                         blue:1.0
                                                                         alpha:0.6]]
                        forState:UIControlStateNormal];
 
