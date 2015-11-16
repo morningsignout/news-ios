@@ -39,13 +39,7 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     
     // Set up style and attributes
-    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
-    style.firstLineHeadIndent = 10.0;
-    style.headIndent = 10;
-    style.tailIndent = 0;
-    style.lineBreakMode = NSLineBreakByWordWrapping;
-    attributes = @{NSParagraphStyleAttributeName : style};
-    // Place activity indicator
+
     self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     [self.view addSubview:self.spinner];
     self.spinner.frame = CGRectMake(self.view.frame.size.width / 2, self.view.frame.size.height / 2, 30, 30);
@@ -121,16 +115,13 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     // Configure the cell...
     Post *post                          = [self.bookmarks objectAtIndex:indexPath.row];
     cell.titleLabel.text                = post.title;
-    cell.excerptLabel.text              = post.excerpt;
+    cell.categoryLabel.text             = post.category[1];
+    cell.dateLabel.text                 = post.date;
+    cell.authorLabel.text               = post.author.name;
     cell.imageView.image                = nil;
     cell.imageView.contentMode          = UIViewContentModeScaleAspectFill;
     cell.imageView.clipsToBounds        = YES;
-    NSAttributedString *title           = [[NSAttributedString alloc] initWithString:cell.titleLabel.text
-                                                                          attributes:attributes];
-    NSAttributedString *excerpt         = [[NSAttributedString alloc] initWithString:cell.excerptLabel.text
-                                                                          attributes:attributes];
-    cell.titleLabel.attributedText      = title;
-    cell.excerptLabel.attributedText    = excerpt;
+
     NSURLRequest *requestLeft = [NSURLRequest requestWithURL:[NSURL URLWithString:post.fullCoverImageURL]];
     [cell.imageView setImageWithURLRequest:requestLeft placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
         cell.imageView.image = image;
