@@ -148,28 +148,31 @@ static const CGFloat initialWebViewYOffset = 450;
     self.header.articleLabels.titleLabel.text = self.post.title;
     [self.header.articleLabels.titleLabel setTextColor:blue];
     
-    self.header.articleLabels.dateLabel.text = self.post.date;
-    [self.header.articleLabels.dateLabel setTextColor:blue];
-    
     self.header.articleLabels.categoriesLabel.text = [self.post.category componentsJoinedByString:@", "];
     [self.header.articleLabels.categoriesLabel setTextColor:[UIColor whiteColor]];
     [self.header.articleLabels.categoriesLabel setBackgroundColor:lighterblue];
     
-    self.header.articleLabels.tagsLabel.text = [self.post.tags componentsJoinedByString:@", "];
-    [self.header.articleLabels.tagsLabel setTextColor:blue];
+    self.header.articleLabels.authorLabel.text = [NSString stringWithFormat:@"%@ | %@", self.post.author.name, self.post.date];
+    [self.header.articleLabels.authorLabel setTextColor:blue];
+    
+//    self.header.articleLabels.dateLabel.text = self.post.date;
+//    [self.header.articleLabels.dateLabel setTextColor:blue];
+    
+//    self.header.articleLabels.tagsLabel.text = [self.post.tags componentsJoinedByString:@", "];
+//    [self.header.articleLabels.tagsLabel setTextColor:blue];
     
     // add underline to authorlabel text by making it a NSMutableAttributeString
-    NSString *author = self.post.author.name;
-    NSMutableAttributedString *uAuthor = [[NSMutableAttributedString alloc] initWithString:author];
-    
-    [uAuthor addAttributes:@{
-                             NSUnderlineColorAttributeName : blue,
-                             NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle | NSUnderlinePatternSolid),
-                             }
-                     range:NSMakeRange(0, uAuthor.length)];
-    
-    [self.header.articleLabels.authorLabel setAttributedText:uAuthor];
-    [self.header.articleLabels.authorLabel setTextColor:blue];
+//    NSString *author = self.post.author.name;
+//    NSMutableAttributedString *uAuthor = [[NSMutableAttributedString alloc] initWithString:author];
+//    
+//    [uAuthor addAttributes:@{
+//                             NSUnderlineColorAttributeName : blue,
+//                             NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle | NSUnderlinePatternSolid),
+//                             }
+//                     range:NSMakeRange(0, uAuthor.length)];
+//    
+//    [self.header.articleLabels.authorLabel setAttributedText:uAuthor];
+//    [self.header.articleLabels.authorLabel setTextColor:blue];
 }
 
 - (NSString *)setFontSize {
