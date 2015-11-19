@@ -38,13 +38,11 @@
     self.imageContainerView.layer.shadowPath = [[UIBezierPath bezierPathWithRect:self.imageView.bounds]CGPath ];
     // Set up image shadows
     self.imageView.layer.masksToBounds = NO;
-    self.imageView.layer.cornerRadius = 4;
     self.imageView.layer.shadowRadius = 1;
     self.imageView.layer.shadowOffset = CGSizeMake(0, 1);
     self.imageView.layer.shadowOpacity = 0.25;
     // Set up container
     self.imageContainerView.layer.masksToBounds = NO;
-    self.imageContainerView.layer.cornerRadius = 4;
     self.imageContainerView.layer.shadowRadius = 1;
     self.imageContainerView.layer.shadowOffset = CGSizeMake(0, 1);
     self.imageContainerView.layer.shadowOpacity = 0.25;
