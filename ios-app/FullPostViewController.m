@@ -18,6 +18,8 @@
 #include "AuthorViewController.h"
 #import "DataParser.h"
 #include "Comment.h"
+#include "MDDisqusComponent.h"
+//#import "IADisquser.h"
 
 static NSString * const header = @"<!-- Latest compiled and minified CSS --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"><!-- Optional theme --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css\"><!-- Latest compiled and minified JavaScript --><script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\"></script><!-- Yeon's CSS --><link rel=\"stylesheet\" href=\"http://morningsignout.com/wp-content/themes/mso/style.css?ver=4.3\"><meta charset=\"utf-8\"> \
     <style type=\"text/css\">.ssba {}.ssba img { width: 30px !important; padding: 0px; border:  0; box-shadow: none !important; display: inline !important; vertical-align: middle; } .ssba, .ssba a {text-decoration:none;border:0;background: none;font-family: Indie Flower;font-size: 20px;}</style><div style=\"padding:5px;background-color:white;box-shadow:none;\"></div>";
@@ -323,6 +325,45 @@ static const CGFloat initialWebViewYOffset = 450;
     for (Comment *comment in comments) {
         [comment print];
     }
+    
+    NSString *publicKey = @"CaEN4GfINnGs2clsprUxiFw1Uj2IGhtpAtRpGSOH7OenWsZN0HxaAqyE5vgu9aP2";
+    NSString *secretKey = @"IVGGJxysqN5GgoMRc0qHtBzUYiOw6Ma77hkWFTytB42kUicNSHyKrmcnsusxKNBH";
+    NSString *redirectURLString = @"http://moqod.com";
+    
+    MDDisqusComponent *disqusComponent = [[MDDisqusComponent alloc] initWithPublicKey:publicKey secretKey:secretKey redirectURL:[NSURL URLWithString:redirectURLString]];
+
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setValue:@"messgae" forKey:@"message"];
+    [params setValue:self.post.disqusThreadID forKey:@"thread"];
+    
+    [disqusComponent authRequestAPI:@"posts/create" params:params httpMethod:@"POST" handler:^(id response, NSError *error) {
+        NSString *message = error ? [error localizedDescription] : @"Your post has been successfully added. The API 'threads/listPosts' can return new posts with some delay, please, stand by!";
+        NSLog(@"%@", [error debugDescription]);
+        //UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:nil message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        //alertView.tag = error ? 0 : MDNewPostViewControllerSuccessAlertViewTag;
+        //[alertView show];
+    }];
+
+    
+    // post comment
+//    [IADisquser getThreadIdWithIdentifier:[NSString stringWithFormat:@"%@", self.post.disqusThreadID]  success:^(NSNumber *successBlock) {
+//        
+//    } fail:^(NSError *failBlock) {
+//    
+//    }];
+    
+//    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+//    f.numberStyle = NSNumberFormatterDecimalStyle;
+//    NSNumber *myNumber = [f numberFromString:self.post.disqusThreadID];
+//    
+//    IADisqusComment *comment = [[IADisqusComment alloc] initWithForum:@"morningsignout" AuthorName:@"name" AuthorAvatar:@"avatar" AuthorEmail:@"email" AuthorURL:@"url" RawMessage:@"message" HTMLMessage:@"message" Date:[NSDate date] Likes:[NSNumber numberWithInt:2] dislikes:[NSNumber numberWithInt:1] IPAddress:@"ip" ThreadID:myNumber];
+//    
+//    [IADisquser postComment:comment success:^{
+//    
+//    } fail:^(NSError *fail){
+//        NSLog(@"%@", fail.debugDescription);
+//    }];
+
 }
 
 - (void)tappedCoverImage:(UITapGestureRecognizer *)tap {
