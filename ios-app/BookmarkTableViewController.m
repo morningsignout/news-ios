@@ -39,6 +39,8 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     
+    self.view.backgroundColor = [UIColor kCollectionViewBackgroundColor];
+    
     // Set up style and attributes
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
     style.firstLineHeadIndent = 10.0;
