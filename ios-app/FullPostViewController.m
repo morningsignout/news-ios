@@ -5,7 +5,7 @@
 //  Created by Shannon Phu on 9/6/15.
 //  Copyright (c) 2015 Morning Sign Out Incorporated. All rights reserved.
 //
-
+#import "CommentsViewController.h"
 #import "FullPostViewController.h"
 #import "Post.h"
 #import "ExternalLinksWebViewController.h"
@@ -363,6 +363,13 @@ static const CGFloat initialWebViewYOffset = 450;
 //    } fail:^(NSError *fail){
 //        NSLog(@"%@", fail.debugDescription);
 //    }];
+    
+    
+    // View Comments View Controller
+    CommentsViewController *commentVC = [[CommentsViewController alloc] init];
+    //Modal
+    //[self presentViewController:commentVC animated:YES completion:nil];
+    [self.navigationController pushViewController:commentVC animated:NO];
 
 }
 

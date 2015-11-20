@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6B8E31A86FF101F5D2A9632F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 76DAA74E4EA736D8CF1DACF8 /* libPods.a */; };
+		75EDA0601BFF0D2F000B6C81 /* CommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EDA05F1BFF0D2F000B6C81 /* CommentsViewController.m */; };
 		CA239A6F1B9F660400BEDC5E /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = CA239A6C1B9F660400BEDC5E /* GTMNSString+HTML.m */; };
 		CA239A701B9F660400BEDC5E /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = CA239A6E1B9F660400BEDC5E /* NSString+HTML.m */; };
 		CA239A741B9FA9A400BEDC5E /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA239A731B9FA9A400BEDC5E /* SearchViewController.m */; };
@@ -74,6 +75,8 @@
 
 /* Begin PBXFileReference section */
 		2B5F6649C5844C474A10642E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		75EDA05E1BFF0D2F000B6C81 /* CommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsViewController.h; sourceTree = "<group>"; };
+		75EDA05F1BFF0D2F000B6C81 /* CommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsViewController.m; sourceTree = "<group>"; };
 		76DAA74E4EA736D8CF1DACF8 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A36EF58E1666F92886A37D13 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		CA239A6B1B9F660400BEDC5E /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
@@ -318,6 +321,8 @@
 				CA7F86DC1BA296E9002E16CA /* CategoryViewController.m */,
 				FB798E2B1BAD182C00F98139 /* CategoryDetailViewController.h */,
 				FB798E2C1BAD182C00F98139 /* CategoryDetailViewController.m */,
+				75EDA05E1BFF0D2F000B6C81 /* CommentsViewController.h */,
+				75EDA05F1BFF0D2F000B6C81 /* CommentsViewController.m */,
 				FBA9E9C71BB7A00F00049B79 /* SubscriptionViewController.h */,
 				FBA9E9C81BB7A00F00049B79 /* SubscriptionViewController.m */,
 				FBDA71D21BA7803800D68C4A /* AuthorViewController.h */,
@@ -609,6 +614,7 @@
 				FB714A421B94D1E500D68CB5 /* Post.m in Sources */,
 				FBEB3A751B9F8E4D00B57AAB /* FeatureCollectionViewController.m in Sources */,
 				FB714A1B1B94D16000D68CB5 /* AppDelegate.m in Sources */,
+				75EDA0601BFF0D2F000B6C81 /* CommentsViewController.m in Sources */,
 				FBAE94AD1BFC0D8B0030A32E /* IADisqusComment.m in Sources */,
 				FBAE94AE1BFC0D8B0030A32E /* IADisquser.m in Sources */,
 				FBEB3A781B9F8EDF00B57AAB /* TileCollectionViewCellA.m in Sources */,
