@@ -368,8 +368,13 @@ static const CGFloat initialWebViewYOffset = 450;
     // View Comments View Controller
     CommentsViewController *commentVC = [[CommentsViewController alloc] init];
     //Modal
-    //[self presentViewController:commentVC animated:YES completion:nil];
-    [self.navigationController pushViewController:commentVC animated:NO];
+    commentVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    commentVC.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    commentVC.modalTransitionStyle = UIModalPresentationOverFullScreen;
+    [self presentViewController:commentVC animated:YES completion:nil];
+    
+    
+    //[self.navigationController pushViewController:commentVC animated:NO];
 
 }
 

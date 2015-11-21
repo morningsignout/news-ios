@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CommentsViewController : UIViewController  <UITableViewDelegate, UITableViewDataSource>
+@interface CommentsViewController : UIViewController  
 
 @end
