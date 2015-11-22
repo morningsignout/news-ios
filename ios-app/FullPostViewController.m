@@ -328,40 +328,38 @@ static const CGFloat initialWebViewYOffset = 450;
     
     NSString *publicKey = @"CaEN4GfINnGs2clsprUxiFw1Uj2IGhtpAtRpGSOH7OenWsZN0HxaAqyE5vgu9aP2";
     NSString *secretKey = @"IVGGJxysqN5GgoMRc0qHtBzUYiOw6Ma77hkWFTytB42kUicNSHyKrmcnsusxKNBH";
-    NSString *redirectURLString = @"http://moqod.com";
+    NSString *accessToken = @"bcfa82449d3b48569efb1f9f69c23b81";
     
-    MDDisqusComponent *disqusComponent = [[MDDisqusComponent alloc] initWithPublicKey:publicKey secretKey:secretKey redirectURL:[NSURL URLWithString:redirectURLString]];
-
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    [params setValue:@"messgae" forKey:@"message"];
-    [params setValue:self.post.disqusThreadID forKey:@"thread"];
+    NSString *getCodeURL = [NSString stringWithFormat:@"https://disqus.com/api/oauth/2.0/authorize/?client_id=%@&scope=read,write&response_type=code&redirect_uri=http://www.morningsignout.com/", publicKey];
+    NSString *code = @"c68bbd5cbf894d8c91374a808365e3ab";
     
-    [disqusComponent authRequestAPI:@"posts/create" params:params httpMethod:@"POST" handler:^(id response, NSError *error) {
-        NSString *message = error ? [error localizedDescription] : @"Your post has been successfully added. The API 'threads/listPosts' can return new posts with some delay, please, stand by!";
-        NSLog(@"%@", [error debugDescription]);
-        //UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:nil message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        //alertView.tag = error ? 0 : MDNewPostViewControllerSuccessAlertViewTag;
-        //[alertView show];
+    AFHTTPRequestOperation *requestOperation=[[AFHTTPRequestOperation alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:getCodeURL]]];
+    [requestOperation setRedirectResponseBlock:^NSURLRequest *(NSURLConnection *connection, NSURLRequest *request, NSURLResponse *redirectResponse) {
+        if (redirectResponse) {
+            //this is the redirected url
+            NSLog(@"%@",request.URL);
+        } else {
+            NSLog(@"%@", connection.debugDescription);
+            NSLog(@"%@", request.debugDescription);
+            NSLog(@"%@", redirectResponse.description);
+        }
+        return request;
     }];
-
+    [requestOperation start];
     
-    // post comment
-//    [IADisquser getThreadIdWithIdentifier:[NSString stringWithFormat:@"%@", self.post.disqusThreadID]  success:^(NSNumber *successBlock) {
-//        
-//    } fail:^(NSError *failBlock) {
-//    
-//    }];
     
-//    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
-//    f.numberStyle = NSNumberFormatterDecimalStyle;
-//    NSNumber *myNumber = [f numberFromString:self.post.disqusThreadID];
+//    Functional code posting through Shannon's account
+//
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
 //    
-//    IADisqusComment *comment = [[IADisqusComment alloc] initWithForum:@"morningsignout" AuthorName:@"name" AuthorAvatar:@"avatar" AuthorEmail:@"email" AuthorURL:@"url" RawMessage:@"message" HTMLMessage:@"message" Date:[NSDate date] Likes:[NSNumber numberWithInt:2] dislikes:[NSNumber numberWithInt:1] IPAddress:@"ip" ThreadID:myNumber];
-//    
-//    [IADisquser postComment:comment success:^{
-//    
-//    } fail:^(NSError *fail){
-//        NSLog(@"%@", fail.debugDescription);
+//    NSDictionary *params = @{@"api_key": publicKey,
+//                             @"access_token": accessToken,
+//                             @"thread": [NSString stringWithFormat:@"%@", self.post.disqusThreadID],
+//                             @"message": @"msg" };
+//    [manager POST:@"https://disqus.com/api/3.0/posts/create.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        NSLog(@"JSON: %@", responseObject);
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        NSLog(@"Error: %@", error);
 //    }];
     
     
