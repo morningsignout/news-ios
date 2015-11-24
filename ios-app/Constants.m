@@ -41,7 +41,7 @@
 }
 
 // Full Post Colors
-+ (UIColor*) kFullMainTextColor {
++ (UIColor*) kFullPostMainTextColor {
     return  [UIColor colorWithRed:0.11 green:0.38 blue:0.541 alpha:1];
 }
 
