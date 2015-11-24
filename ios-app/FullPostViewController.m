@@ -17,7 +17,7 @@
 #import "Constants.h"
 #import "PostHeaderInfo.h"
 #include "AuthorViewController.h"
-
+#include <IonIcons.h>
 
 static NSString * const header = @"<!-- Latest compiled and minified CSS --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"><!-- Optional theme --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css\"><!-- Latest compiled and minified JavaScript --><script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\"></script><!-- Yeon's CSS --><link rel=\"stylesheet\" href=\"http://morningsignout.com/wp-content/themes/mso/style.css?ver=4.3\"><meta charset=\"utf-8\"> \
     <style type=\"text/css\">.ssba {}.ssba img { width: 30px !important; padding: 0px; border:  0; box-shadow: none !important; display: inline !important; vertical-align: middle; } .ssba, .ssba a {text-decoration:none;border:0;background: none;font-family: Indie Flower;font-size: 20px;}</style><div style=\"padding:5px;background-color:white;box-shadow:none;\"></div>";
@@ -26,8 +26,7 @@ static const CGFloat initialWebViewYOffset = 450;
 
 @interface FullPostViewController () <UIWebViewDelegate, UIScrollViewDelegate> {
     NSString *fontSizeStyle;
-    float mainFontSize;
-    float captionFontSize;
+    int fontLevel;
     bool scrolled, loaded;
 }
 
@@ -63,13 +62,11 @@ static const CGFloat initialWebViewYOffset = 450;
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Font"];
     self.font = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     if (self.font.firstObject) {
-        NSNumber *numberFormatFloat = [self.font.firstObject valueForKey:@"mainSize"];
-        mainFontSize = [numberFormatFloat floatValue];
-        numberFormatFloat = [self.font.firstObject valueForKey:@"captionSize"];
-        captionFontSize = [numberFormatFloat floatValue];
+        NSNumber *lev = [self.font.firstObject valueForKey:@"fontLevel"];
+        fontLevel = [lev intValue];
+        
     } else {
-        mainFontSize = 1.5;
-        captionFontSize = 1.2;
+        fontLevel = 1;
     }
     
     [self setUpLabels];
@@ -107,10 +104,9 @@ static const CGFloat initialWebViewYOffset = 450;
     
     UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(share)];
     UIBarButtonItem *bookmarkItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(bookmarkPost)];
-    UIBarButtonItem *fontIncItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(increaseFontSize)];
-    UIBarButtonItem *fontDecItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:@selector(decreaseFontSize)];
+    UIBarButtonItem *fontItem = [[UIBarButtonItem alloc] initWithImage:[IonIcons imageWithIcon:ion_alert size:25.0f color:[UIColor whiteColor]] style:UIBarButtonItemStylePlain target:self action:@selector(changeFont)];
     
-    NSArray *actionButtonItems = @[shareItem, bookmarkItem, fontIncItem, fontDecItem];
+    NSArray *actionButtonItems = @[shareItem, bookmarkItem, fontItem];
     self.navigationItem.rightBarButtonItems = actionButtonItems;
 }
 
@@ -175,6 +171,8 @@ static const CGFloat initialWebViewYOffset = 450;
 }
 
 - (NSString *)setFontSize {
+    float mainFontSize = [self getMainFontFromLevel:fontLevel];
+    float captionFontSize = [self getCaptionFontFromLevel:fontLevel];
     fontSizeStyle = [NSString stringWithFormat:@"<script> \
                      var all = document.getElementsByTagName(\"p\"); \
                      for (var i = 0; i < all.length; i++) { \
@@ -227,16 +225,45 @@ static const CGFloat initialWebViewYOffset = 450;
     return YES;
 }
 
-- (void)increaseFontSize {
-    mainFontSize += 0.1;
-    captionFontSize += 0.05;
+- (void)changeFont {
+    if (fontLevel == 3) {
+        fontLevel = 1;
+    } else {
+        ++fontLevel;
+    }
+    
+    [self storeFontSize];
     [self reflectFontChangesOnHTML];
 }
 
-- (void)decreaseFontSize {
-    mainFontSize -= 0.1;
-    captionFontSize -= 0.05;
-    [self reflectFontChangesOnHTML];
+- (float)getMainFontFromLevel:(int)level {
+    switch (level) {
+        case 1:
+            return 1.5;
+            break;
+        case 2:
+            return 1.7;
+            break;
+        case 3:
+            return 1.9;
+            break;
+    }
+    return 1.7;
+}
+
+- (float)getCaptionFontFromLevel:(int)level {
+    switch (level) {
+        case 1:
+            return 1.2;
+            break;
+        case 2:
+            return 1.25;
+            break;
+        case 3:
+            return 1.3;
+            break;
+    }
+    return 1.25;
 }
 
 - (void)share
@@ -263,8 +290,6 @@ static const CGFloat initialWebViewYOffset = 450;
 }
 
 - (void)reflectFontChangesOnHTML {
-    [self storeFontSize];
-    
     NSString *alteredHTML = [self.html stringByAppendingString:[self setFontSize]];
     [self.webView loadHTMLString:alteredHTML baseURL:nil];
 }
@@ -275,14 +300,12 @@ static const CGFloat initialWebViewYOffset = 450;
     
     if (savedFont) {
         // Update existing device
-        [savedFont setValue:[NSNumber numberWithFloat:mainFontSize] forKey:@"mainSize"];
-        [savedFont setValue:[NSNumber numberWithFloat:captionFontSize] forKey:@"captionSize"];
+        [savedFont setValue:[NSNumber numberWithFloat:fontLevel] forKey:@"fontLevel"];
         
     } else {
         // Create a new managed object
         NSManagedObject *newFont = [NSEntityDescription insertNewObjectForEntityForName:@"Font" inManagedObjectContext:context];
-        [newFont setValue:[NSNumber numberWithFloat:mainFontSize] forKey:@"mainSize"];
-        [newFont setValue:[NSNumber numberWithFloat:captionFontSize] forKey:@"captionSize"];
+        [newFont setValue:[NSNumber numberWithFloat:fontLevel] forKey:@"fontLevel"];
     }
     
     NSError *error = nil;
