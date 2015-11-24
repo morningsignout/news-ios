@@ -41,28 +41,20 @@
 }
 
 // Full Post Colors
-+ (UIColor*) kFullPostTitleTextColor {
-    return  nil;
-}
-
-+ (UIColor*) kFullPostAuthorTextColor {
-    return  nil;
-}
-
-+ (UIColor*) kFullPostDateTextColor {
-    return  nil;
++ (UIColor*) kFullMainTextColor {
+    return  [UIColor colorWithRed:0.11 green:0.38 blue:0.541 alpha:1];
 }
 
 + (UIColor*) kFullPostCategoryTextColor {
-    return  nil;
+    return  [UIColor whiteColor];
 }
 
-+ (UIColor*) kFullPostTagTextColor {
-    return  nil;
++ (UIColor*) kFullPostCategoryBackgroundColor {
+    return [UIColor colorWithRed:0.388 green:0.698 blue:0.898 alpha:1];
 }
 
 + (UIColor*) kFullPostInfoBackgroundColor {
-    return  nil;
+    return  [UIColor colorWithRed:1 green:1 blue:1 alpha:0.75];
 }
 
 // Category Colors

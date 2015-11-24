@@ -28,11 +28,9 @@
 + (UIColor*) kBottomSpinnerBackgroundColor;
 
 // Full Post Colors
-+ (UIColor*) kFullPostTitleTextColor;
-+ (UIColor*) kFullPostAuthorTextColor;
-+ (UIColor*) kFullPostDateTextColor;
++ (UIColor*) kFullPostMainTextColor;
 + (UIColor*) kFullPostCategoryTextColor;
-+ (UIColor*) kFullPostTagTextColor;
++ (UIColor*) kFullPostCategoryBackgroundColor;
 + (UIColor*) kFullPostInfoBackgroundColor;
 
 // Category Colors
