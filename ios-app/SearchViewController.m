@@ -11,6 +11,7 @@
 #import "DataParser.h"
 #import "Post.h"
 #import "DropdownNavigationController.h"
+#include "Constants.h"
 
 @interface SearchViewController () <UISearchBarDelegate, UISearchResultsUpdating, UISearchControllerDelegate>
 
@@ -34,9 +35,6 @@
     self.end = false;
     self.flush = 0;
     
-//    _all = nil;
-//    _tags = nil;
-//    _current = nil;
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -50,7 +48,7 @@
     self.searchController.delegate = self;
     self.searchController.searchBar.delegate = self;
     [self.searchController.searchBar sizeToFit];
-    //self.searchController.searchBar.frame = CGRectMake(0, marginFromTop, self.view.bounds.size.width, self.searchController.searchBar.bounds.size.height);
+    self.searchController.searchBar.barTintColor = [UIColor kTileTitleBackgroundColor];
     self.definesPresentationContext = YES;
     
     // Set up search segmented control

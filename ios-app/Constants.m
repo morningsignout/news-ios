@@ -80,11 +80,6 @@
 
 @implementation UIFont (Extensions)
 
-// Nav Bar Font
-+ (UIFont *) kNavFont {
-    return nil;
-}
-
 @end
 
 // Nav Bar Styles
