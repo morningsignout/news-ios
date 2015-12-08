@@ -21,7 +21,8 @@
                 Category:(NSArray *)category
                     Tags:(NSArray *)tags
      ThumbnailCoverImage:(NSString *)thumbnailURL
-          FullCoverImage:(NSString *)fullURL {
+          FullCoverImage:(NSString *)fullURL
+          DisqusThreadID:(NSString *)disqusID {
     
     if(self = [super init]) {
         _ID = ID;
@@ -35,6 +36,7 @@
         _tags = tags;
         _thumbnailCoverImageURL = thumbnailURL;
         _fullCoverImageURL = fullURL;
+        _disqusThreadID = disqusID;
     }
     return self;
 }
@@ -58,6 +60,7 @@
     
     NSLog(@"Thumbnail Cover Image URL: %@", self.thumbnailCoverImageURL);
     NSLog(@"Full Cover Image URL: %@", self.fullCoverImageURL);
+    NSLog(@"Disqus Thread ID: %@", self.disqusThreadID);
 }
 
 

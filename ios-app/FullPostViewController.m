@@ -5,7 +5,7 @@
 //  Created by Shannon Phu on 9/6/15.
 //  Copyright (c) 2015 Morning Sign Out Incorporated. All rights reserved.
 //
-
+#import "CommentsViewController.h"
 #import "FullPostViewController.h"
 #import "Post.h"
 #import "ExternalLinksWebViewController.h"
@@ -18,6 +18,10 @@
 #import "PostHeaderInfo.h"
 #include "AuthorViewController.h"
 #include <IonIcons.h>
+#import "DataParser.h"
+#include "Comment.h"
+#include "MDDisqusComponent.h"
+//#import "IADisquser.h"
 
 static NSString * const header = @"<!-- Latest compiled and minified CSS --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"><!-- Optional theme --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css\"><!-- Latest compiled and minified JavaScript --><script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\"></script><!-- Yeon's CSS --><link rel=\"stylesheet\" href=\"http://morningsignout.com/wp-content/themes/mso/style.css?ver=4.3\"><meta charset=\"utf-8\"> \
     <style type=\"text/css\">.ssba {}.ssba img { width: 30px !important; padding: 0px; border:  0; box-shadow: none !important; display: inline !important; vertical-align: middle; } .ssba, .ssba a {text-decoration:none;border:0;background: none;font-family: Indie Flower;font-size: 20px;}</style><div style=\"padding:5px;background-color:white;box-shadow:none;\"></div>";
@@ -105,8 +109,10 @@ static const CGFloat initialWebViewYOffset = 450;
     UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(share)];
     UIBarButtonItem *bookmarkItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(bookmarkPost)];
     UIBarButtonItem *fontItem = [[UIBarButtonItem alloc] initWithImage:[IonIcons imageWithIcon:ion_alert size:25.0f color:[UIColor whiteColor]] style:UIBarButtonItemStylePlain target:self action:@selector(changeFont)];
+    UIBarButtonItem *commentItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(loadComments)];
     
-    NSArray *actionButtonItems = @[shareItem, bookmarkItem, fontItem];
+    NSArray *actionButtonItems = @[shareItem, bookmarkItem, commentItem];
+
     self.navigationItem.rightBarButtonItems = actionButtonItems;
 }
 
@@ -338,6 +344,63 @@ static const CGFloat initialWebViewYOffset = 450;
     if (![managedObjectContext save:&error]) {
         NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
     }
+}
+
+
+- (void)loadComments {
+    NSArray *comments = [DataParser DataForCommentsWithThreadID:self.post.disqusThreadID];
+    for (Comment *comment in comments) {
+        [comment print];
+    }
+    
+    NSString *publicKey = @"CaEN4GfINnGs2clsprUxiFw1Uj2IGhtpAtRpGSOH7OenWsZN0HxaAqyE5vgu9aP2";
+    NSString *secretKey = @"IVGGJxysqN5GgoMRc0qHtBzUYiOw6Ma77hkWFTytB42kUicNSHyKrmcnsusxKNBH";
+    NSString *accessToken = @"bcfa82449d3b48569efb1f9f69c23b81";
+    
+    NSString *getCodeURL = [NSString stringWithFormat:@"https://disqus.com/api/oauth/2.0/authorize/?client_id=%@&scope=read,write&response_type=code&redirect_uri=http://www.morningsignout.com/", publicKey];
+    NSString *code = @"c68bbd5cbf894d8c91374a808365e3ab";
+    
+    AFHTTPRequestOperation *requestOperation=[[AFHTTPRequestOperation alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:getCodeURL]]];
+    [requestOperation setRedirectResponseBlock:^NSURLRequest *(NSURLConnection *connection, NSURLRequest *request, NSURLResponse *redirectResponse) {
+        if (redirectResponse) {
+            //this is the redirected url
+            NSLog(@"%@",request.URL);
+        } else {
+            NSLog(@"%@", connection.debugDescription);
+            NSLog(@"%@", request.debugDescription);
+            NSLog(@"%@", redirectResponse.description);
+        }
+        return request;
+    }];
+    [requestOperation start];
+    
+    
+//    Functional code posting through Shannon's account
+//
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    
+//    NSDictionary *params = @{@"api_key": publicKey,
+//                             @"access_token": accessToken,
+//                             @"thread": [NSString stringWithFormat:@"%@", self.post.disqusThreadID],
+//                             @"message": @"msg" };
+//    [manager POST:@"https://disqus.com/api/3.0/posts/create.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        NSLog(@"JSON: %@", responseObject);
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        NSLog(@"Error: %@", error);
+//    }];
+    
+    
+    // View Comments View Controller
+    CommentsViewController *commentVC = [[CommentsViewController alloc] init];
+    //Modal
+    commentVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    commentVC.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    commentVC.modalTransitionStyle = UIModalPresentationOverFullScreen;
+    [self presentViewController:commentVC animated:YES completion:nil];
+    
+    
+    //[self.navigationController pushViewController:commentVC animated:NO];
+
 }
 
 - (void)tappedCoverImage:(UITapGestureRecognizer *)tap {

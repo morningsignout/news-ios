@@ -10,6 +10,7 @@
 #import "URLParser.h"
 #import "NSString+HTML.h"
 #import <AFNetworking.h>
+#import "Comment.h"
 
 AFHTTPRequestOperationManager *manager;
 NSDateFormatter *stringToDateFormatter;
@@ -30,9 +31,15 @@ NSDateFormatter *dateToStringFormatter;
 
 //Returns a dictionary parsed from the JSON returned
 //after sending an api call
-+(NSDictionary*)parseDataFromURL:(NSString *)url{
++ (NSDictionary*)parseDataFromURL:(NSString *)url WithCountLimit:(BOOL)countLimit {
     // Always return 28 post objects!
-    NSString *URLWithCount = [URLParser URLForQuery:url WithCountLimit:28];
+    NSString *URLWithCount;
+    
+    if (countLimit) {
+        URLWithCount = [URLParser URLForQuery:url WithCountLimit:28];
+    } else {
+        URLWithCount = url;
+    }
     
     __block NSDictionary * data = [[NSDictionary alloc]init];
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
@@ -41,7 +48,7 @@ NSDateFormatter *dateToStringFormatter;
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
             data = (NSDictionary *)responseObject;
-             //NSLog(@"%@",data);
+             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"dataLoaded" object:nil];
             dispatch_semaphore_signal(semaphore);
              
@@ -54,7 +61,7 @@ NSDateFormatter *dateToStringFormatter;
 }
 
 + (NSDictionary *)parseDataFromURL:(NSString *)url WithPageNumber:(int)page {
-    NSDictionary *data = [self parseDataFromURL:[URLParser URLForQuery:url WithPageNumber:page]];
+    NSDictionary *data = [self parseDataFromURL:[URLParser URLForQuery:url WithPageNumber:page] WithCountLimit:YES];
     return data;
 }
 
@@ -130,9 +137,10 @@ NSDateFormatter *dateToStringFormatter;
     if (thumbnailImageURL == (id)[NSNull null] || title.length == 0 )
         thumbnailImageURL = fullImageURL;
     
+    NSString *disqusThreadID = [[[parseData valueForKey:@"custom_fields"] valueForKey:@"dsq_thread_id"] firstObject];
     
     // Create a post with data
-    Post *post = [[Post alloc] initWith:postid Title:title Author:author Body:content URL:postUrl Excerpt:excerpt Date:date Category:category Tags:tags ThumbnailCoverImage:thumbnailImageURL FullCoverImage:fullImageURL];
+    Post *post = [[Post alloc] initWith:postid Title:title Author:author Body:content URL:postUrl Excerpt:excerpt Date:date Category:category Tags:tags ThumbnailCoverImage:thumbnailImageURL FullCoverImage:fullImageURL DisqusThreadID:disqusThreadID];
     
     return post;
  
@@ -155,7 +163,7 @@ NSDateFormatter *dateToStringFormatter;
 // Returns one Post searched by its Post ID
 + (Post *)DataForPostID:(int)ID{
     NSString *url = [URLParser URLForPostID:ID];
-    NSDictionary* parseData = [self parseDataFromURL:url];
+    NSDictionary* parseData = [self parseDataFromURL:url WithCountLimit:YES];
     
     return [self parsePostFromDictionary:[parseData valueForKey:@"post"]];
 }
@@ -163,7 +171,7 @@ NSDateFormatter *dateToStringFormatter;
 // Returns an array of Posts by a given author
 + (NSArray *)DataForAuthorInfoAndPostsWithAuthorID:(int)ID{
     NSString *url = [URLParser URLForAuthorInfoAndPostsWithAuthorID:ID];
-    NSDictionary* parseData = [self parseDataFromURL:url];
+    NSDictionary* parseData = [self parseDataFromURL:url WithCountLimit:YES];
     
     return [self parsePostsFromDictionaries:parseData];
 }
@@ -171,7 +179,7 @@ NSDateFormatter *dateToStringFormatter;
 // Returns an array of Posts filtered by tag
 + (NSArray *)DataForPostWithTag:(NSString *)tagSlug AndPageNumber:(int)page {
     NSString *url = [URLParser URLForQuery:[URLParser URLForPostWithTag:tagSlug] WithPageNumber:page];
-    NSDictionary* parseData = [self parseDataFromURL:url];
+    NSDictionary* parseData = [self parseDataFromURL:url WithCountLimit:YES];
     
     return [self parsePostsFromDictionaries:parseData];
 }
@@ -179,7 +187,7 @@ NSDateFormatter *dateToStringFormatter;
 // Returns an array of Posts filtered by category
 + (NSArray *)DataForCategory:(NSString *)categorySlug AndPageNumber:(int)page {
     NSString *url = [URLParser URLForQuery:[URLParser URLForCategory:categorySlug] WithPageNumber:page];
-    NSDictionary* parseData = [self parseDataFromURL:url];
+    NSDictionary* parseData = [self parseDataFromURL:url WithCountLimit:YES];
     
     return [self parsePostsFromDictionaries:parseData];
 }
@@ -190,7 +198,7 @@ NSDateFormatter *dateToStringFormatter;
 // Returns an array of Posts
 + (NSArray *)DataForIndexPosts{  //checked
     NSString *url = [URLParser URLForIndexPosts];
-    NSDictionary *parseData = [self parseDataFromURL:url];
+    NSDictionary *parseData = [self parseDataFromURL:url WithCountLimit:YES];
     
     return [self parsePostsFromDictionaries:parseData];
 }
@@ -198,7 +206,7 @@ NSDateFormatter *dateToStringFormatter;
 // Returns an array of Posts sorted by recent
 + (NSArray *)DataForRecentPostsWithPageNumber:(int)page {
     NSString *url = [URLParser URLForQuery:[URLParser URLForRecentPosts] WithPageNumber:page];
-    NSDictionary *parseData = [self parseDataFromURL:url];
+    NSDictionary *parseData = [self parseDataFromURL:url WithCountLimit:YES];
     
     return [self parsePostsFromDictionaries:parseData];
 }
@@ -206,7 +214,7 @@ NSDateFormatter *dateToStringFormatter;
 // Returns an array of Posts sorted by featured
 + (NSArray *)DataForFeaturedPostsWithPageNumber:(int)page {
     NSString *url = [URLParser URLForQuery:[URLParser URLForFeaturedPosts] WithPageNumber:page];
-    NSDictionary *parseData = [self parseDataFromURL:url];
+    NSDictionary *parseData = [self parseDataFromURL:url WithCountLimit:YES];
     
     return [self parsePostsFromDictionaries:parseData];
 }
@@ -214,7 +222,7 @@ NSDateFormatter *dateToStringFormatter;
 // Returns an array of Authors
 + (NSArray *)DataForAllAuthors{    //checked
     NSString *url = [URLParser URLForAllAuthors];
-    NSDictionary *parseData = [self parseDataFromURL:url];
+    NSDictionary *parseData = [self parseDataFromURL:url WithCountLimit:YES];
 
     return [self parseAuthorsFromDictionaries:parseData];
 }
@@ -224,7 +232,7 @@ NSDateFormatter *dateToStringFormatter;
 // Returns an array of posts from a given year
 + (NSArray *)DataForPostsInYear:(int)year AndInPage:(int)page {
     NSString *url = [URLParser URLForQuery:[URLParser URLForPostsInYear:year] WithPageNumber:page];
-    NSDictionary *parseData = [self parseDataFromURL:url];
+    NSDictionary *parseData = [self parseDataFromURL:url WithCountLimit:YES];
     
     return [self parsePostsFromDictionaries:parseData];
 }
@@ -232,7 +240,7 @@ NSDateFormatter *dateToStringFormatter;
 // Returns an array of posts from a given month and year
 + (NSArray *)DataForPostsInMonth:(int)month Year:(int)year AndPage:(int)page {
     NSString *url = [URLParser URLForQuery:[URLParser URLForPostsInMonth:month andYear:year] WithPageNumber:page];
-    NSDictionary *parseData = [self parseDataFromURL:url];
+    NSDictionary *parseData = [self parseDataFromURL:url WithCountLimit:YES];
     
     return [self parsePostsFromDictionaries:parseData];
 }
@@ -243,7 +251,7 @@ NSDateFormatter *dateToStringFormatter;
 // Returns an array of String names of the categories
 + (NSArray *)DataForCategories{  //checked
     NSString *url = [URLParser URLForCategories];
-    NSDictionary *parseData = [self parseDataFromURL:url];
+    NSDictionary *parseData = [self parseDataFromURL:url WithCountLimit:YES];
     NSArray * data = [parseData valueForKey:@"categories"];
     NSMutableArray * titles = [[NSMutableArray alloc] init];
     int dataCount = (int)[data count];
@@ -257,7 +265,7 @@ NSDateFormatter *dateToStringFormatter;
 // Returns an array of posts
 + (NSArray *)DataForIndexNavigation {  // returns key "pages" instead of posts
     NSString *url = [URLParser URLForIndexNavigation];
-    NSDictionary *parseData = [self parseDataFromURL:url];
+    NSDictionary *parseData = [self parseDataFromURL:url WithCountLimit:YES];
     
     return [self parsePostsFromDictionaries:parseData];
 }
@@ -268,7 +276,7 @@ NSDateFormatter *dateToStringFormatter;
         return nil;
     }
     NSString *url = [URLParser URLForQuery:[URLParser URLForSearchTerm:query] WithPageNumber:page];
-    NSDictionary *parseData = [self parseDataFromURL:url];
+    NSDictionary *parseData = [self parseDataFromURL:url WithCountLimit:YES];
     
     return [self parsePostsFromDictionaries:parseData];
 }
@@ -279,9 +287,26 @@ NSDateFormatter *dateToStringFormatter;
     }
     NSString *url = [URLParser URLForQuery:[URLParser URLForSearchTerm:query] WithPageNumber:page];
     url = [URLParser URLForQuery:url WithCountLimit:count];
-    NSDictionary *parseData = [self parseDataFromURL:url];
+    NSDictionary *parseData = [self parseDataFromURL:url WithCountLimit:YES];
     
     return [self parsePostsFromDictionaries:parseData];
+}
+
++ (NSArray *)DataForCommentsWithThreadID:(NSString *)threadID {
+    NSDictionary *commentDict = [self parseDataFromURL:[URLParser URLForDisqusThreadWithThreadID:threadID] WithCountLimit:NO];
+    NSArray *responses = [commentDict valueForKey:@"response"];
+    NSMutableArray *parsedComments = [NSMutableArray array];
+    
+    for (id element in responses) {
+        NSString *sender = [[element valueForKey:@"author"] valueForKey:@"name"];
+        NSString *msg = [element valueForKey:@"raw_message"];
+        NSString *date = [element valueForKey:@"createdAt"];
+        
+        Comment *comment = [[Comment alloc] initWithName:sender Message:msg AndDate:date];
+        [parsedComments addObject:comment];
+    }
+    
+    return parsedComments;
 }
 
 @end

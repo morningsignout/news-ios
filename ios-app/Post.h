@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Author.h"
+@class Comment;
 
 @interface Post : NSObject
 
@@ -27,6 +28,7 @@
 @property (strong, nonatomic) NSString *thumbnailCoverImageURL;
 @property (strong, nonatomic) NSString *fullCoverImageURL;
 
+@property (strong, nonatomic) NSString *disqusThreadID;
 
 - (instancetype)initWith:(int)ID
                    Title:(NSString *)title
@@ -38,7 +40,8 @@
                 Category:(NSArray *)category
                     Tags:(NSArray *)tags
      ThumbnailCoverImage:(NSString *)thumbnailURL
-          FullCoverImage:(NSString *)fullURL;
+          FullCoverImage:(NSString *)fullURL
+          DisqusThreadID:(NSString *)disqusID;
 
 - (void)printInfo;
 

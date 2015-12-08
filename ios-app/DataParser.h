@@ -40,5 +40,6 @@
 + (NSArray *)DataForSearchTerm:(NSString *)query InPage:(int)page;
 + (NSArray *)DataForSearchTerm:(NSString *)query InPage:(int)page WithCount:(int)count;
 
++ (NSArray *)DataForCommentsWithThreadID:(NSString *)threadID;
 
 @end
