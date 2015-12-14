@@ -84,14 +84,15 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
         
         reusableView.title.text = self.topFeatured.title;
         reusableView.excerpt.text = self.topFeatured.excerpt;
-
+        reusableView.excerpt.backgroundColor = [UIColor kTileTitleBackgroundColor];
+        reusableView.title.backgroundColor = [UIColor kTileTitleBackgroundColor];
         
         NSURLRequest *requestLeft = [NSURLRequest requestWithURL:[NSURL URLWithString:self.topFeatured.fullCoverImageURL]];
         [reusableView.imageView setImageWithURLRequest:requestLeft placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
             reusableView.imageView.image = image;
         } failure:nil];
         
-        reusableView.backgroundColor = [UIColor clearColor];
+        //reusableView.backgroundColor = [UIColor clearColor];
         
         return reusableView;
     }
