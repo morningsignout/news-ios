@@ -153,25 +153,6 @@ static const CGFloat initialWebViewYOffset = 450;
     
     self.header.articleLabels.authorLabel.text = [NSString stringWithFormat:@"%@ | %@", self.post.author.name, self.post.date];
     [self.header.articleLabels.authorLabel setTextColor:[UIColor kFullPostMainTextColor]];
-    
-//    self.header.articleLabels.dateLabel.text = self.post.date;
-//    [self.header.articleLabels.dateLabel setTextColor:blue];
-    
-//    self.header.articleLabels.tagsLabel.text = [self.post.tags componentsJoinedByString:@", "];
-//    [self.header.articleLabels.tagsLabel setTextColor:blue];
-    
-    // add underline to authorlabel text by making it a NSMutableAttributeString
-//    NSString *author = self.post.author.name;
-//    NSMutableAttributedString *uAuthor = [[NSMutableAttributedString alloc] initWithString:author];
-//    
-//    [uAuthor addAttributes:@{
-//                             NSUnderlineColorAttributeName : blue,
-//                             NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle | NSUnderlinePatternSolid),
-//                             }
-//                     range:NSMakeRange(0, uAuthor.length)];
-//    
-//    [self.header.articleLabels.authorLabel setAttributedText:uAuthor];
-//    [self.header.articleLabels.authorLabel setTextColor:blue];
 }
 
 - (NSString *)setFontSize {

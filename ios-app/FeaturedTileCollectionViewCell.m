@@ -23,13 +23,11 @@
     CGSize contentSize = self.contentView.bounds.size;
     self.title.frame = CGRectMake(0, contentSize.height - self.excerptHeight - self.titleHeight, contentSize.width, self.titleHeight);
     self.title.backgroundColor = [UIColor clearColor];
-
     
     self.excerpt = [[UITextView alloc] initWithFrame:CGRectMake(0, contentSize.height - self.excerptHeight, contentSize.width, self.excerptHeight)];
-    self.excerpt.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    //self.excerpt.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.excerpt.textContainerInset = UIEdgeInsetsMake(10, 0, 10, 0);
     self.excerpt.textAlignment = NSTextAlignmentCenter;
-    //self.excerpt.backgroundColor = [UIColor kTileTitleBackgroundColor];
     [self.excerpt setFont:[UIFont systemFontOfSize:13]];
 }
 
