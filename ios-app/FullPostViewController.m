@@ -28,7 +28,6 @@ static const CGFloat initialWebViewYOffset = 450;
 
 NSString *publicKey = @"CaEN4GfINnGs2clsprUxiFw1Uj2IGhtpAtRpGSOH7OenWsZN0HxaAqyE5vgu9aP2";
 NSString *secretKey = @"IVGGJxysqN5GgoMRc0qHtBzUYiOw6Ma77hkWFTytB42kUicNSHyKrmcnsusxKNBH";
-//NSString *accessToken = @"bcfa82449d3b48569efb1f9f69c23b81"; // Shannon's access token
 NSString *redirectURL = @"http://morningsignout.com";
 
 @interface FullPostViewController () <UIWebViewDelegate, UIScrollViewDelegate> {
@@ -41,6 +40,7 @@ NSString *redirectURL = @"http://morningsignout.com";
 }
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (strong, nonatomic) UIWebView *commentWebView;
 @property (strong, nonatomic) NSString *html;
 @property (strong, nonatomic) NSArray *font;
 @property (weak, nonatomic) IBOutlet PostHeaderInfo *header;
@@ -335,6 +335,7 @@ NSString *redirectURL = @"http://morningsignout.com";
     
     // View Comments View Controller
     CommentsViewController *commentVC = [[CommentsViewController alloc] init];
+    
     //Modal
     commentVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     commentVC.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
@@ -349,13 +350,7 @@ NSString *redirectURL = @"http://morningsignout.com";
 - (void)getCommentCode {
     NSString *getCodeURL = [NSString stringWithFormat:@"https://disqus.com/api/oauth/2.0/authorize/?client_id=%@&response_type=code&state=TEST&redirect_uri=%@&duration=permanent&scope=read", publicKey, redirectURL];
     
-    UIWebView *webView = [[UIWebView alloc] init];
-    webView.frame = CGRectMake(0, 100, self.view.frame.size.width, self.view.frame.size.height);
-    [self.view addSubview:webView];
-    [self.view bringSubviewToFront:webView];
-    webView.delegate = self;
-    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:getCodeURL]]];
-
+    [self.commentWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:getCodeURL]]];
 }
 
 - (void)getAccessToken {
@@ -367,7 +362,6 @@ NSString *redirectURL = @"http://morningsignout.com";
                              @"redirect_uri": redirectURL,
                              @"code": commentCode };
     [manager POST:@"https://disqus.com/api/oauth/2.0/access_token/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"JSON: %@", responseObject);
         accessToken = [responseObject valueForKey:@"access_token"];
         NSLog(@"%@", accessToken);
         
@@ -383,11 +377,11 @@ NSString *redirectURL = @"http://morningsignout.com";
     NSDictionary *params = @{@"api_key": publicKey,
                              @"access_token": accessToken,
                              @"thread": [NSString stringWithFormat:@"%@", self.post.disqusThreadID],
-                             @"message": @"test msg" };
+                             @"message": @"msg" };
     [manager POST:@"https://disqus.com/api/3.0/posts/create.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"JSON: %@", responseObject);
+        NSLog(@"successful comment made");
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error.debugDescription);
+        NSLog(@"Error: %@", error);
     }];
 }
 
@@ -460,7 +454,7 @@ NSString *redirectURL = @"http://morningsignout.com";
             NSRange range = [currentURL rangeOfString:@"code="];
             commentCode = [currentURL substringFromIndex:range.location + 5];
             NSLog(@"%@", commentCode);
-            
+            self.commentWebView = nil;
             [self getAccessToken];
         }
     } completion:^(BOOL completed){
@@ -468,6 +462,16 @@ NSString *redirectURL = @"http://morningsignout.com";
         loaded = YES;
         
     }];
+}
+
+- (UIWebView *)commentWebView {
+    if (!_commentWebView) {
+        _commentWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 75, self.view.frame.size.width, self.view.frame.size.height)];
+        [self.view addSubview:self.commentWebView];
+        [self.view bringSubviewToFront:self.commentWebView];
+        self.commentWebView.delegate = self;
+    }
+    return _commentWebView;
 }
 
 -(void)loadUpdated {
