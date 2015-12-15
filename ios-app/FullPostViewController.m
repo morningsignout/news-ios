@@ -18,8 +18,6 @@
 #include "AuthorViewController.h"
 #import "DataParser.h"
 #include "Comment.h"
-#include "MDDisqusComponent.h"
-//#import "IADisquser.h"
 
 static NSString * const header = @"<!-- Latest compiled and minified CSS --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"><!-- Optional theme --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css\"><!-- Latest compiled and minified JavaScript --><script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\"></script><!-- Yeon's CSS --><link rel=\"stylesheet\" href=\"http://morningsignout.com/wp-content/themes/mso/style.css?ver=4.3\"><meta charset=\"utf-8\"> \
     <style type=\"text/css\">.ssba {}.ssba img { width: 30px !important; padding: 0px; border:  0; box-shadow: none !important; display: inline !important; vertical-align: middle; } .ssba, .ssba a {text-decoration:none;border:0;background: none;font-family: Indie Flower;font-size: 20px;}</style><div style=\"padding:5px;background-color:white;box-shadow:none;\"></div>";
@@ -31,6 +29,7 @@ static const CGFloat initialWebViewYOffset = 450;
     float mainFontSize;
     float captionFontSize;
     bool scrolled, loaded;
+    NSString *commentCode;
 }
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
@@ -331,21 +330,31 @@ static const CGFloat initialWebViewYOffset = 450;
     NSString *accessToken = @"bcfa82449d3b48569efb1f9f69c23b81";
     
     NSString *getCodeURL = [NSString stringWithFormat:@"https://disqus.com/api/oauth/2.0/authorize/?client_id=%@&scope=read,write&response_type=code&redirect_uri=http://www.morningsignout.com/", publicKey];
-    NSString *code = @"c68bbd5cbf894d8c91374a808365e3ab";
+    getCodeURL = @"https://disqus.com/api/oauth/2.0/authorize/?client_id=CaEN4GfINnGs2clsprUxiFw1Uj2IGhtpAtRpGSOH7OenWsZN0HxaAqyE5vgu9aP2&response_type=code&state=TEST&redirect_uri=http://morningsignout.com&duration=permanent&scope=read";
     
-    AFHTTPRequestOperation *requestOperation=[[AFHTTPRequestOperation alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:getCodeURL]]];
-    [requestOperation setRedirectResponseBlock:^NSURLRequest *(NSURLConnection *connection, NSURLRequest *request, NSURLResponse *redirectResponse) {
-        if (redirectResponse) {
-            //this is the redirected url
-            NSLog(@"%@",request.URL);
-        } else {
-            NSLog(@"%@", connection.debugDescription);
-            NSLog(@"%@", request.debugDescription);
-            NSLog(@"%@", redirectResponse.description);
-        }
-        return request;
-    }];
-    [requestOperation start];
+    //AFHTTPRequestOperation *requestOperation=[[AFHTTPRequestOperation alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:getCodeURL]]];
+//    [requestOperation setRedirectResponseBlock:^NSURLRequest *(NSURLConnection *connection, NSURLRequest *request, NSURLResponse *redirectResponse) {
+//        if (redirectResponse) {
+//            //this is the redirected url
+//            NSLog(@"%@",request.URL);
+//        } else {
+//            NSLog(@"%@", connection.debugDescription);
+//            NSLog(@"%@", request.debugDescription);
+//            NSLog(@"%@", redirectResponse.description);
+//        }
+//        return request;
+//    }];
+//    [requestOperation start];
+    
+    //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:getCodeURL]];
+    
+    UIWebView *webView = [[UIWebView alloc] init];
+    webView.frame = CGRectMake(0, 100, self.view.frame.size.width, self.view.frame.size.height);
+    [self.view addSubview:webView];
+    [self.view bringSubviewToFront:webView];
+    webView.delegate = self;
+    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:getCodeURL]]];
+    
     
     
 //    Functional code posting through Shannon's account
@@ -439,9 +448,18 @@ static const CGFloat initialWebViewYOffset = 450;
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     [UIView animateWithDuration:1.5 animations:^{
         self.progressView.progress = 1;
+        
+        NSString *currentURL = [webView stringByEvaluatingJavaScriptFromString:@"window.location.href"];
+        if ([currentURL containsString:@"code"]) {
+            NSRange range = [currentURL rangeOfString:@"code="];
+            NSString *code = [currentURL substringFromIndex:range.location + 5];
+            
+            NSLog(@"%@", code);
+        }
     } completion:^(BOOL completed){
         self.progressView.hidden = YES;
         loaded = YES;
+        
     }];
 }
 
