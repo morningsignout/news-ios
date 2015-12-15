@@ -24,12 +24,20 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
 
 static const CGFloat initialWebViewYOffset = 450;
 
+// For comment system
+
+NSString *publicKey = @"CaEN4GfINnGs2clsprUxiFw1Uj2IGhtpAtRpGSOH7OenWsZN0HxaAqyE5vgu9aP2";
+NSString *secretKey = @"IVGGJxysqN5GgoMRc0qHtBzUYiOw6Ma77hkWFTytB42kUicNSHyKrmcnsusxKNBH";
+//NSString *accessToken = @"bcfa82449d3b48569efb1f9f69c23b81"; // Shannon's access token
+NSString *redirectURL = @"http://morningsignout.com";
+
 @interface FullPostViewController () <UIWebViewDelegate, UIScrollViewDelegate> {
     NSString *fontSizeStyle;
     float mainFontSize;
     float captionFontSize;
     bool scrolled, loaded;
     NSString *commentCode;
+    NSString *accessToken;
 }
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
@@ -325,53 +333,6 @@ static const CGFloat initialWebViewYOffset = 450;
         [comment print];
     }
     
-    NSString *publicKey = @"CaEN4GfINnGs2clsprUxiFw1Uj2IGhtpAtRpGSOH7OenWsZN0HxaAqyE5vgu9aP2";
-    NSString *secretKey = @"IVGGJxysqN5GgoMRc0qHtBzUYiOw6Ma77hkWFTytB42kUicNSHyKrmcnsusxKNBH";
-    NSString *accessToken = @"bcfa82449d3b48569efb1f9f69c23b81";
-    
-    NSString *getCodeURL = [NSString stringWithFormat:@"https://disqus.com/api/oauth/2.0/authorize/?client_id=%@&scope=read,write&response_type=code&redirect_uri=http://www.morningsignout.com/", publicKey];
-    getCodeURL = @"https://disqus.com/api/oauth/2.0/authorize/?client_id=CaEN4GfINnGs2clsprUxiFw1Uj2IGhtpAtRpGSOH7OenWsZN0HxaAqyE5vgu9aP2&response_type=code&state=TEST&redirect_uri=http://morningsignout.com&duration=permanent&scope=read";
-    
-    //AFHTTPRequestOperation *requestOperation=[[AFHTTPRequestOperation alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:getCodeURL]]];
-//    [requestOperation setRedirectResponseBlock:^NSURLRequest *(NSURLConnection *connection, NSURLRequest *request, NSURLResponse *redirectResponse) {
-//        if (redirectResponse) {
-//            //this is the redirected url
-//            NSLog(@"%@",request.URL);
-//        } else {
-//            NSLog(@"%@", connection.debugDescription);
-//            NSLog(@"%@", request.debugDescription);
-//            NSLog(@"%@", redirectResponse.description);
-//        }
-//        return request;
-//    }];
-//    [requestOperation start];
-    
-    //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:getCodeURL]];
-    
-    UIWebView *webView = [[UIWebView alloc] init];
-    webView.frame = CGRectMake(0, 100, self.view.frame.size.width, self.view.frame.size.height);
-    [self.view addSubview:webView];
-    [self.view bringSubviewToFront:webView];
-    webView.delegate = self;
-    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:getCodeURL]]];
-    
-    
-    
-//    Functional code posting through Shannon's account
-//
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    
-//    NSDictionary *params = @{@"api_key": publicKey,
-//                             @"access_token": accessToken,
-//                             @"thread": [NSString stringWithFormat:@"%@", self.post.disqusThreadID],
-//                             @"message": @"msg" };
-//    [manager POST:@"https://disqus.com/api/3.0/posts/create.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSLog(@"JSON: %@", responseObject);
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"Error: %@", error);
-//    }];
-    
-    
     // View Comments View Controller
     CommentsViewController *commentVC = [[CommentsViewController alloc] init];
     //Modal
@@ -380,9 +341,54 @@ static const CGFloat initialWebViewYOffset = 450;
     commentVC.modalTransitionStyle = UIModalPresentationOverFullScreen;
     [self presentViewController:commentVC animated:YES completion:nil];
     
-    
     //[self.navigationController pushViewController:commentVC animated:NO];
+    
+    [self getCommentCode];
+}
 
+- (void)getCommentCode {
+    NSString *getCodeURL = [NSString stringWithFormat:@"https://disqus.com/api/oauth/2.0/authorize/?client_id=%@&response_type=code&state=TEST&redirect_uri=%@&duration=permanent&scope=read", publicKey, redirectURL];
+    
+    UIWebView *webView = [[UIWebView alloc] init];
+    webView.frame = CGRectMake(0, 100, self.view.frame.size.width, self.view.frame.size.height);
+    [self.view addSubview:webView];
+    [self.view bringSubviewToFront:webView];
+    webView.delegate = self;
+    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:getCodeURL]]];
+
+}
+
+- (void)getAccessToken {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSDictionary *params = @{@"grant_type": @"authorization_code",
+                             @"client_id": publicKey,
+                             @"client_secret": secretKey,
+                             @"redirect_uri": redirectURL,
+                             @"code": commentCode };
+    [manager POST:@"https://disqus.com/api/oauth/2.0/access_token/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+        accessToken = [responseObject valueForKey:@"access_token"];
+        NSLog(@"%@", accessToken);
+        
+        [self postComment];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+}
+
+- (void)postComment {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+
+    NSDictionary *params = @{@"api_key": publicKey,
+                             @"access_token": accessToken,
+                             @"thread": [NSString stringWithFormat:@"%@", self.post.disqusThreadID],
+                             @"message": @"test msg" };
+    [manager POST:@"https://disqus.com/api/3.0/posts/create.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error.debugDescription);
+    }];
 }
 
 - (void)tappedCoverImage:(UITapGestureRecognizer *)tap {
@@ -450,11 +456,12 @@ static const CGFloat initialWebViewYOffset = 450;
         self.progressView.progress = 1;
         
         NSString *currentURL = [webView stringByEvaluatingJavaScriptFromString:@"window.location.href"];
-        if ([currentURL containsString:@"code"]) {
+        if ([currentURL containsString:@"code="]) {
             NSRange range = [currentURL rangeOfString:@"code="];
-            NSString *code = [currentURL substringFromIndex:range.location + 5];
+            commentCode = [currentURL substringFromIndex:range.location + 5];
+            NSLog(@"%@", commentCode);
             
-            NSLog(@"%@", code);
+            [self getAccessToken];
         }
     } completion:^(BOOL completed){
         self.progressView.hidden = YES;
