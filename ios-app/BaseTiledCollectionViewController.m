@@ -187,7 +187,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (![self getEndOfPosts] && indexPath.item == self.posts.count - 3) {
+    if (![self getEndOfPosts] && indexPath.item == self.posts.count - 12) {
         [self.spinner startAnimating];
         [self fetchMoreItems];
     }
@@ -225,7 +225,7 @@ static NSString * const reuseIdentifier = @"Cell";
             [self setEndOfPosts:true];
         }
         // Simulate an async load
-        double delayInSeconds = 2 * NSEC_PER_SEC;
+        double delayInSeconds = NSEC_PER_SEC;
         dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds);
         dispatch_after(delay, dispatch_get_main_queue(), ^(void){
             
