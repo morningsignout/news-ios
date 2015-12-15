@@ -16,7 +16,7 @@
 
 // Nav Colors
 + (UIColor*) kNavBackgroundColor {
-    return [UIColor darkGrayColor];
+    return rgba(115, 179, 226, 1);
 }
 
 + (UIColor*) kNavTextColor {
@@ -25,7 +25,8 @@
 
 // Collection View Color
 + (UIColor*) kCollectionViewBackgroundColor {
-    return [UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]];
+    return rgba(216, 228, 243, 1);
+    //return [UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]];
 }
 
 // Tile Colors
@@ -78,13 +79,6 @@
 
 @end
 
-@implementation UIFont (Extensions)
-
-@end
-
-// Nav Bar Styles
-UIFont *const kNavFont;
-
 // Tile Styles
 UIFont *const kTileTitleFont;
 CGFloat const kTileTitleHeight_A = 90.0f;
@@ -93,16 +87,3 @@ CGFloat const kTileTitleHeight_C = 60.0f;
 CGFloat const kFeaturedTileTitleHeight = 50.0f;
 CGFloat const kFeaturedTileExcerptHeight = 60.0f;
 
-// Full Post View Styles
-UIFont *const kFullPostTitleFont;
-UIFont *const kFullPostAuthorFont;
-UIFont *const kFullPostDateFont;
-UIFont *const kFullPostCategoryFont;
-UIFont *const kFullPostTagFont;
-
-// Bookmarks View Styles
-UIFont *const kBookmarkTitleFont;
-UIFont *const kBookmarkExcerptFont;
-
-// Category View Styles
-UIFont *const kCategoryButtonTextFont;

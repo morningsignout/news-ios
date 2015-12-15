@@ -48,7 +48,7 @@
     self.searchController.delegate = self;
     self.searchController.searchBar.delegate = self;
     [self.searchController.searchBar sizeToFit];
-    self.searchController.searchBar.barTintColor = [UIColor kTileTitleBackgroundColor];
+    self.searchController.searchBar.barTintColor = [UIColor kNavBackgroundColor];
     self.definesPresentationContext = YES;
     
     // Set up search segmented control
@@ -75,6 +75,7 @@
     NSLog(@"set active");
     DropdownNavigationController *navVC = (DropdownNavigationController *)self.parentViewController.parentViewController;
     navVC.titleLabel.text = @"Search";
+    navVC.titleLabel.textColor = [UIColor kNavTextColor];
 }
 
 -(void)viewDidAppear:(BOOL)animated{

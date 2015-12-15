@@ -140,8 +140,8 @@ static NSString * const reuseIdentifier = @"Cell";
         _collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
-        //_collectionView.backgroundColor = [UIColor kCollectionViewBackgroundColor];
-        self.collectionView.layer.contents = (id)[UIImage imageNamed:@"background"].CGImage;
+        _collectionView.backgroundColor = [UIColor kCollectionViewBackgroundColor];
+        //self.collectionView.layer.contents = (id)[UIImage imageNamed:@"background"].CGImage;
         
         [self setUpClassesForCollectionViewLayout:layout];
     }

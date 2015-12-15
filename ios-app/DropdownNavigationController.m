@@ -15,6 +15,7 @@
 #define SEARCH_INDEX 1
 #define CATEGORIES_INDEX 2
 #define BOOKMARKS_INDEX 3
+#define rgba(r, g, b, a)  [UIColor colorWithRed:((r) / 255.0) green:((g) / 255.0) blue:((b) / 255.0) alpha:a]
 
 NSString * const section[] = {
     @"Featured", @"Search", @"Categories", @"Bookmarks"
@@ -40,33 +41,43 @@ NSString * const section[] = {
     sectionCurrentlyOn = FEATURE_INDEX;
 }
 
--(void) customizeMenu {
+- (void) customizeMenu {
     // To set the menubar background colour programmatically.
     [self setMenubarBackground:[UIColor kNavBackgroundColor]];
     
     // Replace menu button with an IonIcon.
     [self.menuButton setTitle:nil forState:UIControlStateNormal];
-    [self.menuButton setImage:[IonIcons imageWithIcon:ion_navicon size:30.0f color:[UIColor whiteColor]] forState:UIControlStateNormal];
+    [self.menuButton setImage:[IonIcons imageWithIcon:ion_navicon size:30.0f color:[UIColor kNavTextColor]] forState:UIControlStateNormal];
+    
+    NSArray *menuButtonColors = [NSArray arrayWithObjects:rgba(0, 26, 77, 1), rgba(115, 179, 226, 0.5), [UIColor darkGrayColor], rgba(115, 179, 226, 1), nil];
     
     for (int i = 0; i < self.buttons.count; i++) {
         UIButton *button = self.buttons[i];
         [button setTitle:section[i] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor kNavTextColor] forState:UIControlStateNormal];
+        button.backgroundColor = [menuButtonColors objectAtIndex:i];
         
-        if (i == 0) {
-            [button setImage:[IonIcons imageWithIcon:ion_ios_pulse_strong size:20.0f color:[UIColor whiteColor]] forState:UIControlStateNormal];
-        } else if (i == 1) {
-            [button setImage:[IonIcons imageWithIcon:ion_ios_search_strong size:20.0f color:[UIColor whiteColor]] forState:UIControlStateNormal];
-        } else if (i == 2) {
-            [button setImage:[IonIcons imageWithIcon:ion_ios_albums_outline size:25.0f color:[UIColor whiteColor]] forState:UIControlStateNormal];
-        } else if (i == 3) {
-            [button setImage:[IonIcons imageWithIcon:ion_bookmark size:20.0f color:[UIColor whiteColor]] forState:UIControlStateNormal];
+        switch (i) {
+            case 0:
+                [button setImage:[IonIcons imageWithIcon:ion_ios_pulse_strong size:20.0f color:[UIColor kNavTextColor]] forState:UIControlStateNormal];
+                break;
+            case 1:
+                [button setImage:[IonIcons imageWithIcon:ion_ios_search_strong size:20.0f color:[UIColor kNavTextColor]] forState:UIControlStateNormal];
+                break;
+            case 2:
+                [button setImage:[IonIcons imageWithIcon:ion_ios_albums_outline size:25.0f color:[UIColor kNavTextColor]] forState:UIControlStateNormal];
+                break;
+            case 3:
+                [button setImage:[IonIcons imageWithIcon:ion_bookmark size:20.0f color:[UIColor kNavTextColor]] forState:UIControlStateNormal];
+                break;
+            default:
+                break;
         }
         
         // Set the title and icon position
         [button sizeToFit];
         button.titleEdgeInsets = UIEdgeInsetsMake(0, -button.imageView.frame.size.width-10, 0, button.imageView.frame.size.width);
         button.imageEdgeInsets = UIEdgeInsetsMake(0, button.titleLabel.frame.size.width, 0, -button.titleLabel.frame.size.width);
-
     }
     
     //Uncomment to stop drop 'Triangle' from appearing

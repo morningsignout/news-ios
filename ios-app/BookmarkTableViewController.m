@@ -58,6 +58,7 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 - (void)viewWillAppear:(BOOL)animated {
     DropdownNavigationController *navVC = (DropdownNavigationController *)self.parentViewController.parentViewController;
     navVC.titleLabel.text = @"Bookmarks";
+    navVC.titleLabel.textColor = [UIColor kNavTextColor];
     self.navigationController.navigationBarHidden = YES;
     
     // Pull core data content
