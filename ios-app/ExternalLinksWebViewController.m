@@ -28,7 +28,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.navigationBar setBarTintColor:[UIColor kNavBackgroundColor]];
-    self.statusBarBackground.backgroundColor = [UIColor kNavBackgroundColor];
+    self.statusBarBackground.backgroundColor = rgba(137, 191, 231, 1);
     
     self.webView.delegate = self;
     NSURLRequest *request = [NSURLRequest requestWithURL:self.url];
