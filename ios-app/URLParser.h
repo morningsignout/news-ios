@@ -44,4 +44,7 @@
 + (NSString *)URLForQuery:(NSString *)OLD_URL WithOrdering:(NSString *)orderParam;
 + (NSString *)URLForQuery:(NSString *)OLD_URL WithPageNumber:(int)page;
 
+// Comment system
++ (NSString *)URLForDisqusThreadWithThreadID:(NSString *)threadID;
+
 @end

@@ -50,6 +50,7 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 - (void)viewWillAppear:(BOOL)animated {
     DropdownNavigationController *navVC = (DropdownNavigationController *)self.parentViewController.parentViewController;
     navVC.titleLabel.text = @"Featured";
+    navVC.titleLabel.textColor = [UIColor kNavTextColor];
     self.navigationController.navigationBarHidden = YES;
 }
 
@@ -60,12 +61,12 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 }
 
 - (NSArray *)getDataForTypeOfView {
-    NSArray *data = [DataParser DataForFeaturedPostsWithPageNumber:self.page];
+    NSMutableArray *data = [NSMutableArray arrayWithArray:[DataParser DataForFeaturedPostsWithPageNumber:self.page]];
     if (self.page == 1) {
         self.topFeatured = data.firstObject;
+        [data removeObjectAtIndex:0];
+        [data addObject:self.topFeatured];
     }
-    //NSMutableArray *smallerTileData = [NSMutableArray arrayWithArray:[data subarrayWithRange:NSMakeRange(1, data.count - 1)]];
-    //[smallerTileData addObject:[smallerTileData objectAtIndex:rand() % (smallerTileData.count - 1)]];
     return data;
 }
 
@@ -84,14 +85,15 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
         
         reusableView.title.text = self.topFeatured.title;
         reusableView.excerpt.text = self.topFeatured.excerpt;
-
+        reusableView.excerpt.backgroundColor = [UIColor kTileTitleBackgroundColor];
+        reusableView.title.backgroundColor = [UIColor kTileTitleBackgroundColor];
         
         NSURLRequest *requestLeft = [NSURLRequest requestWithURL:[NSURL URLWithString:self.topFeatured.fullCoverImageURL]];
         [reusableView.imageView setImageWithURLRequest:requestLeft placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
             reusableView.imageView.image = image;
         } failure:nil];
         
-        reusableView.backgroundColor = [UIColor clearColor];
+        //reusableView.backgroundColor = [UIColor clearColor];
         
         return reusableView;
     }

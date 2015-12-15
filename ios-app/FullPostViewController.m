@@ -5,17 +5,23 @@
 //  Created by Shannon Phu on 9/6/15.
 //  Copyright (c) 2015 Morning Sign Out Incorporated. All rights reserved.
 //
-
+#import "CommentsViewController.h"
 #import "FullPostViewController.h"
 #import "Post.h"
 #import "ExternalLinksWebViewController.h"
 #import "ImageViewController.h"
 #import <AFNetworking.h>
 #import <CoreData/CoreData.h>
+#import <Social/Social.h>
 #import "ArticleLabels.h"
 #import "Constants.h"
 #import "PostHeaderInfo.h"
 #include "AuthorViewController.h"
+#include <IonIcons.h>
+#import "DataParser.h"
+#include "Comment.h"
+#include "MDDisqusComponent.h"
+//#import "IADisquser.h"
 
 static NSString * const header = @"<!-- Latest compiled and minified CSS --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"><!-- Optional theme --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css\"><!-- Latest compiled and minified JavaScript --><script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\"></script><!-- Yeon's CSS --><link rel=\"stylesheet\" href=\"http://morningsignout.com/wp-content/themes/mso/style.css?ver=4.3\"><meta charset=\"utf-8\"> \
     <style type=\"text/css\">.ssba {}.ssba img { width: 30px !important; padding: 0px; border:  0; box-shadow: none !important; display: inline !important; vertical-align: middle; } .ssba, .ssba a {text-decoration:none;border:0;background: none;font-family: Indie Flower;font-size: 20px;}</style><div style=\"padding:5px;background-color:white;box-shadow:none;\"></div>";
@@ -24,8 +30,7 @@ static const CGFloat initialWebViewYOffset = 450;
 
 @interface FullPostViewController () <UIWebViewDelegate, UIScrollViewDelegate> {
     NSString *fontSizeStyle;
-    float mainFontSize;
-    float captionFontSize;
+    int fontLevel;
     bool scrolled, loaded;
 }
 
@@ -61,13 +66,11 @@ static const CGFloat initialWebViewYOffset = 450;
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Font"];
     self.font = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     if (self.font.firstObject) {
-        NSNumber *numberFormatFloat = [self.font.firstObject valueForKey:@"mainSize"];
-        mainFontSize = [numberFormatFloat floatValue];
-        numberFormatFloat = [self.font.firstObject valueForKey:@"captionSize"];
-        captionFontSize = [numberFormatFloat floatValue];
+        NSNumber *lev = [self.font.firstObject valueForKey:@"fontLevel"];
+        fontLevel = [lev intValue];
+        
     } else {
-        mainFontSize = 1.5;
-        captionFontSize = 1.2;
+        fontLevel = 1;
     }
     
     [self setUpLabels];
@@ -104,11 +107,12 @@ static const CGFloat initialWebViewYOffset = 450;
     self.navigationController.navigationBar.tintColor = [UIColor kNavTextColor];
     
     UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(share)];
-    UIBarButtonItem *bookmarkItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(bookmarkPost)];
-    UIBarButtonItem *fontIncItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(increaseFontSize)];
-    UIBarButtonItem *fontDecItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:@selector(decreaseFontSize)];
+    UIBarButtonItem *bookmarkItem = [[UIBarButtonItem alloc] initWithImage:[IonIcons imageWithIcon:ion_ios_bookmarks_outline size:32.0f color:[UIColor whiteColor]] style:UIBarButtonItemStylePlain target:self action:@selector(bookmarkPost)];
+    UIBarButtonItem *fontItem = [[UIBarButtonItem alloc] initWithImage:[IonIcons imageWithIcon:ion_ios_glasses_outline size:32.0f color:[UIColor whiteColor]] style:UIBarButtonItemStylePlain target:self action:@selector(changeFont)];
+    UIBarButtonItem *commentItem = [[UIBarButtonItem alloc] initWithImage:[IonIcons imageWithIcon:ion_ios_chatboxes_outline size:32.0f color:[UIColor whiteColor]] style:UIBarButtonItemStylePlain target:self action:@selector(loadComments)];
     
-    NSArray *actionButtonItems = @[shareItem, bookmarkItem, fontIncItem, fontDecItem];
+    NSArray *actionButtonItems = @[shareItem, bookmarkItem, commentItem, fontItem];
+
     self.navigationItem.rightBarButtonItems = actionButtonItems;
 }
 
@@ -171,6 +175,8 @@ static const CGFloat initialWebViewYOffset = 450;
 }
 
 - (NSString *)setFontSize {
+    float mainFontSize = [self getMainFontFromLevel:fontLevel];
+    float captionFontSize = [self getCaptionFontFromLevel:fontLevel];
     fontSizeStyle = [NSString stringWithFormat:@"<script> \
                      var all = document.getElementsByTagName(\"p\"); \
                      for (var i = 0; i < all.length; i++) { \
@@ -223,43 +229,71 @@ static const CGFloat initialWebViewYOffset = 450;
     return YES;
 }
 
-- (void)increaseFontSize {
-    mainFontSize += 0.1;
-    captionFontSize += 0.05;
+- (void)changeFont {
+    if (fontLevel == 3) {
+        fontLevel = 1;
+    } else {
+        ++fontLevel;
+    }
+    
+    [self storeFontSize];
     [self reflectFontChangesOnHTML];
 }
 
-- (void)decreaseFontSize {
-    mainFontSize -= 0.1;
-    captionFontSize -= 0.05;
-    [self reflectFontChangesOnHTML];
+- (float)getMainFontFromLevel:(int)level {
+    switch (level) {
+        case 1:
+            return 1.5;
+            break;
+        case 2:
+            return 1.7;
+            break;
+        case 3:
+            return 1.9;
+            break;
+    }
+    return 1.7;
+}
+
+- (float)getCaptionFontFromLevel:(int)level {
+    switch (level) {
+        case 1:
+            return 1.2;
+            break;
+        case 2:
+            return 1.25;
+            break;
+        case 3:
+            return 1.3;
+            break;
+    }
+    return 1.25;
 }
 
 - (void)share
 {
-    NSString *textToShare = @"Look at this awesome website for aspiring iOS Developers!";
-    NSURL *myWebsite = [NSURL URLWithString:@"http://www.codingexplorer.com/"];
-    
-    NSArray *objectsToShare = @[textToShare, myWebsite];
+    NSString *textToShare = @"Check out this article!\n";
+
+    NSArray *objectsToShare = @[textToShare, self.post.url];
     
     UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
     
-//    NSArray *excludeActivities = @[UIActivityTypeMail,
-//                                   UIActivityTypeMessage,
-//                                   UIActivityTypePrint,
-//                                   UIActivityTypePostToFacebook,
-//                                   UIActivityTypePostToTwitter,
-//                                   UIActivityTypePostToWeibo,
-//                                   UIActivityTypeCopyToPasteboard];
-//    
-//    activityVC.excludedActivityTypes = excludeActivities;
+    NSArray *excludeActivities = @[
+                                    UIActivityTypeAddToReadingList,
+                                    UIActivityTypeAirDrop,
+                                    UIActivityTypeAssignToContact,
+                                    UIActivityTypeCopyToPasteboard,
+                                    UIActivityTypeOpenInIBooks,
+                                    UIActivityTypeSaveToCameraRoll,
+                                    UIActivityTypePrint,
+                                  ];
+    activityVC.excludedActivityTypes = excludeActivities;
+
     
     [self presentViewController:activityVC animated:YES completion:nil];
 }
 
 - (void)reflectFontChangesOnHTML {
-    [self storeFontSize];
-    
     NSString *alteredHTML = [self.html stringByAppendingString:[self setFontSize]];
     [self.webView loadHTMLString:alteredHTML baseURL:nil];
 }
@@ -270,14 +304,12 @@ static const CGFloat initialWebViewYOffset = 450;
     
     if (savedFont) {
         // Update existing device
-        [savedFont setValue:[NSNumber numberWithFloat:mainFontSize] forKey:@"mainSize"];
-        [savedFont setValue:[NSNumber numberWithFloat:captionFontSize] forKey:@"captionSize"];
+        [savedFont setValue:[NSNumber numberWithFloat:fontLevel] forKey:@"fontLevel"];
         
     } else {
         // Create a new managed object
         NSManagedObject *newFont = [NSEntityDescription insertNewObjectForEntityForName:@"Font" inManagedObjectContext:context];
-        [newFont setValue:[NSNumber numberWithFloat:mainFontSize] forKey:@"mainSize"];
-        [newFont setValue:[NSNumber numberWithFloat:captionFontSize] forKey:@"captionSize"];
+        [newFont setValue:[NSNumber numberWithFloat:fontLevel] forKey:@"fontLevel"];
     }
     
     NSError *error = nil;
@@ -310,6 +342,63 @@ static const CGFloat initialWebViewYOffset = 450;
     if (![managedObjectContext save:&error]) {
         NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
     }
+}
+
+
+- (void)loadComments {
+    NSArray *comments = [DataParser DataForCommentsWithThreadID:self.post.disqusThreadID];
+    for (Comment *comment in comments) {
+        [comment print];
+    }
+    
+    NSString *publicKey = @"CaEN4GfINnGs2clsprUxiFw1Uj2IGhtpAtRpGSOH7OenWsZN0HxaAqyE5vgu9aP2";
+    NSString *secretKey = @"IVGGJxysqN5GgoMRc0qHtBzUYiOw6Ma77hkWFTytB42kUicNSHyKrmcnsusxKNBH";
+    NSString *accessToken = @"bcfa82449d3b48569efb1f9f69c23b81";
+    
+    NSString *getCodeURL = [NSString stringWithFormat:@"https://disqus.com/api/oauth/2.0/authorize/?client_id=%@&scope=read,write&response_type=code&redirect_uri=http://www.morningsignout.com/", publicKey];
+    NSString *code = @"c68bbd5cbf894d8c91374a808365e3ab";
+    
+    AFHTTPRequestOperation *requestOperation=[[AFHTTPRequestOperation alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:getCodeURL]]];
+    [requestOperation setRedirectResponseBlock:^NSURLRequest *(NSURLConnection *connection, NSURLRequest *request, NSURLResponse *redirectResponse) {
+        if (redirectResponse) {
+            //this is the redirected url
+            NSLog(@"%@",request.URL);
+        } else {
+            NSLog(@"%@", connection.debugDescription);
+            NSLog(@"%@", request.debugDescription);
+            NSLog(@"%@", redirectResponse.description);
+        }
+        return request;
+    }];
+    [requestOperation start];
+    
+    
+//    Functional code posting through Shannon's account
+//
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    
+//    NSDictionary *params = @{@"api_key": publicKey,
+//                             @"access_token": accessToken,
+//                             @"thread": [NSString stringWithFormat:@"%@", self.post.disqusThreadID],
+//                             @"message": @"msg" };
+//    [manager POST:@"https://disqus.com/api/3.0/posts/create.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        NSLog(@"JSON: %@", responseObject);
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        NSLog(@"Error: %@", error);
+//    }];
+    
+    
+    // View Comments View Controller
+    CommentsViewController *commentVC = [[CommentsViewController alloc] init];
+    //Modal
+    commentVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    commentVC.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    commentVC.modalTransitionStyle = UIModalPresentationOverFullScreen;
+    [self presentViewController:commentVC animated:YES completion:nil];
+    
+    
+    //[self.navigationController pushViewController:commentVC animated:NO];
+
 }
 
 - (void)tappedCoverImage:(UITapGestureRecognizer *)tap {

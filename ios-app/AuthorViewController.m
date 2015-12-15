@@ -25,6 +25,7 @@
     self.navigationController.navigationBarHidden = NO;
     [self setupNavigationBarStyle];
     self.collectionView.frame = CGRectMake(0, 300, self.collectionView.bounds.size.width, self.collectionView.bounds.size.height - 300);
+    self.view.backgroundColor = [UIColor kCollectionViewBackgroundColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

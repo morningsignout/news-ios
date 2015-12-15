@@ -10,6 +10,7 @@
 #import "DataParser.h"
 #import "DropdownNavigationController.h"
 #import "CategoryDetailViewController.h"
+#include "Constants.h"
 
 @interface CategoryViewController ()
 
@@ -31,6 +32,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     DropdownNavigationController *navVC = (DropdownNavigationController *)self.parentViewController.parentViewController;
     navVC.titleLabel.text = @"Categories";
+    navVC.titleLabel.textColor = [UIColor kNavTextColor];
     self.navigationController.navigationBarHidden = YES;
 }
 

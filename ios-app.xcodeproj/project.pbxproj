@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6B8E31A86FF101F5D2A9632F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 76DAA74E4EA736D8CF1DACF8 /* libPods.a */; };
+		75EDA0601BFF0D2F000B6C81 /* CommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EDA05F1BFF0D2F000B6C81 /* CommentsViewController.m */; };
 		CA239A6F1B9F660400BEDC5E /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = CA239A6C1B9F660400BEDC5E /* GTMNSString+HTML.m */; };
 		CA239A701B9F660400BEDC5E /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = CA239A6E1B9F660400BEDC5E /* NSString+HTML.m */; };
 		CA239A741B9FA9A400BEDC5E /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA239A731B9FA9A400BEDC5E /* SearchViewController.m */; };
@@ -29,6 +30,7 @@
 		FB72E7F61BA3525000F10356 /* ContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB72E7F51BA3525000F10356 /* ContainerViewController.m */; };
 		FB72E83A1BA3828500F10356 /* EmptySegue.m in Sources */ = {isa = PBXBuildFile; fileRef = FB72E8391BA3828500F10356 /* EmptySegue.m */; };
 		FB798E2D1BAD182C00F98139 /* CategoryDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB798E2C1BAD182C00F98139 /* CategoryDetailViewController.m */; };
+		FB7B011C1BEF483900552AA9 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7B011B1BEF483900552AA9 /* Comment.m */; };
 		FB7E9E6B1BAE27EB00F265E2 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7E9E6A1BAE27EB00F265E2 /* Constants.m */; };
 		FB7E9E6E1BAF35D500F265E2 /* PostHeaderInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7E9E6D1BAF35D500F265E2 /* PostHeaderInfo.m */; };
 		FB997E461BA5557D0080CABD /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB997E451BA5557D0080CABD /* ImageViewController.m */; };
@@ -36,6 +38,14 @@
 		FB99DEE61B9A1BD9007111B4 /* FeaturedStoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB99DEE51B9A1BD9007111B4 /* FeaturedStoryTableViewCell.m */; };
 		FB99DEE91B9A1C01007111B4 /* TiledCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB99DEE81B9A1C01007111B4 /* TiledCell.m */; };
 		FBA9E9C91BB7A00F00049B79 /* SubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA9E9C81BB7A00F00049B79 /* SubscriptionViewController.m */; };
+		FBAE94AD1BFC0D8B0030A32E /* IADisqusComment.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAE94A91BFC0D8B0030A32E /* IADisqusComment.m */; };
+		FBAE94AE1BFC0D8B0030A32E /* IADisquser.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAE94AC1BFC0D8B0030A32E /* IADisquser.m */; };
+		FBAE94BD1BFC1BFE0030A32E /* MDDisqusAuthorizationView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAE94B21BFC1BFE0030A32E /* MDDisqusAuthorizationView.m */; };
+		FBAE94BE1BFC1BFE0030A32E /* MDDisqusAuthorizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAE94B41BFC1BFE0030A32E /* MDDisqusAuthorizationViewController.m */; };
+		FBAE94BF1BFC1BFE0030A32E /* MDDisqusTokensModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAE94B71BFC1BFE0030A32E /* MDDisqusTokensModel.m */; };
+		FBAE94C01BFC1BFE0030A32E /* MDDisqusComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAE94B91BFC1BFE0030A32E /* MDDisqusComponent.m */; };
+		FBAE94C11BFC1BFE0030A32E /* disqus_wheel.png in Resources */ = {isa = PBXBuildFile; fileRef = FBAE94BB1BFC1BFE0030A32E /* disqus_wheel.png */; };
+		FBAE94C21BFC1BFE0030A32E /* disqus_wheel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FBAE94BC1BFC1BFE0030A32E /* disqus_wheel@2x.png */; };
 		FBBA5AB01BA0DC0600345D5F /* TileCollectionViewCellB.m in Sources */ = {isa = PBXBuildFile; fileRef = FBBA5AAF1BA0DC0600345D5F /* TileCollectionViewCellB.m */; };
 		FBBA5AB31BA0F19600345D5F /* BaseTileCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBBA5AB21BA0F19600345D5F /* BaseTileCollectionViewCell.m */; };
 		FBBA5AB61BA1012200345D5F /* TileCollectionViewCellC.m in Sources */ = {isa = PBXBuildFile; fileRef = FBBA5AB51BA1012200345D5F /* TileCollectionViewCellC.m */; };
@@ -65,6 +75,8 @@
 
 /* Begin PBXFileReference section */
 		2B5F6649C5844C474A10642E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		75EDA05E1BFF0D2F000B6C81 /* CommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsViewController.h; sourceTree = "<group>"; };
+		75EDA05F1BFF0D2F000B6C81 /* CommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsViewController.m; sourceTree = "<group>"; };
 		76DAA74E4EA736D8CF1DACF8 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A36EF58E1666F92886A37D13 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		CA239A6B1B9F660400BEDC5E /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
@@ -106,6 +118,8 @@
 		FB72E8391BA3828500F10356 /* EmptySegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmptySegue.m; sourceTree = "<group>"; };
 		FB798E2B1BAD182C00F98139 /* CategoryDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryDetailViewController.h; sourceTree = "<group>"; };
 		FB798E2C1BAD182C00F98139 /* CategoryDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryDetailViewController.m; sourceTree = "<group>"; };
+		FB7B011A1BEF483900552AA9 /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
+		FB7B011B1BEF483900552AA9 /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
 		FB7E9E691BAE1F2100F265E2 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		FB7E9E6A1BAE27EB00F265E2 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		FB7E9E6C1BAF35D500F265E2 /* PostHeaderInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostHeaderInfo.h; sourceTree = "<group>"; };
@@ -120,6 +134,22 @@
 		FB99DEE81B9A1C01007111B4 /* TiledCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiledCell.m; sourceTree = "<group>"; };
 		FBA9E9C71BB7A00F00049B79 /* SubscriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionViewController.h; sourceTree = "<group>"; };
 		FBA9E9C81BB7A00F00049B79 /* SubscriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionViewController.m; sourceTree = "<group>"; };
+		FBAE94A81BFC0D8B0030A32E /* IADisqusComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IADisqusComment.h; sourceTree = "<group>"; };
+		FBAE94A91BFC0D8B0030A32E /* IADisqusComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IADisqusComment.m; sourceTree = "<group>"; };
+		FBAE94AA1BFC0D8B0030A32E /* IADisqusConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IADisqusConfig.h; sourceTree = "<group>"; };
+		FBAE94AB1BFC0D8B0030A32E /* IADisquser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IADisquser.h; sourceTree = "<group>"; };
+		FBAE94AC1BFC0D8B0030A32E /* IADisquser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IADisquser.m; sourceTree = "<group>"; };
+		FBAE94B11BFC1BFE0030A32E /* MDDisqusAuthorizationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDDisqusAuthorizationView.h; sourceTree = "<group>"; };
+		FBAE94B21BFC1BFE0030A32E /* MDDisqusAuthorizationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDDisqusAuthorizationView.m; sourceTree = "<group>"; };
+		FBAE94B31BFC1BFE0030A32E /* MDDisqusAuthorizationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDDisqusAuthorizationViewController.h; sourceTree = "<group>"; };
+		FBAE94B41BFC1BFE0030A32E /* MDDisqusAuthorizationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDDisqusAuthorizationViewController.m; sourceTree = "<group>"; };
+		FBAE94B51BFC1BFE0030A32E /* MDDisqusConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDDisqusConstants.h; sourceTree = "<group>"; };
+		FBAE94B61BFC1BFE0030A32E /* MDDisqusTokensModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDDisqusTokensModel.h; sourceTree = "<group>"; };
+		FBAE94B71BFC1BFE0030A32E /* MDDisqusTokensModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDDisqusTokensModel.m; sourceTree = "<group>"; };
+		FBAE94B81BFC1BFE0030A32E /* MDDisqusComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDDisqusComponent.h; sourceTree = "<group>"; };
+		FBAE94B91BFC1BFE0030A32E /* MDDisqusComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDDisqusComponent.m; sourceTree = "<group>"; };
+		FBAE94BB1BFC1BFE0030A32E /* disqus_wheel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = disqus_wheel.png; sourceTree = "<group>"; };
+		FBAE94BC1BFC1BFE0030A32E /* disqus_wheel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "disqus_wheel@2x.png"; sourceTree = "<group>"; };
 		FBBA5AAE1BA0DC0600345D5F /* TileCollectionViewCellB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TileCollectionViewCellB.h; sourceTree = "<group>"; };
 		FBBA5AAF1BA0DC0600345D5F /* TileCollectionViewCellB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TileCollectionViewCellB.m; sourceTree = "<group>"; };
 		FBBA5AB11BA0F19600345D5F /* BaseTileCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTileCollectionViewCell.h; sourceTree = "<group>"; };
@@ -241,6 +271,8 @@
 		FB714A151B94D16000D68CB5 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				FBAE94AF1BFC1BFE0030A32E /* DisqusComponent */,
+				FBAE94A71BFC0D8B0030A32E /* IADisquser */,
 				CA239A6A1B9F660400BEDC5E /* MWFeedParser */,
 				FBDEF3CC1B9E4D31005BD9F4 /* DropdownMenu */,
 				FB714A161B94D16000D68CB5 /* Info.plist */,
@@ -289,6 +321,8 @@
 				CA7F86DC1BA296E9002E16CA /* CategoryViewController.m */,
 				FB798E2B1BAD182C00F98139 /* CategoryDetailViewController.h */,
 				FB798E2C1BAD182C00F98139 /* CategoryDetailViewController.m */,
+				75EDA05E1BFF0D2F000B6C81 /* CommentsViewController.h */,
+				75EDA05F1BFF0D2F000B6C81 /* CommentsViewController.m */,
 				FBA9E9C71BB7A00F00049B79 /* SubscriptionViewController.h */,
 				FBA9E9C81BB7A00F00049B79 /* SubscriptionViewController.m */,
 				FBDA71D21BA7803800D68C4A /* AuthorViewController.h */,
@@ -311,6 +345,8 @@
 				FB714A411B94D1E500D68CB5 /* Post.m */,
 				FB714A431B94D20600D68CB5 /* Author.h */,
 				FB714A441B94D20600D68CB5 /* Author.m */,
+				FB7B011A1BEF483900552AA9 /* Comment.h */,
+				FB7B011B1BEF483900552AA9 /* Comment.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -332,6 +368,53 @@
 				FBEB3A7C1B9FA6E000B57AAB /* Tile Table View */,
 			);
 			name = UI;
+			sourceTree = "<group>";
+		};
+		FBAE94A71BFC0D8B0030A32E /* IADisquser */ = {
+			isa = PBXGroup;
+			children = (
+				FBAE94A81BFC0D8B0030A32E /* IADisqusComment.h */,
+				FBAE94A91BFC0D8B0030A32E /* IADisqusComment.m */,
+				FBAE94AA1BFC0D8B0030A32E /* IADisqusConfig.h */,
+				FBAE94AB1BFC0D8B0030A32E /* IADisquser.h */,
+				FBAE94AC1BFC0D8B0030A32E /* IADisquser.m */,
+			);
+			name = IADisquser;
+			path = DropdownMenu/IADisquser;
+			sourceTree = "<group>";
+		};
+		FBAE94AF1BFC1BFE0030A32E /* DisqusComponent */ = {
+			isa = PBXGroup;
+			children = (
+				FBAE94B01BFC1BFE0030A32E /* Internal */,
+				FBAE94B81BFC1BFE0030A32E /* MDDisqusComponent.h */,
+				FBAE94B91BFC1BFE0030A32E /* MDDisqusComponent.m */,
+				FBAE94BA1BFC1BFE0030A32E /* Resources */,
+			);
+			path = DisqusComponent;
+			sourceTree = "<group>";
+		};
+		FBAE94B01BFC1BFE0030A32E /* Internal */ = {
+			isa = PBXGroup;
+			children = (
+				FBAE94B11BFC1BFE0030A32E /* MDDisqusAuthorizationView.h */,
+				FBAE94B21BFC1BFE0030A32E /* MDDisqusAuthorizationView.m */,
+				FBAE94B31BFC1BFE0030A32E /* MDDisqusAuthorizationViewController.h */,
+				FBAE94B41BFC1BFE0030A32E /* MDDisqusAuthorizationViewController.m */,
+				FBAE94B51BFC1BFE0030A32E /* MDDisqusConstants.h */,
+				FBAE94B61BFC1BFE0030A32E /* MDDisqusTokensModel.h */,
+				FBAE94B71BFC1BFE0030A32E /* MDDisqusTokensModel.m */,
+			);
+			path = Internal;
+			sourceTree = "<group>";
+		};
+		FBAE94BA1BFC1BFE0030A32E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				FBAE94BB1BFC1BFE0030A32E /* disqus_wheel.png */,
+				FBAE94BC1BFC1BFE0030A32E /* disqus_wheel@2x.png */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		FBDEF3CC1B9E4D31005BD9F4 /* DropdownMenu */ = {
@@ -466,7 +549,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBAE94C11BFC1BFE0030A32E /* disqus_wheel.png in Resources */,
 				FB714A241B94D16000D68CB5 /* Main.storyboard in Resources */,
+				FBAE94C21BFC1BFE0030A32E /* disqus_wheel@2x.png in Resources */,
 				FB714A291B94D16000D68CB5 /* LaunchScreen.xib in Resources */,
 				FB714A261B94D16000D68CB5 /* Images.xcassets in Resources */,
 			);
@@ -529,6 +614,9 @@
 				FB714A421B94D1E500D68CB5 /* Post.m in Sources */,
 				FBEB3A751B9F8E4D00B57AAB /* FeatureCollectionViewController.m in Sources */,
 				FB714A1B1B94D16000D68CB5 /* AppDelegate.m in Sources */,
+				75EDA0601BFF0D2F000B6C81 /* CommentsViewController.m in Sources */,
+				FBAE94AD1BFC0D8B0030A32E /* IADisqusComment.m in Sources */,
+				FBAE94AE1BFC0D8B0030A32E /* IADisquser.m in Sources */,
 				FBEB3A781B9F8EDF00B57AAB /* TileCollectionViewCellA.m in Sources */,
 				FB0391771B9BC06600C16FE8 /* Tile.m in Sources */,
 				FB714A4B1B94FFCF00D68CB5 /* URLParser.m in Sources */,
@@ -539,12 +627,16 @@
 				FBBA5AB61BA1012200345D5F /* TileCollectionViewCellC.m in Sources */,
 				FB714A1E1B94D16000D68CB5 /* ios_app.xcdatamodeld in Sources */,
 				CA239A6F1B9F660400BEDC5E /* GTMNSString+HTML.m in Sources */,
+				FBAE94BD1BFC1BFE0030A32E /* MDDisqusAuthorizationView.m in Sources */,
 				FB72E83A1BA3828500F10356 /* EmptySegue.m in Sources */,
 				FB798E2D1BAD182C00F98139 /* CategoryDetailViewController.m in Sources */,
 				FB99DEE21B9A1AFE007111B4 /* FeatureTableViewController.m in Sources */,
 				FB714A211B94D16000D68CB5 /* TestViewController.m in Sources */,
+				FBAE94BF1BFC1BFE0030A32E /* MDDisqusTokensModel.m in Sources */,
 				FB714A4E1B94FFE100D68CB5 /* DataParser.m in Sources */,
 				FBEB8E141B9CCB930080BBD1 /* FullPostViewController.m in Sources */,
+				FBAE94C01BFC1BFE0030A32E /* MDDisqusComponent.m in Sources */,
+				FBAE94BE1BFC1BFE0030A32E /* MDDisqusAuthorizationViewController.m in Sources */,
 				FBDEF3D81B9E857B005BD9F4 /* DropdownNavigationController.m in Sources */,
 				FBD0291D1BA8995200101D73 /* BookmarkTableViewController.m in Sources */,
 				FBDA71D41BA7803800D68C4A /* AuthorViewController.m in Sources */,
@@ -553,6 +645,7 @@
 				FB99DEE61B9A1BD9007111B4 /* FeaturedStoryTableViewCell.m in Sources */,
 				FBDEF3D11B9E4D31005BD9F4 /* DropdownMenuController.m in Sources */,
 				FBBA5AB01BA0DC0600345D5F /* TileCollectionViewCellB.m in Sources */,
+				FB7B011C1BEF483900552AA9 /* Comment.m in Sources */,
 				FB714A181B94D16000D68CB5 /* main.m in Sources */,
 				CA7F86DD1BA296E9002E16CA /* CategoryViewController.m in Sources */,
 				FBBA5AB31BA0F19600345D5F /* BaseTileCollectionViewCell.m in Sources */,
@@ -687,7 +780,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "ios-app/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.MorningSignOut.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -701,7 +794,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "ios-app/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.MorningSignOut.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
