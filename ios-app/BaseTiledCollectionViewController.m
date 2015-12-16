@@ -16,6 +16,7 @@
 #import "TileCollectionViewCellC.h"
 #import "FeaturedTileCollectionViewCell.h"
 #import "DropdownNavigationController.h"
+#include "ExternalLinksWebViewController.h"
 
 #define CELL_IDENTIFIER @"TileCell"
 #define CELL_IDENTIFIER_B @"TileCell2"
@@ -68,19 +69,6 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self updateLayoutForOrientation:[UIApplication sharedApplication].statusBarOrientation];
-    //self.navigationController.navigationBarHidden = YES;
-}
-
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
-    [self updateLayoutForOrientation:toInterfaceOrientation];
-}
-
-- (void)updateLayoutForOrientation:(UIInterfaceOrientation)orientation {
-    CHTCollectionViewWaterfallLayout *layout =
-    (CHTCollectionViewWaterfallLayout *)self.collectionView.collectionViewLayout;
-    layout.columnCount = UIInterfaceOrientationIsPortrait(orientation) ? 2 : 3;
 }
 
 - (void)dealloc {
@@ -89,7 +77,6 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (void)loadPosts {
-    
     [self.spinner startAnimating];
     dispatch_queue_t q = dispatch_queue_create("refresh latest", NULL);
     dispatch_async(q, ^{
@@ -277,7 +264,21 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark - Navigation
  
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    [self performSegueWithIdentifier:SEGUE_IDENTIFIER sender:[self.posts objectAtIndex:indexPath.item]];
+    Post *post = [self.posts objectAtIndex:indexPath.item];
+    if ([self shouldPerformSegueWithIdentifier:SEGUE_IDENTIFIER sender:post]) {
+        [self performSegueWithIdentifier:SEGUE_IDENTIFIER sender:post];
+    }
+}
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    Post *selectedPost = sender;
+    if ([[selectedPost.category firstObject] isEqual:@"Premed Advising"]) {
+        ExternalLinksWebViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"LinkController"];
+        controller.url = [NSURL URLWithString:selectedPost.url];
+        [self presentViewController:controller animated:YES completion:nil];
+        return NO;
+    }
+    return YES;
 }
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation

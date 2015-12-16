@@ -83,8 +83,4 @@ static bool needtoRefresh;
     return context;
 }
 
-- (void)fetchMoreItems {
-    return;
-}
-
 @end

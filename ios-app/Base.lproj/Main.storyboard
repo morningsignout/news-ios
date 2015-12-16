@@ -30,7 +30,7 @@
                                 <rect key="frame" x="0.0" y="20" width="600" height="44"/>
                                 <items>
                                     <navigationItem id="6On-FJ-0oY">
-                                        <barButtonItem key="leftBarButtonItem" title="Return to MSO" id="QYf-Ym-vAE">
+                                        <barButtonItem key="leftBarButtonItem" title="Back to App" id="QYf-Ym-vAE">
                                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <connections>
                                                 <action selector="returnToApp:" destination="MeV-fh-exn" id="beG-ic-Auq"/>
@@ -310,9 +310,12 @@
                                         <rect key="frame" x="18" y="8" width="564" height="79"/>
                                         <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="79" id="kYs-HV-lIW"/>
+                                            <constraint firstAttribute="height" constant="79" id="K0E-vX-yAa"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" title="Research">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -323,9 +326,12 @@
                                         <rect key="frame" x="18" y="95" width="564" height="80"/>
                                         <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="80" id="Bds-IQ-u2B"/>
+                                            <constraint firstAttribute="height" constant="80" id="EFs-Ew-0nQ"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" title="Wellness">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -336,9 +342,12 @@
                                         <rect key="frame" x="18" y="183" width="564" height="80"/>
                                         <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="80" id="MyT-JQ-Dey"/>
+                                            <constraint firstAttribute="height" constant="80" id="Wl3-Fh-J6U"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" title="Premedical">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -349,9 +358,12 @@
                                         <rect key="frame" x="18" y="271" width="564" height="80"/>
                                         <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="80" id="F5a-qU-1VW"/>
+                                            <constraint firstAttribute="height" constant="80" id="ilX-BY-gej"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" title="Medicine">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -362,9 +374,12 @@
                                         <rect key="frame" x="18" y="359" width="564" height="80"/>
                                         <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="80" id="dLD-1Z-2B3"/>
+                                            <constraint firstAttribute="height" constant="80" id="5aP-dm-5FQ"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" title="Public Health">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -375,9 +390,12 @@
                                         <rect key="frame" x="18" y="447" width="564" height="80"/>
                                         <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="80" id="6FC-jf-kVe"/>
+                                            <constraint firstAttribute="height" constant="80" id="b7H-7O-tmX"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" title="Healthcare">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -385,8 +403,12 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XCu-bV-6Gh">
-                                        <rect key="frame" x="487" y="562" width="95" height="30"/>
-                                        <state key="normal" title="Subscriptions"/>
+                                        <rect key="frame" x="8" y="562" width="584" height="30"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <state key="normal" title="Subscriptions">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
                                         <connections>
                                             <action selector="showSubscriptions:" destination="ECj-Nj-98G" eventType="touchUpInside" id="oVl-n3-McC"/>
                                         </connections>
@@ -394,26 +416,27 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="XCu-bV-6Gh" secondAttribute="trailing" constant="18" id="3Uu-1T-YL7"/>
-                                    <constraint firstItem="CJN-Li-kKj" firstAttribute="leading" secondItem="U92-0R-Umb" secondAttribute="leading" id="4HH-db-TMf"/>
-                                    <constraint firstItem="U92-0R-Umb" firstAttribute="trailing" secondItem="CJN-Li-kKj" secondAttribute="trailing" id="BcL-I5-oif"/>
-                                    <constraint firstItem="CJN-Li-kKj" firstAttribute="top" secondItem="D8N-9Z-rcc" secondAttribute="bottom" constant="8" symbolic="YES" id="F3g-7b-99d"/>
-                                    <constraint firstItem="D8N-9Z-rcc" firstAttribute="centerX" secondItem="5rQ-Gp-HG1" secondAttribute="centerX" id="HGm-cu-wBw"/>
-                                    <constraint firstItem="XCu-bV-6Gh" firstAttribute="bottom" secondItem="5rQ-Gp-HG1" secondAttribute="bottomMargin" id="Ozs-0V-9ie"/>
-                                    <constraint firstItem="g2o-TD-0HB" firstAttribute="leading" secondItem="oe0-Hr-Go3" secondAttribute="leading" id="Uf8-cw-gTp"/>
-                                    <constraint firstItem="g2o-TD-0HB" firstAttribute="top" secondItem="oe0-Hr-Go3" secondAttribute="bottom" constant="8" symbolic="YES" id="Uzi-LR-eLQ"/>
-                                    <constraint firstItem="U92-0R-Umb" firstAttribute="leading" secondItem="oe0-Hr-Go3" secondAttribute="leading" id="Xcm-Ek-RTi"/>
-                                    <constraint firstItem="CJN-Li-kKj" firstAttribute="trailing" secondItem="D8N-9Z-rcc" secondAttribute="trailing" id="d3P-x9-AVn"/>
-                                    <constraint firstItem="U92-0R-Umb" firstAttribute="top" secondItem="CJN-Li-kKj" secondAttribute="bottom" constant="8" symbolic="YES" id="geh-nP-f01"/>
-                                    <constraint firstItem="hIr-jV-j32" firstAttribute="trailing" secondItem="XCu-bV-6Gh" secondAttribute="trailing" id="gja-6l-Qzp"/>
-                                    <constraint firstItem="oe0-Hr-Go3" firstAttribute="trailing" secondItem="g2o-TD-0HB" secondAttribute="trailing" id="h4X-eB-ff8"/>
-                                    <constraint firstItem="hIr-jV-j32" firstAttribute="leading" secondItem="g2o-TD-0HB" secondAttribute="leading" id="ifD-DB-SUW"/>
-                                    <constraint firstItem="g2o-TD-0HB" firstAttribute="trailing" secondItem="hIr-jV-j32" secondAttribute="trailing" id="lFM-kp-4lT"/>
-                                    <constraint firstItem="oe0-Hr-Go3" firstAttribute="top" secondItem="U92-0R-Umb" secondAttribute="bottom" constant="8" symbolic="YES" id="oFX-Kl-Hs8"/>
-                                    <constraint firstItem="oe0-Hr-Go3" firstAttribute="trailing" secondItem="U92-0R-Umb" secondAttribute="trailing" id="qYf-OU-eHU"/>
-                                    <constraint firstItem="hIr-jV-j32" firstAttribute="top" secondItem="g2o-TD-0HB" secondAttribute="bottom" constant="8" symbolic="YES" id="whe-83-aS8"/>
-                                    <constraint firstItem="D8N-9Z-rcc" firstAttribute="top" secondItem="5rQ-Gp-HG1" secondAttribute="topMargin" id="xI2-9P-Q0c"/>
-                                    <constraint firstItem="CJN-Li-kKj" firstAttribute="leading" secondItem="D8N-9Z-rcc" secondAttribute="leading" id="xeR-gR-93T"/>
+                                    <constraint firstItem="U92-0R-Umb" firstAttribute="leading" secondItem="oe0-Hr-Go3" secondAttribute="leading" id="2Is-wb-3jk"/>
+                                    <constraint firstItem="CJN-Li-kKj" firstAttribute="leading" secondItem="U92-0R-Umb" secondAttribute="leading" id="2nv-Yw-OZa"/>
+                                    <constraint firstItem="XCu-bV-6Gh" firstAttribute="bottom" secondItem="5rQ-Gp-HG1" secondAttribute="bottomMargin" id="7ws-6f-Eda"/>
+                                    <constraint firstItem="oe0-Hr-Go3" firstAttribute="trailing" secondItem="U92-0R-Umb" secondAttribute="trailing" id="Gwk-bg-tOg"/>
+                                    <constraint firstItem="U92-0R-Umb" firstAttribute="trailing" secondItem="CJN-Li-kKj" secondAttribute="trailing" id="J53-GR-Rbh"/>
+                                    <constraint firstItem="CJN-Li-kKj" firstAttribute="leading" secondItem="D8N-9Z-rcc" secondAttribute="leading" id="LWB-s8-v61"/>
+                                    <constraint firstItem="D8N-9Z-rcc" firstAttribute="trailing" secondItem="CJN-Li-kKj" secondAttribute="trailing" id="Mhc-xY-5iO"/>
+                                    <constraint firstItem="D8N-9Z-rcc" firstAttribute="leading" secondItem="5rQ-Gp-HG1" secondAttribute="leading" constant="18" id="OSv-7p-Duy"/>
+                                    <constraint firstItem="oe0-Hr-Go3" firstAttribute="trailing" secondItem="g2o-TD-0HB" secondAttribute="trailing" id="RrL-gM-DAt"/>
+                                    <constraint firstItem="D8N-9Z-rcc" firstAttribute="centerX" secondItem="5rQ-Gp-HG1" secondAttribute="centerX" id="Wij-ae-bR2"/>
+                                    <constraint firstItem="g2o-TD-0HB" firstAttribute="trailing" secondItem="hIr-jV-j32" secondAttribute="trailing" id="df7-Yp-8Wq"/>
+                                    <constraint firstItem="CJN-Li-kKj" firstAttribute="top" secondItem="D8N-9Z-rcc" secondAttribute="bottom" constant="8" symbolic="YES" id="fgT-2m-Gby"/>
+                                    <constraint firstItem="hIr-jV-j32" firstAttribute="centerX" secondItem="XCu-bV-6Gh" secondAttribute="centerX" id="g2x-xF-goK"/>
+                                    <constraint firstItem="g2o-TD-0HB" firstAttribute="leading" secondItem="hIr-jV-j32" secondAttribute="leading" id="i4k-tA-ggo"/>
+                                    <constraint firstItem="U92-0R-Umb" firstAttribute="top" secondItem="CJN-Li-kKj" secondAttribute="bottom" constant="8" symbolic="YES" id="irI-Fh-slg"/>
+                                    <constraint firstItem="oe0-Hr-Go3" firstAttribute="leading" secondItem="g2o-TD-0HB" secondAttribute="leading" id="kMY-bi-Xcs"/>
+                                    <constraint firstItem="g2o-TD-0HB" firstAttribute="top" secondItem="oe0-Hr-Go3" secondAttribute="bottom" constant="8" symbolic="YES" id="mIc-3g-hji"/>
+                                    <constraint firstItem="hIr-jV-j32" firstAttribute="top" secondItem="g2o-TD-0HB" secondAttribute="bottom" constant="8" symbolic="YES" id="tfz-kS-1wO"/>
+                                    <constraint firstItem="XCu-bV-6Gh" firstAttribute="leading" secondItem="5rQ-Gp-HG1" secondAttribute="leadingMargin" id="tjw-za-qVW"/>
+                                    <constraint firstItem="D8N-9Z-rcc" firstAttribute="top" secondItem="5rQ-Gp-HG1" secondAttribute="topMargin" id="v7T-wZ-Rz0"/>
+                                    <constraint firstItem="oe0-Hr-Go3" firstAttribute="top" secondItem="U92-0R-Umb" secondAttribute="bottom" constant="8" symbolic="YES" id="vPd-Vd-NX9"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6eA-sB-uuB">
@@ -435,8 +458,12 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kes-R6-68c">
-                                        <rect key="frame" x="517" y="562" width="75" height="30"/>
-                                        <state key="normal" title="Categories"/>
+                                        <rect key="frame" x="8" y="562" width="584" height="30"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <state key="normal" title="View Categories">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
                                         <connections>
                                             <action selector="showCategories:" destination="ECj-Nj-98G" eventType="touchUpInside" id="rzn-Fc-0bC"/>
                                         </connections>
@@ -444,13 +471,14 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="Kes-R6-68c" firstAttribute="bottom" secondItem="6eA-sB-uuB" secondAttribute="bottomMargin" id="4qy-qs-0tp"/>
                                     <constraint firstItem="6UP-uf-yCR" firstAttribute="top" secondItem="6eA-sB-uuB" secondAttribute="top" id="BeS-iw-TO6"/>
                                     <constraint firstItem="6UP-uf-yCR" firstAttribute="leading" secondItem="Tlp-64-c2U" secondAttribute="leading" id="DzP-JW-s4n"/>
                                     <constraint firstItem="6UP-uf-yCR" firstAttribute="trailing" secondItem="Tlp-64-c2U" secondAttribute="trailing" id="EXa-hg-dpP"/>
                                     <constraint firstAttribute="bottom" secondItem="6UP-uf-yCR" secondAttribute="bottom" constant="-5" id="HQI-4S-v6C"/>
+                                    <constraint firstItem="Kes-R6-68c" firstAttribute="centerX" secondItem="Tlp-64-c2U" secondAttribute="centerX" id="Ikl-db-dJD"/>
                                     <constraint firstAttribute="trailing" secondItem="6UP-uf-yCR" secondAttribute="trailing" id="Nxx-TF-bkz"/>
-                                    <constraint firstItem="Kes-R6-68c" firstAttribute="bottom" secondItem="6eA-sB-uuB" secondAttribute="bottomMargin" id="cgf-AS-gps"/>
-                                    <constraint firstItem="Kes-R6-68c" firstAttribute="trailing" secondItem="6eA-sB-uuB" secondAttribute="trailingMargin" id="ylf-Ky-EF9"/>
+                                    <constraint firstItem="Kes-R6-68c" firstAttribute="leading" secondItem="6eA-sB-uuB" secondAttribute="leadingMargin" id="YOR-y0-WUU"/>
                                     <constraint firstItem="6UP-uf-yCR" firstAttribute="leading" secondItem="6eA-sB-uuB" secondAttribute="leading" id="zEB-Pd-bNm"/>
                                 </constraints>
                             </view>
@@ -521,7 +549,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="jzO-yr-iJF">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="jzO-yr-iJF">
                                 <rect key="frame" x="290" y="290" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
@@ -1027,7 +1055,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="4l3-Df-QUo"/>
         <segue reference="tMx-ve-VY8"/>
+        <segue reference="UEK-BK-yvW"/>
     </inferredMetricsTieBreakers>
 </document>

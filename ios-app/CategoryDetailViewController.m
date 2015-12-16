@@ -38,7 +38,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
-    //self.navigationController.navigationBar.tintColor = [UIColor kNavTextColor];
     
     // Deal with loading subscription info from core data
     self.subscribed = false;

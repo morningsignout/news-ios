@@ -82,6 +82,7 @@ static const CGFloat initialWebViewYOffset = 450;
     filteredHTML = [containerFront stringByAppendingString:filteredHTML];
     filteredHTML = [filteredHTML stringByAppendingString:containerEnd];
     filteredHTML = [header stringByAppendingString:filteredHTML];
+    
     self.html = filteredHTML;
     
     [self loadWebView];

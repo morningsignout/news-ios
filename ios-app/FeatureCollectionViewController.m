@@ -87,8 +87,6 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
         NSRange wordRange = NSMakeRange(0, 30);
         NSArray *firstNWords = [[self.topFeatured.excerpt componentsSeparatedByString:@" "] subarrayWithRange:wordRange];
         reusableView.excerpt.text = [firstNWords componentsJoinedByString:@" "];
-        reusableView.excerpt.backgroundColor = [UIColor kTileTitleBackgroundColor];
-        reusableView.title.backgroundColor = [UIColor kTileTitleBackgroundColor];
         
         NSURLRequest *requestLeft = [NSURLRequest requestWithURL:[NSURL URLWithString:self.topFeatured.fullCoverImageURL]];
         [reusableView.imageView setImageWithURLRequest:requestLeft placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {

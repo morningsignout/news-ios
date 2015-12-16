@@ -25,7 +25,7 @@
     self.title.backgroundColor = [UIColor clearColor];
     
     self.excerpt = [[UITextView alloc] initWithFrame:CGRectMake(0, contentSize.height - self.excerptHeight, contentSize.width, self.excerptHeight)];
-    //self.excerpt.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.excerpt.backgroundColor = [UIColor clearColor];
     self.excerpt.textContainerInset = UIEdgeInsetsMake(10, 0, 10, 0);
     self.excerpt.textAlignment = NSTextAlignmentCenter;
     [self.excerpt setFont:[UIFont systemFontOfSize:13]];
