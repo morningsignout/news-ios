@@ -41,33 +41,6 @@
 
 @end
 
-#pragma mark - Fonts
-
-@interface UIFont (Extensions)
-
-// Nav Bar Font
-+ (UIFont *) kNavFont;
-
-// Tile Font
-+ (UIFont *) kTileTitleFont;
-
-// Full Post Font
-+ (UIFont *) kFullPostTitleFont;
-+ (UIFont *) kFullPostAuthorFont;
-+ (UIFont *) kFullPostDateFont;
-+ (UIFont *) kFullPostTagFont;
-+ (UIFont *) kFullPostCategoryFont;
-
-// Bookmark Fonts
-// Note: change cell height on storyboard
-+ (UIFont *) kBookmarkTitleFont;
-+ (UIFont *) kBookmarkExcerptFont;
-
-// Category Font
-+ (UIFont *) kCategoryButtonTextFont;
-
-@end
-
 #pragma mark - Numerical Constants
 
 // Tile Styles
