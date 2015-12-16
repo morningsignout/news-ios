@@ -34,6 +34,13 @@ static bool needtoRefresh;
         needtoRefresh = false;
         [super loadPosts];
     }
+    
+    CategoryViewController *categoryVC = (CategoryViewController *)self.parentViewController;
+    if (self.subscribedContent.count == 0) {
+        categoryVC.noSubscriptionsPrompt.hidden = NO;
+    } else {
+        categoryVC.noSubscriptionsPrompt.hidden = YES;
+    }
 }
 
 - (NSArray *)getDataForTypeOfView {
