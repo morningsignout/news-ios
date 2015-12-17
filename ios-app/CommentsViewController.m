@@ -36,29 +36,42 @@
     return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [self.comments count];
+    if ([self.comments count] > 0) {
+        return [self.comments count];
+    }
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *MyIdentifier = @"CellIdentifier";
     UITableViewCell *cell         = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
+    
+
+    if ([self.comments count] == 0) {
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MyIdentifier];
+        }
+        cell.textLabel.text = @"There are no comments to show.";
+        cell.textLabel.font = [UIFont fontWithName:@"Helvetica-Oblique" size:15.0];
+        cell.textLabel.textColor = [UIColor grayColor];
+        cell.textLabel.textAlignment = NSTextAlignmentCenter;
+        return cell;
+    }
+    
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle  reuseIdentifier:MyIdentifier];
     }
-    
     Comment *currentComment = self.comments[indexPath.row];
     
-    cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    cell.textLabel.numberOfLines = 0;
-    cell.textLabel.text         = currentComment.message;
-    //cell.textLabel.font         = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
-    cell.textLabel.font         = [UIFont systemFontOfSize:14.0];
-    NSString *commentAuthor     = [NSString stringWithFormat:@"posted by %@ on %@", currentComment.senderName, currentComment.date];
-    cell.detailTextLabel.text   = commentAuthor;
-    //cell.detailTextLabel.font   =[UIFont systemFontOfSize:14.0];
-    cell.detailTextLabel.font   = [UIFont fontWithName:@"Helvetica-Oblique" size:14.0];
-    //cell.detailTextLabel.font   = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption2];
-    cell.backgroundColor        = [UIColor clearColor];
+    cell.textLabel.lineBreakMode   = NSLineBreakByWordWrapping;
+    cell.textLabel.numberOfLines   = 0;
+    cell.textLabel.text            = currentComment.message;
+    cell.textLabel.font            = [UIFont systemFontOfSize:14.0];
+    NSString *commentAuthor        = [NSString stringWithFormat:@"posted by %@ on %@", currentComment.senderName, currentComment.date];
+    cell.detailTextLabel.text      = commentAuthor;
+    cell.detailTextLabel.font      = [UIFont fontWithName:@"Helvetica-Oblique" size:14.0];
+    cell.detailTextLabel.textColor = [UIColor grayColor];
+    cell.backgroundColor           = [UIColor clearColor];
     
     return cell;
 }
