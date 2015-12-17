@@ -8,6 +8,7 @@
 
 #import "CommentsViewController.h"
 #import <IonIcons.h>
+#include "Comment.h"
 @interface CommentsViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
@@ -19,8 +20,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-}
 
+}
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:YES];
+
+    
+
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -29,7 +36,7 @@
     return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 3;
+    return [self.comments count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -37,12 +44,31 @@
     UITableViewCell *cell         = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle  reuseIdentifier:MyIdentifier];
-        
     }
-    cell.textLabel.text       = @"This article is awesome!";
-    cell.detailTextLabel.text = @"Random Person 11/21/15";
-    cell.backgroundColor      = [UIColor clearColor];
+    
+    Comment *currentComment = self.comments[indexPath.row];
+    
+    cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    cell.textLabel.numberOfLines = 0;
+    cell.textLabel.text         = currentComment.message;
+    //cell.textLabel.font         = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
+    cell.textLabel.font         = [UIFont systemFontOfSize:14.0];
+    NSString *commentAuthor     = [NSString stringWithFormat:@"posted by %@ on %@", currentComment.senderName, currentComment.date];
+    cell.detailTextLabel.text   = commentAuthor;
+    //cell.detailTextLabel.font   =[UIFont systemFontOfSize:14.0];
+    cell.detailTextLabel.font   = [UIFont fontWithName:@"Helvetica-Oblique" size:14.0];
+    //cell.detailTextLabel.font   = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption2];
+    cell.backgroundColor        = [UIColor clearColor];
+    
     return cell;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return UITableViewAutomaticDimension;
+}
+-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    //minimum size of your cell, it should be single line of label if you are not clear min. then return UITableViewAutomaticDimension;
+    return UITableViewAutomaticDimension;
 }
 /*
  #pragma mark - Navigation
@@ -64,6 +90,7 @@
     // Tableview setup
     UITableView *tableView              = [[UITableView alloc] initWithFrame:tableViewSize
                                                                        style:UITableViewStylePlain];
+    tableView.tableFooterView           = [[UIView alloc] initWithFrame:CGRectZero];
     tableView.autoresizingMask          = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     tableView.delegate                  = self;
     tableView.dataSource                = self;
@@ -112,17 +139,15 @@
     UIButton *closeButton                       = [UIButton buttonWithType:UIButtonTypeCustom];
     closeButton.frame                           = CGRectMake(0,0, screenFrame.size.width, screenFrame.size.height * 0.35);
     closeButton.backgroundColor                 = [UIColor clearColor];
-    
+
     [closeButton        addTarget:self
                            action:@selector(closeButtonPressed:)
                  forControlEvents:UIControlEventTouchUpInside];
    
     [closeButton setTitle:@"" forState:UIControlStateNormal];
     [self.view addSubview:closeButton];
-    
-    
-   
-}
+
+   }
 -(BOOL)textFieldShouldEndEditing:(UITextField *)textField{
     [textField resignFirstResponder]; return YES;
 }
@@ -137,6 +162,7 @@
 }
 -(void)closeButtonPressed:(UIBarButtonItem*)button{
     NSLog(@"close button pressed");
+    [self.delegate didCloseComments];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 @end

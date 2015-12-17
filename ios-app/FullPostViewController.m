@@ -30,7 +30,7 @@ NSString *publicKey = @"CaEN4GfINnGs2clsprUxiFw1Uj2IGhtpAtRpGSOH7OenWsZN0HxaAqyE
 NSString *secretKey = @"IVGGJxysqN5GgoMRc0qHtBzUYiOw6Ma77hkWFTytB42kUicNSHyKrmcnsusxKNBH";
 NSString *redirectURL = @"http://morningsignout.com";
 
-@interface FullPostViewController () <UIWebViewDelegate, UIScrollViewDelegate> {
+@interface FullPostViewController () <UIWebViewDelegate, UIScrollViewDelegate, CommentsViewControllerDelegate> {
     NSString *fontSizeStyle;
     float mainFontSize;
     float captionFontSize;
@@ -326,25 +326,39 @@ NSString *redirectURL = @"http://morningsignout.com";
     }
 }
 
-
 - (void)loadComments {
-    NSArray *comments = [DataParser DataForCommentsWithThreadID:self.post.disqusThreadID];
-    for (Comment *comment in comments) {
-        [comment print];
-    }
     
+
     // View Comments View Controller
     CommentsViewController *commentVC = [[CommentsViewController alloc] init];
-    
+    commentVC.comments = [DataParser DataForCommentsWithThreadID:self.post.disqusThreadID];
+    commentVC.delegate = self;
     //Modal
     commentVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     commentVC.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     commentVC.modalTransitionStyle = UIModalPresentationOverFullScreen;
+    
+    UIView *dimBackground   = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    
+    // Tag the dim background
+    dimBackground.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
+    dimBackground.tag             = 1111;
+    [self.view addSubview:dimBackground];
+    
     [self presentViewController:commentVC animated:YES completion:nil];
     
-    //[self.navigationController pushViewController:commentVC animated:NO];
     
-    [self getCommentCode];
+   // [self getCommentCode];
+}
+- (void)didCloseComments{
+    NSLog(@"got back");
+    for (UIView *view in [self.view subviews]) {
+        if (view.tag == 1111) {
+            [view removeFromSuperview];
+            
+            
+        }
+    }
 }
 
 - (void)getCommentCode {

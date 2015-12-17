@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CommentsViewController : UIViewController  
+@protocol CommentsViewControllerDelegate <NSObject>
+
+- (void)didCloseComments;
+
+@end
+@interface CommentsViewController : UIViewController
+
+@property (strong, nonatomic) NSArray *comments;
+
+@property (weak, nonatomic) id<CommentsViewControllerDelegate> delegate;
 
 @end
