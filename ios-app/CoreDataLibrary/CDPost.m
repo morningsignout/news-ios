@@ -20,7 +20,7 @@
     CDPost *nPost = nil;
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CDPost"];
-    request.predicate = [NSPredicate predicateWithFormat:@"identity == %d", post.ID];
+    request.predicate = [NSPredicate predicateWithFormat:@"identity ==[c] %d", post.ID];
     NSError *error;
     NSArray *matches = [context executeFetchRequest:request error:&error];
     
@@ -32,7 +32,8 @@
     } else {
         NSLog(@"Core Data didn't find Post, inserting Post: %d", post.ID);
         nPost = [NSEntityDescription insertNewObjectForEntityForName:@"CDPost" inManagedObjectContext:context];
-        nPost.identity = post.ID;
+        nPost.identity = [NSString stringWithFormat:@"%d", post.ID];
+        nPost.bookmarked = NO;
         nPost.body = post.body;
         nPost.date = post.date;
         nPost.excerpt = post.excerpt;
@@ -52,22 +53,50 @@
     return nPost;
 }
 
-+ (void)deletePostWithID:(int)identity
++ (void)deletePostWithID:(NSString *)identity
 fromManagedObjectContext:(NSManagedObjectContext *)context
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CDPost"];
-    request.predicate = [NSPredicate predicateWithFormat:@"identity == %d", identity];
+    request.predicate = [NSPredicate predicateWithFormat:@"identity ==[c] %@", identity];
     NSError *error;
     NSArray *matches = [context executeFetchRequest:request error:&error];
     
     if (!matches || error || matches.count > 1) {
         NSLog(@"Error when fetching CDPost");
     } else if (matches.count == 1) {
-        NSLog(@"Core Data found Post to delete: %d", identity);
+        NSLog(@"Core Data found Post to delete: %@", identity);
         NSManagedObject *object = [matches firstObject];
         [context deleteObject:object];
     } else {
-        NSLog(@"Core Data didn't find Post: %d", identity);
+        NSLog(@"Core Data didn't find Post: %@", identity);
+    }
+}
+
++ (void)addBookmarkPost:(Post *)post
+ toManagedObjectContext:(NSManagedObjectContext *)context
+{
+    CDPost *nPost = [CDPost postWithPost:post inManagedObjectContext:context];
+    if (nPost) {
+        nPost.bookmarked = YES;
+    }
+}
+
++ (void)removeBookmarkPostWithID:(NSString *)identity
+        fromManagedObjectContext:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CDPost"];
+    request.predicate = [NSPredicate predicateWithFormat:@"identity ==[c] %@", identity];
+    NSError *error;
+    NSArray *matches = [context executeFetchRequest:request error:&error];
+    
+    if (!matches || error || matches.count > 1) {
+        NSLog(@"Error when fetching CDPost");
+    } else if (matches.count == 1) {
+        NSLog(@"Core Data found Bookmarked Post to delete: %@", identity);
+        CDPost *object = [matches firstObject];
+        object.bookmarked = NO;
+    } else {
+        NSLog(@"Core Data didn't find Post: %@", identity);
     }
 }
 

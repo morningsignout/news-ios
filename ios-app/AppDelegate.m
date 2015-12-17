@@ -8,13 +8,6 @@
 
 #import "AppDelegate.h"
 #import "CoreDataControl.h"
-#import "CDPost.h"
-#import "CDAuthor.h"
-#import "CDTag.h"
-#import "CDCategory.h"
-
-#import "Post.h"
-#import "Author.h"
 
 @interface AppDelegate ()
 
@@ -51,5 +44,30 @@
     // Saves changes in the application's managed object context before the application terminates.
 }
 
+#pragma mark - Core Data
+
+- (NSManagedObjectContext *)managedObjectContext
+{
+    if (_managedObjectContext)
+        return _managedObjectContext;
+    CoreDataControl *control = [CoreDataControl sharedControl];
+    _managedObjectContext = control.managedObjectContext;
+    return _managedObjectContext;
+}
+
+- (NSPersistentStoreCoordinator *)persistentStoreCoordinator
+{
+    if (_persistentStoreCoordinator)
+        return _persistentStoreCoordinator;
+    CoreDataControl *control = [CoreDataControl sharedControl];
+    _persistentStoreCoordinator = control.persistentStoreCoordinator;
+    return _persistentStoreCoordinator;
+}
+
+- (void)saveContext
+{
+    CoreDataControl *control = [CoreDataControl sharedControl];
+    [control saveContext];
+}
 
 @end

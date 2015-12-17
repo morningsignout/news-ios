@@ -2,7 +2,7 @@
 //  CDAuthor+CoreDataProperties.h
 //  ios-app
 //
-//  Created by Qingwei Lan on 11/8/15.
+//  Created by Qingwei Lan on 12/16/15.
 //  Copyright © 2015 Morning Sign Out Incorporated. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -17,10 +17,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CDAuthor (CoreDataProperties)
 
-@property (nonatomic) int32_t identity;
-@property (nullable, nonatomic, retain) NSString *name;
 @property (nullable, nonatomic, retain) NSString *about;
 @property (nullable, nonatomic, retain) NSString *email;
+@property (nullable, nonatomic, retain) NSString *identity;
+@property (nullable, nonatomic, retain) NSString *name;
 @property (nullable, nonatomic, retain) NSSet<CDPost *> *posts;
 
 @end

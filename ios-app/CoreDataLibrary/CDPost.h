@@ -18,8 +18,14 @@ NS_ASSUME_NONNULL_BEGIN
 + (CDPost *)postWithPost:(Post *)post
   inManagedObjectContext:(NSManagedObjectContext *)context;
 
-+ (void)deletePostWithID:(int)identity
++ (void)deletePostWithID:(NSString *)identity
 fromManagedObjectContext:(NSManagedObjectContext *)context;
+
++ (void)addBookmarkPost:(Post *)post
+ toManagedObjectContext:(NSManagedObjectContext *)context;
+
++ (void)removeBookmarkPostWithID:(NSString *)identity
+        fromManagedObjectContext:(NSManagedObjectContext *)context;
 
 @end
 
