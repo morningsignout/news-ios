@@ -15,8 +15,8 @@
 @end
 @interface CommentsViewController : UIViewController
 
-@property (strong, nonatomic) NSArray *comments;
-
+@property (strong, nonatomic) NSMutableArray *comments;
+@property (strong, nonatomic) NSString *disqusID;
 @property (weak, nonatomic) id<CommentsViewControllerDelegate> delegate;
 
 @end

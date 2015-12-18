@@ -24,23 +24,14 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
 
 static const CGFloat initialWebViewYOffset = 450;
 
-// For comment system
-
-NSString *publicKey = @"CaEN4GfINnGs2clsprUxiFw1Uj2IGhtpAtRpGSOH7OenWsZN0HxaAqyE5vgu9aP2";
-NSString *secretKey = @"IVGGJxysqN5GgoMRc0qHtBzUYiOw6Ma77hkWFTytB42kUicNSHyKrmcnsusxKNBH";
-NSString *redirectURL = @"http://morningsignout.com";
-
 @interface FullPostViewController () <UIWebViewDelegate, UIScrollViewDelegate, CommentsViewControllerDelegate> {
     NSString *fontSizeStyle;
     float mainFontSize;
     float captionFontSize;
     bool scrolled, loaded;
-    NSString *commentCode;
-    NSString *accessToken;
 }
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
-@property (strong, nonatomic) UIWebView *commentWebView;
 @property (strong, nonatomic) NSString *html;
 @property (strong, nonatomic) NSArray *font;
 @property (weak, nonatomic) IBOutlet PostHeaderInfo *header;
@@ -331,8 +322,9 @@ NSString *redirectURL = @"http://morningsignout.com";
     if (!_commentVC) {
         // View Comments View Controller
         _commentVC = [[CommentsViewController alloc] init];
-        self.commentVC.comments = [DataParser DataForCommentsWithThreadID:self.post.disqusThreadID];
+        self.commentVC.comments = [NSMutableArray arrayWithArray:[DataParser DataForCommentsWithThreadID:self.post.disqusThreadID]];
         self.commentVC.delegate = self;
+        self.commentVC.disqusID = self.post.disqusThreadID;
         
         //Modal
         self.commentVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
@@ -352,7 +344,6 @@ NSString *redirectURL = @"http://morningsignout.com";
     [self.view addSubview:dimBackground];
     
     [self presentViewController:self.commentVC animated:YES completion:nil];
-    // [self getCommentCode];
 }
 
 - (void)didCloseComments{
@@ -362,44 +353,6 @@ NSString *redirectURL = @"http://morningsignout.com";
             [view removeFromSuperview];
         }
     }
-}
-
-- (void)getCommentCode {
-    NSString *getCodeURL = [NSString stringWithFormat:@"https://disqus.com/api/oauth/2.0/authorize/?client_id=%@&response_type=code&state=TEST&redirect_uri=%@&duration=permanent&scope=read", publicKey, redirectURL];
-    
-    [self.commentWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:getCodeURL]]];
-}
-
-- (void)getAccessToken {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    NSDictionary *params = @{@"grant_type": @"authorization_code",
-                             @"client_id": publicKey,
-                             @"client_secret": secretKey,
-                             @"redirect_uri": redirectURL,
-                             @"code": commentCode };
-    [manager POST:@"https://disqus.com/api/oauth/2.0/access_token/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        accessToken = [responseObject valueForKey:@"access_token"];
-        NSLog(@"%@", accessToken);
-        
-        [self postComment];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-    }];
-}
-
-- (void)postComment {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-
-    NSDictionary *params = @{@"api_key": publicKey,
-                             @"access_token": accessToken,
-                             @"thread": [NSString stringWithFormat:@"%@", self.post.disqusThreadID],
-                             @"message": @"msg" };
-    [manager POST:@"https://disqus.com/api/3.0/posts/create.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"successful comment made");
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-    }];
 }
 
 - (void)tappedCoverImage:(UITapGestureRecognizer *)tap {
@@ -427,8 +380,6 @@ NSString *redirectURL = @"http://morningsignout.com";
 
 - (void)scrollViewDidScroll:(UIScrollView*)scrollView
 {
-    float scrollViewHeight = scrollView.frame.size.height;
-    float scrollContentSizeHeight = scrollView.contentSize.height;
     float scrollOffset = scrollView.contentOffset.y;
     
     if (scrollOffset > 0 && !scrolled)
@@ -449,10 +400,6 @@ NSString *redirectURL = @"http://morningsignout.com";
             scrolled = NO;
         }];
     }
-    else if (scrollOffset + scrollViewHeight == scrollContentSizeHeight)
-    {
-        // then we are at the end
-    }
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
@@ -465,30 +412,10 @@ NSString *redirectURL = @"http://morningsignout.com";
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     [UIView animateWithDuration:1.5 animations:^{
         self.progressView.progress = 1;
-        
-        NSString *currentURL = [webView stringByEvaluatingJavaScriptFromString:@"window.location.href"];
-        if ([currentURL containsString:@"code="]) {
-            NSRange range = [currentURL rangeOfString:@"code="];
-            commentCode = [currentURL substringFromIndex:range.location + 5];
-            NSLog(@"%@", commentCode);
-            self.commentWebView = nil;
-            [self getAccessToken];
-        }
     } completion:^(BOOL completed){
         self.progressView.hidden = YES;
         loaded = YES;
-        
     }];
-}
-
-- (UIWebView *)commentWebView {
-    if (!_commentWebView) {
-        _commentWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 75, self.view.frame.size.width, self.view.frame.size.height)];
-        [self.view addSubview:self.commentWebView];
-        [self.view bringSubviewToFront:self.commentWebView];
-        self.commentWebView.delegate = self;
-    }
-    return _commentWebView;
 }
 
 -(void)loadUpdated {

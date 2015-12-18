@@ -9,10 +9,19 @@
 #import "CommentsViewController.h"
 #import <IonIcons.h>
 #include "Comment.h"
-@interface CommentsViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
+#import <AFNetworking.h>
+#import "FullPostViewController.h"
+#import "Post.h"
+@interface CommentsViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIWebViewDelegate> {
+    NSString *commentCode;
+    NSString *accessToken;
+    BOOL loggedIn;
+}
 
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
 @property (strong, nonatomic) UITextField *commentTextField;
+@property (strong, nonatomic) UIWebView *commentWebView;
+@property (strong, nonatomic) UITableView *tableView;
 
 @end
 
@@ -101,13 +110,13 @@
     self.view = [[UIView alloc]         initWithFrame:screenFrame];
 
     // Tableview setup
-    UITableView *tableView              = [[UITableView alloc] initWithFrame:tableViewSize
+    self.tableView              = [[UITableView alloc] initWithFrame:tableViewSize
                                                                        style:UITableViewStylePlain];
-    tableView.autoresizingMask          = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
-    tableView.delegate                  = self;
-    tableView.dataSource                = self;
-    [tableView reloadData];
-    [self.view addSubview:tableView];
+    self.tableView.autoresizingMask          = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+    self.tableView.delegate                  = self;
+    self.tableView.dataSource                = self;
+    [self.tableView reloadData];
+    [self.view addSubview:self.tableView];
     
     // Textfield and Submit setup
     UIView *blankView                           = [[UIView alloc] initWithFrame:CGRectMake(0,
@@ -131,7 +140,7 @@
     postButton.frame                            = CGRectMake(viewSize.size.width * 0.83, viewSize.origin.y + 20, 50, 30);
     
     [postButton         addTarget:self
-                           action:@selector(postButtonPressed:)
+                           action:@selector(postComment)
                  forControlEvents:UIControlEventTouchUpInside];
     
     [postButton          setTitle:@"Post"
@@ -164,7 +173,7 @@
 }
 
 - (void)resignKeyboard:(UITapGestureRecognizer *)tap {
-    [self.view endEditing:YES];
+    [self.commentTextField resignFirstResponder];
 }
 
 -(BOOL)textFieldShouldEndEditing:(UITextField *)textField{
@@ -177,15 +186,116 @@
     return YES;
 }
 
--(void)postButtonPressed:(UIButton*)button{
-    NSLog(@"post pressed");
-}
-
 -(void)closeButtonPressed:(UIBarButtonItem*)button{
     NSLog(@"close button pressed");
     [self.view endEditing:YES];
     [self.delegate didCloseComments];
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - HTTP Comment Code
+
+// For comment system
+NSString *publicKey = @"CaEN4GfINnGs2clsprUxiFw1Uj2IGhtpAtRpGSOH7OenWsZN0HxaAqyE5vgu9aP2";
+NSString *secretKey = @"IVGGJxysqN5GgoMRc0qHtBzUYiOw6Ma77hkWFTytB42kUicNSHyKrmcnsusxKNBH";
+NSString *redirectURL = @"http://morningsignout.com";
+
+- (UIWebView *)commentWebView {
+    if (!_commentWebView) {
+        _commentWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 70, self.view.frame.size.width, self.view.frame.size.height - 70)];
+        [self.view addSubview:self.commentWebView];
+        [self.view bringSubviewToFront:self.commentWebView];
+        self.commentWebView.delegate = self;
+    }
+    return _commentWebView;
+}
+
+- (void)getCommentCode {
+    NSString *getCodeURL = [NSString stringWithFormat:@"https://disqus.com/api/oauth/2.0/authorize/?client_id=%@&response_type=code&state=TEST&redirect_uri=%@&duration=permanent&scope=read", publicKey, redirectURL];
+    
+    [self.commentWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:getCodeURL]]];
+}
+
+- (void)getAccessToken {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSDictionary *params = @{@"grant_type": @"authorization_code",
+                             @"client_id": publicKey,
+                             @"client_secret": secretKey,
+                             @"redirect_uri": redirectURL,
+                             @"code": commentCode };
+    [manager POST:@"https://disqus.com/api/oauth/2.0/access_token/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        accessToken = [responseObject valueForKey:@"access_token"];
+        loggedIn = YES;
+        
+        UIAlertView *alertReadyForComment = [[UIAlertView alloc] initWithTitle:@"Post your comment." message:@"You have successfully logged in. Submit your comment again to confirm." delegate:self cancelButtonTitle:@"Got it!" otherButtonTitles:nil];
+        [alertReadyForComment show];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+}
+
+- (void)postComment {
+    // Reject empty comments
+    if ([self.commentTextField.text isEqualToString:@""]) {
+        UIAlertView *alertReadyForComment = [[UIAlertView alloc] initWithTitle:@"Comment cannot be blank." message:nil delegate:self cancelButtonTitle:@"Got it!" otherButtonTitles:nil];
+        [alertReadyForComment show];
+        return;
+    }
+    
+    // Only post once logged into Disqus
+    if (!loggedIn) {
+        [self getCommentCode];
+        return;
+    }
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSDictionary *params = @{@"api_key": publicKey,
+                             @"access_token": accessToken,
+                             @"thread": [NSString stringWithFormat:@"%@", self.disqusID],
+                             @"message": self.commentTextField.text };
+    [manager POST:@"https://disqus.com/api/3.0/posts/create.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        // Add comment to table
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
+        NSString *stringFromDate = [NSString stringWithString:[formatter stringFromDate:[NSDate date]]];
+        
+        Comment *newComment = [[Comment alloc] initWithName:@"You" Message:self.commentTextField.text AndDate:stringFromDate];
+        
+        self.commentTextField.text = @"";
+        
+        UIAlertView *alertReadyForComment = [[UIAlertView alloc] initWithTitle:@"Comment successfully posted." message:nil delegate:self cancelButtonTitle:@"Got it!" otherButtonTitles:nil];
+        [alertReadyForComment show];
+        
+        [self.comments addObject:newComment];
+        [self.tableView reloadData];
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        UIAlertView *alertError = [[UIAlertView alloc] initWithTitle:@"This service is currently unavailable." message:@"Please try again later." delegate:self cancelButtonTitle:@"Got it!" otherButtonTitles:nil];
+        [alertError show];
+        
+        NSLog(@"Error: %@", error);
+    }];
+}
+
+#pragma mark - UIWebView Delegate
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    NSString *currentURL = [webView stringByEvaluatingJavaScriptFromString:@"window.location.href"];
+    if ([currentURL containsString:@"code="]) {
+        NSRange range = [currentURL rangeOfString:@"code="];
+        commentCode = [currentURL substringFromIndex:range.location + 5];
+        loggedIn =  YES;
+        
+        // Return to original view
+        [self.commentWebView removeFromSuperview];
+        
+        // Get access token after logging in
+        [self getAccessToken];
+    }
 }
 
 @end
