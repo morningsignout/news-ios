@@ -5,7 +5,7 @@
 //  Created by Shannon Phu on 9/6/15.
 //  Copyright (c) 2015 Morning Sign Out Incorporated. All rights reserved.
 //
-
+#import "CommentsViewController.h"
 #import "FullPostViewController.h"
 #import "Post.h"
 #import "ExternalLinksWebViewController.h"
@@ -16,13 +16,15 @@
 #import "Constants.h"
 #import "PostHeaderInfo.h"
 #include "AuthorViewController.h"
+#import "DataParser.h"
+#include "Comment.h"
 
 static NSString * const header = @"<!-- Latest compiled and minified CSS --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"><!-- Optional theme --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css\"><!-- Latest compiled and minified JavaScript --><script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\"></script><!-- Yeon's CSS --><link rel=\"stylesheet\" href=\"http://morningsignout.com/wp-content/themes/mso/style.css?ver=4.3\"><meta charset=\"utf-8\"> \
     <style type=\"text/css\">.ssba {}.ssba img { width: 30px !important; padding: 0px; border:  0; box-shadow: none !important; display: inline !important; vertical-align: middle; } .ssba, .ssba a {text-decoration:none;border:0;background: none;font-family: Indie Flower;font-size: 20px;}</style><div style=\"padding:5px;background-color:white;box-shadow:none;\"></div>";
 
 static const CGFloat initialWebViewYOffset = 450;
 
-@interface FullPostViewController () <UIWebViewDelegate, UIScrollViewDelegate> {
+@interface FullPostViewController () <UIWebViewDelegate, UIScrollViewDelegate, CommentsViewControllerDelegate> {
     NSString *fontSizeStyle;
     float mainFontSize;
     float captionFontSize;
@@ -35,6 +37,7 @@ static const CGFloat initialWebViewYOffset = 450;
 @property (weak, nonatomic) IBOutlet PostHeaderInfo *header;
 @property (nonatomic) CGFloat lastContentOffset;
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;
+@property (strong, nonatomic) CommentsViewController *commentVC;
 
 @end
 
@@ -107,8 +110,9 @@ static const CGFloat initialWebViewYOffset = 450;
     UIBarButtonItem *bookmarkItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(bookmarkPost)];
     UIBarButtonItem *fontIncItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(increaseFontSize)];
     UIBarButtonItem *fontDecItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:@selector(decreaseFontSize)];
+    UIBarButtonItem *commentItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(loadComments)];
     
-    NSArray *actionButtonItems = @[shareItem, bookmarkItem, fontIncItem, fontDecItem];
+    NSArray *actionButtonItems = @[shareItem, bookmarkItem, fontIncItem, fontDecItem, commentItem];
     self.navigationItem.rightBarButtonItems = actionButtonItems;
 }
 
@@ -314,6 +318,43 @@ static const CGFloat initialWebViewYOffset = 450;
     }
 }
 
+- (CommentsViewController *)commentVC {
+    if (!_commentVC) {
+        // View Comments View Controller
+        _commentVC = [[CommentsViewController alloc] init];
+        self.commentVC.comments = [NSMutableArray arrayWithArray:[DataParser DataForCommentsWithThreadID:self.post.disqusThreadID]];
+        self.commentVC.delegate = self;
+        self.commentVC.disqusID = self.post.disqusThreadID;
+        
+        //Modal
+        self.commentVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+        self.commentVC.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        self.commentVC.modalTransitionStyle = UIModalPresentationOverFullScreen;
+    }
+    return _commentVC;
+}
+
+- (void)loadComments {
+    // Dim background
+    UIView *dimBackground   = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    
+    // Tag the dim background
+    dimBackground.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
+    dimBackground.tag             = 1111;
+    [self.view addSubview:dimBackground];
+    
+    [self presentViewController:self.commentVC animated:YES completion:nil];
+}
+
+- (void)didCloseComments{
+    NSLog(@"got back");
+    for (UIView *view in [self.view subviews]) {
+        if (view.tag == 1111) {
+            [view removeFromSuperview];
+        }
+    }
+}
+
 - (void)tappedCoverImage:(UITapGestureRecognizer *)tap {
     [self performSegueWithIdentifier:@"showImage" sender:[NSURL URLWithString:self.post.fullCoverImageURL]];
 }
@@ -339,8 +380,6 @@ static const CGFloat initialWebViewYOffset = 450;
 
 - (void)scrollViewDidScroll:(UIScrollView*)scrollView
 {
-    float scrollViewHeight = scrollView.frame.size.height;
-    float scrollContentSizeHeight = scrollView.contentSize.height;
     float scrollOffset = scrollView.contentOffset.y;
     
     if (scrollOffset > 0 && !scrolled)
@@ -360,10 +399,6 @@ static const CGFloat initialWebViewYOffset = 450;
         } completion:^(BOOL completed){
             scrolled = NO;
         }];
-    }
-    else if (scrollOffset + scrollViewHeight == scrollContentSizeHeight)
-    {
-        // then we are at the end
     }
 }
 
