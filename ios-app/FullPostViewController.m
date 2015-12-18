@@ -46,6 +46,7 @@ NSString *redirectURL = @"http://morningsignout.com";
 @property (weak, nonatomic) IBOutlet PostHeaderInfo *header;
 @property (nonatomic) CGFloat lastContentOffset;
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;
+@property (strong, nonatomic) CommentsViewController *commentVC;
 
 @end
 
@@ -326,18 +327,23 @@ NSString *redirectURL = @"http://morningsignout.com";
     }
 }
 
-- (void)loadComments {
-    
+- (CommentsViewController *)commentVC {
+    if (!_commentVC) {
+        // View Comments View Controller
+        _commentVC = [[CommentsViewController alloc] init];
+        self.commentVC.comments = [DataParser DataForCommentsWithThreadID:self.post.disqusThreadID];
+        self.commentVC.delegate = self;
+        
+        //Modal
+        self.commentVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+        self.commentVC.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        self.commentVC.modalTransitionStyle = UIModalPresentationOverFullScreen;
+    }
+    return _commentVC;
+}
 
-    // View Comments View Controller
-    CommentsViewController *commentVC = [[CommentsViewController alloc] init];
-    commentVC.comments = [DataParser DataForCommentsWithThreadID:self.post.disqusThreadID];
-    commentVC.delegate = self;
-    //Modal
-    commentVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-    commentVC.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-    commentVC.modalTransitionStyle = UIModalPresentationOverFullScreen;
-    
+- (void)loadComments {
+    // Dim background
     UIView *dimBackground   = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
     // Tag the dim background
@@ -345,18 +351,15 @@ NSString *redirectURL = @"http://morningsignout.com";
     dimBackground.tag             = 1111;
     [self.view addSubview:dimBackground];
     
-    [self presentViewController:commentVC animated:YES completion:nil];
-    
-    
-   // [self getCommentCode];
+    [self presentViewController:self.commentVC animated:YES completion:nil];
+    // [self getCommentCode];
 }
+
 - (void)didCloseComments{
     NSLog(@"got back");
     for (UIView *view in [self.view subviews]) {
         if (view.tag == 1111) {
             [view removeFromSuperview];
-            
-            
         }
     }
 }
