@@ -16,6 +16,7 @@
 #import "TileCollectionViewCellC.h"
 #import "FeaturedTileCollectionViewCell.h"
 #import "DropdownNavigationController.h"
+#include "ExternalLinksWebViewController.h"
 
 #define CELL_IDENTIFIER @"TileCell"
 #define CELL_IDENTIFIER_B @"TileCell2"
@@ -68,19 +69,6 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self updateLayoutForOrientation:[UIApplication sharedApplication].statusBarOrientation];
-    //self.navigationController.navigationBarHidden = YES;
-}
-
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
-    [self updateLayoutForOrientation:toInterfaceOrientation];
-}
-
-- (void)updateLayoutForOrientation:(UIInterfaceOrientation)orientation {
-    CHTCollectionViewWaterfallLayout *layout =
-    (CHTCollectionViewWaterfallLayout *)self.collectionView.collectionViewLayout;
-    layout.columnCount = UIInterfaceOrientationIsPortrait(orientation) ? 2 : 3;
 }
 
 - (void)dealloc {
@@ -89,7 +77,6 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (void)loadPosts {
-    
     [self.spinner startAnimating];
     dispatch_queue_t q = dispatch_queue_create("refresh latest", NULL);
     dispatch_async(q, ^{
@@ -122,7 +109,6 @@ static NSString * const reuseIdentifier = @"Cell";
         [self.collectionView reloadData];
         self.collectionView.userInteractionEnabled = YES;
         [self.spinner stopAnimating];
-        NSLog(@"reloaded new posts");
     });
 }
 
@@ -141,7 +127,8 @@ static NSString * const reuseIdentifier = @"Cell";
         _collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
-        _collectionView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.7];
+        _collectionView.backgroundColor = [UIColor kCollectionViewBackgroundColor];
+        //self.collectionView.layer.contents = (id)[UIImage imageNamed:@"background"].CGImage;
         
         [self setUpClassesForCollectionViewLayout:layout];
     }
@@ -187,9 +174,8 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (![self getEndOfPosts] && indexPath.item == self.posts.count - 3) {
+    if (![self getEndOfPosts] && indexPath.item == self.posts.count - 12) {
         [self.spinner startAnimating];
-        NSLog(@"still fetching");
         [self fetchMoreItems];
     }
     
@@ -210,7 +196,6 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (void)fetchMoreItems {
-    NSLog(@"FETCHING MORE ITEMS");
     if (self.page > 0) {
         self.spinner.hidden = YES;
     } else {
@@ -222,14 +207,12 @@ static NSString * const reuseIdentifier = @"Cell";
     dispatch_queue_t q = dispatch_queue_create("load more posts", NULL);
     dispatch_async(q, ^{
         self.page++;
-        NSLog(@"now on page %d of data", self.page);
         newData = [self getDataForPage];
         if([newData count] < 28){
             [self setEndOfPosts:true];
-            NSLog(@"end of posts reached");
         }
         // Simulate an async load
-        double delayInSeconds = 2 * NSEC_PER_SEC;
+        double delayInSeconds = NSEC_PER_SEC;
         dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds);
         dispatch_after(delay, dispatch_get_main_queue(), ^(void){
             
@@ -281,7 +264,21 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark - Navigation
  
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    [self performSegueWithIdentifier:SEGUE_IDENTIFIER sender:[self.posts objectAtIndex:indexPath.item]];
+    Post *post = [self.posts objectAtIndex:indexPath.item];
+    if ([self shouldPerformSegueWithIdentifier:SEGUE_IDENTIFIER sender:post]) {
+        [self performSegueWithIdentifier:SEGUE_IDENTIFIER sender:post];
+    }
+}
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    Post *selectedPost = sender;
+    if ([[selectedPost.category firstObject] isEqual:@"Premed Advising"]) {
+        ExternalLinksWebViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"LinkController"];
+        controller.url = [NSURL URLWithString:selectedPost.url];
+        [self presentViewController:controller animated:YES completion:nil];
+        return NO;
+    }
+    return YES;
 }
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -336,9 +333,6 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark - Scroll View Delegate
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-//    NSNumber *end = [NSNumber numberWithBool:[self getEndOfPosts]];
-//    if(end)
-//        return;
     float bottomEdge = scrollView.contentOffset.y + scrollView.frame.size.height;
     if (bottomEdge >= scrollView.contentSize.height - self.view.frame.size.height / 3) {
         // we are at the end

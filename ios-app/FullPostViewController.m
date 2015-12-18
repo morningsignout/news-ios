@@ -6,16 +6,19 @@
 //  Copyright (c) 2015 Morning Sign Out Incorporated. All rights reserved.
 //
 #import "CommentsViewController.h"
+#import <QuartzCore/QuartzCore.h>
 #import "FullPostViewController.h"
 #import "Post.h"
 #import "ExternalLinksWebViewController.h"
 #import "ImageViewController.h"
 #import <AFNetworking.h>
 #import <CoreData/CoreData.h>
+#import <Social/Social.h>
 #import "ArticleLabels.h"
 #import "Constants.h"
 #import "PostHeaderInfo.h"
 #include "AuthorViewController.h"
+#include <IonIcons.h>
 #import "DataParser.h"
 #include "Comment.h"
 
@@ -26,8 +29,7 @@ static const CGFloat initialWebViewYOffset = 450;
 
 @interface FullPostViewController () <UIWebViewDelegate, UIScrollViewDelegate, CommentsViewControllerDelegate> {
     NSString *fontSizeStyle;
-    float mainFontSize;
-    float captionFontSize;
+    int fontLevel;
     bool scrolled, loaded;
 }
 
@@ -64,13 +66,11 @@ static const CGFloat initialWebViewYOffset = 450;
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Font"];
     self.font = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     if (self.font.firstObject) {
-        NSNumber *numberFormatFloat = [self.font.firstObject valueForKey:@"mainSize"];
-        mainFontSize = [numberFormatFloat floatValue];
-        numberFormatFloat = [self.font.firstObject valueForKey:@"captionSize"];
-        captionFontSize = [numberFormatFloat floatValue];
+        NSNumber *lev = [self.font.firstObject valueForKey:@"fontLevel"];
+        fontLevel = [lev intValue];
+        
     } else {
-        mainFontSize = 1.5;
-        captionFontSize = 1.2;
+        fontLevel = 1;
     }
     
     [self setUpLabels];
@@ -82,6 +82,7 @@ static const CGFloat initialWebViewYOffset = 450;
     filteredHTML = [containerFront stringByAppendingString:filteredHTML];
     filteredHTML = [filteredHTML stringByAppendingString:containerEnd];
     filteredHTML = [header stringByAppendingString:filteredHTML];
+    
     self.html = filteredHTML;
     
     [self loadWebView];
@@ -107,12 +108,12 @@ static const CGFloat initialWebViewYOffset = 450;
     self.navigationController.navigationBar.tintColor = [UIColor kNavTextColor];
     
     UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(share)];
-    UIBarButtonItem *bookmarkItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(bookmarkPost)];
-    UIBarButtonItem *fontIncItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(increaseFontSize)];
-    UIBarButtonItem *fontDecItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:@selector(decreaseFontSize)];
-    UIBarButtonItem *commentItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(loadComments)];
+    UIBarButtonItem *bookmarkItem = [[UIBarButtonItem alloc] initWithImage:[IonIcons imageWithIcon:ion_ios_bookmarks_outline size:32.0f color:[UIColor whiteColor]] style:UIBarButtonItemStylePlain target:self action:@selector(bookmarkPost)];
+    UIBarButtonItem *fontItem = [[UIBarButtonItem alloc] initWithImage:[IonIcons imageWithIcon:ion_ios_glasses_outline size:32.0f color:[UIColor whiteColor]] style:UIBarButtonItemStylePlain target:self action:@selector(changeFont)];
+    UIBarButtonItem *commentItem = [[UIBarButtonItem alloc] initWithImage:[IonIcons imageWithIcon:ion_ios_chatboxes_outline size:32.0f color:[UIColor whiteColor]] style:UIBarButtonItemStylePlain target:self action:@selector(loadComments)];
     
-    NSArray *actionButtonItems = @[shareItem, bookmarkItem, fontIncItem, fontDecItem, commentItem];
+    NSArray *actionButtonItems = @[shareItem, bookmarkItem, commentItem, fontItem];
+
     self.navigationItem.rightBarButtonItems = actionButtonItems;
 }
 
@@ -141,42 +142,23 @@ static const CGFloat initialWebViewYOffset = 450;
 }
 
 - (void)setUpLabels {
-    //UIColor *blue = [UIColor colorWithRed:0.125 green:0.498 blue:0.722 alpha:1];          // from website
-    UIColor *blue = [UIColor colorWithRed:0.11 green:0.38 blue:0.541 alpha:1];              // darker version
-    UIColor *lighterblue = [UIColor colorWithRed:0.388 green:0.698 blue:0.898 alpha:1];     // from website
-    //UIColor *lighterblue = [UIColor colorWithRed:0.29 green:0.573 blue:0.757 alpha:1];    // darker version
-    
     self.header.articleLabels.frame = CGRectMake(0, self.header.coverImage.frame.size.height + 70, self.view.frame.size.width, 150);
-    [self.header.articleLabels setBackgroundColor:[[UIColor whiteColor] colorWithAlphaComponent:0.75]];
+    [self.header.articleLabels setBackgroundColor:[UIColor kFullPostInfoBackgroundColor]];
     
     self.header.articleLabels.titleLabel.text = self.post.title;
-    [self.header.articleLabels.titleLabel setTextColor:blue];
-    
-    self.header.articleLabels.dateLabel.text = self.post.date;
-    [self.header.articleLabels.dateLabel setTextColor:blue];
+    [self.header.articleLabels.titleLabel setTextColor:[UIColor kFullPostMainTextColor]];
     
     self.header.articleLabels.categoriesLabel.text = [self.post.category componentsJoinedByString:@", "];
-    [self.header.articleLabels.categoriesLabel setTextColor:[UIColor whiteColor]];
-    [self.header.articleLabels.categoriesLabel setBackgroundColor:lighterblue];
+    [self.header.articleLabels.categoriesLabel setTextColor:[UIColor kFullPostCategoryTextColor]];
+    [self.header.articleLabels.categoriesLabel setBackgroundColor:[UIColor kFullPostCategoryBackgroundColor]];
     
-    self.header.articleLabels.tagsLabel.text = [self.post.tags componentsJoinedByString:@", "];
-    [self.header.articleLabels.tagsLabel setTextColor:blue];
-    
-    // add underline to authorlabel text by making it a NSMutableAttributeString
-    NSString *author = self.post.author.name;
-    NSMutableAttributedString *uAuthor = [[NSMutableAttributedString alloc] initWithString:author];
-    
-    [uAuthor addAttributes:@{
-                             NSUnderlineColorAttributeName : blue,
-                             NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle | NSUnderlinePatternSolid),
-                             }
-                     range:NSMakeRange(0, uAuthor.length)];
-    
-    [self.header.articleLabels.authorLabel setAttributedText:uAuthor];
-    [self.header.articleLabels.authorLabel setTextColor:blue];
+    self.header.articleLabels.authorLabel.text = [NSString stringWithFormat:@"%@ | %@", self.post.author.name, self.post.date];
+    [self.header.articleLabels.authorLabel setTextColor:[UIColor kFullPostMainTextColor]];
 }
 
 - (NSString *)setFontSize {
+    float mainFontSize = [self getMainFontFromLevel:fontLevel];
+    float captionFontSize = [self getCaptionFontFromLevel:fontLevel];
     fontSizeStyle = [NSString stringWithFormat:@"<script> \
                      var all = document.getElementsByTagName(\"p\"); \
                      for (var i = 0; i < all.length; i++) { \
@@ -229,43 +211,71 @@ static const CGFloat initialWebViewYOffset = 450;
     return YES;
 }
 
-- (void)increaseFontSize {
-    mainFontSize += 0.1;
-    captionFontSize += 0.05;
+- (void)changeFont {
+    if (fontLevel == 3) {
+        fontLevel = 1;
+    } else {
+        ++fontLevel;
+    }
+    
+    [self storeFontSize];
     [self reflectFontChangesOnHTML];
 }
 
-- (void)decreaseFontSize {
-    mainFontSize -= 0.1;
-    captionFontSize -= 0.05;
-    [self reflectFontChangesOnHTML];
+- (float)getMainFontFromLevel:(int)level {
+    switch (level) {
+        case 1:
+            return 1.5;
+            break;
+        case 2:
+            return 1.7;
+            break;
+        case 3:
+            return 1.9;
+            break;
+    }
+    return 1.7;
+}
+
+- (float)getCaptionFontFromLevel:(int)level {
+    switch (level) {
+        case 1:
+            return 1.2;
+            break;
+        case 2:
+            return 1.25;
+            break;
+        case 3:
+            return 1.3;
+            break;
+    }
+    return 1.25;
 }
 
 - (void)share
 {
-    NSString *textToShare = @"Look at this awesome website for aspiring iOS Developers!";
-    NSURL *myWebsite = [NSURL URLWithString:@"http://www.codingexplorer.com/"];
-    
-    NSArray *objectsToShare = @[textToShare, myWebsite];
+    NSString *textToShare = @"Check out this article!\n";
+
+    NSArray *objectsToShare = @[textToShare, self.post.url];
     
     UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
     
-//    NSArray *excludeActivities = @[UIActivityTypeMail,
-//                                   UIActivityTypeMessage,
-//                                   UIActivityTypePrint,
-//                                   UIActivityTypePostToFacebook,
-//                                   UIActivityTypePostToTwitter,
-//                                   UIActivityTypePostToWeibo,
-//                                   UIActivityTypeCopyToPasteboard];
-//    
-//    activityVC.excludedActivityTypes = excludeActivities;
+    NSArray *excludeActivities = @[
+                                    UIActivityTypeAddToReadingList,
+                                    UIActivityTypeAirDrop,
+                                    UIActivityTypeAssignToContact,
+                                    UIActivityTypeCopyToPasteboard,
+                                    UIActivityTypeOpenInIBooks,
+                                    UIActivityTypeSaveToCameraRoll,
+                                    UIActivityTypePrint,
+                                  ];
+    activityVC.excludedActivityTypes = excludeActivities;
+
     
     [self presentViewController:activityVC animated:YES completion:nil];
 }
 
 - (void)reflectFontChangesOnHTML {
-    [self storeFontSize];
-    
     NSString *alteredHTML = [self.html stringByAppendingString:[self setFontSize]];
     [self.webView loadHTMLString:alteredHTML baseURL:nil];
 }
@@ -276,14 +286,12 @@ static const CGFloat initialWebViewYOffset = 450;
     
     if (savedFont) {
         // Update existing device
-        [savedFont setValue:[NSNumber numberWithFloat:mainFontSize] forKey:@"mainSize"];
-        [savedFont setValue:[NSNumber numberWithFloat:captionFontSize] forKey:@"captionSize"];
+        [savedFont setValue:[NSNumber numberWithFloat:fontLevel] forKey:@"fontLevel"];
         
     } else {
         // Create a new managed object
         NSManagedObject *newFont = [NSEntityDescription insertNewObjectForEntityForName:@"Font" inManagedObjectContext:context];
-        [newFont setValue:[NSNumber numberWithFloat:mainFontSize] forKey:@"mainSize"];
-        [newFont setValue:[NSNumber numberWithFloat:captionFontSize] forKey:@"captionSize"];
+        [newFont setValue:[NSNumber numberWithFloat:fontLevel] forKey:@"fontLevel"];
     }
     
     NSError *error = nil;

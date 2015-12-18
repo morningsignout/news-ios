@@ -10,11 +10,13 @@
 #import "DataParser.h"
 #import "DropdownNavigationController.h"
 #import "CategoryDetailViewController.h"
+#include "Constants.h"
 
 @interface CategoryViewController ()
 
 @property (strong, nonatomic) NSArray *categoryNames;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
+@property (weak, nonatomic) IBOutlet UIView *buttonView;
 
 @end
 
@@ -24,25 +26,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"Categories";
-    
-    UISwipeGestureRecognizer *swipeDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(moveContainerDown)];
-    [swipeDown setDirection:UISwipeGestureRecognizerDirectionDown];
-    
-    UISwipeGestureRecognizer *swipeUp = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(moveContainerUp)];
-    [swipeUp setDirection:UISwipeGestureRecognizerDirectionUp];
-    
-    [self.containerView addGestureRecognizer:swipeDown];
-    [self.containerView addGestureRecognizer:swipeUp];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     DropdownNavigationController *navVC = (DropdownNavigationController *)self.parentViewController.parentViewController;
     navVC.titleLabel.text = @"Categories";
+    navVC.titleLabel.textColor = [UIColor kNavTextColor];
     self.navigationController.navigationBarHidden = YES;
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [self moveContainerDown];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -50,16 +40,17 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)moveContainerDown {
-    [UIView animateWithDuration:1.0 animations:^{
-        self.containerView.frame = CGRectMake(0, 9 * self.view.frame.size.height / 10, self.view.frame.size.width, self.view.frame.size.height);
+- (IBAction)showSubscriptions:(id)sender {
+    [UIView animateWithDuration:0.5 animations:^{
+        self.containerView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     }];
 }
 
-- (void)moveContainerUp {
-    [UIView animateWithDuration:1.0 animations:^{
-        self.containerView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+- (IBAction)showCategories:(id)sender {
+    [UIView animateWithDuration:0.5 animations:^{
+        self.containerView.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
     }];
+
 }
 
 #pragma mark - Navigation

@@ -14,7 +14,7 @@
 
 // Nav Colors
 + (UIColor*) kNavBackgroundColor {
-    return [UIColor darkGrayColor];
+    return rgba(115, 179, 226, 1);
 }
 
 + (UIColor*) kNavTextColor {
@@ -23,12 +23,13 @@
 
 // Collection View Color
 + (UIColor*) kCollectionViewBackgroundColor {
-    return [UIColor colorWithWhite:0.9 alpha:0.7];
+    return rgba(216, 228, 243, 1);
+    //return [UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]];
 }
 
 // Tile Colors
 + (UIColor*) kTileTitleBackgroundColor {
-    return [UIColor whiteColor];
+    return [UIColor colorWithWhite:1 alpha:0.7];
 }
 
 + (UIColor*) kTileTitleTextColor {
@@ -41,28 +42,20 @@
 }
 
 // Full Post Colors
-+ (UIColor*) kFullPostTitleTextColor {
-    return  nil;
-}
-
-+ (UIColor*) kFullPostAuthorTextColor {
-    return  nil;
-}
-
-+ (UIColor*) kFullPostDateTextColor {
-    return  nil;
++ (UIColor*) kFullPostMainTextColor {
+    return  [UIColor colorWithRed:0.11 green:0.38 blue:0.541 alpha:1];
 }
 
 + (UIColor*) kFullPostCategoryTextColor {
-    return  nil;
+    return  [UIColor whiteColor];
 }
 
-+ (UIColor*) kFullPostTagTextColor {
-    return  nil;
++ (UIColor*) kFullPostCategoryBackgroundColor {
+    return [UIColor colorWithRed:0.388 green:0.698 blue:0.898 alpha:1];
 }
 
 + (UIColor*) kFullPostInfoBackgroundColor {
-    return  nil;
+    return  [UIColor colorWithRed:1 green:1 blue:1 alpha:0.75];
 }
 
 // Category Colors
@@ -76,18 +69,6 @@
 
 @end
 
-@implementation UIFont (Extensions)
-
-// Nav Bar Font
-+ (UIFont *) kNavFont {
-    return nil;
-}
-
-@end
-
-// Nav Bar Styles
-UIFont *const kNavFont;
-
 // Tile Styles
 UIFont *const kTileTitleFont;
 CGFloat const kTileTitleHeight_A = 90.0f;
@@ -96,16 +77,3 @@ CGFloat const kTileTitleHeight_C = 60.0f;
 CGFloat const kFeaturedTileTitleHeight = 50.0f;
 CGFloat const kFeaturedTileExcerptHeight = 60.0f;
 
-// Full Post View Styles
-UIFont *const kFullPostTitleFont;
-UIFont *const kFullPostAuthorFont;
-UIFont *const kFullPostDateFont;
-UIFont *const kFullPostCategoryFont;
-UIFont *const kFullPostTagFont;
-
-// Bookmarks View Styles
-UIFont *const kBookmarkTitleFont;
-UIFont *const kBookmarkExcerptFont;
-
-// Category View Styles
-UIFont *const kCategoryButtonTextFont;

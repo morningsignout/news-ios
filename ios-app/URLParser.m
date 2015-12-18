@@ -9,6 +9,7 @@
 #import "URLParser.h"
 
 static NSString * const BASE_URL = @"http://morningsignout.com/?json=";
+static NSString * const AUTHOR_EMAIL_QUERY = @"&author_meta=email";
 
 static NSString * const DISQUS_BASE_URL = @"https://disqus.com/api/3.0/threads/listPosts.json?api_key=CaEN4GfINnGs2clsprUxiFw1Uj2IGhtpAtRpGSOH7OenWsZN0HxaAqyE5vgu9aP2&forum=morningsignout&thread=";
 
@@ -21,15 +22,15 @@ static NSString * const DISQUS_BASE_URL = @"https://disqus.com/api/3.0/threads/l
 }
 
 + (NSString *)URLForRecentPosts {
-    return [NSString stringWithFormat:@"%@get_recent_posts", BASE_URL];
+    return [NSString stringWithFormat:@"%@get_recent_posts%@", BASE_URL, AUTHOR_EMAIL_QUERY];
 }
 
 + (NSString *)URLForPostWithTag:(NSString *)tagSlug {
-    return [NSString stringWithFormat:@"%@get_tag_posts&tag_slug=%@", BASE_URL, tagSlug];
+    return [NSString stringWithFormat:@"%@get_tag_posts&tag_slug=%@%@", BASE_URL, tagSlug, AUTHOR_EMAIL_QUERY];
 }
 
 + (NSString *)URLForCategory:(NSString *)categorySlug {
-    return [NSString stringWithFormat:@"%@get_category_posts&category_slug=%@", BASE_URL, categorySlug];
+    return [NSString stringWithFormat:@"%@get_category_posts&category_slug=%@%@", BASE_URL, categorySlug, AUTHOR_EMAIL_QUERY];
 }
 
 + (NSString *)URLForFeaturedPosts {
@@ -40,9 +41,7 @@ static NSString * const DISQUS_BASE_URL = @"https://disqus.com/api/3.0/threads/l
     // If search term has a space in it
     NSString *parsedQuery = [query stringByReplacingOccurrencesOfString:@" " withString:@"+"];
     
-    // TODO: Deal with other cases of user input into search bar, if any
-    
-    return [NSString stringWithFormat:@"%@get_search_results&search=%@", BASE_URL, parsedQuery];
+    return [NSString stringWithFormat:@"%@get_search_results&search=%@%@", BASE_URL, parsedQuery, AUTHOR_EMAIL_QUERY];
 }
 
 + (NSString *)URLForAuthorInfoAndPostsWithAuthorID:(int)ID {
@@ -50,7 +49,7 @@ static NSString * const DISQUS_BASE_URL = @"https://disqus.com/api/3.0/threads/l
 }
 
 + (NSString *)URLForPostsInYear:(int)year {
-    return [NSString stringWithFormat:@"%@get_date_posts&date=%d", BASE_URL, year];
+    return [NSString stringWithFormat:@"%@get_date_posts&date=%d%@", BASE_URL, year, AUTHOR_EMAIL_QUERY];
 }
 
 + (NSString *)URLForPostsInMonth:(int)month andYear:(int)year {
