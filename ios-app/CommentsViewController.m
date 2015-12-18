@@ -113,6 +113,7 @@
     // Tableview setup
     self.tableView = [[UITableView alloc] initWithFrame:tableViewSize
                                                   style:UITableViewStylePlain];
+    self.tableView.tableFooterView           = [[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
