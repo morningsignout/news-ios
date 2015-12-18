@@ -58,9 +58,9 @@
     
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle  reuseIdentifier:MyIdentifier];
-        cell.textLabel.lineBreakMode   = NSLineBreakByWordWrapping;
-        cell.textLabel.numberOfLines   = 0;
-        cell.textLabel.font            = [UIFont systemFontOfSize:14.0];
+        cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        cell.textLabel.numberOfLines = 0;
+        cell.textLabel.font = [UIFont systemFontOfSize:14.0];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
@@ -74,10 +74,10 @@
     
     Comment *currentComment = self.comments[indexPath.row];
     
-    cell.textLabel.text            = currentComment.message;
-    NSString *commentAuthor        = [NSString stringWithFormat:@"posted by %@ on %@", currentComment.senderName, currentComment.date];
-    cell.detailTextLabel.text      = commentAuthor;
-    cell.detailTextLabel.font      = [UIFont fontWithName:@"Helvetica-Oblique" size:14.0];
+    cell.textLabel.text = currentComment.message;
+    NSString *commentAuthor = [NSString stringWithFormat:@"posted by %@ on %@", currentComment.senderName, currentComment.date];
+    cell.detailTextLabel.text = commentAuthor;
+    cell.detailTextLabel.font = [UIFont fontWithName:@"Helvetica-Oblique" size:14.0];
     cell.detailTextLabel.textColor = [UIColor grayColor];
     
     return cell;
@@ -105,40 +105,34 @@
 - (void)loadView
 {
     // Set up view
-    CGRect screenFrame                  = [UIScreen mainScreen].bounds;
-    CGRect viewSize                     = CGRectMake(0, screenFrame.size.height * 0.35, screenFrame.size.width, screenFrame.size.height * 0.65);
-    CGRect tableViewSize                = CGRectMake(0, screenFrame.size.height * 0.5, screenFrame.size.width, screenFrame.size.height / 2.0);
-    self.view = [[UIView alloc]         initWithFrame:screenFrame];
+    CGRect screenFrame = [UIScreen mainScreen].bounds;
+    CGRect viewSize = CGRectMake(0, screenFrame.size.height * 0.35, screenFrame.size.width, screenFrame.size.height * 0.65);
+    CGRect tableViewSize = CGRectMake(0, screenFrame.size.height * 0.5, screenFrame.size.width, screenFrame.size.height / 2.0);
+    self.view = [[UIView alloc] initWithFrame:screenFrame];
 
     // Tableview setup
-    self.tableView              = [[UITableView alloc] initWithFrame:tableViewSize
-                                                                       style:UITableViewStylePlain];
-    self.tableView.autoresizingMask          = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
-    self.tableView.delegate                  = self;
-    self.tableView.dataSource                = self;
+    self.tableView = [[UITableView alloc] initWithFrame:tableViewSize
+                                                  style:UITableViewStylePlain];
+    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
     [self.tableView reloadData];
     [self.view addSubview:self.tableView];
     
     // Textfield and Submit setup
-    UIView *blankView                           = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                                                           viewSize.origin.y,
-                                                                                           viewSize.size.width,
-                                                                                           viewSize.size.height - tableViewSize.size.height)];
-    blankView.backgroundColor                   = [UIColor whiteColor];
+    UIView *blankView = [[UIView alloc] initWithFrame:CGRectMake(0,viewSize.origin.y,viewSize.size.width,viewSize.size.height - tableViewSize.size.height)];
+    blankView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:blankView];
     
-    self.commentTextField                           = [[UITextField alloc] initWithFrame:CGRectMake(viewSize.size.width * 0.04,
-                                                                                               viewSize.origin.y + 15,
-                                                                                               viewSize.size.width * 0.75,
-                                                                                               blankView.frame.size.height * 0.4)];
-    self.commentTextField.delegate                  = self;
-    self.commentTextField.placeholder               = @"Post a comment...";
-    [self.commentTextField setBorderStyle:         UITextBorderStyleRoundedRect];
+    self.commentTextField = [[UITextField alloc] initWithFrame:CGRectMake(viewSize.size.width * 0.04,viewSize.origin.y + 15,viewSize.size.width * 0.75,blankView.frame.size.height * 0.4)];
+    self.commentTextField.delegate = self;
+    self.commentTextField.placeholder = @"Post a comment...";
+    [self.commentTextField setBorderStyle:UITextBorderStyleRoundedRect];
     [self.view addSubview:self.commentTextField];
     
     // Post button set up
-    UIButton *postButton                        = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    postButton.frame                            = CGRectMake(viewSize.size.width * 0.83, viewSize.origin.y + 20, 50, 30);
+    UIButton *postButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    postButton.frame = CGRectMake(viewSize.size.width * 0.83, viewSize.origin.y + 20, 50, 30);
     
     [postButton         addTarget:self
                            action:@selector(postComment)
@@ -153,9 +147,9 @@
     [self.view addSubview:postButton];
     
     // Set up invisible button for user exit
-    UIButton *closeButton                       = [UIButton buttonWithType:UIButtonTypeCustom];
-    closeButton.frame                           = CGRectMake(0,0, screenFrame.size.width, screenFrame.size.height * 0.35);
-    closeButton.backgroundColor                 = [UIColor clearColor];
+    UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    closeButton.frame = CGRectMake(0,0, screenFrame.size.width, screenFrame.size.height * 0.35);
+    closeButton.backgroundColor = [UIColor clearColor];
 
     [closeButton        addTarget:self
                            action:@selector(closeButtonPressed:)
