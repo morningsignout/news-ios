@@ -65,7 +65,7 @@
 {
 
     self.imgView.image               = img;
-    self.scrollView.minimumZoomScale = self.scrollView.bounds.size.width / self.imgView.image.size.width;
+    self.scrollView.minimumZoomScale = 1.0;
     if (self.scrollView.zoomScale    < self.scrollView.minimumZoomScale)
         self.scrollView.zoomScale    = self.scrollView.minimumZoomScale;
     CGFloat ratio                    = CGRectGetWidth(self.scrollView.bounds) / img.size.width;
