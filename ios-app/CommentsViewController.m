@@ -138,12 +138,6 @@
 -(void)postButtonPressed:(UIButton*)button{
     NSLog(@"post pressed");
     
-    UIAlertView *theAlert = [[UIAlertView alloc] initWithTitle:@"Alert"
-                                                       message:@"Your comment has been posted."
-                                                      delegate:self
-                                             cancelButtonTitle:@"OK"
-                                             otherButtonTitles:nil];
-    [theAlert show];
 }
 -(void)closeButtonPressed:(UIBarButtonItem*)button{
     NSLog(@"close button pressed");
