@@ -12,6 +12,7 @@
 #import <AFNetworking.h>
 #import "FullPostViewController.h"
 #import "Post.h"
+
 @interface CommentsViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIWebViewDelegate> {
     NSString *commentCode;
     NSString *accessToken;
@@ -202,7 +203,7 @@ NSString *redirectURL = @"http://morningsignout.com";
 
 - (UIWebView *)commentWebView {
     if (!_commentWebView) {
-        _commentWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 70, self.view.frame.size.width, self.view.frame.size.height - 70)];
+        _commentWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height)];
         [self.view addSubview:self.commentWebView];
         [self.view bringSubviewToFront:self.commentWebView];
         self.commentWebView.delegate = self;
@@ -214,6 +215,9 @@ NSString *redirectURL = @"http://morningsignout.com";
     NSString *getCodeURL = [NSString stringWithFormat:@"https://disqus.com/api/oauth/2.0/authorize/?client_id=%@&response_type=code&state=TEST&redirect_uri=%@&duration=permanent&scope=read", publicKey, redirectURL];
     
     [self.commentWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:getCodeURL]]];
+    [UIView animateWithDuration:0.5 animations:^{
+        self.commentWebView.frame = CGRectMake(0, 70, self.view.frame.size.width, self.view.frame.size.height - 70);
+    }];
 }
 
 - (void)getAccessToken {
@@ -227,10 +231,7 @@ NSString *redirectURL = @"http://morningsignout.com";
     [manager POST:@"https://disqus.com/api/oauth/2.0/access_token/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         accessToken = [responseObject valueForKey:@"access_token"];
         loggedIn = YES;
-        
-        UIAlertView *alertReadyForComment = [[UIAlertView alloc] initWithTitle:@"Post your comment." message:@"You have successfully logged in. Submit your comment again to confirm." delegate:self cancelButtonTitle:@"Got it!" otherButtonTitles:nil];
-        [alertReadyForComment show];
-        
+        [self postComment];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
@@ -243,6 +244,8 @@ NSString *redirectURL = @"http://morningsignout.com";
         [alertReadyForComment show];
         return;
     }
+    
+    [self.commentTextField resignFirstResponder];
     
     // Only post once logged into Disqus
     if (!loggedIn) {
@@ -263,7 +266,7 @@ NSString *redirectURL = @"http://morningsignout.com";
         [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
         NSString *stringFromDate = [NSString stringWithString:[formatter stringFromDate:[NSDate date]]];
         
-        Comment *newComment = [[Comment alloc] initWithName:@"You" Message:self.commentTextField.text AndDate:stringFromDate];
+        Comment *newComment = [[Comment alloc] initWithName:@"you" Message:self.commentTextField.text AndDate:stringFromDate];
         
         self.commentTextField.text = @"";
         
@@ -285,13 +288,17 @@ NSString *redirectURL = @"http://morningsignout.com";
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     NSString *currentURL = [webView stringByEvaluatingJavaScriptFromString:@"window.location.href"];
+
     if ([currentURL containsString:@"code="]) {
         NSRange range = [currentURL rangeOfString:@"code="];
         commentCode = [currentURL substringFromIndex:range.location + 5];
-        loggedIn =  YES;
         
         // Return to original view
-        [self.commentWebView removeFromSuperview];
+        [UIView animateWithDuration:0.5 animations:^{
+            self.commentWebView.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
+        } completion:^(BOOL finished){
+            [self.commentWebView removeFromSuperview];
+        }];
         
         // Get access token after logging in
         [self getAccessToken];
