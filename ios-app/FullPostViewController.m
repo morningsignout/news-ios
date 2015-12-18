@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Morning Sign Out Incorporated. All rights reserved.
 //
 #import "CommentsViewController.h"
+#import <QuartzCore/QuartzCore.h>
 #import "FullPostViewController.h"
 #import "Post.h"
 #import "ExternalLinksWebViewController.h"

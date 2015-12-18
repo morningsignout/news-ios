@@ -49,7 +49,7 @@ NSString * const section[] = {
     [self.menuButton setTitle:nil forState:UIControlStateNormal];
     [self.menuButton setImage:[IonIcons imageWithIcon:ion_navicon size:30.0f color:[UIColor kNavTextColor]] forState:UIControlStateNormal];
     
-    NSArray *menuButtonColors = [NSArray arrayWithObjects:rgba(204, 204, 204, 1), rgba(166, 166, 166, 1), rgba(115, 115, 115, 1), rgba(64, 64, 64, 1), nil];
+    NSArray *menuButtonColors = [NSArray arrayWithObjects:rgba(115, 179, 226, 0.75), rgba(115, 179, 226, 0.5), rgba(115, 179, 226, 0.25), rgba(115, 179, 226, 0), nil];
     
     for (int i = 0; i < self.buttons.count; i++) {
         UIButton *button = self.buttons[i];
@@ -84,10 +84,10 @@ NSString * const section[] = {
     //[self dropShapeShouldShowWhenOpen:NO];
     
     //Uncomment to fade to white instead of default (black)
-    [self setFadeTintWithColor:[UIColor blackColor]];
+    [self setFadeTintWithColor:[UIColor whiteColor]];
     
     //Uncomment for increased fade effect (default is 0.5f)
-    //[self setFadeAmountWithAlpha:0.2f];
+    //[self setFadeAmountWithAlpha:0.6f];
 
 }
 

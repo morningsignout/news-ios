@@ -169,6 +169,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
+                                <color key="backgroundColor" red="0.039215687659999998" green="0.2823529541" blue="0.41960787770000002" alpha="1" colorSpace="deviceRGB"/>
                                 <constraints>
                                     <constraint firstItem="CVd-ix-RwQ" firstAttribute="top" secondItem="Dyk-Ii-OI4" secondAttribute="bottom" id="1vs-Bt-lNb"/>
                                     <constraint firstItem="iMh-Ut-B68" firstAttribute="top" secondItem="Xt4-XH-rur" secondAttribute="bottom" id="520-04-m0F"/>

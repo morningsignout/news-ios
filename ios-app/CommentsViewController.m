@@ -3,6 +3,7 @@
 //  ios-app
 //
 //  Created by Vincent Chau on 11/19/15.
+//  Edited by Siddharth Verma on 12/17/15
 //  Copyright © 2015 Morning Sign Out Incorporated. All rights reserved.
 //
 
@@ -73,16 +74,16 @@
     
     // Textfield and Submit setup
     UIView *blankView                           = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                                                           viewSize.origin.y,
+                                                                                           viewSize.origin.y + 30 ,
                                                                                            viewSize.size.width,
-                                                                                           viewSize.size.height - tableViewSize.size.height)];
+                                                                                           viewSize.size.height - tableViewSize.size.height - 30 )];
     blankView.backgroundColor                   = [UIColor whiteColor];
     [self.view addSubview:blankView];
     
     _commentTextField                           = [[UITextField alloc] initWithFrame:CGRectMake(viewSize.size.width * 0.04,
-                                                                                               viewSize.origin.y + 30,
-                                                                                               viewSize.size.width * 0.75,
-                                                                                               blankView.frame.size.height * 0.4)];
+                                                                                               viewSize.origin.y + 55,
+                                                                                               viewSize.size.width * 0.81,
+                                                                                               blankView.frame.size.height * 0.4)]; ////////////
     _commentTextField.delegate                  = self;
     _commentTextField.backgroundColor           = [UIColor whiteColor];
     _commentTextField.textAlignment             = NSTextAlignmentLeft;
@@ -93,7 +94,7 @@
     
     // Post button set up
     UIButton *postButton                        = [UIButton buttonWithType:UIButtonTypeCustom];
-    postButton.frame                            = CGRectMake(viewSize.size.width * 0.83, viewSize.origin.y + 35, 50, 30);
+    postButton.frame                            = CGRectMake(viewSize.size.width * 0.85, viewSize.origin.y + 60.25, 50, 20);
     postButton.backgroundColor                  = [UIColor whiteColor];
     
     [postButton         addTarget:self
@@ -103,8 +104,11 @@
     [postButton          setTitle:@"Post"
                          forState:UIControlStateNormal];
     
-    [postButton     setTitleColor:[UIColor grayColor]
+    [postButton     setTitleColor:[UIColor colorWithRed:0 green:0.478431 blue:1.0 alpha:1.0]
                          forState:UIControlStateNormal];
+    
+    [postButton     setTitleColor:[UIColor grayColor]
+                         forState:UIControlStateHighlighted];
    
     [self.view addSubview:postButton];
     
@@ -120,7 +124,6 @@
     [closeButton setTitle:@"" forState:UIControlStateNormal];
     [self.view addSubview:closeButton];
     
-    
    
 }
 -(BOOL)textFieldShouldEndEditing:(UITextField *)textField{
@@ -134,9 +137,13 @@
 
 -(void)postButtonPressed:(UIButton*)button{
     NSLog(@"post pressed");
+    
 }
 -(void)closeButtonPressed:(UIBarButtonItem*)button{
     NSLog(@"close button pressed");
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+
 @end
+
