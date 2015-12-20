@@ -60,11 +60,11 @@
 
 // Category Colors
 + (UIColor*) kCategoryButtonTextColor {
-    return  nil;
+    return  [UIColor whiteColor];
 }
 
 + (UIColor*) kCategoryButtonBackgroundColor {
-    return  nil;
+    return  [UIColor colorWithRed:0.388 green:0.698 blue:0.898 alpha:1];
 }
 
 @end
