@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Elegant_Background-4.jpg",
+      "filename" : "mso_splash_port.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "mso_splash_port@2x.png",
       "scale" : "2x"
     },
     {
