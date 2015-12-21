@@ -1,8 +1,9 @@
 {
   "images" : [
     {
-      "idiom" : "iphone",
       "size" : "29x29",
+      "idiom" : "iphone",
+      "filename" : "mso_icon.png",
       "scale" : "2x"
     },
     {
@@ -59,6 +60,19 @@
       "idiom" : "ipad",
       "size" : "76x76",
       "scale" : "2x"
+    },
+    {
+      "size" : "76x76",
+      "idiom" : "ipad",
+      "filename" : "mso_launch.png",
+      "unassigned" : true,
+      "scale" : "1x"
+    },
+    {
+      "size" : "76x76",
+      "idiom" : "ipad",
+      "unassigned" : true,
+      "scale" : "1x"
     }
   ],
   "info" : {
