@@ -15,7 +15,6 @@
 @interface CategoryViewController ()
 
 @property (strong, nonatomic) NSArray *categoryNames;
-@property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UIView *buttonView;
 
 @end
@@ -26,7 +25,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"Categories";
-    self.containerView.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -39,19 +37,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)showSubscriptions:(id)sender {
-    [UIView animateWithDuration:0.5 animations:^{
-        self.containerView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-    }];
-}
-
-- (IBAction)showCategories:(id)sender {
-    [UIView animateWithDuration:0.5 animations:^{
-        self.containerView.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
-    }];
-
 }
 
 #pragma mark - Navigation

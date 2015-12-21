@@ -10,6 +10,4 @@
 
 @interface CategoryViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UILabel *noSubscriptionsPrompt;
-
 @end
