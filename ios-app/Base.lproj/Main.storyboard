@@ -601,12 +601,12 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="about" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q9o-8O-NJ0">
-                                <rect key="frame" x="39" y="111" width="522" height="158"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="about" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Q9o-8O-NJ0">
+                                <rect key="frame" x="39" y="117" width="522" height="142"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="158" id="jT2-CG-2qf"/>
+                                    <constraint firstAttribute="height" constant="142" id="jT2-CG-2qf"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -616,7 +616,7 @@
                             <constraint firstItem="AlK-eh-rZc" firstAttribute="top" secondItem="Iyl-7a-TzA" secondAttribute="bottom" constant="158" id="3ON-p4-aJH"/>
                             <constraint firstAttribute="centerY" secondItem="I28-e8-lQ2" secondAttribute="centerY" id="3yX-ax-ICV"/>
                             <constraint firstAttribute="centerX" secondItem="I28-e8-lQ2" secondAttribute="centerX" id="ATG-NT-g6k"/>
-                            <constraint firstItem="Q9o-8O-NJ0" firstAttribute="top" secondItem="AlK-eh-rZc" secondAttribute="bottom" constant="-188" id="D63-Au-lkp"/>
+                            <constraint firstItem="Q9o-8O-NJ0" firstAttribute="top" secondItem="AlK-eh-rZc" secondAttribute="bottom" constant="-177" id="D63-Au-lkp"/>
                             <constraint firstItem="Iyl-7a-TzA" firstAttribute="top" secondItem="nHV-jS-Wmk" secondAttribute="top" constant="75" id="HF1-UV-108"/>
                             <constraint firstAttribute="centerX" secondItem="I28-e8-lQ2" secondAttribute="centerX" id="OKy-nA-R9g"/>
                             <constraint firstAttribute="trailing" secondItem="AlK-eh-rZc" secondAttribute="trailing" constant="16" id="TlG-3F-GWl"/>
@@ -1022,7 +1022,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="Vfi-6j-2um"/>
         <segue reference="7S1-BF-6Xa"/>
-        <segue reference="UEK-BK-yvW"/>
     </inferredMetricsTieBreakers>
 </document>
