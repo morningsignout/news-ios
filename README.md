@@ -1,7 +1,7 @@
 # ios-app
 
 #### To clone a local copy of the xcode project onto your computer,
-`git clone https://github.com/morningsignout/ios-app.git`
+`git clone https://github.com/morningsignout/news-ios.git`
 
 
 #### Once you have a local copy:
@@ -9,6 +9,4 @@
 
 
 #### Git Workflow
-Let's try to work on separate branches for development and only push changes to master once they are fully functional and "production ready".
-
-Checkout [this](http://rogerdudler.github.io/git-guide/) guide for help on git. 
+Let's try to work on separate branches for development and only push changes to dev once they are fully functional and "production ready".
