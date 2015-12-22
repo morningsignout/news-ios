@@ -9,7 +9,7 @@
 #import "SubscriptionViewController.h"
 #import "DataParser.h"
 #import <CoreData/CoreData.h>
-#import "CategoryViewController.h"
+#include "Constants.h"
 
 #define ENTITY_NAME @"Subscription"
 #define ENTITY_ATTRIBUTE @"categoryName"
@@ -17,6 +17,8 @@
 @interface SubscriptionViewController ()
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) NSMutableArray *subscribedContent;
+@property (weak, nonatomic) IBOutlet UILabel *noSubscriptionsPrompt;
+@property (weak, nonatomic) IBOutlet UIButton *viewCategoriesButton;
 
 @end
 
@@ -27,6 +29,10 @@ static bool needtoRefresh;
 - (void)viewDidLoad {
     [super viewDidLoad];
     needtoRefresh = false;
+    [self.view bringSubviewToFront:self.noSubscriptionsPrompt];
+    [self.view bringSubviewToFront:self.viewCategoriesButton];
+    self.collectionView.frame = CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height - self.viewCategoriesButton.frame.size.height - 40);
+    self.view.backgroundColor = [UIColor kCollectionViewBackgroundColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -34,12 +40,14 @@ static bool needtoRefresh;
         needtoRefresh = false;
         [super loadPosts];
     }
-    
-    CategoryViewController *categoryVC = (CategoryViewController *)self.parentViewController;
+    [self updateSubscriptionsPromptLabel];
+}
+
+- (void)updateSubscriptionsPromptLabel {
     if (self.subscribedContent.count == 0) {
-        categoryVC.noSubscriptionsPrompt.hidden = NO;
+        self.noSubscriptionsPrompt.hidden = NO;
     } else {
-        categoryVC.noSubscriptionsPrompt.hidden = YES;
+        self.noSubscriptionsPrompt.hidden = YES;
     }
 }
 
@@ -58,13 +66,7 @@ static bool needtoRefresh;
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:ENTITY_NAME];
     NSArray *subscribedCategories = [[self.managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     
-    CategoryViewController *categoryVC = (CategoryViewController *)self.parentViewController;
-    
-    if (subscribedCategories.count == 0) {
-        categoryVC.noSubscriptionsPrompt.hidden = NO;
-    } else {
-        categoryVC.noSubscriptionsPrompt.hidden = YES;
-    }
+    [self updateSubscriptionsPromptLabel];
     
     for (id sub in subscribedCategories) {
         NSString *s = [sub valueForKey:ENTITY_ATTRIBUTE];
@@ -88,6 +90,10 @@ static bool needtoRefresh;
         context = [delegate managedObjectContext];
     }
     return context;
+}
+
+- (IBAction)returnToCategories:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

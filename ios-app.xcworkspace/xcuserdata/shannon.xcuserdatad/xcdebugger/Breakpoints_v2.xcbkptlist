@@ -186,12 +186,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ios-app/SubscriptionViewController.m"
-            timestampString = "465023985.62686"
+            timestampString = "472371896.955902"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "80"
             endingLineNumber = "80"
-            landmarkName = "-managedObjectContext"
+            landmarkName = "-subscribedContent"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -202,12 +202,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ios-app/SubscriptionViewController.m"
-            timestampString = "465023985.62686"
+            timestampString = "472371896.955902"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "76"
             endingLineNumber = "76"
-            landmarkName = "-managedObjectContext"
+            landmarkName = "-subscribedContent"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
