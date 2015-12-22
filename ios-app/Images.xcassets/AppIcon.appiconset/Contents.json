@@ -66,25 +66,6 @@
       "idiom" : "ipad",
       "size" : "83.5x83.5",
       "scale" : "2x"
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-    },
-    {
-      "size" : "76x76",
-      "idiom" : "ipad",
-      "filename" : "mso_launch.png",
-      "unassigned" : true,
-      "scale" : "1x"
-    },
-    {
-      "size" : "76x76",
-      "idiom" : "ipad",
-      "unassigned" : true,
-      "scale" : "1x"
->>>>>>> frontend
-=======
->>>>>>> frontend
     }
   ],
   "info" : {
