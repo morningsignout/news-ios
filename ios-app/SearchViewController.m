@@ -16,11 +16,7 @@
 @interface SearchViewController () <UISearchBarDelegate, UISearchResultsUpdating, UISearchControllerDelegate>
 
 @property (strong, nonatomic) UISearchController *searchController;
-//@property (strong, nonatomic) UISegmentedControl *segmentedControl;
 @property (strong, nonatomic) NSString *searchTerm;
-//@property (strong, nonatomic) NSArray *all;
-//@property (strong, nonatomic) NSArray *tags;
-//@property (strong, nonatomic) NSArray *current;
 @property (nonatomic) bool end;
 @property (nonatomic) NSInteger flush;
 
@@ -104,9 +100,7 @@
         if(self.flush == yesFlush){
             self.flush = 0;
             [self refreshPosts:refreshPosts];
-            
-        }
-        else{
+        } else {
             refreshPosts = nil;
         }
         
@@ -116,6 +110,7 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     self.spinner.hidden = NO;
     [self.spinner startAnimating];
+    [self startSpinnerWithMessage:@"Searching..."];
 }
 
 - (void)didPresentSearchController:(UISearchController *)searchController{
@@ -147,9 +142,7 @@
 }*/
 
 //hides the keyboard when scrolling
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-    NSLog(@"scrolled");
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self.searchController.searchBar resignFirstResponder];
 }
 

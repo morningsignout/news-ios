@@ -16,7 +16,8 @@
 #import "TileCollectionViewCellC.h"
 #import "FeaturedTileCollectionViewCell.h"
 #import "DropdownNavigationController.h"
-#include "ExternalLinksWebViewController.h"
+#import "ExternalLinksWebViewController.h"
+#import "MBProgressHUD.h"
 
 #define CELL_IDENTIFIER @"TileCell"
 #define CELL_IDENTIFIER_B @"TileCell2"
@@ -45,16 +46,17 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.collectionView];
-    contentType = NONE;
     
     // Start loading data from JSON page 1
     self.page = 1;
     
-    [self loadPosts];
+    if (contentType != SEARCH) {
+        [self loadPosts];
+    }
+    contentType = NONE;
     
     tileHeight = CGSizeMake(1, 1.5);
     
-    //[self.collectionView setContentInset:UIEdgeInsetsMake(62,0,0,0)];
     [self.collectionView setContentInset:UIEdgeInsetsMake(0,0,75,0)];
     [self.view bringSubviewToFront:self.spinner];
     self.navigationController.navigationBarHidden = YES;
@@ -78,13 +80,16 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)loadPosts {
     [self.spinner startAnimating];
+    [self startSpinnerWithMessage:@"Loading posts..."];
     dispatch_queue_t q = dispatch_queue_create("refresh latest", NULL);
     dispatch_async(q, ^{
     
         NSArray * refreshPosts = [self getDataForPage];
-        
+
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.spinner stopAnimating];
+            [self endLongSpinner];
+            
             [self refreshPosts:refreshPosts];
         });
     });
@@ -109,6 +114,7 @@ static NSString * const reuseIdentifier = @"Cell";
         [self.collectionView reloadData];
         self.collectionView.userInteractionEnabled = YES;
         [self.spinner stopAnimating];
+        [self endLongSpinner];
     });
 }
 
@@ -128,7 +134,6 @@ static NSString * const reuseIdentifier = @"Cell";
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         _collectionView.backgroundColor = [UIColor kCollectionViewBackgroundColor];
-        //self.collectionView.layer.contents = (id)[UIImage imageNamed:@"background"].CGImage;
         
         [self setUpClassesForCollectionViewLayout:layout];
     }
@@ -346,6 +351,16 @@ static NSString * const reuseIdentifier = @"Cell";
     self.bottomSpinnerBackground.hidden = YES;
 }
 
+- (void) setEndOfPosts:(bool)set{
+    return;
+}
+
+- (BOOL)getEndOfPosts{
+    return nil;
+}
+
+#pragma mark - Spinner 
+
 - (UIActivityIndicatorView *)bottomSpinner {
     if (!_bottomSpinner) {
         _bottomSpinnerBackground = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 75, self.view.frame.size.width, 75)];
@@ -360,12 +375,33 @@ static NSString * const reuseIdentifier = @"Cell";
     return _bottomSpinner;
 }
 
-- (void) setEndOfPosts:(bool)set{
-    return;
+- (MBProgressHUD *)HUD {
+    if (!_HUD) {
+        _HUD = [[MBProgressHUD alloc] initWithView:self.view];
+        [self.view addSubview:_HUD];
+        _HUD.mode = MBProgressHUDModeIndeterminate;
+    }
+    return _HUD;
 }
 
-- (BOOL)getEndOfPosts{
-    return nil;
+- (void)startSpinnerWithMessage:(NSString *)message {
+    self.HUD.mode = MBProgressHUDModeIndeterminate;
+    self.HUD.labelText = message;
+    [self.HUD show:YES];
+}
+
+- (void)endLongSpinner {
+    self.HUD.mode = MBProgressHUDModeAnnularDeterminate;
+    [self.HUD showWhileExecuting:@selector(delay) onTarget:self withObject:nil animated:YES];
+}
+
+- (void)delay {
+    float progress = 0.0f;
+    while (progress < 1.0f) {
+        progress += 0.01f;
+        self.HUD.progress = progress;
+        usleep(5000);
+    }
 }
 
 @end

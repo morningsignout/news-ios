@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4C62D50A516AC2BBF543F992"
+               BlueprintIdentifier = "8FF6116A791BCE8B3C0480D0"
                BuildableName = "libionicons.a"
                BlueprintName = "ionicons"
                ReferencedContainer = "container:Pods.xcodeproj">

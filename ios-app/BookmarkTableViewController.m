@@ -15,6 +15,7 @@
 #import "Post.h"
 #import "DataParser.h"
 #import "Constants.h"
+#import "MBProgressHUD.h"
 
 #define CELL_IDENTIFIER @"bookmarkCell"
 static NSString * const SEGUE_IDENTIFIER = @"viewPost";
@@ -25,6 +26,7 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 @property (strong, nonatomic) NSMutableArray *bookmarks;
 @property (strong, nonatomic) NSMutableArray *coreDataPostIDs;
 @property (strong, nonatomic) UIActivityIndicatorView *spinner;
+@property (strong, nonatomic) MBProgressHUD *HUD;
 @end
 
 @implementation BookmarkTableViewController
@@ -47,6 +49,8 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     [self.view addSubview:self.spinner];
     self.spinner.frame = CGRectMake(self.view.frame.size.width / 2, self.view.frame.size.height / 2, 30, 30);
     [self.spinner startAnimating];
+    
+    [self startSpinnerWithMessage:@"Loading bookmarks..."];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -86,6 +90,7 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
             [self.spinner stopAnimating];
+            [self endLongSpinner];
         });
     });
 }
@@ -218,6 +223,37 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
         NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
         Post *post = [self.bookmarks objectAtIndex:selectedIndexPath.row];
         postVC.post = post;
+    }
+}
+
+#pragma mark - Spinner 
+
+- (MBProgressHUD *)HUD {
+    if (!_HUD) {
+        _HUD = [[MBProgressHUD alloc] initWithView:self.view];
+        [self.view addSubview:_HUD];
+        _HUD.mode = MBProgressHUDModeIndeterminate;
+    }
+    return _HUD;
+}
+
+- (void)startSpinnerWithMessage:(NSString *)message {
+    self.HUD.mode = MBProgressHUDModeIndeterminate;
+    self.HUD.labelText = message;
+    [self.HUD show:YES];
+}
+
+- (void)endLongSpinner {
+    self.HUD.mode = MBProgressHUDModeAnnularDeterminate;
+    [self.HUD showWhileExecuting:@selector(delay) onTarget:self withObject:nil animated:YES];
+}
+
+- (void)delay {
+    float progress = 0.0f;
+    while (progress < 1.0f) {
+        progress += 0.01f;
+        self.HUD.progress = progress;
+        usleep(5000);
     }
 }
 
