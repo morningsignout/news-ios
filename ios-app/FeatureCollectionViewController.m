@@ -29,6 +29,7 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = @"Featured";
     self.end = false;
     
     self.topFeatured = [super getPostFromPosts:0];
@@ -51,6 +52,7 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     DropdownNavigationController *navVC = (DropdownNavigationController *)self.parentViewController.parentViewController;
     navVC.titleLabel.text = @"Featured";
     navVC.titleLabel.textColor = [UIColor kNavTextColor];
+    navVC.navigationItem.title = @"Featured";
     self.navigationController.navigationBarHidden = YES;
 }
 

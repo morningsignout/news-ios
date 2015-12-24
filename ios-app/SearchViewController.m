@@ -40,6 +40,7 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
     [self.collectionView setContentInset:UIEdgeInsetsMake(70,0,75,0)];
     
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
@@ -50,36 +51,20 @@
     [self.searchController.searchBar sizeToFit];
     self.searchController.searchBar.barTintColor = [UIColor kNavBackgroundColor];
     self.definesPresentationContext = YES;
-    
-    // Set up search segmented control
-//    NSArray *itemArray = [NSArray arrayWithObjects: @"All", @"Tags", @"Categories", nil];
-//    self.segmentedControl = [[UISegmentedControl alloc] initWithItems:itemArray];
-//    self.segmentedControl.frame = CGRectMake((self.view.frame.size.width-320)/2, 50, 320, 20);
-//    self.segmentedControl.segmentedControlStyle = UISegmentedControlStylePlain;
-//    [self.segmentedControl addTarget:self action:@selector(MySegmentControlAction:) forControlEvents: UIControlEventValueChanged];
-//    self.segmentedControl.selectedSegmentIndex = 0;
-//    
-//    // Set up segmented control background view
-//    CGFloat marginSegmentedBackground = 20;
-//    UIView *segmentedControlBackground = [[UIView alloc] initWithFrame:CGRectMake(0, self.segmentedControl.frame.origin.y - marginSegmentedBackground / 2, self.view.frame.size.width, self.segmentedControl.bounds.size.height + marginSegmentedBackground)];
-//    segmentedControlBackground.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.9];
-//    [self.view addSubview:segmentedControlBackground];
 
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [self.view addSubview:self.searchController.searchBar];
-    //[self.view addSubview:self.segmentedControl];
     self.navigationController.navigationBarHidden = YES;
-    //[self.searchController setActive:YES];
-    NSLog(@"set active");
+
     DropdownNavigationController *navVC = (DropdownNavigationController *)self.parentViewController.parentViewController;
     navVC.titleLabel.text = @"Search";
     navVC.titleLabel.textColor = [UIColor kNavTextColor];
+    navVC.navigationItem.title = @"Search";
 }
 
--(void)viewDidAppear:(BOOL)animated{
-    NSLog(@"view did apper");
+- (void)viewDidAppear:(BOOL)animated{
     [self.searchController setActive:YES];
 }
 
@@ -96,7 +81,6 @@
 #pragma mark - CollectionView data source
 
 - (NSArray *)getDataForTypeOfView {
-    NSLog(@"getting data for view");
     if (!_searchTerm || [_searchTerm isEqualToString:@""]) {
         return nil;
     }
@@ -115,17 +99,10 @@
         self.flush++;
         NSArray* refreshPosts;
         int yesFlush = (int)self.flush;
-        //if(self.segmentedControl.selectedSegmentIndex == 0)
             refreshPosts = [DataParser DataForSearchTerm:self.searchTerm InPage:self.page];
-        //else if(self.segmentedControl.selectedSegmentIndex == 1)
-        //    refreshPosts = [DataParser DataForPostWithTag:self.searchTerm AndPageNumber:self.page];
-        
+
         if(self.flush == yesFlush){
             self.flush = 0;
-//            if(self.segmentedControl.selectedSegmentIndex == 0)
-//                self.all = refreshPosts;
-//            else if(self.segmentedControl.selectedSegmentIndex == 1)
-//                self.tags = refreshPosts;
             [self refreshPosts:refreshPosts];
             
         }
@@ -139,11 +116,9 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     self.spinner.hidden = NO;
     [self.spinner startAnimating];
-    //[self.collectionView setContentOffset:CGPointZero animated:YES];
 }
 
 - (void)didPresentSearchController:(UISearchController *)searchController{
-    NSLog(@"presenting");
     [searchController.searchBar becomeFirstResponder];
 }
 
@@ -159,21 +134,6 @@
 - (BOOL) getEndOfPosts{
     return self.end;
 }
-
-//- (void)MySegmentControlAction:(UISegmentedControl *)segment
-//{
-//    if(segment.selectedSegmentIndex == 0){
-//        // segment "all"
-//        [self refreshPosts:_all];
-//    }
-//    else if(segment.selectedSegmentIndex == 1){
-//        // segment "tags"
-//        [self refreshPosts:_tags];
-//    }
-//    else if(segment.selectedSegmentIndex == 2){
-//        
-//    }
-//}
 
 /*
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
