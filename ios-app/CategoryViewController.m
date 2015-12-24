@@ -24,13 +24,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationItem.title = @"Categories";
+    self.title = @"Categories";
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     DropdownNavigationController *navVC = (DropdownNavigationController *)self.parentViewController.parentViewController;
     navVC.titleLabel.text = @"Categories";
     navVC.titleLabel.textColor = [UIColor kNavTextColor];
+    navVC.navigationItem.title = @"Categories";
     self.navigationController.navigationBarHidden = YES;
 }
 
