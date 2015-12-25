@@ -5,8 +5,8 @@
 //  Created by Shannon Phu on 9/6/15.
 //  Copyright (c) 2015 Morning Sign Out Incorporated. All rights reserved.
 //
+
 #import "CommentsViewController.h"
-#import <QuartzCore/QuartzCore.h>
 #import "FullPostViewController.h"
 #import "Post.h"
 #import "ExternalLinksWebViewController.h"
@@ -21,9 +21,10 @@
 #include <IonIcons.h>
 #import "DataParser.h"
 #include "Comment.h"
+#import "MBProgressHUD.h"
 
 static NSString * const header = @"<!-- Latest compiled and minified CSS --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"><!-- Optional theme --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css\"><!-- Latest compiled and minified JavaScript --><script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\"></script><!-- Yeon's CSS --><link rel=\"stylesheet\" href=\"http://morningsignout.com/wp-content/themes/mso/style.css?ver=4.3\"><meta charset=\"utf-8\"> \
-    <style type=\"text/css\">.ssba {}.ssba img { width: 30px !important; padding: 0px; border:  0; box-shadow: none !important; display: inline !important; vertical-align: middle; } .ssba, .ssba a {text-decoration:none;border:0;background: none;font-family: Indie Flower;font-size: 20px;} ssba ssba-wrap { visibility:hidden; }</style><div style=\"padding:5px;background-color:white;box-shadow:none;\"></div>";
+    <style type=\"text/css\">.ssba {}.ssba img { width: 0px !important; padding: 0px; border:  0; box-shadow: none !important; vertical-align: middle; }  ssba ssba-wrap { visibility:hidden!important; }</style><div style=\"padding:5px;background-color:white;box-shadow:none;\"></div>";
 
 static const CGFloat initialWebViewYOffset = 425;
 
@@ -305,12 +306,19 @@ static const CGFloat initialWebViewYOffset = 425;
     // Pull out all the posts previously bookmarked
     NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Post"];
-    NSArray *bookmarks = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    NSMutableArray *bookmarks = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     
-    // If post already saved before, notify user and give choice to un-bookmark
+    // If post already saved before, notify user and un-bookmark
     for (id bookmark in bookmarks) {
         int postID = [[bookmark valueForKey:@"id"] intValue];
         if (postID == self.post.ID) {
+            [self showShortSpinner:@"Unbookmarked"];
+            
+            [managedObjectContext deleteObject:bookmark];
+            NSError *error = nil;
+            if (![managedObjectContext save:&error]) {
+                NSLog(@"Can't Delete! %@ %@", error, [error localizedDescription]);
+            }
             return;
         }
     }
@@ -324,6 +332,16 @@ static const CGFloat initialWebViewYOffset = 425;
     if (![managedObjectContext save:&error]) {
         NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
     }
+    [self showShortSpinner:@"Bookmark saved"];
+}
+
+- (void)showShortSpinner:(NSString *)message {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeText;
+    hud.labelText = message;
+    hud.margin = 20.f;
+    hud.removeFromSuperViewOnHide = YES;
+    [hud hide:YES afterDelay:1];
 }
 
 - (CommentsViewController *)commentVC {
@@ -355,7 +373,6 @@ static const CGFloat initialWebViewYOffset = 425;
 }
 
 - (void)didCloseComments{
-    NSLog(@"got back");
     for (UIView *view in [self.view subviews]) {
         if (view.tag == 1111) {
             [view removeFromSuperview];

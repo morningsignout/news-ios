@@ -9,10 +9,11 @@
 
 #import "CommentsViewController.h"
 #import <IonIcons.h>
-#include "Comment.h"
+#import "Comment.h"
 #import <AFNetworking.h>
 #import "FullPostViewController.h"
 #import "Post.h"
+#import "MBProgressHUD.h"
 
 @interface CommentsViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIWebViewDelegate> {
     NSString *commentCode;
@@ -24,6 +25,7 @@
 @property (strong, nonatomic) UITextField *commentTextField;
 @property (strong, nonatomic) UIWebView *commentWebView;
 @property (strong, nonatomic) UITableView *tableView;
+@property (strong, nonatomic) MBProgressHUD *HUD;
 
 @end
 
@@ -186,7 +188,6 @@
 }
 
 -(void)closeButtonPressed:(UIBarButtonItem*)button{
-    NSLog(@"close button pressed");
     [self.view endEditing:YES];
     [self.delegate didCloseComments];
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -268,8 +269,8 @@ NSString *redirectURL = @"http://morningsignout.com";
         
         self.commentTextField.text = @"";
         
-        UIAlertView *alertReadyForComment = [[UIAlertView alloc] initWithTitle:@"Comment successfully posted." message:nil delegate:self cancelButtonTitle:@"Got it!" otherButtonTitles:nil];
-        [alertReadyForComment show];
+        [self endLongSpinner];
+        [self showShortSpinner:@"Comment successfully posted."];
         
         [self.comments addObject:newComment];
         [self.tableView reloadData];
@@ -284,12 +285,14 @@ NSString *redirectURL = @"http://morningsignout.com";
 
 #pragma mark - UIWebView Delegate
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
-    NSString *currentURL = [webView stringByEvaluatingJavaScriptFromString:@"window.location.href"];
-
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    NSString *currentURL = [request.URL absoluteString];
     if ([currentURL containsString:@"code="]) {
         NSRange range = [currentURL rangeOfString:@"code="];
         commentCode = [currentURL substringFromIndex:range.location + 5];
+        
+        // Start spinner
+        [self startSpinnerWithMessage:@"Posting comment..."];
         
         // Return to original view
         [UIView animateWithDuration:0.5 animations:^{
@@ -301,6 +304,48 @@ NSString *redirectURL = @"http://morningsignout.com";
         // Get access token after logging in
         [self getAccessToken];
     }
+    return YES;
+}
+
+#pragma mark - Spinner Methods
+
+- (MBProgressHUD *)HUD {
+    if (!_HUD) {
+        _HUD = [[MBProgressHUD alloc] initWithView:self.view];
+        [self.view addSubview:_HUD];
+        _HUD.mode = MBProgressHUDModeIndeterminate;
+        _HUD.dimBackground = YES;
+    }
+    return _HUD;
+}
+
+- (void)startSpinnerWithMessage:(NSString *)message {
+    self.HUD.mode = MBProgressHUDModeIndeterminate;
+    self.HUD.labelText = message;
+    [self.HUD show:YES];
+}
+
+- (void)endLongSpinner {
+    self.HUD.mode = MBProgressHUDModeAnnularDeterminate;
+    [self.HUD showWhileExecuting:@selector(delay) onTarget:self withObject:nil animated:YES];
+}
+
+- (void)delay {
+    float progress = 0.0f;
+    while (progress < 1.0f) {
+        progress += 0.01f;
+        self.HUD.progress = progress;
+        usleep(5000);
+    }
+}
+
+- (void)showShortSpinner:(NSString *)message {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeText;
+    hud.labelText = message;
+    hud.margin = 20.f;
+    hud.removeFromSuperViewOnHide = YES;
+    [hud hide:YES afterDelay:1];
 }
 
 @end

@@ -29,6 +29,7 @@
     self.excerpt.textContainerInset = UIEdgeInsetsMake(10, 0, 10, 0);
     self.excerpt.textAlignment = NSTextAlignmentCenter;
     [self.excerpt setFont:[UIFont systemFontOfSize:13]];
+    self.excerpt.editable = NO;
 }
 
 @end
