@@ -19,7 +19,6 @@ typedef enum ContentType { FEATURED, SEARCH, NONE } ContentType;
 
 @property (nonatomic, strong) IBOutlet UICollectionView *collectionView;
 @property (nonatomic) int page;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (strong, nonatomic) UIActivityIndicatorView *bottomSpinner;
 @property (strong, nonatomic) MBProgressHUD *HUD;
 

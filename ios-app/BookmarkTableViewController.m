@@ -25,7 +25,6 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 }
 @property (strong, nonatomic) NSMutableArray *bookmarks;
 @property (strong, nonatomic) NSMutableArray *coreDataPostIDs;
-@property (strong, nonatomic) UIActivityIndicatorView *spinner;
 @property (strong, nonatomic) MBProgressHUD *HUD;
 @end
 
@@ -39,17 +38,7 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    
     self.view.backgroundColor = [UIColor kCollectionViewBackgroundColor];
-    
-    // Set up style and attributes
-
-    self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    [self.view addSubview:self.spinner];
-    self.spinner.frame = CGRectMake(self.view.frame.size.width / 2, self.view.frame.size.height / 2, 30, 30);
-    [self.spinner startAnimating];
-    
     [self startSpinnerWithMessage:@"Loading bookmarks..."];
 }
 
@@ -89,7 +78,6 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
-            [self.spinner stopAnimating];
             [self endLongSpinner];
         });
     });

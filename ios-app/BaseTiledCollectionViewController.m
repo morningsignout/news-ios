@@ -58,7 +58,6 @@ static NSString * const reuseIdentifier = @"Cell";
     tileHeight = CGSizeMake(1, 1.5);
     
     [self.collectionView setContentInset:UIEdgeInsetsMake(0,0,75,0)];
-    [self.view bringSubviewToFront:self.spinner];
     self.navigationController.navigationBarHidden = YES;
     
     self.collectionView.userInteractionEnabled = NO;
@@ -79,7 +78,6 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (void)loadPosts {
-    [self.spinner startAnimating];
     [self startSpinnerWithMessage:@"Loading posts..."];
     dispatch_queue_t q = dispatch_queue_create("refresh latest", NULL);
     dispatch_async(q, ^{
@@ -87,7 +85,6 @@ static NSString * const reuseIdentifier = @"Cell";
         NSArray * refreshPosts = [self getDataForPage];
 
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.spinner stopAnimating];
             [self endLongSpinner];
             
             [self refreshPosts:refreshPosts];
@@ -113,7 +110,6 @@ static NSString * const reuseIdentifier = @"Cell";
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.collectionView reloadData];
         self.collectionView.userInteractionEnabled = YES;
-        [self.spinner stopAnimating];
         [self endLongSpinner];
     });
 }
@@ -180,7 +176,6 @@ static NSString * const reuseIdentifier = @"Cell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     if (![self getEndOfPosts] && indexPath.item == self.posts.count - 12) {
-        [self.spinner startAnimating];
         [self fetchMoreItems];
     }
     
@@ -201,12 +196,6 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (void)fetchMoreItems {
-    if (self.page > 0) {
-        self.spinner.hidden = YES;
-    } else {
-        [self.spinner startAnimating];
-    }
-
     // Get next page of data
     __block NSArray *newData;
     dispatch_queue_t q = dispatch_queue_create("load more posts", NULL);
@@ -229,7 +218,6 @@ static NSString * const reuseIdentifier = @"Cell";
             // Reload collectionView
             [self.collectionView reloadData];
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.spinner stopAnimating];
                 [self showNoMoreContent];
             });
             

@@ -108,8 +108,6 @@
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    self.spinner.hidden = NO;
-    [self.spinner startAnimating];
     [self startSpinnerWithMessage:@"Searching..."];
 }
 
