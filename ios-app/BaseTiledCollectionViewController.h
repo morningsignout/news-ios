@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CHTCollectionViewWaterfallLayout.h"
 #import "Post.h"
+@class MBProgressHUD;
 
 typedef enum ContentType { FEATURED, SEARCH, NONE } ContentType;
 
@@ -18,8 +19,8 @@ typedef enum ContentType { FEATURED, SEARCH, NONE } ContentType;
 
 @property (nonatomic, strong) IBOutlet UICollectionView *collectionView;
 @property (nonatomic) int page;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (strong, nonatomic) UIActivityIndicatorView *bottomSpinner;
+@property (strong, nonatomic) MBProgressHUD *HUD;
 
 - (BOOL)isFeaturedPage;
 - (NSArray *)getDataForTypeOfView;
@@ -28,5 +29,7 @@ typedef enum ContentType { FEATURED, SEARCH, NONE } ContentType;
 - (Post*)getPostFromPosts:(int)index;
 - (void)fetchMoreItems;
 - (void)setUpClassesForCollectionViewLayout:(CHTCollectionViewWaterfallLayout *)layout;
+- (void)startSpinnerWithMessage:(NSString *)message;
+- (void)endLongSpinner;
 
 @end

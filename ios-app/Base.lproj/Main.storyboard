@@ -462,19 +462,9 @@
                     <view key="view" contentMode="scaleToFill" id="xXg-er-Ck4">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="a08-Db-Yoa">
-                                <rect key="frame" x="290" y="290" width="20" height="20"/>
-                            </activityIndicatorView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="a08-Db-Yoa" firstAttribute="centerY" secondItem="xXg-er-Ck4" secondAttribute="centerY" id="GI3-Z2-FXe"/>
-                            <constraint firstItem="a08-Db-Yoa" firstAttribute="centerX" secondItem="xXg-er-Ck4" secondAttribute="centerX" id="sUc-Uf-1bz"/>
-                        </constraints>
                     </view>
                     <connections>
-                        <outlet property="spinner" destination="a08-Db-Yoa" id="rc2-XI-fCd"/>
                         <segue destination="ouP-Yc-jsf" kind="show" identifier="viewPost" id="UEK-BK-yvW"/>
                     </connections>
                 </viewController>
@@ -493,19 +483,9 @@
                     <view key="view" contentMode="scaleToFill" id="D6P-K4-Kyx">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="jzO-yr-iJF">
-                                <rect key="frame" x="290" y="290" width="20" height="20"/>
-                            </activityIndicatorView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="centerX" secondItem="jzO-yr-iJF" secondAttribute="centerX" id="CpG-ia-UZa"/>
-                            <constraint firstAttribute="centerY" secondItem="jzO-yr-iJF" secondAttribute="centerY" id="TMp-Yc-0rk"/>
-                        </constraints>
                     </view>
                     <connections>
-                        <outlet property="spinner" destination="jzO-yr-iJF" id="eG5-Oq-VEy"/>
                         <segue destination="ouP-Yc-jsf" kind="show" identifier="viewPost" id="uaM-eg-Of4"/>
                     </connections>
                 </viewController>
@@ -524,21 +504,11 @@
                     <view key="view" contentMode="scaleToFill" id="fs2-ty-6ng">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="538"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="FAj-rq-mJf">
-                                <rect key="frame" x="290" y="260" width="20" height="20"/>
-                            </activityIndicatorView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="FAj-rq-mJf" firstAttribute="centerX" secondItem="fs2-ty-6ng" secondAttribute="centerX" id="ChE-AH-ocF"/>
-                            <constraint firstItem="TZi-wx-ayy" firstAttribute="top" secondItem="FAj-rq-mJf" secondAttribute="bottom" constant="258" id="xFf-IT-8bn"/>
-                        </constraints>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="538"/>
                     <connections>
-                        <outlet property="spinner" destination="FAj-rq-mJf" id="8He-fp-7HG"/>
                         <segue destination="ouP-Yc-jsf" kind="show" identifier="viewPost" id="G2O-cY-Em3"/>
                     </connections>
                 </viewController>
@@ -558,9 +528,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="I28-e8-lQ2">
-                                <rect key="frame" x="290" y="290" width="20" height="20"/>
-                            </activityIndicatorView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iyl-7a-TzA">
                                 <rect key="frame" x="16" y="75" width="568" height="39"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="32"/>
@@ -573,7 +540,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="about" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Q9o-8O-NJ0">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="about" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Q9o-8O-NJ0">
                                 <rect key="frame" x="39" y="117" width="522" height="142"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="142" id="jT2-CG-2qf"/>
@@ -586,16 +553,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="AlK-eh-rZc" firstAttribute="top" secondItem="Iyl-7a-TzA" secondAttribute="bottom" constant="158" id="3ON-p4-aJH"/>
-                            <constraint firstAttribute="centerY" secondItem="I28-e8-lQ2" secondAttribute="centerY" id="3yX-ax-ICV"/>
-                            <constraint firstAttribute="centerX" secondItem="I28-e8-lQ2" secondAttribute="centerX" id="ATG-NT-g6k"/>
                             <constraint firstItem="Q9o-8O-NJ0" firstAttribute="top" secondItem="AlK-eh-rZc" secondAttribute="bottom" constant="-177" id="D63-Au-lkp"/>
                             <constraint firstItem="Iyl-7a-TzA" firstAttribute="top" secondItem="nHV-jS-Wmk" secondAttribute="top" constant="75" id="HF1-UV-108"/>
-                            <constraint firstAttribute="centerX" secondItem="I28-e8-lQ2" secondAttribute="centerX" id="OKy-nA-R9g"/>
                             <constraint firstAttribute="trailing" secondItem="AlK-eh-rZc" secondAttribute="trailing" constant="16" id="TlG-3F-GWl"/>
                             <constraint firstAttribute="trailing" secondItem="Iyl-7a-TzA" secondAttribute="trailing" constant="16" id="byf-xK-8kY"/>
                             <constraint firstItem="Q9o-8O-NJ0" firstAttribute="leading" secondItem="nHV-jS-Wmk" secondAttribute="leadingMargin" constant="19" id="eds-5Y-v2a"/>
                             <constraint firstItem="Iyl-7a-TzA" firstAttribute="leading" secondItem="nHV-jS-Wmk" secondAttribute="leading" constant="16" id="fNy-L5-ZHb"/>
-                            <constraint firstItem="Q9o-8O-NJ0" firstAttribute="centerX" secondItem="I28-e8-lQ2" secondAttribute="centerX" id="j4s-M2-PIP"/>
                             <constraint firstItem="AlK-eh-rZc" firstAttribute="leading" secondItem="nHV-jS-Wmk" secondAttribute="leading" constant="16" id="van-kZ-OQK"/>
                         </constraints>
                     </view>
@@ -603,7 +566,6 @@
                         <outlet property="aboutLabel" destination="Q9o-8O-NJ0" id="YnR-SY-jEW"/>
                         <outlet property="emailLabel" destination="AlK-eh-rZc" id="Cqa-Tr-dbH"/>
                         <outlet property="nameLabel" destination="Iyl-7a-TzA" id="rpA-GT-cBR"/>
-                        <outlet property="spinner" destination="I28-e8-lQ2" id="Xwh-7e-qEx"/>
                         <segue destination="ouP-Yc-jsf" kind="show" identifier="viewPost" id="Vfi-6j-2um"/>
                     </connections>
                 </viewController>
@@ -969,22 +931,12 @@
                     <view key="view" contentMode="scaleToFill" id="W7z-eo-s0N">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="538"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ewr-Gv-Sfs">
-                                <rect key="frame" x="290" y="259" width="20" height="20"/>
-                            </activityIndicatorView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="centerY" secondItem="ewr-Gv-Sfs" secondAttribute="centerY" id="FdA-VH-iV0"/>
-                            <constraint firstAttribute="centerX" secondItem="ewr-Gv-Sfs" secondAttribute="centerX" id="mNq-3X-FSa"/>
-                        </constraints>
                     </view>
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="538"/>
                     <connections>
-                        <outlet property="spinner" destination="ewr-Gv-Sfs" id="PdT-a1-7d4"/>
                         <segue destination="ouP-Yc-jsf" kind="show" identifier="viewPost" id="dt6-XE-3GA"/>
                     </connections>
                 </viewController>
@@ -994,7 +946,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="dt6-XE-3GA"/>
         <segue reference="7S1-BF-6Xa"/>
-        <segue reference="UEK-BK-yvW"/>
     </inferredMetricsTieBreakers>
 </document>
