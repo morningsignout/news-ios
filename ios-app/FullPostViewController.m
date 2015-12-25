@@ -373,7 +373,6 @@ static const CGFloat initialWebViewYOffset = 425;
 }
 
 - (void)didCloseComments{
-    NSLog(@"got back");
     for (UIView *view in [self.view subviews]) {
         if (view.tag == 1111) {
             [view removeFromSuperview];
