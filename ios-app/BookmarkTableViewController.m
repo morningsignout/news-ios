@@ -109,11 +109,12 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 {
     if (cell) {
         // Configure the cell...
-        CDPost *post = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        CDPost *CDpost = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        Post *post = [self postFromCDPost:CDpost];
         cell.titleLabel.text                = post.title;
-        cell.categoryLabel.text             = (NSString *)[post.categories anyObject];
+        cell.categoryLabel.text             = [post.category firstObject];
         cell.dateLabel.text                 = post.date;
-        cell.authorLabel.text               = post.authoredBy.name;
+        cell.authorLabel.text               = post.author.name;
         cell.imageView.image                = nil;
         
         NSURLRequest *requestLeft = [NSURLRequest requestWithURL:[NSURL URLWithString:post.fullCoverImageURL]];
@@ -124,6 +125,8 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    [self endLongSpinner];
+    
     // Return the number of rows in the section.
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
     return [sectionInfo numberOfObjects];
