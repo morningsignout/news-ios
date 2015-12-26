@@ -9,6 +9,7 @@
 #import "SubscriptionViewController.h"
 #import "DataParser.h"
 #import <CoreData/CoreData.h>
+#include "Constants.h"
 
 #define ENTITY_NAME @"Subscription"
 #define ENTITY_ATTRIBUTE @"categoryName"
@@ -31,6 +32,7 @@ static bool needtoRefresh;
     [self.view bringSubviewToFront:self.noSubscriptionsPrompt];
     [self.view bringSubviewToFront:self.viewCategoriesButton];
     self.collectionView.frame = CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height - self.viewCategoriesButton.frame.size.height - 40);
+    self.view.backgroundColor = [UIColor kCollectionViewBackgroundColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
