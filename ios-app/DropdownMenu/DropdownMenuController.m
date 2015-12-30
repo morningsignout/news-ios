@@ -31,7 +31,6 @@
 @property (nonatomic, readonly) CGFloat offset;
 
 - (void)iOS6_hideMenuCompleted;
-
 @end
 
 @implementation DropdownMenuController {
@@ -39,7 +38,7 @@
     float fadeAlpha;
     float trianglePlacement;
 }
-
+UIButton *closeButton;
 CAShapeLayer *openMenuShape;
 CAShapeLayer *closedMenuShape;
 
@@ -144,11 +143,27 @@ CAShapeLayer *closedMenuShape;
 	}
 	
     [UIView commitAnimations];
+    // Set up invisible button for user exit
+    CGRect screenFrame = [UIScreen mainScreen].bounds;
+    closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    closeButton.frame = CGRectMake(0,openMenuShape.frame.size.height / 2.0, screenFrame.size.width, screenFrame.size.height - (openMenuShape.frame.size.height / 2.0));
+    
+    closeButton.backgroundColor = [UIColor clearColor];
+    
+    [closeButton        addTarget:self
+                           action:@selector(closeButtonPressed:)
+                 forControlEvents:UIControlEventTouchUpInside];
+    
+    [closeButton setTitle:@"" forState:UIControlStateNormal];
+    [self.view addSubview:closeButton];
+
 
 }
 
 - (void) hideMenu {
     // Set the border layer to hidden menu state
+ 
+    [closeButton removeFromSuperview];
     [openMenuShape removeFromSuperlayer];
     [[[self view] layer] addSublayer:closedMenuShape];
     
@@ -227,14 +242,16 @@ CAShapeLayer *closedMenuShape;
     [borderPath addLineToPoint:CGPointMake(width, height)];
     
     // Bottom of nav border color
-    // [openMenuShape setPath:borderPath.CGPath];
-    // [openMenuShape setStrokeColor:[[UIColor whiteColor] CGColor]];
+//     [openMenuShape setPath:borderPath.CGPath];
+//     [openMenuShape setStrokeColor:[[UIColor whiteColor] CGColor]];
     
     [openMenuShape setBounds:CGRectMake(0.0f, 0.0f, height+triangleSize, width)];
     [openMenuShape setAnchorPoint:CGPointMake(0.0f, 0.0f)];
     [openMenuShape setPosition:CGPointMake(0.0f, -self.offset)];
-}
+    
 
+    
+}
 - (void) drawClosedLayer {
     [closedMenuShape removeFromSuperlayer];
     closedMenuShape = [CAShapeLayer layer];
@@ -267,7 +284,13 @@ CAShapeLayer *closedMenuShape;
         [self hideMenu];
     }
 }
-
+#pragma mark - Close Button
+-(void)closeButtonPressed:(UIButton*)button{
+    [self hideMenu];
+    [button removeFromSuperview];
+    NSLog(@"button pressed and removed");
+    
+}
 #pragma mark - Rotation
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
