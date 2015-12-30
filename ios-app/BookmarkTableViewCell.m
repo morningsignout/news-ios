@@ -43,9 +43,9 @@
     
     // Set up fonts
     self.titleLabel.font = [UIFont systemFontOfSize:20];
-    self.authorLabel.font = [UIFont systemFontOfSize:13];
-    self.categoryLabel.font = [UIFont systemFontOfSize:13];
-    self.dateLabel.font = [UIFont systemFontOfSize:13];
+    self.authorLabel.font = [UIFont systemFontOfSize:10];
+    self.categoryLabel.font = [UIFont systemFontOfSize:10];
+    self.dateLabel.font = [UIFont systemFontOfSize:10];
     
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.imageView.clipsToBounds = YES;
