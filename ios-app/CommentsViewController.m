@@ -239,8 +239,7 @@ NSString *redirectURL = @"http://morningsignout.com";
 - (void)postComment {
     // Reject empty comments
     if ([self.commentTextField.text isEqualToString:@""]) {
-        UIAlertView *alertReadyForComment = [[UIAlertView alloc] initWithTitle:@"Comment cannot be blank." message:nil delegate:self cancelButtonTitle:@"Got it!" otherButtonTitles:nil];
-        [alertReadyForComment show];
+        [self showShortSpinner:@"Comment cannot be blank"];
         return;
     }
     
@@ -276,8 +275,8 @@ NSString *redirectURL = @"http://morningsignout.com";
         [self.tableView reloadData];
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        UIAlertView *alertError = [[UIAlertView alloc] initWithTitle:@"This service is currently unavailable." message:@"Please try again later." delegate:self cancelButtonTitle:@"Got it!" otherButtonTitles:nil];
-        [alertError show];
+        
+        [self showShortSpinner:@"This service is currently unavailable. Please try again later."];
         
         NSLog(@"Error: %@", error);
     }];

@@ -344,7 +344,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (BOOL)getEndOfPosts{
-    return nil;
+    return NO;
 }
 
 #pragma mark - Spinner 
