@@ -95,14 +95,14 @@
                                 </connections>
                             </containerView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IrH-m8-TVH" userLabel="Menu">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="241"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dyk-Ii-OI4" userLabel="Button - Featured">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="60"/>
                                         <color key="backgroundColor" red="0.039215687659999998" green="0.2823529541" blue="0.41960787770000002" alpha="1" colorSpace="deviceRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="Dyk-Ii-OI4" secondAttribute="height" multiplier="12:1" id="3iJ-e0-4Q6"/>
-                                            <constraint firstAttribute="width" secondItem="Dyk-Ii-OI4" secondAttribute="height" multiplier="12:1" id="A4G-6m-JAJ"/>
+                                            <constraint firstAttribute="width" secondItem="Dyk-Ii-OI4" secondAttribute="height" multiplier="12:1" constant="-120" id="3iJ-e0-4Q6"/>
+                                            <constraint firstAttribute="width" secondItem="Dyk-Ii-OI4" secondAttribute="height" multiplier="12:1" constant="-120" id="A4G-6m-JAJ"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Home">
@@ -118,11 +118,11 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CVd-ix-RwQ" userLabel="Button - Search">
-                                        <rect key="frame" x="0.0" y="50" width="600" height="50"/>
+                                        <rect key="frame" x="0.0" y="60" width="600" height="60"/>
                                         <color key="backgroundColor" red="0.231372565" green="0.52549022440000004" blue="0.52549022440000004" alpha="1" colorSpace="deviceRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="CVd-ix-RwQ" secondAttribute="height" multiplier="12:1" id="Oyv-rL-pK3"/>
-                                            <constraint firstAttribute="width" secondItem="CVd-ix-RwQ" secondAttribute="height" multiplier="12:1" id="fTW-sq-PSL"/>
+                                            <constraint firstAttribute="width" secondItem="CVd-ix-RwQ" secondAttribute="height" multiplier="12:1" constant="-120" id="Oyv-rL-pK3"/>
+                                            <constraint firstAttribute="width" secondItem="CVd-ix-RwQ" secondAttribute="height" multiplier="12:1" constant="-120" id="fTW-sq-PSL"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Profile">
@@ -136,31 +136,12 @@
                                             <action selector="swapButtonPressed:" destination="04Z-Sl-c2u" eventType="touchUpInside" id="Kbt-WG-4QH"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xt4-XH-rur" userLabel="Button - Categories">
-                                        <rect key="frame" x="0.0" y="100" width="600" height="50"/>
-                                        <color key="backgroundColor" red="0.47450983520000001" green="0.74117648599999997" blue="0.60392159219999997" alpha="1" colorSpace="deviceRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="Xt4-XH-rur" secondAttribute="height" multiplier="12:1" id="4Pw-ca-CO1"/>
-                                            <constraint firstAttribute="width" secondItem="Xt4-XH-rur" secondAttribute="height" multiplier="12:1" id="Gaw-lZ-LJW"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Photos">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" red="0.43529411764705883" green="0.44313725490196076" blue="0.47450980392156861" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="listButtonAction:" destination="04Z-Sl-c2u" eventType="touchUpInside" id="VYa-Hh-Qqp"/>
-                                            <action selector="swapButtonPressed:" destination="04Z-Sl-c2u" eventType="touchUpInside" id="pPw-bX-TaF"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iMh-Ut-B68" userLabel="Button - Bookmarks">
-                                        <rect key="frame" x="0.0" y="150" width="600" height="50"/>
+                                        <rect key="frame" x="0.0" y="180" width="600" height="60"/>
                                         <color key="backgroundColor" red="0.231372565" green="0.52549022440000004" blue="0.52549022440000004" alpha="1" colorSpace="deviceRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="iMh-Ut-B68" secondAttribute="height" multiplier="12:1" id="l62-rg-NnB"/>
-                                            <constraint firstAttribute="width" secondItem="iMh-Ut-B68" secondAttribute="height" multiplier="12:1" id="m9G-Yq-KKg"/>
+                                            <constraint firstAttribute="width" secondItem="iMh-Ut-B68" secondAttribute="height" multiplier="12:1" constant="-120" id="l62-rg-NnB"/>
+                                            <constraint firstAttribute="width" secondItem="iMh-Ut-B68" secondAttribute="height" multiplier="12:1" constant="-120" id="m9G-Yq-KKg"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Profile">
@@ -172,6 +153,25 @@
                                         <connections>
                                             <action selector="listButtonAction:" destination="04Z-Sl-c2u" eventType="touchUpInside" id="PYE-Wc-93F"/>
                                             <action selector="swapButtonPressed:" destination="04Z-Sl-c2u" eventType="touchUpInside" id="gN7-Aa-PG9"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xt4-XH-rur" userLabel="Button - Categories">
+                                        <rect key="frame" x="0.0" y="120" width="600" height="60"/>
+                                        <color key="backgroundColor" red="0.47450983520000001" green="0.74117648599999997" blue="0.60392159219999997" alpha="1" colorSpace="deviceRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="Xt4-XH-rur" secondAttribute="height" multiplier="12:1" constant="-120" id="4Pw-ca-CO1"/>
+                                            <constraint firstAttribute="width" secondItem="Xt4-XH-rur" secondAttribute="height" multiplier="12:1" constant="-120" id="Gaw-lZ-LJW"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Photos">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" red="0.43529411764705883" green="0.44313725490196076" blue="0.47450980392156861" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="listButtonAction:" destination="04Z-Sl-c2u" eventType="touchUpInside" id="VYa-Hh-Qqp"/>
+                                            <action selector="swapButtonPressed:" destination="04Z-Sl-c2u" eventType="touchUpInside" id="pPw-bX-TaF"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -194,7 +194,7 @@
                                     <constraint firstAttribute="trailing" secondItem="iMh-Ut-B68" secondAttribute="trailing" id="YaR-tl-jya"/>
                                     <constraint firstItem="Dyk-Ii-OI4" firstAttribute="leading" secondItem="IrH-m8-TVH" secondAttribute="leading" id="ZN1-oP-PPV"/>
                                     <constraint firstItem="Dyk-Ii-OI4" firstAttribute="top" secondItem="IrH-m8-TVH" secondAttribute="top" id="ep1-3p-d3h"/>
-                                    <constraint firstAttribute="width" secondItem="IrH-m8-TVH" secondAttribute="height" multiplier="3:1" id="isz-LV-jCD"/>
+                                    <constraint firstAttribute="width" secondItem="IrH-m8-TVH" secondAttribute="height" multiplier="3:1" constant="-123" id="isz-LV-jCD"/>
                                     <constraint firstItem="iMh-Ut-B68" firstAttribute="height" secondItem="Dyk-Ii-OI4" secondAttribute="height" id="j1W-2V-IfC"/>
                                     <constraint firstItem="CVd-ix-RwQ" firstAttribute="height" secondItem="Dyk-Ii-OI4" secondAttribute="height" id="jDx-WH-2kS"/>
                                     <constraint firstItem="iMh-Ut-B68" firstAttribute="leading" secondItem="IrH-m8-TVH" secondAttribute="leading" id="m3F-6f-6e5"/>
@@ -279,7 +279,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-2992" y="651"/>
+            <point key="canvasLocation" x="-2994" y="651"/>
         </scene>
         <!--Container View Controller-->
         <scene sceneID="V9E-tc-Se2">
