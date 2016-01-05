@@ -26,3 +26,9 @@ DerivedData
 # http://guides.cocoapods.org/using/using-cocoapods.html#should-i-ignore-the-pods-directory-in-source-control
 #
 #Pods/
+
+ios-app.xcodeproj/project.pbxproj
+
+ios-app.xcodeproj/project.pbxproj
+
+Pods/Pods.xcodeproj/xcuserdata/brandon.xcuserdatad/xcschemes/xcschememanagement.plist

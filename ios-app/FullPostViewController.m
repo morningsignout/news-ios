@@ -26,7 +26,8 @@
 static NSString * const header = @"<!-- Latest compiled and minified CSS --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"><!-- Optional theme --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css\"><!-- Latest compiled and minified JavaScript --><script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\"></script><!-- Yeon's CSS --><link rel=\"stylesheet\" href=\"http://morningsignout.com/wp-content/themes/mso/style.css?ver=4.3\"><meta charset=\"utf-8\"> \
     <style type=\"text/css\">.ssba {}.ssba img { width: 0px !important; padding: 0px; border:  0; box-shadow: none !important; vertical-align: middle; }  ssba ssba-wrap { visibility:hidden!important; }</style><div style=\"padding:5px;background-color:white;box-shadow:none;\"></div>";
 
-static const CGFloat initialWebViewYOffset = 425;
+//static const CGFloat initialWebViewYOffset = 425;
+static const CGFloat initialWebViewYOffset = 65;
 
 @interface FullPostViewController () <UIWebViewDelegate, UIScrollViewDelegate, CommentsViewControllerDelegate> {
     NSString *fontSizeStyle;
@@ -85,6 +86,8 @@ static const CGFloat initialWebViewYOffset = 425;
     filteredHTML = [header stringByAppendingString:filteredHTML];
     
     self.html = filteredHTML;
+    
+    self.lastContentOffset = 60.0;
     
     [self loadWebView];
 }
@@ -182,6 +185,8 @@ static const CGFloat initialWebViewYOffset = 425;
     NSString *filteredHTML = [self.html stringByAppendingString:[self setFontSize]];
     [self.webView loadHTMLString:filteredHTML baseURL:nil];
     self.webView.frame = CGRectMake(0, initialWebViewYOffset, self.view.frame.size.width, self.view.frame.size.height - initialWebViewYOffset);
+    self.webView.scrollView.contentInset = UIEdgeInsetsMake(365, 0, 0, 0);
+    //self.webView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
@@ -405,9 +410,7 @@ static const CGFloat initialWebViewYOffset = 425;
 
 - (void)scrollViewDidScroll:(UIScrollView*)scrollView
 {
-    float scrollOffset = scrollView.contentOffset.y;
-    
-    if (scrollOffset > 0 && !scrolled)
+    /*if (scrollOffset > 0 && !scrolled)
     {
         // then we are at the top
         [UIView animateWithDuration:0.5 animations:^{
@@ -424,7 +427,7 @@ static const CGFloat initialWebViewYOffset = 425;
         } completion:^(BOOL completed){
             scrolled = NO;
         }];
-    }
+    }*/
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
@@ -441,6 +444,41 @@ static const CGFloat initialWebViewYOffset = 425;
         self.progressView.hidden = YES;
         loaded = YES;
     }];
+}
+
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView{
+    NSLog(@"top reached");
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView
+                     withVelocity:(CGPoint)velocity
+              targetContentOffset:(inout CGPoint *)targetContentOffset{
+    UIEdgeInsets loadingInset = scrollView.contentInset;
+    NSLog(@"ending drag %f, %f",velocity.y,loadingInset.top);
+    
+    //if(loadingInset.top != 0){
+    if(velocity.y <= 0.05 && velocity.y >= -0.05){
+        NSLog(@"didn't move");
+        if(scrollView.contentInset.top < 150){ //scroll to top
+            loadingInset.top = 0;
+        }
+        else{
+            loadingInset.top = 365;
+        }
+    }
+    else if(velocity.y > 0.05){ //moving up
+        NSLog(@"moving up");
+        loadingInset.top = 0;
+    }
+    else{  // moving down
+        NSLog(@"moving dowN");
+        loadingInset.top = 365;
+    }
+    NSLog(@"%f",loadingInset.top);
+    [UIView animateWithDuration:0.2 animations:^{
+        scrollView.contentInset = loadingInset;
+    }];
+    //}
 }
 
 -(void)loadUpdated {
