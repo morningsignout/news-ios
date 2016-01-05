@@ -110,7 +110,7 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     if (cell) {
         // Configure the cell...
         CDPost *CDpost = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        Post *post = [self postFromCDPost:CDpost];
+        Post *post = [Post postFromCDPost:CDpost];
         cell.titleLabel.text                = post.title;
         cell.categoryLabel.text             = [post.category firstObject];
         cell.dateLabel.text                 = post.date;
@@ -136,7 +136,6 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 {
     BookmarkTableViewCell *cell = (BookmarkTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER forIndexPath:indexPath];
     [self configureCell:cell atIndexPath:indexPath];
-    
     return cell;
 }
 
@@ -155,39 +154,6 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     [self.delegate saveContext];
 }
 
-- (Author *)authorFromCDAuthor:(CDAuthor *)cAuthor
-{
-    Author *author = nil;
-    
-    if (cAuthor) {
-        author = [[Author alloc] initWith:[cAuthor.identity intValue]
-                                     Name:cAuthor.name
-                                    About:cAuthor.about
-                                 AndEmail:cAuthor.email];
-    }
-    
-    return author;
-}
-
-- (Post *)postFromCDPost:(CDPost *)cPost
-{
-    Post *post = nil;
-    
-    if (cPost) {
-        Author *author = [self authorFromCDAuthor:cPost.authoredBy];
-        NSMutableArray *categories = [[NSMutableArray alloc] initWithCapacity:0];
-        NSMutableArray *tags = [[NSMutableArray alloc] initWithCapacity:0];
-        for (CDCategory *category in cPost.categories)
-            [categories addObject:category.name];
-        for (CDTag *tag in cPost.tags)
-            [tags addObject:tag.name];
-
-        post = [[Post alloc] initWith:[cPost.identity intValue] Title:cPost.title Author:author Body:cPost.body URL:cPost.url Excerpt:cPost.excerpt Date:cPost.date Category:categories Tags:tags ThumbnailCoverImage:cPost.thumbnailCoverImageURL FullCoverImage:cPost.fullCoverImageURL DisqusThreadID:nil];
-    }
-    
-    return post;
-}
-
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -199,7 +165,7 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
         FullPostViewController *postVC = segue.destinationViewController;
         NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
         CDPost *cPost = [self.fetchedResultsController objectAtIndexPath:selectedIndexPath];
-        Post *post = [self postFromCDPost:cPost];
+        Post *post = [Post postFromCDPost:cPost];
         postVC.post = post;
     }
 }

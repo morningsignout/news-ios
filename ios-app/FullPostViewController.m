@@ -43,7 +43,6 @@ static const CGFloat initialWebViewYOffset = 425;
 @property (nonatomic) CGFloat lastContentOffset;
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;
 @property (strong, nonatomic) CommentsViewController *commentVC;
-
 @property (nonatomic, strong) AppDelegate *delegate;
 
 @end

@@ -17,7 +17,7 @@
     CDAuthor *nAuthor = nil;
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CDAuthor"];
-    request.predicate = [NSPredicate predicateWithFormat:@"identity ==[c] %d", author.ID];
+    request.predicate = [NSPredicate predicateWithFormat:@"identity == %d", author.ID];
     NSError *error;
     NSArray *matches = [context executeFetchRequest:request error:&error];
     
@@ -42,7 +42,7 @@
   fromManagedObjectContext:(NSManagedObjectContext *)context
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CDAuthor"];
-    request.predicate = [NSPredicate predicateWithFormat:@"identity ==[c] %@", identity];
+    request.predicate = [NSPredicate predicateWithFormat:@"identity == %@", identity];
     NSError *error;
     NSArray *matches = [context executeFetchRequest:request error:&error];
     

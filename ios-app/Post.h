@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "Author.h"
+#import "CDPost.h"
+
 @class Comment;
 
 @interface Post : NSObject
@@ -44,5 +46,6 @@
           DisqusThreadID:(NSString *)disqusID;
 
 - (void)printInfo;
++ (Post *)postFromCDPost:(CDPost *)cPost;
 
 @end

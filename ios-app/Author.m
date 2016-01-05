@@ -27,4 +27,18 @@
     NSLog(@"Email: %@", self.email);
 }
 
++ (Author *)authorFromCDAuthor:(CDAuthor *)cAuthor
+{
+    Author *author = nil;
+    
+    if (cAuthor) {
+        author = [[Author alloc] initWith:[cAuthor.identity intValue]
+                                     Name:cAuthor.name
+                                    About:cAuthor.about
+                                 AndEmail:cAuthor.email];
+    }
+    
+    return author;
+}
+
 @end
