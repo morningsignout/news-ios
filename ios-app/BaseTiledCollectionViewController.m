@@ -16,6 +16,9 @@
 #import "TileCollectionViewCellC.h"
 #import "FeaturedTileCollectionViewCell.h"
 #import "DropdownNavigationController.h"
+#import <CoreData/CoreData.h>
+#import "CDPost.h"
+#import "AppDelegate.h"
 
 #define CELL_IDENTIFIER @"TileCell"
 #define CELL_IDENTIFIER_B @"TileCell2"
@@ -25,13 +28,15 @@
 
 static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 
-@interface BaseTiledCollectionViewController () {
+@interface BaseTiledCollectionViewController () <NSFetchedResultsControllerDelegate> {
     Post *seguePost;
     CGSize tileHeight;
 }
 @property (nonatomic, strong) NSArray *cellSizes;
-@property (strong, nonatomic) NSMutableArray *posts;
+//@property (strong, nonatomic) NSMutableArray *posts;
 @property (strong, nonatomic) UIView *bottomSpinnerBackground;
+@property (nonatomic, strong) AppDelegate *delegate;
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
 @end
 
@@ -46,9 +51,17 @@ static NSString * const reuseIdentifier = @"Cell";
     [self.view addSubview:self.collectionView];
     contentType = NONE;
     
+    _delegate = [[UIApplication sharedApplication] delegate];
+    
     // Start loading data from JSON page 1
     self.page = 1;
     
+    // Perform fetch
+    NSError *error;
+    if (![self.fetchedResultsController performFetch:&error])
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+
+    // Download new posts
     [self loadPosts];
     
     tileHeight = CGSizeMake(1, 1.5);
@@ -57,8 +70,6 @@ static NSString * const reuseIdentifier = @"Cell";
     [self.collectionView setContentInset:UIEdgeInsetsMake(0,0,75,0)];
     [self.view bringSubviewToFront:self.spinner];
     self.navigationController.navigationBarHidden = YES;
-    
-    self.collectionView.userInteractionEnabled = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -88,6 +99,27 @@ static NSString * const reuseIdentifier = @"Cell";
     _collectionView.dataSource = nil;
 }
 
+#pragma mark - NSFetchedResultsController
+
+- (NSFetchedResultsController *)fetchedResultsController
+{
+    if (_fetchedResultsController)
+        return _fetchedResultsController;
+    
+    /* Initialize the fetchedResultsController */
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CDPost"];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES selector:@selector(localizedStandardCompare:)]];
+    
+    NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+                                                                          managedObjectContext:self.delegate.managedObjectContext
+                                                                            sectionNameKeyPath:nil
+                                                                                     cacheName:nil];
+    frc.delegate = self;
+    self.fetchedResultsController = frc;
+    
+    return _fetchedResultsController;
+}
+
 - (void)loadPosts {
     
     [self.spinner startAnimating];
@@ -97,8 +129,9 @@ static NSString * const reuseIdentifier = @"Cell";
         NSArray * refreshPosts = [self getDataForPage];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.spinner stopAnimating];
             [self refreshPosts:refreshPosts];
+            [self.spinner stopAnimating];
+            NSLog(@"Reloaded new posts");
         });
     });
 
@@ -117,9 +150,11 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (void)refreshPosts:(NSArray *)newPosts {
-    self.posts = [NSMutableArray arrayWithArray:newPosts];
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.collectionView reloadData];
+        // Load into core data
+        for (Post *post in newPosts)
+            [CDPost postWithPost:post inManagedObjectContext:self.delegate.managedObjectContext];
+        [self.delegate saveContext];
         self.collectionView.userInteractionEnabled = YES;
         [self.spinner stopAnimating];
         NSLog(@"reloaded new posts");
@@ -171,14 +206,18 @@ static NSString * const reuseIdentifier = @"Cell";
     return NO;
 }
 
-- (Post*)getPostFromPosts:(int)index{
-    return [self.posts objectAtIndex:index];
+- (Post *)getPostFromPosts:(int)index {
+    if (self.fetchedResultsController.fetchedObjects.count == 0)
+        return nil;
+    CDPost *cPost = [self.fetchedResultsController.fetchedObjects objectAtIndex:index];
+    Post *post = [Post postFromCDPost:cPost];
+    return post;
 }
 
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.posts.count;
+    return self.fetchedResultsController.fetchedObjects.count;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -187,7 +226,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (![self getEndOfPosts] && indexPath.item == self.posts.count - 3) {
+    if (![self getEndOfPosts] && indexPath.item == self.fetchedResultsController.fetchedObjects.count - 3) {
         [self.spinner startAnimating];
         NSLog(@"still fetching");
         [self fetchMoreItems];
@@ -228,23 +267,10 @@ static NSString * const reuseIdentifier = @"Cell";
             [self setEndOfPosts:true];
             NSLog(@"end of posts reached");
         }
-        // Simulate an async load
-        double delayInSeconds = 2 * NSEC_PER_SEC;
-        dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds);
-        dispatch_after(delay, dispatch_get_main_queue(), ^(void){
-            
-            // Add new data to local data
-            for (int i = 0; i < newData.count; i++) {
-                [self.posts addObject:newData[i]];
-            }
-            
-            // Reload collectionView
-            [self.collectionView reloadData];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.spinner stopAnimating];
-                [self showNoMoreContent];
-            });
-            
+
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            [self refreshPosts:newData];
+            [self showNoMoreContent];
         });
     
     });
@@ -264,7 +290,8 @@ static NSString * const reuseIdentifier = @"Cell";
         cell = (TileCollectionViewCellC *)[self.collectionView dequeueReusableCellWithReuseIdentifier:CELL_IDENTIFIER_C forIndexPath:indexPath];
     }
     
-    Post *post = [self.posts objectAtIndex:indexPath.item];
+    CDPost *cPost = [self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.item];
+    Post *post = [Post postFromCDPost:cPost];
     
     NSURLRequest *requestLeft = [NSURLRequest requestWithURL:[NSURL URLWithString:post.thumbnailCoverImageURL]];
     
@@ -281,7 +308,9 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark - Navigation
  
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    [self performSegueWithIdentifier:SEGUE_IDENTIFIER sender:[self.posts objectAtIndex:indexPath.item]];
+    CDPost *cPost = [self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.item];
+    Post *post = [Post postFromCDPost:cPost];
+    [self performSegueWithIdentifier:SEGUE_IDENTIFIER sender:post];
 }
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -372,6 +401,15 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (BOOL)getEndOfPosts{
     return nil;
+}
+
+#pragma mark - NSFetchedResultsControllerDelegate
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+    // The fetch controller has sent all current change notifications,
+    // so tell the table view to process all updates.
+    [self.collectionView reloadData];
 }
 
 @end

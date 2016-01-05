@@ -145,48 +145,9 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     [self.delegate saveContext];
 }
 
-- (Author *)authorFromCDAuthor:(CDAuthor *)cAuthor
-{
-    Author *author = nil;
-    
-    if (cAuthor) {
-        author = [[Author alloc] initWith:[cAuthor.identity intValue]
-                                     Name:cAuthor.name
-                                    About:cAuthor.about
-                                 AndEmail:cAuthor.email];
-    }
-    
-    return author;
-}
 
-- (Post *)postFromCDPost:(CDPost *)cPost
-{
-    Post *post = nil;
-    
-    if (cPost) {
-        Author *author = [self authorFromCDAuthor:cPost.authoredBy];
-        NSMutableArray *categories = [[NSMutableArray alloc] initWithCapacity:0];
-        NSMutableArray *tags = [[NSMutableArray alloc] initWithCapacity:0];
-        for (CDCategory *category in cPost.categories)
-            [categories addObject:category.name];
-        for (CDTag *tag in cPost.tags)
-            [tags addObject:tag.name];
-        
-        post = [[Post alloc] initWith:[cPost.identity intValue]
-                                Title:cPost.title
-                               Author:author
-                                 Body:cPost.body
-                                  URL:cPost.url
-                              Excerpt:cPost.excerpt
-                                 Date:cPost.date
-                             Category:categories
-                                 Tags:tags
-                  ThumbnailCoverImage:cPost.thumbnailCoverImageURL
-                       FullCoverImage:cPost.fullCoverImageURL];
-    }
-    
-    return post;
-}
+
+
 
 #pragma mark - Navigation
 
@@ -199,7 +160,7 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
         FullPostViewController *postVC = segue.destinationViewController;
         NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
         CDPost *cPost = [self.fetchedResultsController objectAtIndexPath:selectedIndexPath];
-        Post *post = [self postFromCDPost:cPost];
+        Post *post = [Post postFromCDPost:cPost];
         postVC.post = post;
     }
 }

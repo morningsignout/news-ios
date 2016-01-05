@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Author.h"
+#import "CDPost.h"
 
 @interface Post : NSObject
 
@@ -41,5 +42,6 @@
           FullCoverImage:(NSString *)fullURL;
 
 - (void)printInfo;
++ (Post *)postFromCDPost:(CDPost *)cPost;
 
 @end
