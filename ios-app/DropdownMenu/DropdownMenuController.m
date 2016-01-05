@@ -146,12 +146,12 @@ CAShapeLayer *closedMenuShape;
     // Set up invisible button for user exit
     CGRect screenFrame = [UIScreen mainScreen].bounds;
     closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    closeButton.frame = CGRectMake(0,openMenuShape.frame.size.height / 2.0, screenFrame.size.width, screenFrame.size.height - (openMenuShape.frame.size.height / 2.0));
+    closeButton.frame = CGRectMake(0,(openMenuShape.frame.size.height / 2.0) + self.offset + self.menuButton.frame.size.height, screenFrame.size.width, screenFrame.size.height - (openMenuShape.frame.size.height / 2.0));
     
     closeButton.backgroundColor = [UIColor clearColor];
     
-    [closeButton        addTarget:self
-                           action:@selector(closeButtonPressed:)
+    [closeButton addTarget:self
+                    action:@selector(closeButtonPressed:)
                  forControlEvents:UIControlEventTouchUpInside];
     
     [closeButton setTitle:@"" forState:UIControlStateNormal];
