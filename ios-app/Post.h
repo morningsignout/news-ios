@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "Author.h"
+#import "CDPost.h"
+
 @class Comment;
 
 @interface Post : NSObject
@@ -30,6 +32,8 @@
 
 @property (strong, nonatomic) NSString *disqusThreadID;
 
+@property (nonatomic) BOOL isBookmarked;
+
 - (instancetype)initWith:(int)ID
                    Title:(NSString *)title
                   Author:(Author *)author
@@ -41,8 +45,10 @@
                     Tags:(NSArray *)tags
      ThumbnailCoverImage:(NSString *)thumbnailURL
           FullCoverImage:(NSString *)fullURL
-          DisqusThreadID:(NSString *)disqusID;
+          DisqusThreadID:(NSString *)disqusID
+            isBookmarked:(BOOL)bookmarked;
 
 - (void)printInfo;
++ (Post *)postFromCDPost:(CDPost *)cPost;
 
 @end

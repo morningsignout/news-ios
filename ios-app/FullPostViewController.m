@@ -14,6 +14,7 @@
 #import <AFNetworking.h>
 #import <CoreData/CoreData.h>
 #import <Social/Social.h>
+#import "CDPost.h"
 #import "ArticleLabels.h"
 #import "Constants.h"
 #import "PostHeaderInfo.h"
@@ -22,6 +23,7 @@
 #import "DataParser.h"
 #include "Comment.h"
 #import "MBProgressHUD.h"
+#import "AppDelegate.h"
 
 static NSString * const header = @"<!-- Latest compiled and minified CSS --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"><!-- Optional theme --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css\"><!-- Latest compiled and minified JavaScript --><script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\"></script><!-- Yeon's CSS --><link rel=\"stylesheet\" href=\"http://morningsignout.com/wp-content/themes/mso/style.css?ver=4.3\"><meta charset=\"utf-8\"> \
     <style type=\"text/css\">.ssba {}.ssba img { width: 0px !important; padding: 0px; border:  0; box-shadow: none !important; vertical-align: middle; }  ssba ssba-wrap { visibility:hidden!important; }</style><div style=\"padding:5px;background-color:white;box-shadow:none;\"></div>";
@@ -42,6 +44,12 @@ static const CGFloat initialWebViewYOffset = 65;
 @property (nonatomic) CGFloat lastContentOffset;
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;
 @property (strong, nonatomic) CommentsViewController *commentVC;
+@property (nonatomic, strong) AppDelegate *delegate;
+
+@property (nonatomic, strong) UIBarButtonItem *shareItem;
+@property (nonatomic, strong) UIBarButtonItem *bookmarkButton;
+@property (nonatomic, strong) UIBarButtonItem *commentItem;
+@property (nonatomic, strong) UIBarButtonItem *fontItem;
 
 @end
 
@@ -53,7 +61,6 @@ static const CGFloat initialWebViewYOffset = 65;
     self.webView.delegate = self;
     self.webView.scrollView.delegate = self;
     self.webView.translatesAutoresizingMaskIntoConstraints = YES;
-    [self setupNavigationBarStyle];
     
     [self.header.coverImage setUserInteractionEnabled:YES];
     UITapGestureRecognizer *tapCoverImageRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedCoverImage:)];
@@ -62,6 +69,8 @@ static const CGFloat initialWebViewYOffset = 65;
     [self.header.articleLabels.authorLabel setUserInteractionEnabled:YES];
     UITapGestureRecognizer *tapAuthorRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedAuthor:)];
     [self.header.articleLabels.authorLabel addGestureRecognizer:tapAuthorRecognizer];
+    
+    _delegate = [[UIApplication sharedApplication] delegate];
     
     // Retrieve user font size preference if was previously saved
     NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
@@ -94,6 +103,7 @@ static const CGFloat initialWebViewYOffset = 65;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self setupNavigationBarStyle];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [self loadPostImage];
 }
@@ -111,22 +121,20 @@ static const CGFloat initialWebViewYOffset = 65;
     [self.navigationController.navigationBar setBarTintColor:[UIColor kNavBackgroundColor]];
     self.navigationController.navigationBar.tintColor = [UIColor kNavTextColor];
     
-    UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(share)];
-    UIBarButtonItem *bookmarkItem = [[UIBarButtonItem alloc] initWithImage:[IonIcons imageWithIcon:ion_ios_bookmarks_outline size:32.0f color:[UIColor whiteColor]] style:UIBarButtonItemStylePlain target:self action:@selector(bookmarkPost)];
-    UIBarButtonItem *fontItem = [[UIBarButtonItem alloc] initWithImage:[IonIcons imageWithIcon:ion_ios_glasses_outline size:32.0f color:[UIColor whiteColor]] style:UIBarButtonItemStylePlain target:self action:@selector(changeFont)];
-    UIBarButtonItem *commentItem = [[UIBarButtonItem alloc] initWithImage:[IonIcons imageWithIcon:ion_ios_chatboxes_outline size:32.0f color:[UIColor whiteColor]] style:UIBarButtonItemStylePlain target:self action:@selector(loadComments)];
+    _shareItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(share)];
+    _bookmarkButton = [[UIBarButtonItem alloc] initWithImage:[IonIcons imageWithIcon:self.post.isBookmarked ? ion_ios_bookmarks : ion_ios_bookmarks_outline size:32.0f color:[UIColor whiteColor]] style:UIBarButtonItemStylePlain target:self action:@selector(bookmarkPost:)];
+    _fontItem = [[UIBarButtonItem alloc] initWithImage:[IonIcons imageWithIcon:ion_ios_glasses_outline size:32.0f color:[UIColor whiteColor]] style:UIBarButtonItemStylePlain target:self action:@selector(changeFont)];
+    _commentItem = [[UIBarButtonItem alloc] initWithImage:[IonIcons imageWithIcon:ion_ios_chatboxes_outline size:32.0f color:[UIColor whiteColor]] style:UIBarButtonItemStylePlain target:self action:@selector(loadComments)];
     
-    NSArray *actionButtonItems = @[shareItem, bookmarkItem, commentItem, fontItem];
-
+    NSArray *actionButtonItems = @[self.shareItem, self.bookmarkButton, self.commentItem, self.fontItem];
     self.navigationItem.rightBarButtonItems = actionButtonItems;
 }
 
 - (NSManagedObjectContext *)managedObjectContext
 {
     NSManagedObjectContext *context = nil;
-    id delegate = [[UIApplication sharedApplication] delegate];
-    if ([delegate performSelector:@selector(managedObjectContext)]) {
-        context = [delegate managedObjectContext];
+    if ([self.delegate performSelector:@selector(managedObjectContext)]) {
+        context = [self.delegate managedObjectContext];
     }
     return context;
 }
@@ -300,44 +308,32 @@ static const CGFloat initialWebViewYOffset = 65;
         [newFont setValue:[NSNumber numberWithFloat:fontLevel] forKey:@"fontLevel"];
     }
     
-    NSError *error = nil;
-    // Save the object to persistent store
-    if (![context save:&error]) {
-        NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
-    }
+    [self.delegate saveContext];
 }
 
-- (void)bookmarkPost {
-    // Pull out all the posts previously bookmarked
-    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Post"];
-    NSMutableArray *bookmarks = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-    
-    // If post already saved before, notify user and un-bookmark
-    for (id bookmark in bookmarks) {
-        int postID = [[bookmark valueForKey:@"id"] intValue];
-        if (postID == self.post.ID) {
-            [self showShortSpinner:@"Unbookmarked"];
-            
-            [managedObjectContext deleteObject:bookmark];
-            NSError *error = nil;
-            if (![managedObjectContext save:&error]) {
-                NSLog(@"Can't Delete! %@ %@", error, [error localizedDescription]);
-            }
-            return;
-        }
+- (void)bookmarkPost:(UIBarButtonItem *)sender
+{
+	NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+	
+    if (self.post.isBookmarked) {
+        [CDPost removeBookmarkPostWithID:[NSString stringWithFormat:@"%d", self.post.ID] fromManagedObjectContext:managedObjectContext];
+        NSLog(@"Finished deleting bookmark");
+        [self.delegate saveContext];
+        self.post.isBookmarked = NO;
+        _bookmarkButton = [[UIBarButtonItem alloc] initWithImage:[IonIcons imageWithIcon:ion_ios_bookmarks_outline size:32.0f color:[UIColor whiteColor]] style:UIBarButtonItemStylePlain target:self action:@selector(bookmarkPost:)];
+        NSArray *actionButtonItems = @[self.shareItem, self.bookmarkButton, self.commentItem, self.fontItem];
+        self.navigationItem.rightBarButtonItems = actionButtonItems;
+        [self showShortSpinner:@"Bookmark deleted"];
+    } else {
+        [CDPost addBookmarkPost:self.post toManagedObjectContext:managedObjectContext];
+        NSLog(@"Finished adding bookmark");
+        [self.delegate saveContext];
+        self.post.isBookmarked = YES;
+        _bookmarkButton = [[UIBarButtonItem alloc] initWithImage:[IonIcons imageWithIcon:ion_ios_bookmarks size:32.0f color:[UIColor whiteColor]] style:UIBarButtonItemStylePlain target:self action:@selector(bookmarkPost:)];
+        NSArray *actionButtonItems = @[self.shareItem, self.bookmarkButton, self.commentItem, self.fontItem];
+        self.navigationItem.rightBarButtonItems = actionButtonItems;
+        [self showShortSpinner:@"Bookmark saved"];
     }
-    
-    // Else if not saved before, save it into core data now
-    NSManagedObject *bookmarkedPost = [NSEntityDescription insertNewObjectForEntityForName:@"Post" inManagedObjectContext:managedObjectContext];
-    [bookmarkedPost setValue:[NSNumber numberWithInt:self.post.ID] forKey:@"id"];
-    
-    NSError *error = nil;
-    // Save the object to persistent store
-    if (![managedObjectContext save:&error]) {
-        NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
-    }
-    [self showShortSpinner:@"Bookmark saved"];
 }
 
 - (void)showShortSpinner:(NSString *)message {

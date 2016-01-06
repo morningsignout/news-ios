@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CDAuthor.h"
 
 @interface Author : NSObject
 
@@ -19,5 +20,6 @@
 
 - (instancetype)initWith:(int)ID Name:(NSString *)name About:(NSString *)about AndEmail:(NSString *)email;
 - (void)printInfo;
++ (Author *)authorFromCDAuthor:(CDAuthor *)cAuthor;
 
 @end

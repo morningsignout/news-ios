@@ -8,6 +8,8 @@
 
 #import "Post.h"
 #import "Author.h"
+#import "CDCategory.h"
+#import "CDTag.h"
 
 @implementation Post
 
@@ -22,7 +24,8 @@
                     Tags:(NSArray *)tags
      ThumbnailCoverImage:(NSString *)thumbnailURL
           FullCoverImage:(NSString *)fullURL
-          DisqusThreadID:(NSString *)disqusID {
+          DisqusThreadID:(NSString *)disqusID
+            isBookmarked:(BOOL)bookmarked {
     
     if(self = [super init]) {
         _ID = ID;
@@ -37,6 +40,7 @@
         _thumbnailCoverImageURL = thumbnailURL;
         _fullCoverImageURL = fullURL;
         _disqusThreadID = disqusID;
+        _isBookmarked = bookmarked;
     }
     return self;
 }
@@ -61,6 +65,37 @@
     NSLog(@"Thumbnail Cover Image URL: %@", self.thumbnailCoverImageURL);
     NSLog(@"Full Cover Image URL: %@", self.fullCoverImageURL);
     NSLog(@"Disqus Thread ID: %@", self.disqusThreadID);
+}
+
++ (Post *)postFromCDPost:(CDPost *)cPost
+{
+    Post *post = nil;
+    
+    if (cPost) {
+        Author *author = [Author authorFromCDAuthor:cPost.authoredBy];
+        NSMutableArray *categories = [[NSMutableArray alloc] initWithCapacity:0];
+        NSMutableArray *tags = [[NSMutableArray alloc] initWithCapacity:0];
+        for (CDCategory *category in cPost.categories)
+            [categories addObject:category.name];
+        for (CDTag *tag in cPost.tags)
+            [tags addObject:tag.name];
+        
+        post = [[Post alloc] initWith:[cPost.identity intValue]
+                                Title:cPost.title
+                               Author:author
+                                 Body:cPost.body
+                                  URL:cPost.url
+                              Excerpt:cPost.excerpt
+                                 Date:cPost.date
+                             Category:categories
+                                 Tags:tags
+                  ThumbnailCoverImage:cPost.thumbnailCoverImageURL
+                       FullCoverImage:cPost.fullCoverImageURL
+                       DisqusThreadID:nil
+                         isBookmarked:cPost.bookmarked];
+    }
+    
+    return post;
 }
 
 
