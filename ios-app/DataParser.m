@@ -140,7 +140,7 @@ NSDateFormatter *dateToStringFormatter;
     NSString *disqusThreadID = [[[parseData valueForKey:@"custom_fields"] valueForKey:@"dsq_thread_id"] firstObject];
     
     // Create a post with data
-    Post *post = [[Post alloc] initWith:postid Title:title Author:author Body:content URL:postUrl Excerpt:excerpt Date:date Category:category Tags:tags ThumbnailCoverImage:thumbnailImageURL FullCoverImage:fullImageURL DisqusThreadID:disqusThreadID];
+    Post *post = [[Post alloc] initWith:postid Title:title Author:author Body:content URL:postUrl Excerpt:excerpt Date:date Category:category Tags:tags ThumbnailCoverImage:thumbnailImageURL FullCoverImage:fullImageURL DisqusThreadID:disqusThreadID isBookmarked:NO];
     
     return post;
  

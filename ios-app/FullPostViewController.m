@@ -45,6 +45,11 @@ static const CGFloat initialWebViewYOffset = 425;
 @property (strong, nonatomic) CommentsViewController *commentVC;
 @property (nonatomic, strong) AppDelegate *delegate;
 
+@property (nonatomic, strong) UIBarButtonItem *shareItem;
+@property (nonatomic, strong) UIBarButtonItem *bookmarkButton;
+@property (nonatomic, strong) UIBarButtonItem *commentItem;
+@property (nonatomic, strong) UIBarButtonItem *fontItem;
+
 @end
 
 @implementation FullPostViewController
@@ -55,7 +60,6 @@ static const CGFloat initialWebViewYOffset = 425;
     self.webView.delegate = self;
     self.webView.scrollView.delegate = self;
     self.webView.translatesAutoresizingMaskIntoConstraints = YES;
-    [self setupNavigationBarStyle];
     
     [self.header.coverImage setUserInteractionEnabled:YES];
     UITapGestureRecognizer *tapCoverImageRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedCoverImage:)];
@@ -96,6 +100,7 @@ static const CGFloat initialWebViewYOffset = 425;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self setupNavigationBarStyle];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [self loadPostImage];
 }
@@ -113,13 +118,12 @@ static const CGFloat initialWebViewYOffset = 425;
     [self.navigationController.navigationBar setBarTintColor:[UIColor kNavBackgroundColor]];
     self.navigationController.navigationBar.tintColor = [UIColor kNavTextColor];
     
-    UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(share)];
-    UIBarButtonItem *bookmarkItem = [[UIBarButtonItem alloc] initWithImage:[IonIcons imageWithIcon:ion_ios_bookmarks_outline size:32.0f color:[UIColor whiteColor]] style:UIBarButtonItemStylePlain target:self action:@selector(bookmarkPost)];
-    UIBarButtonItem *fontItem = [[UIBarButtonItem alloc] initWithImage:[IonIcons imageWithIcon:ion_ios_glasses_outline size:32.0f color:[UIColor whiteColor]] style:UIBarButtonItemStylePlain target:self action:@selector(changeFont)];
-    UIBarButtonItem *commentItem = [[UIBarButtonItem alloc] initWithImage:[IonIcons imageWithIcon:ion_ios_chatboxes_outline size:32.0f color:[UIColor whiteColor]] style:UIBarButtonItemStylePlain target:self action:@selector(loadComments)];
+    _shareItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(share)];
+    _bookmarkButton = [[UIBarButtonItem alloc] initWithImage:[IonIcons imageWithIcon:self.post.isBookmarked ? ion_ios_bookmarks : ion_ios_bookmarks_outline size:32.0f color:[UIColor whiteColor]] style:UIBarButtonItemStylePlain target:self action:@selector(bookmarkPost:)];
+    _fontItem = [[UIBarButtonItem alloc] initWithImage:[IonIcons imageWithIcon:ion_ios_glasses_outline size:32.0f color:[UIColor whiteColor]] style:UIBarButtonItemStylePlain target:self action:@selector(changeFont)];
+    _commentItem = [[UIBarButtonItem alloc] initWithImage:[IonIcons imageWithIcon:ion_ios_chatboxes_outline size:32.0f color:[UIColor whiteColor]] style:UIBarButtonItemStylePlain target:self action:@selector(loadComments)];
     
-    NSArray *actionButtonItems = @[shareItem, bookmarkItem, commentItem, fontItem];
-
+    NSArray *actionButtonItems = @[self.shareItem, self.bookmarkButton, self.commentItem, self.fontItem];
     self.navigationItem.rightBarButtonItems = actionButtonItems;
 }
 
@@ -302,15 +306,29 @@ static const CGFloat initialWebViewYOffset = 425;
     [self.delegate saveContext];
 }
 
-- (void)bookmarkPost
+- (void)bookmarkPost:(UIBarButtonItem *)sender
 {
 	NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
 	
-	[CDPost addBookmarkPost:self.post toManagedObjectContext:managedObjectContext];
-	NSLog(@"Finished adding bookmark");
-	[self.delegate saveContext];
-	
-    [self showShortSpinner:@"Bookmark saved"];
+    if (self.post.isBookmarked) {
+        [CDPost removeBookmarkPostWithID:[NSString stringWithFormat:@"%d", self.post.ID] fromManagedObjectContext:managedObjectContext];
+        NSLog(@"Finished deleting bookmark");
+        [self.delegate saveContext];
+        self.post.isBookmarked = NO;
+        _bookmarkButton = [[UIBarButtonItem alloc] initWithImage:[IonIcons imageWithIcon:ion_ios_bookmarks_outline size:32.0f color:[UIColor whiteColor]] style:UIBarButtonItemStylePlain target:self action:@selector(bookmarkPost:)];
+        NSArray *actionButtonItems = @[self.shareItem, self.bookmarkButton, self.commentItem, self.fontItem];
+        self.navigationItem.rightBarButtonItems = actionButtonItems;
+        [self showShortSpinner:@"Bookmark deleted"];
+    } else {
+        [CDPost addBookmarkPost:self.post toManagedObjectContext:managedObjectContext];
+        NSLog(@"Finished adding bookmark");
+        [self.delegate saveContext];
+        self.post.isBookmarked = YES;
+        _bookmarkButton = [[UIBarButtonItem alloc] initWithImage:[IonIcons imageWithIcon:ion_ios_bookmarks size:32.0f color:[UIColor whiteColor]] style:UIBarButtonItemStylePlain target:self action:@selector(bookmarkPost:)];
+        NSArray *actionButtonItems = @[self.shareItem, self.bookmarkButton, self.commentItem, self.fontItem];
+        self.navigationItem.rightBarButtonItems = actionButtonItems;
+        [self showShortSpinner:@"Bookmark saved"];
+    }
 }
 
 - (void)showShortSpinner:(NSString *)message {

@@ -24,7 +24,8 @@
                     Tags:(NSArray *)tags
      ThumbnailCoverImage:(NSString *)thumbnailURL
           FullCoverImage:(NSString *)fullURL
-          DisqusThreadID:(NSString *)disqusID {
+          DisqusThreadID:(NSString *)disqusID
+            isBookmarked:(BOOL)bookmarked {
     
     if(self = [super init]) {
         _ID = ID;
@@ -39,6 +40,7 @@
         _thumbnailCoverImageURL = thumbnailURL;
         _fullCoverImageURL = fullURL;
         _disqusThreadID = disqusID;
+        _isBookmarked = bookmarked;
     }
     return self;
 }
@@ -89,7 +91,8 @@
                                  Tags:tags
                   ThumbnailCoverImage:cPost.thumbnailCoverImageURL
                        FullCoverImage:cPost.fullCoverImageURL
-                       DisqusThreadID:nil];
+                       DisqusThreadID:nil
+                         isBookmarked:cPost.bookmarked];
     }
     
     return post;
