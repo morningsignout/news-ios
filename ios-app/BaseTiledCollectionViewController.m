@@ -20,7 +20,6 @@
 #import "MBProgressHUD.h"
 #import <CoreData/CoreData.h>
 #import "CDPost.h"
-#import "AppDelegate.h"
 
 #define CELL_IDENTIFIER @"TileCell"
 #define CELL_IDENTIFIER_B @"TileCell2"
@@ -35,9 +34,7 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     CGSize tileHeight;
 }
 @property (nonatomic, strong) NSArray *cellSizes;
-//@property (strong, nonatomic) NSMutableArray *posts;
 @property (strong, nonatomic) UIView *bottomSpinnerBackground;
-@property (nonatomic, strong) AppDelegate *delegate;
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
 @end
@@ -259,7 +256,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (BaseTileCollectionViewCell *)setTileOfClass:(NSString *)cellClass WithIndexPath:(NSIndexPath *)indexPath {
-    
+
     __weak BaseTileCollectionViewCell *cell;
     
     
@@ -283,7 +280,6 @@ static NSString * const reuseIdentifier = @"Cell";
     } failure:nil];
     
     return cell;
-    
 }
 
 #pragma mark - Navigation
@@ -427,11 +423,18 @@ static NSString * const reuseIdentifier = @"Cell";
 
 #pragma mark - NSFetchedResultsControllerDelegate
 
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
 {
-    // The fetch controller has sent all current change notifications,
-    // so tell the table view to process all updates.
+    NSLog(@"CollectionView reloading");
+    [self didUpdateData:anObject];
     [self.collectionView reloadData];
+}
+
+// this method is used for passing on 'object' to children classes (FeatureCollectionViewController)
+// for updates and synchronization
+- (void)didUpdateData:(CDPost *)object
+{
+    NSLog(@"Called in BaseTiledCollectionViewController");
 }
 
 @end

@@ -100,4 +100,24 @@ fromManagedObjectContext:(NSManagedObjectContext *)context
     }
 }
 
++ (BOOL)isBookmarkedPost:(NSString *)identity
+  inManagedObjectContext:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CDPost"];
+    request.predicate = [NSPredicate predicateWithFormat:@"identity == %@", identity];
+    NSError *error;
+    NSArray *matches = [context executeFetchRequest:request error:&error];
+    
+    if (!matches || error || matches.count > 1) {
+        NSLog(@"Error when fetching CDPost");
+    } else if (matches.count == 1) {
+        NSLog(@"Core Data found Post to check for bookmarked?: %@", identity);
+        CDPost *object = [matches firstObject];
+        return object.bookmarked;
+    } else {
+        NSLog(@"Core Data didn't find Post: %@", identity);
+    }
+    return NO;
+}
+
 @end

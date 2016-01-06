@@ -142,13 +142,15 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 #pragma mark - Actions
 
 - (IBAction)removeFromBookmarks:(id)sender
-{    
+{
+    NSLog(@"Deleting bookmark");
+
     // Get index of cell
     CGPoint buttonPosition = [sender convertPoint:CGPointZero
                                            toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
     
-    // Remove from core data and NSMutableArray
+    // Remove from core data
     CDPost *post = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [CDPost removeBookmarkPostWithID:post.identity fromManagedObjectContext:self.context];
     [self.delegate saveContext];

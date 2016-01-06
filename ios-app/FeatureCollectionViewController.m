@@ -33,6 +33,7 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     self.end = false;
     
     self.topFeatured = [super getPostFromPosts:0];
+    NSLog(@"bookmarked %d", self.topFeatured.isBookmarked);
     contentType = FEATURED;
     
     // Initialize Refresh Control
@@ -130,6 +131,8 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 #pragma mark - Navigation
 
 - (void)showTopFeatured:(UITapGestureRecognizer *)recognizer {
+    self.topFeatured.isBookmarked = [CDPost isBookmarkedPost:[NSString stringWithFormat:@"%d", self.topFeatured.ID] inManagedObjectContext:self.delegate.managedObjectContext];
+    NSLog(@"top featured bookmarked %d id %d", self.topFeatured.isBookmarked, self.topFeatured.ID);
     [self performSegueWithIdentifier:SEGUE_IDENTIFIER sender:self.topFeatured];
 }
 
@@ -147,5 +150,11 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 //    }
 //}
 
+- (void)didUpdateData:(CDPost *)object
+{
+    [super didUpdateData:object];
+    NSLog(@"Called in FeatureCollectionViewController");
+    self.topFeatured.isBookmarked = object.bookmarked;
+}
 
 @end
