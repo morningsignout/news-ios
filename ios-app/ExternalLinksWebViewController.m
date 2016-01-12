@@ -10,6 +10,7 @@
 #import <UIWebView+AFNetworking.h>
 #import <AFNetworking.h>
 #import "Constants.h"
+#include <IonIcons.h>
 
 @interface ExternalLinksWebViewController () <UIWebViewDelegate> {
     BOOL loaded;
@@ -28,6 +29,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.navigationBar setBarTintColor:[UIColor kNavBackgroundColor]];
+
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithImage:[IonIcons imageWithIcon:ion_ios_arrow_left size:30.0f color:[UIColor whiteColor]] style:UIBarButtonItemStylePlain target:self action:@selector(returnToApp:)];
+    UINavigationItem *item = [[UINavigationItem alloc] init];
+    item.leftBarButtonItem = backButton;
+    item.hidesBackButton = YES;
+    [self.navigationBar pushNavigationItem:item animated:NO];
+    
     self.statusBarBackground.backgroundColor = rgba(137, 191, 231, 1);
     
     self.webView.delegate = self;
@@ -56,7 +64,7 @@
 //    }
 //}
 
-- (IBAction)returnToApp:(id)sender {
+- (void)returnToApp:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
