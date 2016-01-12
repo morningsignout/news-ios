@@ -184,23 +184,12 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 }
 
 - (void)startSpinnerWithMessage:(NSString *)message {
-    self.HUD.mode = MBProgressHUDModeIndeterminate;
     self.HUD.labelText = message;
     [self.HUD show:YES];
 }
 
 - (void)endLongSpinner {
-    self.HUD.mode = MBProgressHUDModeAnnularDeterminate;
-    [self.HUD showWhileExecuting:@selector(delay) onTarget:self withObject:nil animated:YES];
-}
-
-- (void)delay {
-    float progress = 0.0f;
-    while (progress < 1.0f) {
-        progress += 0.01f;
-        self.HUD.progress = progress;
-        usleep(5000);
-    }
+    [self.HUD hide:YES afterDelay:0.5];
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate
