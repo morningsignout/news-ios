@@ -23,6 +23,7 @@
 		CA239A741B9FA9A400BEDC5E /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA239A731B9FA9A400BEDC5E /* SearchViewController.m */; };
 		CA7F86DD1BA296E9002E16CA /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA7F86DC1BA296E9002E16CA /* CategoryViewController.m */; };
 		FB5B4FE21BD215F200531141 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB5B4FE11BD215F200531141 /* Social.framework */; };
+		FB6144771C460E300056219A /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB6144761C460E300056219A /* iAd.framework */; };
 		FB714A181B94D16000D68CB5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FB714A171B94D16000D68CB5 /* main.m */; };
 		FB714A1B1B94D16000D68CB5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FB714A1A1B94D16000D68CB5 /* AppDelegate.m */; };
 		FB714A1E1B94D16000D68CB5 /* ios_app.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FB714A1C1B94D16000D68CB5 /* ios_app.xcdatamodeld */; };
@@ -102,6 +103,7 @@
 		CA7F86DB1BA296E9002E16CA /* CategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryViewController.h; sourceTree = "<group>"; };
 		CA7F86DC1BA296E9002E16CA /* CategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryViewController.m; sourceTree = "<group>"; };
 		FB5B4FE11BD215F200531141 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		FB6144761C460E300056219A /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		FB714A121B94D16000D68CB5 /* ios-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB714A161B94D16000D68CB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FB714A171B94D16000D68CB5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB6144771C460E300056219A /* iAd.framework in Frameworks */,
 				FB5B4FE21BD215F200531141 /* Social.framework in Frameworks */,
 				6B8E31A86FF101F5D2A9632F /* libPods.a in Frameworks */,
 			);
@@ -193,6 +196,7 @@
 		6E4C0D4C51FE7634967EB189 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FB6144761C460E300056219A /* iAd.framework */,
 				FB5B4FE11BD215F200531141 /* Social.framework */,
 				76DAA74E4EA736D8CF1DACF8 /* libPods.a */,
 			);
@@ -547,7 +551,6 @@
 				FB7E9E6E1BAF35D500F265E2 /* PostHeaderInfo.m in Sources */,
 				FBD8676A1BAA2188006F4BF6 /* ArticleLabels.m in Sources */,
 				B42B72F11BF047FE00B524D8 /* CDTag.m in Sources */,
-				FB99DEE91B9A1C01007111B4 /* TiledCell.m in Sources */,
 				FBDEF3521B9E0436005BD9F4 /* ExternalLinksWebViewController.m in Sources */,
 				CA239A701B9F660400BEDC5E /* NSString+HTML.m in Sources */,
 				CA239A741B9FA9A400BEDC5E /* SearchViewController.m in Sources */,
@@ -569,8 +572,6 @@
 				FB72E83A1BA3828500F10356 /* EmptySegue.m in Sources */,
 				FB798E2D1BAD182C00F98139 /* CategoryDetailViewController.m in Sources */,
 				B42B72EE1BF047FE00B524D8 /* CDAuthor+CoreDataProperties.m in Sources */,
-				FB99DEE21B9A1AFE007111B4 /* FeatureTableViewController.m in Sources */,
-				FB714A211B94D16000D68CB5 /* TestViewController.m in Sources */,
 				FB714A4E1B94FFE100D68CB5 /* DataParser.m in Sources */,
 				FBEB8E141B9CCB930080BBD1 /* FullPostViewController.m in Sources */,
 				FBDEF3D81B9E857B005BD9F4 /* DropdownNavigationController.m in Sources */,
@@ -579,7 +580,6 @@
 				FBA9E9C91BB7A00F00049B79 /* SubscriptionViewController.m in Sources */,
 				FBEB3A7B1B9F93DC00B57AAB /* FeaturedTileCollectionViewCell.m in Sources */,
 				B42B72F01BF047FE00B524D8 /* CDTag+CoreDataProperties.m in Sources */,
-				FB99DEE61B9A1BD9007111B4 /* FeaturedStoryTableViewCell.m in Sources */,
 				FBDEF3D11B9E4D31005BD9F4 /* DropdownMenuController.m in Sources */,
 				FBBA5AB01BA0DC0600345D5F /* TileCollectionViewCellB.m in Sources */,
 				FB7B011C1BEF483900552AA9 /* Comment.m in Sources */,
@@ -719,6 +719,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				INFOPLIST_FILE = "ios-app/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -734,6 +735,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				INFOPLIST_FILE = "ios-app/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

@@ -88,9 +88,7 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
         [reusableView addGestureRecognizer:tap];
         
         reusableView.title.text = self.topFeatured.title;
-        NSRange wordRange = NSMakeRange(0, 30);
-        NSArray *firstNWords = [[self.topFeatured.excerpt componentsSeparatedByString:@" "] subarrayWithRange:wordRange];
-        reusableView.excerpt.text = [firstNWords componentsJoinedByString:@" "];
+        reusableView.excerpt.text = self.topFeatured.excerpt;
         
         NSURLRequest *requestLeft = [NSURLRequest requestWithURL:[NSURL URLWithString:self.topFeatured.fullCoverImageURL]];
         [reusableView.imageView setImageWithURLRequest:requestLeft placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {

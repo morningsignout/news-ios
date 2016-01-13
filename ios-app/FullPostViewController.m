@@ -24,6 +24,7 @@
 #include "Comment.h"
 #import "MBProgressHUD.h"
 #import "AppDelegate.h"
+#import <iAd/iAd.h>
 
 static NSString * const header = @"<!-- Latest compiled and minified CSS --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"><!-- Optional theme --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css\"><!-- Latest compiled and minified JavaScript --><script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\"></script><!-- Yeon's CSS --><link rel=\"stylesheet\" href=\"http://morningsignout.com/wp-content/themes/mso/style.css?ver=4.3\"><meta charset=\"utf-8\"> \
     <style type=\"text/css\">.ssba {}.ssba img { width: 0px !important; padding: 0px; border:  0; box-shadow: none !important; vertical-align: middle; }  ssba ssba-wrap { visibility:hidden!important; }</style><div style=\"padding:5px;background-color:white;box-shadow:none;\"></div>";
@@ -31,7 +32,7 @@ static NSString * const header = @"<!-- Latest compiled and minified CSS --><lin
 //static const CGFloat initialWebViewYOffset = 425;
 static const CGFloat initialWebViewYOffset = 65;
 
-@interface FullPostViewController () <UIWebViewDelegate, UIScrollViewDelegate, CommentsViewControllerDelegate> {
+@interface FullPostViewController () <UIWebViewDelegate, UIScrollViewDelegate, CommentsViewControllerDelegate, ADBannerViewDelegate> {
     NSString *fontSizeStyle;
     int fontLevel;
     bool scrolled, loaded;
@@ -45,6 +46,7 @@ static const CGFloat initialWebViewYOffset = 65;
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;
 @property (strong, nonatomic) CommentsViewController *commentVC;
 @property (nonatomic, strong) AppDelegate *delegate;
+@property (strong, nonatomic) IBOutlet ADBannerView *adView;
 
 @property (nonatomic, strong) UIBarButtonItem *shareItem;
 @property (nonatomic, strong) UIBarButtonItem *bookmarkButton;
@@ -85,6 +87,7 @@ static const CGFloat initialWebViewYOffset = 65;
     }
     
     [self setUpLabels];
+    [self.view addSubview:self.adView];
     
     NSString *filteredHTML = [self.post.body stringByReplacingOccurrencesOfString:@"\\/" withString:@"/"];
     filteredHTML = [filteredHTML stringByReplacingOccurrencesOfString:@"\"" withString:@"\""];
@@ -474,7 +477,6 @@ static const CGFloat initialWebViewYOffset = 65;
     [UIView animateWithDuration:0.2 animations:^{
         scrollView.contentInset = loadingInset;
     }];
-    //}
 }
 
 -(void)loadUpdated {
@@ -483,6 +485,14 @@ static const CGFloat initialWebViewYOffset = 65;
             self.progressView.progress += 0.02;
         }];
     }
+}
+
+- (ADBannerView *)adView {
+    if (!_adView) {
+        _adView = [[ADBannerView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - _adView.frame.size.height, self.view.frame.size.width, _adView.frame.size.height)];
+        _adView.delegate = self;
+    }
+    return _adView;
 }
 
 

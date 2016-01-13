@@ -113,7 +113,7 @@ static NSString * const reuseIdentifier = @"Cell";
     dispatch_async(q, ^{
     
         NSArray * refreshPosts = [self getDataForPage];
-
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             [self refreshPosts:refreshPosts];
             [self endLongSpinner];

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Fqc-MG-jsb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Fqc-MG-jsb">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -700,6 +700,9 @@
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="9AU-AI-VBe">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="2"/>
                             </progressView>
+                            <adBannerView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="FXk-La-y6D">
+                                <rect key="frame" x="60" y="539" width="480" height="32"/>
+                            </adBannerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -711,13 +714,16 @@
                             <constraint firstAttribute="trailing" secondItem="HHL-ZV-zye" secondAttribute="trailing" id="Uq4-e4-bpA"/>
                             <constraint firstItem="hzM-wl-Tfx" firstAttribute="bottom" secondItem="IZi-Ry-q0s" secondAttribute="top" id="UtT-wW-7xJ"/>
                             <constraint firstItem="hzM-wl-Tfx" firstAttribute="top" secondItem="HHL-ZV-zye" secondAttribute="bottom" constant="-38" id="VB7-zV-anh"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="FXk-La-y6D" secondAttribute="bottom" constant="-5" id="VTB-zb-PEd"/>
                             <constraint firstItem="HHL-ZV-zye" firstAttribute="leading" secondItem="9AU-AI-VBe" secondAttribute="leading" id="kFk-9l-ui2"/>
+                            <constraint firstItem="FXk-La-y6D" firstAttribute="centerX" secondItem="hzM-wl-Tfx" secondAttribute="centerX" id="kW8-Be-y6n"/>
                             <constraint firstItem="9AU-AI-VBe" firstAttribute="top" secondItem="Mgc-hQ-lPN" secondAttribute="bottom" id="rfW-1X-YsZ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Dcr-Ni-Uoe"/>
                     <modalPageSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
+                        <outlet property="adView" destination="FXk-La-y6D" id="vc1-UX-d3Z"/>
                         <outlet property="header" destination="HHL-ZV-zye" id="00h-ik-Ok7"/>
                         <outlet property="progressView" destination="9AU-AI-VBe" id="oiF-Yr-f8m"/>
                         <outlet property="webView" destination="hzM-wl-Tfx" id="OCO-Sr-tXa"/>
@@ -811,7 +817,7 @@
                                 <rect key="frame" x="0.0" y="22" width="600" height="356"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Qdr-1e-yIo" id="gd6-QJ-YMf">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="355.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="355"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6qt-gm-3lc">
