@@ -613,18 +613,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HHL-ZV-zye" userLabel="Header Info View" customClass="PostHeaderInfo">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="397"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="303"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sRv-BC-rd8">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="369"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="303"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <gestureRecognizers/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="369" id="Aku-ZX-7cp"/>
+                                            <constraint firstAttribute="height" constant="303" id="Aku-ZX-7cp"/>
                                         </constraints>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pOo-mf-rsM" customClass="ArticleLabels">
-                                        <rect key="frame" x="0.0" y="251" width="600" height="118"/>
+                                        <rect key="frame" x="0.0" y="185" width="600" height="118"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CATEGORY NAME" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pbo-oO-W1f">
                                                 <rect key="frame" x="0.0" y="8" width="224" height="18"/>
@@ -677,7 +677,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="pOo-mf-rsM" firstAttribute="top" secondItem="HHL-ZV-zye" secondAttribute="top" constant="251" id="SI5-iy-sJR"/>
+                                    <constraint firstItem="pOo-mf-rsM" firstAttribute="top" secondItem="HHL-ZV-zye" secondAttribute="top" constant="185" id="SI5-iy-sJR"/>
                                     <constraint firstItem="sRv-BC-rd8" firstAttribute="top" secondItem="HHL-ZV-zye" secondAttribute="top" id="V2u-Uf-82F"/>
                                     <constraint firstItem="pOo-mf-rsM" firstAttribute="leading" secondItem="sRv-BC-rd8" secondAttribute="leading" id="YmN-pp-lLj"/>
                                     <constraint firstAttribute="trailing" secondItem="pOo-mf-rsM" secondAttribute="trailing" id="kH1-kN-VTM"/>
@@ -691,17 +691,17 @@
                                 </connections>
                             </view>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hzM-wl-Tfx">
-                                <rect key="frame" x="0.0" y="359" width="600" height="241"/>
+                                <rect key="frame" x="0.0" y="311" width="600" height="289"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="241" id="mJR-sd-7I5"/>
+                                    <constraint firstAttribute="height" constant="289" id="mJR-sd-7I5"/>
                                 </constraints>
                             </webView>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="9AU-AI-VBe">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="2"/>
                             </progressView>
                             <adBannerView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="FXk-La-y6D">
-                                <rect key="frame" x="60" y="539" width="480" height="32"/>
+                                <rect key="frame" x="0.0" y="534" width="480" height="66"/>
                             </adBannerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -711,12 +711,12 @@
                             <constraint firstItem="9AU-AI-VBe" firstAttribute="trailing" secondItem="HHL-ZV-zye" secondAttribute="trailing" id="Fij-2u-KMq"/>
                             <constraint firstItem="HHL-ZV-zye" firstAttribute="top" secondItem="Mgc-hQ-lPN" secondAttribute="bottom" id="Jvi-th-GyR"/>
                             <constraint firstItem="9AU-AI-VBe" firstAttribute="trailing" secondItem="hzM-wl-Tfx" secondAttribute="trailing" id="Lzy-ce-ETz"/>
+                            <constraint firstItem="FXk-La-y6D" firstAttribute="leading" secondItem="hzM-wl-Tfx" secondAttribute="leading" id="UBb-Tb-eAJ"/>
                             <constraint firstAttribute="trailing" secondItem="HHL-ZV-zye" secondAttribute="trailing" id="Uq4-e4-bpA"/>
                             <constraint firstItem="hzM-wl-Tfx" firstAttribute="bottom" secondItem="IZi-Ry-q0s" secondAttribute="top" id="UtT-wW-7xJ"/>
-                            <constraint firstItem="hzM-wl-Tfx" firstAttribute="top" secondItem="HHL-ZV-zye" secondAttribute="bottom" constant="-38" id="VB7-zV-anh"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="FXk-La-y6D" secondAttribute="bottom" constant="-5" id="VTB-zb-PEd"/>
+                            <constraint firstItem="hzM-wl-Tfx" firstAttribute="top" secondItem="HHL-ZV-zye" secondAttribute="bottom" constant="8" id="VB7-zV-anh"/>
                             <constraint firstItem="HHL-ZV-zye" firstAttribute="leading" secondItem="9AU-AI-VBe" secondAttribute="leading" id="kFk-9l-ui2"/>
-                            <constraint firstItem="FXk-La-y6D" firstAttribute="centerX" secondItem="hzM-wl-Tfx" secondAttribute="centerX" id="kW8-Be-y6n"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="FXk-La-y6D" secondAttribute="bottom" id="nKK-2K-1xf"/>
                             <constraint firstItem="9AU-AI-VBe" firstAttribute="top" secondItem="Mgc-hQ-lPN" secondAttribute="bottom" id="rfW-1X-YsZ"/>
                         </constraints>
                     </view>

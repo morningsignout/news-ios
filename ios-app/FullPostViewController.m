@@ -29,8 +29,8 @@
 static NSString * const header = @"<!-- Latest compiled and minified CSS --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"><!-- Optional theme --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css\"><!-- Latest compiled and minified JavaScript --><script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\"></script><!-- Yeon's CSS --><link rel=\"stylesheet\" href=\"http://morningsignout.com/wp-content/themes/mso/style.css?ver=4.3\"><meta charset=\"utf-8\"> \
     <style type=\"text/css\">.ssba {}.ssba img { width: 0px !important; padding: 0px; border:  0; box-shadow: none !important; vertical-align: middle; }  ssba ssba-wrap { visibility:hidden!important; }</style><div style=\"padding:5px;background-color:white;box-shadow:none;\"></div>";
 
-//static const CGFloat initialWebViewYOffset = 425;
-static const CGFloat initialWebViewYOffset = 65;
+static const CGFloat initialWebViewYOffset = 0;
+//static const CGFloat initialWebViewYOffset = 65;
 
 @interface FullPostViewController () <UIWebViewDelegate, UIScrollViewDelegate, CommentsViewControllerDelegate, ADBannerViewDelegate> {
     NSString *fontSizeStyle;
@@ -495,5 +495,8 @@ static const CGFloat initialWebViewYOffset = 65;
     return _adView;
 }
 
+- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
+    self.adView.hidden = YES;
+}
 
 @end
