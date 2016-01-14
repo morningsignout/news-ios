@@ -282,7 +282,6 @@ static const CGFloat initialWebViewYOffset = 0;
                                     UIActivityTypeAirDrop,
                                     UIActivityTypeAssignToContact,
                                     UIActivityTypeCopyToPasteboard,
-                                    UIActivityTypeOpenInIBooks,
                                     UIActivityTypeSaveToCameraRoll,
                                     UIActivityTypePrint,
                                   ];
