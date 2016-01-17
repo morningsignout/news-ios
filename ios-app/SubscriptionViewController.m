@@ -10,12 +10,13 @@
 #import "DataParser.h"
 #import <CoreData/CoreData.h>
 #include "Constants.h"
+#import "CDCategory.h"
 
-#define ENTITY_NAME @"Subscription"
-#define ENTITY_ATTRIBUTE @"categoryName"
+//#define ENTITY_NAME @"Subscription"
+//#define ENTITY_ATTRIBUTE @"categoryName"
 
 @interface SubscriptionViewController ()
-@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+//@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) NSMutableArray *subscribedContent;
 
 @end
@@ -44,42 +45,41 @@ static bool needtoRefresh;
 }
 
 - (NSArray *)getDataForTypeOfView {
-    self.subscribedContent = nil;
-    [self insertIntoSubscribedContent];
-    return self.subscribedContent;
+    
+    NSArray *subscribedCategories = [CDCategory subscribedCategoriesInManagedObjectContext:self.delegate.managedObjectContext];
+    NSMutableArray *subscribedContent = [[NSMutableArray alloc] initWithCapacity:0];
+    
+    for (NSString *categoryName in subscribedCategories) {
+        NSArray *content = [DataParser DataForCategory:categoryName AndPageNumber:self.page];
+        [subscribedContent addObjectsFromArray:content];
+    }
+//    self.subscribedContent = nil;
+//    [self insertIntoSubscribedContent];
+    return subscribedContent;
 }
 
 + (void)updateCategories {
     needtoRefresh = true;
 }
+//
+//- (void)insertIntoSubscribedContent {
+//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:ENTITY_NAME];
+//    NSArray *subscribedCategories = [[self.managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+//    
+//    
+//    
+//}
+//
+//- (NSMutableArray *)subscribedContent {
+//    if (!_subscribedContent) {
+//        _subscribedContent = [NSMutableArray array];
+//    }
+//    return _subscribedContent;
+//}
 
-- (void)insertIntoSubscribedContent {
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:ENTITY_NAME];
-    NSArray *subscribedCategories = [[self.managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-    
-    for (id sub in subscribedCategories) {
-        NSString *s = [sub valueForKey:ENTITY_ATTRIBUTE];
-        NSArray *content = [DataParser DataForCategory:s AndPageNumber:self.page];
-        [self.subscribedContent addObjectsFromArray:content];
-    }
-    
-}
-
-- (NSMutableArray *)subscribedContent {
-    if (!_subscribedContent) {
-        _subscribedContent = [NSMutableArray array];
-    }
-    return _subscribedContent;
-}
-
-- (NSManagedObjectContext *)managedObjectContext
+- (BOOL)isSubscription
 {
-    NSManagedObjectContext *context = nil;
-    id delegate = [[UIApplication sharedApplication] delegate];
-    if ([delegate performSelector:@selector(managedObjectContext)]) {
-        context = [delegate managedObjectContext];
-    }
-    return context;
+    return YES;
 }
 
 @end

@@ -38,4 +38,9 @@ typedef enum ContentType { FEATURED, SEARCH, NONE } ContentType;
 
 - (void)didUpdateData:(CDPost *)object;
 
+- (BOOL)isCategory;
+- (NSString *)categoryName;
+- (BOOL)isFeatured;
+- (BOOL)isSubscription;
+
 @end

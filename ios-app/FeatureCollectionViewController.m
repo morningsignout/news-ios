@@ -156,4 +156,9 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     self.topFeatured.isBookmarked = object.bookmarked;
 }
 
+- (BOOL)isFeatured
+{
+    return YES;
+}
+
 @end

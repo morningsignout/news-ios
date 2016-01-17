@@ -95,6 +95,15 @@ static NSString * const reuseIdentifier = @"Cell";
     
     /* Initialize the fetchedResultsController */
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CDPost"];
+    if ([self isCategory]) {
+        NSLog(@"CALLED CATEGORY PREDICATE %@", [self categoryName]);
+        request.predicate = [NSPredicate predicateWithFormat:@"ANY categories.name ==[c] %@", [self categoryName]];
+    } else if ([self isFeatured]) {
+        NSLog(@"CALLED CATEGORY PREDICATE FEATURED");
+        request.predicate = [NSPredicate predicateWithFormat:@"ANY categories.name ==[c] %@", @"featured"];
+    } else if ([self isSubscription]) {
+        request.predicate = [NSPredicate predicateWithFormat:@"ANY categories.subscribed == 1"];
+    }
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES selector:@selector(localizedStandardCompare:)]];
     
     NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:request
@@ -425,6 +434,26 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)didUpdateData:(CDPost *)object
 {
     NSLog(@"Called in BaseTiledCollectionViewController");
+}
+
+- (BOOL)isCategory
+{
+    return NO;
+}
+
+- (NSString *)categoryName
+{
+    return nil;
+}
+
+- (BOOL)isFeatured
+{
+    return NO;
+}
+
+- (BOOL)isSubscription
+{
+    return NO;
 }
 
 @end

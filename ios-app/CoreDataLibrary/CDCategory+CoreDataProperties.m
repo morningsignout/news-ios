@@ -2,8 +2,8 @@
 //  CDCategory+CoreDataProperties.m
 //  ios-app
 //
-//  Created by Qingwei Lan on 11/8/15.
-//  Copyright © 2015 Morning Sign Out Incorporated. All rights reserved.
+//  Created by Qingwei Lan on 1/16/16.
+//  Copyright © 2016 Morning Sign Out Incorporated. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
 //  to delete and recreate this implementation file for your updated model.
@@ -14,6 +14,7 @@
 @implementation CDCategory (CoreDataProperties)
 
 @dynamic name;
+@dynamic subscribed;
 @dynamic posts;
 
 @end

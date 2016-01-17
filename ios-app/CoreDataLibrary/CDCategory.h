@@ -19,6 +19,17 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)deleteCategoryWithName:(NSString *)name
       fromManagedObjectContext:(NSManagedObjectContext *)context;
 
++ (void)subscribeToCategoryWithName:(NSString *)name
+             inManagedObjectContext:(NSManagedObjectContext *)context;
+
++ (void)unsubscribeFromCategoryWithName:(NSString *)name
+                 inManagedObjectContext:(NSManagedObjectContext *)context;
+
++ (BOOL)isCategorySubscribed:(NSString *)name
+      inManagedObjectContext:(NSManagedObjectContext *)context;
+
++ (NSArray *)subscribedCategoriesInManagedObjectContext:(NSManagedObjectContext *)context;
+
 @end
 
 NS_ASSUME_NONNULL_END
