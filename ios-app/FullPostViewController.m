@@ -29,10 +29,9 @@
 static NSString * const header = @"<!-- Latest compiled and minified CSS --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"><!-- Optional theme --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css\"><!-- Latest compiled and minified JavaScript --><script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\"></script><!-- Yeon's CSS --><link rel=\"stylesheet\" href=\"http://morningsignout.com/wp-content/themes/mso/style.css?ver=4.3\"><meta charset=\"utf-8\"> \
     <style type=\"text/css\">.ssba {}.ssba img { width: 0px !important; padding: 0px; border:  0; box-shadow: none !important; vertical-align: middle; }  ssba ssba-wrap { visibility:hidden!important; }</style><div style=\"padding:5px;background-color:white;box-shadow:none;\"></div>";
 
-static const CGFloat initialWebViewYOffset = 0;
-//static const CGFloat initialWebViewYOffset = 65;
+static const CGFloat initialWebViewYOffset = 365;
 
-@interface FullPostViewController () <UIWebViewDelegate, UIScrollViewDelegate, CommentsViewControllerDelegate, ADBannerViewDelegate> {
+@interface FullPostViewController () <UIWebViewDelegate, UIScrollViewDelegate, CommentsViewControllerDelegate, ADBannerViewDelegate, UIGestureRecognizerDelegate> {
     NSString *fontSizeStyle;
     int fontLevel;
     bool scrolled, loaded;
@@ -46,7 +45,7 @@ static const CGFloat initialWebViewYOffset = 0;
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;
 @property (strong, nonatomic) CommentsViewController *commentVC;
 @property (nonatomic, strong) AppDelegate *delegate;
-@property (strong, nonatomic) IBOutlet ADBannerView *adView;
+@property (strong, nonatomic) ADBannerView *adView;
 
 @property (nonatomic, strong) UIBarButtonItem *shareItem;
 @property (nonatomic, strong) UIBarButtonItem *bookmarkButton;
@@ -59,45 +58,17 @@ static const CGFloat initialWebViewYOffset = 0;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view.
     self.webView.delegate = self;
     self.webView.scrollView.delegate = self;
     self.webView.translatesAutoresizingMaskIntoConstraints = YES;
     
-    [self.header.coverImage setUserInteractionEnabled:YES];
-    UITapGestureRecognizer *tapCoverImageRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedCoverImage:)];
-    [self.header.coverImage addGestureRecognizer:tapCoverImageRecognizer];
-    
-    [self.header.articleLabels.authorLabel setUserInteractionEnabled:YES];
-    UITapGestureRecognizer *tapAuthorRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedAuthor:)];
-    [self.header.articleLabels.authorLabel addGestureRecognizer:tapAuthorRecognizer];
-    
     _delegate = [[UIApplication sharedApplication] delegate];
     
-    // Retrieve user font size preference if was previously saved
-    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Font"];
-    self.font = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-    if (self.font.firstObject) {
-        NSNumber *lev = [self.font.firstObject valueForKey:@"fontLevel"];
-        fontLevel = [lev intValue];
-        
-    } else {
-        fontLevel = 1;
-    }
-    
+    [self setupInitialHTML];
     [self setUpLabels];
     [self.view addSubview:self.adView];
-    
-    NSString *filteredHTML = [self.post.body stringByReplacingOccurrencesOfString:@"\\/" withString:@"/"];
-    filteredHTML = [filteredHTML stringByReplacingOccurrencesOfString:@"\"" withString:@"\""];
-    NSString *containerFront = @"<div class=\"container\">";
-    NSString *containerEnd = @"</div>";
-    filteredHTML = [containerFront stringByAppendingString:filteredHTML];
-    filteredHTML = [filteredHTML stringByAppendingString:containerEnd];
-    filteredHTML = [header stringByAppendingString:filteredHTML];
-    
-    self.html = filteredHTML;
     
     self.lastContentOffset = 60.0;
     
@@ -118,6 +89,32 @@ static const CGFloat initialWebViewYOffset = 0;
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)setupInitialHTML {
+    NSString *filteredHTML = [self.post.body stringByReplacingOccurrencesOfString:@"\\/" withString:@"/"];
+    filteredHTML = [filteredHTML stringByReplacingOccurrencesOfString:@"\"" withString:@"\""];
+    NSString *containerFront = @"<div class=\"container\">";
+    NSString *containerEnd = @"</div>";
+    filteredHTML = [containerFront stringByAppendingString:filteredHTML];
+    filteredHTML = [filteredHTML stringByAppendingString:containerEnd];
+    filteredHTML = [header stringByAppendingString:filteredHTML];
+    
+    self.html = filteredHTML;
+}
+
+- (void)setupFontPreferences {
+    // Retrieve user font size preference if was previously saved
+    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Font"];
+    self.font = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    if (self.font.firstObject) {
+        NSNumber *lev = [self.font.firstObject valueForKey:@"fontLevel"];
+        fontLevel = [lev intValue];
+        
+    } else {
+        fontLevel = 1;
+    }
 }
 
 - (void)setupNavigationBarStyle {
@@ -169,6 +166,16 @@ static const CGFloat initialWebViewYOffset = 0;
     
     self.header.articleLabels.authorLabel.text = [NSString stringWithFormat:@"%@ | %@", self.post.author.name, self.post.date];
     [self.header.articleLabels.authorLabel setTextColor:[UIColor kFullPostMainTextColor]];
+    
+    // Add gesture recognizers
+    
+    [self.header.coverImage setUserInteractionEnabled:YES];
+    UITapGestureRecognizer *tapCoverImageRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedCoverImage:)];
+    [self.header.coverImage addGestureRecognizer:tapCoverImageRecognizer];
+    
+    [self.header.articleLabels.authorLabel setUserInteractionEnabled:YES];
+    UITapGestureRecognizer *tapAuthorRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedAuthor:)];
+    [self.header.articleLabels.authorLabel addGestureRecognizer:tapAuthorRecognizer];
 }
 
 - (NSString *)setFontSize {
@@ -195,9 +202,7 @@ static const CGFloat initialWebViewYOffset = 0;
 - (void)loadWebView {
     NSString *filteredHTML = [self.html stringByAppendingString:[self setFontSize]];
     [self.webView loadHTMLString:filteredHTML baseURL:nil];
-    self.webView.frame = CGRectMake(0, initialWebViewYOffset, self.view.frame.size.width, self.view.frame.size.height - initialWebViewYOffset);
-    self.webView.scrollView.contentInset = UIEdgeInsetsMake(365, 0, 0, 0);
-    //self.webView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    self.webView.frame = CGRectMake(0, 365, self.view.frame.size.width, self.view.frame.size.height - self.adView.frame.size.height);
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
@@ -408,11 +413,13 @@ static const CGFloat initialWebViewYOffset = 0;
 
 - (void)scrollViewDidScroll:(UIScrollView*)scrollView
 {
-    /*if (scrollOffset > 0 && !scrolled)
+    float scrollOffset = scrollView.contentOffset.y;
+    
+    if (scrollOffset > 0 && !scrolled)
     {
         // then we are at the top
         [UIView animateWithDuration:0.5 animations:^{
-            self.webView.frame = CGRectMake(0, 60, self.view.frame.size.width, self.view.frame.size.height - 60);
+            self.webView.frame = CGRectMake(0, 60, self.view.frame.size.width, self.view.frame.size.height - self.adView.frame.size.height - 60);
         } completion:^(BOOL completed){
             [self.webView.scrollView setContentOffset:CGPointZero animated:YES];
             scrolled = YES;
@@ -421,12 +428,13 @@ static const CGFloat initialWebViewYOffset = 0;
     }
     else if (scrollOffset < -80) {
         [UIView animateWithDuration:0.5 animations:^{
-            self.webView.frame = CGRectMake(0, initialWebViewYOffset, self.view.frame.size.width, self.view.frame.size.height - initialWebViewYOffset);
+            self.webView.frame = CGRectMake(0, initialWebViewYOffset, self.view.frame.size.width, self.view.frame.size.height - self.adView.frame.size.height - initialWebViewYOffset);
         } completion:^(BOOL completed){
             scrolled = NO;
         }];
-    }*/
+    }
 }
+
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
     loaded = NO;
@@ -444,40 +452,6 @@ static const CGFloat initialWebViewYOffset = 0;
     }];
 }
 
-- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView{
-    NSLog(@"top reached");
-}
-
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView
-                     withVelocity:(CGPoint)velocity
-              targetContentOffset:(inout CGPoint *)targetContentOffset{
-    UIEdgeInsets loadingInset = scrollView.contentInset;
-    NSLog(@"ending drag %f, %f",velocity.y,loadingInset.top);
-    
-    //if(loadingInset.top != 0){
-    if(velocity.y <= 0.05 && velocity.y >= -0.05){
-        NSLog(@"didn't move");
-        if(scrollView.contentInset.top < 150){ //scroll to top
-            loadingInset.top = 0;
-        }
-        else{
-            loadingInset.top = 365;
-        }
-    }
-    else if(velocity.y > 0.05){ //moving up
-        NSLog(@"moving up");
-        loadingInset.top = 0;
-    }
-    else{  // moving down
-        NSLog(@"moving dowN");
-        loadingInset.top = 365;
-    }
-    NSLog(@"%f",loadingInset.top);
-    [UIView animateWithDuration:0.2 animations:^{
-        scrollView.contentInset = loadingInset;
-    }];
-}
-
 -(void)loadUpdated {
     if (!loaded) {
         [UIView animateWithDuration:0.1 animations:^{
@@ -488,7 +462,7 @@ static const CGFloat initialWebViewYOffset = 0;
 
 - (ADBannerView *)adView {
     if (!_adView) {
-        _adView = [[ADBannerView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - _adView.frame.size.height, self.view.frame.size.width, _adView.frame.size.height)];
+        _adView = [[ADBannerView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 50, self.view.frame.size.width, 50)];
         _adView.delegate = self;
     }
     return _adView;
@@ -496,6 +470,7 @@ static const CGFloat initialWebViewYOffset = 0;
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
     self.adView.hidden = YES;
+    self.webView.frame = CGRectMake(0, self.webView.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
 }
 
 @end
