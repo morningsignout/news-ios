@@ -98,7 +98,7 @@ static NSString * const reuseIdentifier = @"Cell";
     if ([self isCategory]) {
         NSLog(@"CALLED CATEGORY PREDICATE %@", [self categoryName]);
         request.predicate = [NSPredicate predicateWithFormat:@"ANY categories.name ==[c] %@", [self categoryName]];
-    } else if ([self isFeatured]) {
+    if ([self isFeatured]) {
         NSLog(@"CALLED CATEGORY PREDICATE FEATURED");
         request.predicate = [NSPredicate predicateWithFormat:@"ANY categories.name ==[c] %@", @"featured"];
     } else if ([self isSubscription]) {
@@ -106,12 +106,11 @@ static NSString * const reuseIdentifier = @"Cell";
     }
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES selector:@selector(localizedStandardCompare:)]];
     
-    NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                           managedObjectContext:self.delegate.managedObjectContext
                                                                             sectionNameKeyPath:nil
                                                                                      cacheName:nil];
-    frc.delegate = self;
-    self.fetchedResultsController = frc;
+    _fetchedResultsController.delegate = self;
     
     return _fetchedResultsController;
 }
@@ -237,7 +236,7 @@ static NSString * const reuseIdentifier = @"Cell";
         TileCollectionViewCellC *cellC = (TileCollectionViewCellC *)[self setTileOfClass:@"TileCollectionViewCellC" WithIndexPath:indexPath];
         return cellC;
     }
-
+    
     return nil;
 }
 
