@@ -28,6 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"CATEGORY %@", self.categoryType);
     self.end = false;
     // Do any additional setup after loading the view.
     [self.navigationController.navigationBar setBarTintColor:[UIColor kNavBackgroundColor]];
@@ -137,7 +138,10 @@
 //}
 
 - (NSArray *)getDataForTypeOfView {
-    return [DataParser DataForCategory:self.categoryType AndPageNumber:self.page];
+    NSArray *data = [DataParser DataForCategory:self.categoryType AndPageNumber:self.page];
+    //for (Post *post in data)
+      //  [post printInfo];
+    return data;
 }
 
 - (void) setEndOfPosts:(bool)set{
@@ -165,6 +169,10 @@
 
 - (NSString *)categoryName
 {
+    if ([self.categoryType isEqualToString:@"public-health"])
+        return @"Public Health";
+    else if ([self.categoryType isEqualToString:@"premed_advice"])
+        return @"Premed Advising";
     return self.categoryType;
 }
 

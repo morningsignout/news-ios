@@ -98,10 +98,11 @@ static NSString * const reuseIdentifier = @"Cell";
     if ([self isCategory]) {
         NSLog(@"CALLED CATEGORY PREDICATE %@", [self categoryName]);
         request.predicate = [NSPredicate predicateWithFormat:@"ANY categories.name ==[c] %@", [self categoryName]];
-    if ([self isFeatured]) {
+    } else if ([self isFeatured]) {
         NSLog(@"CALLED CATEGORY PREDICATE FEATURED");
         request.predicate = [NSPredicate predicateWithFormat:@"ANY categories.name ==[c] %@", @"featured"];
     } else if ([self isSubscription]) {
+        NSLog(@"CALLED CATEGORY PREDICATE SUBSCRIBED");
         request.predicate = [NSPredicate predicateWithFormat:@"ANY categories.subscribed == 1"];
     }
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES selector:@selector(localizedStandardCompare:)]];
@@ -146,8 +147,11 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)refreshPosts:(NSArray *)newPosts {
     dispatch_async(dispatch_get_main_queue(), ^{
         // Load into core data
-        for (Post *post in newPosts)
+        for (Post *post in newPosts) {
+            NSLog(@"GOT DATA: ");
+            [post printInfo];
             [CDPost postWithPost:post inManagedObjectContext:self.delegate.managedObjectContext];
+        }
         [self.delegate saveContext];
         self.collectionView.userInteractionEnabled = YES;
         [self endLongSpinner];
