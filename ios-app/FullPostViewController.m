@@ -68,6 +68,7 @@ static const CGFloat initialWebViewYOffset = 365;
     
     [self setupInitialHTML];
     [self setUpLabels];
+    
     [self.view addSubview:self.adView];
     
     self.lastContentOffset = 60.0;
@@ -154,7 +155,7 @@ static const CGFloat initialWebViewYOffset = 365;
 }
 
 - (void)setUpLabels {
-    self.header.articleLabels.frame = CGRectMake(0, self.header.coverImage.frame.size.height + 70, self.view.frame.size.width, 150);
+    self.header.articleLabels.frame = CGRectMake(0, self.header.coverImage.frame.size.height, self.view.frame.size.width, 150);
     [self.header.articleLabels setBackgroundColor:[UIColor kFullPostInfoBackgroundColor]];
     
     self.header.articleLabels.titleLabel.text = self.post.title;
@@ -173,9 +174,12 @@ static const CGFloat initialWebViewYOffset = 365;
     UITapGestureRecognizer *tapCoverImageRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedCoverImage:)];
     [self.header.coverImage addGestureRecognizer:tapCoverImageRecognizer];
     
-    [self.header.articleLabels.authorLabel setUserInteractionEnabled:YES];
     UITapGestureRecognizer *tapAuthorRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedAuthor:)];
+    
+    [self.header.articleLabels.authorLabel setUserInteractionEnabled:YES];
     [self.header.articleLabels.authorLabel addGestureRecognizer:tapAuthorRecognizer];
+
+
 }
 
 - (NSString *)setFontSize {
