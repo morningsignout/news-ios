@@ -461,7 +461,6 @@
 				TargetAttributes = {
 					FB714A111B94D16000D68CB5 = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = WQ6P5JSBTN;
 					};
 					FB714A2D1B94D16100D68CB5 = {
 						CreatedOnToolsVersion = 6.4;
@@ -756,10 +755,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -776,10 +771,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
 				INFOPLIST_FILE = "ios-appTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.MorningSignOut.$(PRODUCT_NAME:rfc1034identifier)";
