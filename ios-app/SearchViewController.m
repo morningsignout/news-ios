@@ -58,6 +58,8 @@
     navVC.titleLabel.text = @"Search";
     navVC.titleLabel.textColor = [UIColor kNavTextColor];
     navVC.navigationItem.title = @"Search";
+    
+    self.collectionView = nil;
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -95,11 +97,12 @@
         self.flush++;
         NSArray* refreshPosts;
         int yesFlush = (int)self.flush;
-            refreshPosts = [DataParser DataForSearchTerm:self.searchTerm InPage:self.page];
+        refreshPosts = [DataParser DataForSearchTerm:self.searchTerm InPage:self.page];
 
         if(self.flush == yesFlush){
             self.flush = 0;
             [self refreshPosts:refreshPosts];
+            [self.collectionView reloadData];
         } else {
             refreshPosts = nil;
         }
@@ -109,6 +112,10 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [self startSpinnerWithMessage:@"Searching..."];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    [self endLongSpinner];
 }
 
 - (void)didPresentSearchController:(UISearchController *)searchController{

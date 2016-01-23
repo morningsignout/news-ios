@@ -95,14 +95,23 @@ static NSString * const reuseIdentifier = @"Cell";
     
     /* Initialize the fetchedResultsController */
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CDPost"];
+    if ([self isCategory]) {
+        NSLog(@"CALLED CATEGORY PREDICATE %@", [self categoryName]);
+        request.predicate = [NSPredicate predicateWithFormat:@"ANY categories.name ==[c] %@", [self categoryName]];
+    } else if ([self isFeatured]) {
+        NSLog(@"CALLED CATEGORY PREDICATE FEATURED");
+        request.predicate = [NSPredicate predicateWithFormat:@"ANY categories.name ==[c] %@", @"featured"];
+    } else if ([self isSubscription]) {
+        NSLog(@"CALLED CATEGORY PREDICATE SUBSCRIBED");
+        request.predicate = [NSPredicate predicateWithFormat:@"ANY categories.subscribed == 1"];
+    }
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES selector:@selector(localizedStandardCompare:)]];
     
-    NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                           managedObjectContext:self.delegate.managedObjectContext
                                                                             sectionNameKeyPath:nil
                                                                                      cacheName:nil];
-    frc.delegate = self;
-    self.fetchedResultsController = frc;
+    _fetchedResultsController.delegate = self;
     
     return _fetchedResultsController;
 }
@@ -117,7 +126,6 @@ static NSString * const reuseIdentifier = @"Cell";
         dispatch_async(dispatch_get_main_queue(), ^{
             [self refreshPosts:refreshPosts];
             [self endLongSpinner];
-            NSLog(@"Reloaded new posts");
         });
     });
 
@@ -137,9 +145,11 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)refreshPosts:(NSArray *)newPosts {
     dispatch_async(dispatch_get_main_queue(), ^{
+        
         // Load into core data
-        for (Post *post in newPosts)
+        for (Post *post in newPosts) {
             [CDPost postWithPost:post inManagedObjectContext:self.delegate.managedObjectContext];
+        }
         [self.delegate saveContext];
         self.collectionView.userInteractionEnabled = YES;
         [self endLongSpinner];
@@ -212,7 +222,6 @@ static NSString * const reuseIdentifier = @"Cell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     if (![self getEndOfPosts] && indexPath.item == self.fetchedResultsController.fetchedObjects.count - 12) {
-        NSLog(@"still fetching");
         [self fetchMoreItems];
     }
     
@@ -228,7 +237,7 @@ static NSString * const reuseIdentifier = @"Cell";
         TileCollectionViewCellC *cellC = (TileCollectionViewCellC *)[self setTileOfClass:@"TileCollectionViewCellC" WithIndexPath:indexPath];
         return cellC;
     }
-
+    
     return nil;
 }
 
@@ -415,7 +424,6 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
 {
-    NSLog(@"CollectionView reloading");
     [self didUpdateData:anObject];
     [self.collectionView reloadData];
 }
@@ -424,7 +432,27 @@ static NSString * const reuseIdentifier = @"Cell";
 // for updates and synchronization
 - (void)didUpdateData:(CDPost *)object
 {
-    NSLog(@"Called in BaseTiledCollectionViewController");
+    return;
+}
+
+- (BOOL)isCategory
+{
+    return NO;
+}
+
+- (NSString *)categoryName
+{
+    return nil;
+}
+
+- (BOOL)isFeatured
+{
+    return NO;
+}
+
+- (BOOL)isSubscription
+{
+    return NO;
 }
 
 @end

@@ -11,22 +11,24 @@
 #import "DataParser.h"
 #import "Constants.h"
 #import <CoreData/CoreData.h>
+#import "CDCategory.h"
 
-#define ENTITY_NAME @"Subscription"
-#define ENTITY_ATTRIBUTE @"categoryName"
+//#define ENTITY_NAME @"Subscription"
+//#define ENTITY_ATTRIBUTE @"categoryName"
 
 @interface CategoryDetailViewController ()
 @property (nonatomic) bool end;
 @property (nonatomic) bool subscribed;
-@property (strong, nonatomic) NSMutableArray* subscribedCategories;
+//@property (strong, nonatomic) NSMutableArray* subscribedCategories;
 @property (strong, nonatomic) UIBarButtonItem * subscribe;
-@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+//@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @end
 
 @implementation CategoryDetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"CATEGORY %@", self.categoryType);
     self.end = false;
     // Do any additional setup after loading the view.
     [self.navigationController.navigationBar setBarTintColor:[UIColor kNavBackgroundColor]];
@@ -39,25 +41,24 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
     
-    // Deal with loading subscription info from core data
-    self.subscribed = false;
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:ENTITY_NAME];
-    self.subscribedCategories = [[self.managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    self.subscribed = [CDCategory isCategorySubscribed:self.categoryName
+                                inManagedObjectContext:self.delegate.managedObjectContext];
+    [self.delegate saveContext];
     
-    //check if this category is subscribed to
-    for (id sub in self.subscribedCategories) {
-        NSString * s = [sub valueForKey:ENTITY_ATTRIBUTE];
-        if ([s isEqualToString:self.categoryType]) {
-            self.subscribed = true;
-            break;
-        }
-    }
+//    // Deal with loading subscription info from core data
+//    self.subscribed = false;
+//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:ENTITY_NAME];
+//    self.subscribedCategories = [[self.managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+//    
+//    //check if this category is subscribed to
+//    for (id sub in self.subscribedCategories) {
+//        NSString * s = [sub valueForKey:ENTITY_ATTRIBUTE];
+//        if ([s isEqualToString:self.categoryType]) {
+//            self.subscribed = true;
+//            break;
+//        }
+//    }
     [self updateSubscribe];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (UIBarButtonItem *)subscribe {
@@ -80,62 +81,67 @@
 - (void)subscribeCategory {
     
     //inform subscribeview to update
-    [SubscriptionViewController updateCategories];
+    //[SubscriptionViewController updateCategories];
     
     //subscribing from this category
     if(!self.subscribed){
-        NSManagedObject *subscribedCategory = [NSEntityDescription insertNewObjectForEntityForName:ENTITY_NAME inManagedObjectContext:self.managedObjectContext];
-        [subscribedCategory setValue:self.categoryType forKey:ENTITY_ATTRIBUTE];
-        self.subscribed = true;
-        [self.subscribedCategories addObject:subscribedCategory];
-        [self updateSubscribe];
+        [CDCategory subscribeToCategoryWithName:self.categoryName inManagedObjectContext:self.delegate.managedObjectContext];
+        [self.delegate saveContext];
+//        NSManagedObject *subscribedCategory = [NSEntityDescription insertNewObjectForEntityForName:ENTITY_NAME inManagedObjectContext:self.managedObjectContext];
+//        [subscribedCategory setValue:self.categoryType forKey:ENTITY_ATTRIBUTE];
+        self.subscribed = YES;
+//        [self.subscribedCategories addObject:subscribedCategory];
+//        [self updateSubscribe];
     }
 
     //unsubscribing from this category
     else if (self.subscribed) {
-        
-        for (NSManagedObject *sub in self.subscribedCategories){
-            NSString *s = [sub valueForKey:ENTITY_ATTRIBUTE];
-            
-            if ([s isEqualToString:self.categoryType]) {
-                [self.managedObjectContext deleteObject:sub];
-                self.subscribed = false;
-                [self updateSubscribe];
-                break;
-            }
-        }
+        [CDCategory unsubscribeFromCategoryWithName:self.categoryName inManagedObjectContext:self.delegate.managedObjectContext];
+        [self.delegate saveContext];
+        self.subscribed = NO;
+//        for (NSManagedObject *sub in self.subscribedCategories){
+//            NSString *s = [sub valueForKey:ENTITY_ATTRIBUTE];
+//            
+//            if ([s isEqualToString:self.categoryType]) {
+//                [self.managedObjectContext deleteObject:sub];
+//                self.subscribed = false;
+//                [self updateSubscribe];
+//                break;
+//            }
+//        }
     }
     
-    NSError *error = nil;
-    if (![self.managedObjectContext save:&error]) {
-        NSLog(@"Can't Delete! %@ %@", error, [error localizedDescription]);
-        return;
-    }
+//    NSError *error = nil;
+//    if (![self.managedObjectContext save:&error]) {
+//        NSLog(@"Can't Delete! %@ %@", error, [error localizedDescription]);
+//        return;
+//    }
 
     [self updateSubscribe];
 }
 
 - (void)updateSubscribe{
-    if(self.subscribed){
+    if(self.subscribed)
         [self.subscribe setTitle:@"Unsubscribe"];
-    }
-    else{
+    else
         [self.subscribe setTitle:@"Subscribe"];
-    }
 }
 
-- (NSManagedObjectContext *)managedObjectContext
-{
-    NSManagedObjectContext *context = nil;
-    id delegate = [[UIApplication sharedApplication] delegate];
-    if ([delegate performSelector:@selector(managedObjectContext)]) {
-        context = [delegate managedObjectContext];
-    }
-    return context;
-}
+//- (NSManagedObjectContext *)managedObjectContext
+//{
+//    NSManagedObjectContext *context = nil;
+//    id delegate = [[UIApplication sharedApplication] delegate];
+//    if ([delegate performSelector:@selector(managedObjectContext)]) {
+//        context = [delegate managedObjectContext];
+//    }
+//    return context;
+//}
 
 - (NSArray *)getDataForTypeOfView {
-    return [DataParser DataForCategory:self.categoryType AndPageNumber:self.page];
+    NSArray *data = [DataParser DataForCategory:self.categoryType AndPageNumber:self.page];
+    //for (Post *post in data)
+      //  [post printInfo];
+    return data;
 }
 
 - (void) setEndOfPosts:(bool)set{
@@ -155,5 +161,19 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (BOOL)isCategory
+{
+    return YES;
+}
+
+- (NSString *)categoryName
+{
+    if ([self.categoryType isEqualToString:@"public-health"])
+        return @"Public Health";
+    else if ([self.categoryType isEqualToString:@"premed_advice"])
+        return @"Premed Advising";
+    return self.categoryType;
+}
 
 @end

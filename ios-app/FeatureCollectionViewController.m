@@ -33,7 +33,6 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     self.end = false;
     
     self.topFeatured = [super getPostFromPosts:0];
-    NSLog(@"bookmarked %d", self.topFeatured.isBookmarked);
     contentType = FEATURED;
     
     // Initialize Refresh Control
@@ -67,8 +66,7 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     NSMutableArray *data = [NSMutableArray arrayWithArray:[DataParser DataForFeaturedPostsWithPageNumber:self.page]];
     if (self.page == 1) {
         self.topFeatured = data.firstObject;
-        //if([data count])
-            [data removeObjectAtIndex:0];
+        [data removeObjectAtIndex:0];
         [data addObject:self.topFeatured];
     }
     return data;
@@ -154,6 +152,11 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     [super didUpdateData:object];
     NSLog(@"Called in FeatureCollectionViewController");
     self.topFeatured.isBookmarked = object.bookmarked;
+}
+
+- (BOOL)isFeatured
+{
+    return YES;
 }
 
 @end

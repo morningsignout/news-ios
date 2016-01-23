@@ -186,7 +186,16 @@ NSDateFormatter *dateToStringFormatter;
 
 // Returns an array of Posts filtered by category
 + (NSArray *)DataForCategory:(NSString *)categorySlug AndPageNumber:(int)page {
-    NSString *url = [URLParser URLForQuery:[URLParser URLForCategory:categorySlug] WithPageNumber:page];
+    NSString *category;
+    if ([categorySlug isEqualToString:@"Public Health"]) {
+        category = @"public-health";
+    } else if ([categorySlug isEqualToString:@"Premed Advising"]) {
+        category = @"premed_advice";
+    } else {
+        category = categorySlug;
+    }
+    
+    NSString *url = [URLParser URLForQuery:[URLParser URLForCategory:category] WithPageNumber:page];
     NSDictionary* parseData = [self parseDataFromURL:url WithCountLimit:YES];
     
     return [self parsePostsFromDictionaries:parseData];
