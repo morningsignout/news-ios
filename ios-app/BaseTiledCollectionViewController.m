@@ -146,10 +146,9 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)refreshPosts:(NSArray *)newPosts {
     dispatch_async(dispatch_get_main_queue(), ^{
+        
         // Load into core data
         for (Post *post in newPosts) {
-            NSLog(@"GOT DATA: ");
-            [post printInfo];
             [CDPost postWithPost:post inManagedObjectContext:self.delegate.managedObjectContext];
         }
         [self.delegate saveContext];
@@ -436,7 +435,7 @@ static NSString * const reuseIdentifier = @"Cell";
 // for updates and synchronization
 - (void)didUpdateData:(CDPost *)object
 {
-    NSLog(@"Called in BaseTiledCollectionViewController");
+    return;
 }
 
 - (BOOL)isCategory

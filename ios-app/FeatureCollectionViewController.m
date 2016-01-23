@@ -67,8 +67,7 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     NSMutableArray *data = [NSMutableArray arrayWithArray:[DataParser DataForFeaturedPostsWithPageNumber:self.page]];
     if (self.page == 1) {
         self.topFeatured = data.firstObject;
-        //if([data count])
-            [data removeObjectAtIndex:0];
+        [data removeObjectAtIndex:0];
         [data addObject:self.topFeatured];
     }
     return data;
