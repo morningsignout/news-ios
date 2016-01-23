@@ -126,7 +126,6 @@ static NSString * const reuseIdentifier = @"Cell";
         dispatch_async(dispatch_get_main_queue(), ^{
             [self refreshPosts:refreshPosts];
             [self endLongSpinner];
-            NSLog(@"Reloaded new posts");
         });
     });
 
@@ -223,7 +222,6 @@ static NSString * const reuseIdentifier = @"Cell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     if (![self getEndOfPosts] && indexPath.item == self.fetchedResultsController.fetchedObjects.count - 12) {
-        NSLog(@"still fetching");
         [self fetchMoreItems];
     }
     
@@ -426,7 +424,6 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
 {
-    NSLog(@"CollectionView reloading");
     [self didUpdateData:anObject];
     [self.collectionView reloadData];
 }

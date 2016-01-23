@@ -33,7 +33,6 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     self.end = false;
     
     self.topFeatured = [super getPostFromPosts:0];
-    NSLog(@"bookmarked %d", self.topFeatured.isBookmarked);
     contentType = FEATURED;
     
     // Initialize Refresh Control
