@@ -59,7 +59,7 @@
     navVC.titleLabel.textColor = [UIColor kNavTextColor];
     navVC.navigationItem.title = @"Search";
     
-    self.collectionView = nil;
+//    self.collectionView = nil;
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -94,18 +94,21 @@
         if([self.searchTerm length] == 0)
             return;
         
-        self.flush++;
+//        self.flush++;
         NSArray* refreshPosts;
-        int yesFlush = (int)self.flush;
+//        int yesFlush = (int)self.flush;
         refreshPosts = [DataParser DataForSearchTerm:self.searchTerm InPage:self.page];
 
-        if(self.flush == yesFlush){
-            self.flush = 0;
+//        if(self.flush == yesFlush){
+//            self.flush = 0;
+        dispatch_async(dispatch_get_main_queue(), ^{
             [self refreshPosts:refreshPosts];
             [self.collectionView reloadData];
-        } else {
-            refreshPosts = nil;
-        }
+        });
+        
+//        } else {
+//            refreshPosts = nil;
+//        }
         
     });
 }
@@ -160,5 +163,15 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (BOOL)isSearch
+{
+    return YES;
+}
+
+- (NSString *)searchText
+{
+    return self.searchTerm;
+}
 
 @end
