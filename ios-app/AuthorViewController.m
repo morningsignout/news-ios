@@ -56,9 +56,9 @@
     return self.authorPosts;
 }
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.authorPosts.count;
-}
+//- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+//    return self.authorPosts.count;
+//}
 
 /*
 #pragma mark - Navigation
@@ -69,5 +69,15 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (BOOL)isAuthor
+{
+    return YES;
+}
+
+- (int)authorID
+{
+    return self.author.ID;
+}
 
 @end
