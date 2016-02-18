@@ -59,7 +59,7 @@ static NSString * const reuseIdentifier = @"Cell";
     NSError *error;
     if (![self.fetchedResultsController performFetch:&error])
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-
+    
     // Download new posts
     if (contentType != SEARCH) {
         [self loadPosts];
@@ -104,6 +104,13 @@ static NSString * const reuseIdentifier = @"Cell";
     } else if ([self isSubscription]) {
         NSLog(@"CALLED CATEGORY PREDICATE SUBSCRIBED");
         request.predicate = [NSPredicate predicateWithFormat:@"ANY categories.subscribed == 1"];
+    } else if ([self isSearch]) {
+        NSString *searchText = [self searchText];
+        NSLog(@"CALLED PREDICATE SEARCH %@", searchText);
+        request.predicate = [NSPredicate predicateWithFormat:@"title CONTAINS[c] %@", searchText ? searchText : @""];
+    } else if ([self isAuthor]) {
+        NSLog(@"CALLED AUTHOR PREDICATE %d", [self authorID]);
+        request.predicate = [NSPredicate predicateWithFormat:@"authoredBy.identity == %d", [self authorID]];
     }
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES selector:@selector(localizedStandardCompare:)]];
     
@@ -136,6 +143,7 @@ static NSString * const reuseIdentifier = @"Cell";
         return nil;
     }
     NSArray *data = [self getDataForTypeOfView];
+//    NSLog(@"GET_DATA_FOR_PAGE %@", data);
     return data;
 }
 
@@ -153,6 +161,16 @@ static NSString * const reuseIdentifier = @"Cell";
         [self.delegate saveContext];
         self.collectionView.userInteractionEnabled = YES;
         [self endLongSpinner];
+        
+        if ([self isSearch]) {
+            _fetchedResultsController = nil;
+            // Perform fetch
+            NSError *error;
+            if (![self.fetchedResultsController performFetch:&error])
+                NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+//            NSLog(@"SEARCH FETCHED OBJECTS: %@", self.fetchedResultsController.fetchedObjects);
+            [self.collectionView reloadData];
+        }
     });
 }
 
@@ -453,6 +471,26 @@ static NSString * const reuseIdentifier = @"Cell";
 - (BOOL)isSubscription
 {
     return NO;
+}
+
+- (BOOL)isSearch
+{
+    return NO;
+}
+
+- (NSString *)searchText
+{
+    return nil;
+}
+
+- (BOOL)isAuthor
+{
+    return NO;
+}
+
+- (int)authorID
+{
+    return 0;
 }
 
 @end

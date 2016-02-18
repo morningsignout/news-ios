@@ -42,5 +42,9 @@ typedef enum ContentType { FEATURED, SEARCH, NONE } ContentType;
 - (NSString *)categoryName;
 - (BOOL)isFeatured;
 - (BOOL)isSubscription;
+- (BOOL)isSearch;
+- (NSString *)searchText;
+- (BOOL)isAuthor;
+- (int)authorID;
 
 @end
