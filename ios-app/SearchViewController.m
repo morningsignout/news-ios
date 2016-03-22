@@ -64,6 +64,11 @@
     [self.searchController setActive:YES];
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    [self.searchController.searchBar resignFirstResponder];
+
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
