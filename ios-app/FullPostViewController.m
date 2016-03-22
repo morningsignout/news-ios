@@ -165,7 +165,12 @@ static const CGFloat initialWebViewYOffset = 365;
     [self.header.articleLabels.categoriesLabel setTextColor:[UIColor kFullPostCategoryTextColor]];
     [self.header.articleLabels.categoriesLabel setBackgroundColor:[UIColor kFullPostCategoryBackgroundColor]];
     
-    self.header.articleLabels.authorLabel.text = [NSString stringWithFormat:@"%@ | %@", self.post.author.name, self.post.date];
+    if (self.post.author.name) {
+        self.header.articleLabels.authorLabel.text = [NSString stringWithFormat:@"%@ | %@", self.post.author.name, self.post.date];
+    } else {
+        self.header.articleLabels.authorLabel.text = [NSString stringWithFormat:@"%@", self.post.date];
+    }
+    
     [self.header.articleLabels.authorLabel setTextColor:[UIColor kFullPostMainTextColor]];
     
     // Add gesture recognizers

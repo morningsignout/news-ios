@@ -61,9 +61,9 @@ static NSString * const reuseIdentifier = @"Cell";
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
     
     // Download new posts
-    if (contentType != SEARCH) {
+    //if (contentType != SEARCH) {
         [self loadPosts];
-    }
+    //}
     contentType = NONE;
     
     tileHeight = CGSizeMake(1, 1.5);
@@ -143,7 +143,6 @@ static NSString * const reuseIdentifier = @"Cell";
         return nil;
     }
     NSArray *data = [self getDataForTypeOfView];
-//    NSLog(@"GET_DATA_FOR_PAGE %@", data);
     return data;
 }
 

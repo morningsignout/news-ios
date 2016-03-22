@@ -150,7 +150,6 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 - (void)didUpdateData:(CDPost *)object
 {
     [super didUpdateData:object];
-    NSLog(@"Called in FeatureCollectionViewController");
     self.topFeatured.isBookmarked = object.bookmarked;
 }
 

@@ -58,17 +58,10 @@
     navVC.titleLabel.text = @"Search";
     navVC.titleLabel.textColor = [UIColor kNavTextColor];
     navVC.navigationItem.title = @"Search";
-    
-//    self.collectionView = nil;
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     [self.searchController setActive:YES];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    self.searchController.active = NO;
-    [self.searchController.searchBar removeFromSuperview];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -94,21 +87,13 @@
         if([self.searchTerm length] == 0)
             return;
         
-//        self.flush++;
         NSArray* refreshPosts;
-//        int yesFlush = (int)self.flush;
         refreshPosts = [DataParser DataForSearchTerm:self.searchTerm InPage:self.page];
 
-//        if(self.flush == yesFlush){
-//            self.flush = 0;
         dispatch_async(dispatch_get_main_queue(), ^{
             [self refreshPosts:refreshPosts];
             [self.collectionView reloadData];
         });
-        
-//        } else {
-//            refreshPosts = nil;
-//        }
         
     });
 }
