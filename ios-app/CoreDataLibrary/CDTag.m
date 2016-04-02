@@ -23,10 +23,10 @@ inManagedObjectContext:(NSManagedObjectContext *)context
     if (!matches || error || matches.count > 1) {
         NSLog(@"Error when fetching CDTag");
     } else if (matches.count == 1) {
-        NSLog(@"Core Data found Tag: %@", name);
+        // NSLog(@"Core Data found Tag: %@", name);
         nTag = [matches firstObject];
     } else {
-        NSLog(@"Core Data didn't find Tag, inserting Tag: %@", name);
+        // NSLog(@"Core Data didn't find Tag, inserting Tag: %@", name);
         nTag = [NSEntityDescription insertNewObjectForEntityForName:@"CDTag" inManagedObjectContext:context];
         nTag.name = name;
     }
@@ -45,7 +45,7 @@ inManagedObjectContext:(NSManagedObjectContext *)context
     if (!matches || error || matches.count > 1) {
         NSLog(@"Error when fetching CDTag");
     } else if (matches.count == 1) {
-        NSLog(@"Core Data found Tag to delete: %@", name);
+        // NSLog(@"Core Data found Tag to delete: %@", name);
         NSManagedObject *object = [matches firstObject];
         [context deleteObject:object];
     } else {

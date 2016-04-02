@@ -333,7 +333,7 @@ static const CGFloat initialWebViewYOffset = 365;
 	
     if (self.post.isBookmarked) {
         [CDPost removeBookmarkPostWithID:[NSString stringWithFormat:@"%d", self.post.ID] fromManagedObjectContext:managedObjectContext];
-        NSLog(@"Finished deleting bookmark");
+        // NSLog(@"Finished deleting bookmark");
         [self.delegate saveContext];
         self.post.isBookmarked = NO;
         _bookmarkButton = [[UIBarButtonItem alloc] initWithImage:[IonIcons imageWithIcon:ion_ios_bookmarks_outline size:32.0f color:[UIColor whiteColor]] style:UIBarButtonItemStylePlain target:self action:@selector(bookmarkPost:)];
@@ -342,7 +342,7 @@ static const CGFloat initialWebViewYOffset = 365;
         [self showShortSpinner:@"Bookmark deleted"];
     } else {
         [CDPost addBookmarkPost:self.post toManagedObjectContext:managedObjectContext];
-        NSLog(@"Finished adding bookmark");
+        // NSLog(@"Finished adding bookmark");
         [self.delegate saveContext];
         self.post.isBookmarked = YES;
         _bookmarkButton = [[UIBarButtonItem alloc] initWithImage:[IonIcons imageWithIcon:ion_ios_bookmarks size:32.0f color:[UIColor whiteColor]] style:UIBarButtonItemStylePlain target:self action:@selector(bookmarkPost:)];

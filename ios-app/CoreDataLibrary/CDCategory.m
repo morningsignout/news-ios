@@ -23,10 +23,10 @@
     if (!matches || error || matches.count > 1) {
         NSLog(@"Error when fetching CDCategory, %@, %lu", error, (unsigned long)matches.count);
     } else if (matches.count == 1) {
-        NSLog(@"Core Data found Category: %@", name);
+        // NSLog(@"Core Data found Category: %@", name);
         nCategory = [matches firstObject];
     } else {
-        NSLog(@"Core Data didn't find Category, inserting Category: %@", name);
+        // NSLog(@"Core Data didn't find Category, inserting Category: %@", name);
         nCategory = [NSEntityDescription insertNewObjectForEntityForName:@"CDCategory" inManagedObjectContext:context];
         nCategory.name = name;
         nCategory.subscribed = NO;
@@ -46,11 +46,11 @@
     if (!matches || error || matches.count > 1) {
         NSLog(@"Error when fetching CDCategory, %@, %lu", error, (unsigned long)matches.count);
     } else if (matches.count == 1) {
-        NSLog(@"Core Data found Category to delete: %@", name);
+        // NSLog(@"Core Data found Category to delete: %@", name);
         NSManagedObject *object = [matches firstObject];
         [context deleteObject:object];
     } else {
-        NSLog(@"Core Data didn't find Category: %@", name);
+        // NSLog(@"Core Data didn't find Category: %@", name);
     }
 }
 
@@ -65,11 +65,11 @@
     if (!matches || error || matches.count > 1) {
         NSLog(@"Error when fetching CDCategory, %@, %lu", error, (unsigned long)matches.count);
     } else if (matches.count == 1) {
-        NSLog(@"Core Data found Category to subscribe to: %@", name);
+        // NSLog(@"Core Data found Category to subscribe to: %@", name);
         CDCategory *category = [matches firstObject];
         category.subscribed = YES;
     } else {
-        NSLog(@"Core Data didn't find Category, inserting category: %@", name);
+        // NSLog(@"Core Data didn't find Category, inserting category: %@", name);
         CDCategory *category = [self categoryWithName:name inManagedObjectContext:context];
         category.subscribed = YES;
     }
@@ -86,11 +86,11 @@
     if (!matches || error || matches.count > 1) {
         NSLog(@"Error when fetching CDCategory %@, %lu", error, (unsigned long)matches.count);
     } else if (matches.count == 1) {
-        NSLog(@"Core Data found Category to unsubscribe from: %@", name);
+        // NSLog(@"Core Data found Category to unsubscribe from: %@", name);
         CDCategory *category = [matches firstObject];
         category.subscribed = NO;
     } else {
-        NSLog(@"Core Data didn't find Category, inserting category: %@", name);
+        // NSLog(@"Core Data didn't find Category, inserting category: %@", name);
         CDCategory *category = [self categoryWithName:name inManagedObjectContext:context];
         category.subscribed = NO;
     }
@@ -108,11 +108,11 @@
     if (!matches || error || matches.count > 1) {
         NSLog(@"Error when fetching CDCategory, %@, %lu", error, (unsigned long)matches.count);
     } else if (matches.count == 1) {
-        NSLog(@"Core Data found Category to check if subscribed: %@", name);
+        // NSLog(@"Core Data found Category to check if subscribed: %@", name);
         CDCategory *category = [matches firstObject];
         isSubscribed = category.subscribed;
     } else {
-        NSLog(@"Core Data didn't find Category to check if subscribed, inserting category: %@", name);
+        // NSLog(@"Core Data didn't find Category to check if subscribed, inserting category: %@", name);
         [CDCategory categoryWithName:name inManagedObjectContext:context];
     }
     
@@ -131,10 +131,10 @@
     if (!matches || error) {
         NSLog(@"Error when fetching CDCategory, %@", error);
     } else if (matches.count) {
-        NSLog(@"Core Data found subscribed categories");
+        // NSLog(@"Core Data found subscribed categories");
         for (CDCategory *category in matches) {
             [subscribedCategories addObject:category.name];
-            NSLog(@"Core Data found subscribed category: %@", category.name);
+            // NSLog(@"Core Data found subscribed category: %@", category.name);
         }
     }
     

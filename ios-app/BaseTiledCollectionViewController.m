@@ -96,20 +96,20 @@ static NSString * const reuseIdentifier = @"Cell";
     /* Initialize the fetchedResultsController */
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CDPost"];
     if ([self isCategory]) {
-        NSLog(@"CALLED CATEGORY PREDICATE %@", [self categoryName]);
+        // NSLog(@"CALLED CATEGORY PREDICATE %@", [self categoryName]);
         request.predicate = [NSPredicate predicateWithFormat:@"ANY categories.name ==[c] %@", [self categoryName]];
     } else if ([self isFeatured]) {
-        NSLog(@"CALLED CATEGORY PREDICATE FEATURED");
+        // NSLog(@"CALLED CATEGORY PREDICATE FEATURED");
         request.predicate = [NSPredicate predicateWithFormat:@"ANY categories.name ==[c] %@", @"featured"];
     } else if ([self isSubscription]) {
-        NSLog(@"CALLED CATEGORY PREDICATE SUBSCRIBED");
+        // NSLog(@"CALLED CATEGORY PREDICATE SUBSCRIBED");
         request.predicate = [NSPredicate predicateWithFormat:@"ANY categories.subscribed == 1"];
     } else if ([self isSearch]) {
         NSString *searchText = [self searchText];
-        NSLog(@"CALLED PREDICATE SEARCH %@", searchText);
+        // NSLog(@"CALLED PREDICATE SEARCH %@", searchText);
         request.predicate = [NSPredicate predicateWithFormat:@"title CONTAINS[c] %@", searchText ? searchText : @""];
     } else if ([self isAuthor]) {
-        NSLog(@"CALLED AUTHOR PREDICATE %d", [self authorID]);
+        // NSLog(@"CALLED AUTHOR PREDICATE %d", [self authorID]);
         request.predicate = [NSPredicate predicateWithFormat:@"authoredBy.identity == %d", [self authorID]];
     }
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES selector:@selector(localizedStandardCompare:)]];

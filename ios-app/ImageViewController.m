@@ -80,8 +80,6 @@
         self.imgView.contentMode     = UIViewContentModeScaleAspectFit;
     }
     _scrollView.contentSize          = self.imgView.bounds.size;
-    NSLog(@"set image");
-
 }
 
 -(void)setScrollView:(UIScrollView *)scrollView{
@@ -93,7 +91,6 @@
     _scrollView.delegate         = self;
     _scrollView.contentSize      = self.imgView.bounds.size;
     _scrollView.clipsToBounds    = YES;
-    NSLog(@"set scrollview");
 }
 
 - (void)startDownload
@@ -110,7 +107,6 @@
         [self.scrollView addSubview:self.imgView];
         [self.spinner stopAnimating];
         self.spinner.hidden = YES;
-        NSLog(@"done requesting");
         [self setImg:self.img];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Image error: %@", error);
@@ -129,9 +125,6 @@
 
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-   
-    NSLog(@"did scroll");
-    
     CGFloat offsetX     = (self.scrollView.bounds.size.width > self.scrollView.contentSize.width)?
     (self.scrollView.bounds.size.width - self.scrollView.contentSize.width) * 0.5 : 0.0;
     

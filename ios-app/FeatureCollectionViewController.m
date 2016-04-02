@@ -100,8 +100,6 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 }
 
 - (void)refresh:(id)sender {
-    NSLog(@"Refreshing");
-    
     dispatch_queue_t q = dispatch_queue_create("refresh latest", NULL);
     dispatch_async(q, ^{
         
@@ -129,7 +127,6 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 
 - (void)showTopFeatured:(UITapGestureRecognizer *)recognizer {
     self.topFeatured.isBookmarked = [CDPost isBookmarkedPost:[NSString stringWithFormat:@"%d", self.topFeatured.ID] inManagedObjectContext:self.delegate.managedObjectContext];
-    NSLog(@"top featured bookmarked %d id %d", self.topFeatured.isBookmarked, self.topFeatured.ID);
     [self performSegueWithIdentifier:SEGUE_IDENTIFIER sender:self.topFeatured];
 }
 

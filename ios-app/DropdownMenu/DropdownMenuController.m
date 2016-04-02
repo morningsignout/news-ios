@@ -287,9 +287,7 @@ CAShapeLayer *closedMenuShape;
 #pragma mark - Close Button
 -(void)closeButtonPressed:(UIButton*)button{
     [self hideMenu];
-    [button removeFromSuperview];
-    NSLog(@"button pressed and removed");
-    
+    [button removeFromSuperview];    
 }
 #pragma mark - Rotation
 

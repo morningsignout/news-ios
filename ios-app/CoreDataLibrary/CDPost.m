@@ -29,7 +29,7 @@
     } else if (matches.count == 1) {
         nPost = [matches firstObject];
     } else {
-        NSLog(@"Core Data didn't find Post, inserting Post: %d", post.ID);
+        // NSLog(@"Core Data didn't find Post, inserting Post: %d", post.ID);
         nPost = [NSEntityDescription insertNewObjectForEntityForName:@"CDPost" inManagedObjectContext:context];
         nPost.identity = [NSString stringWithFormat:@"%d", post.ID];
         nPost.bookmarked = NO;
@@ -63,11 +63,11 @@ fromManagedObjectContext:(NSManagedObjectContext *)context
     if (!matches || error || matches.count > 1) {
         NSLog(@"Error when fetching CDPost");
     } else if (matches.count == 1) {
-        NSLog(@"Core Data found Post to delete: %@", identity);
+        // NSLog(@"Core Data found Post to delete: %@", identity);
         NSManagedObject *object = [matches firstObject];
         [context deleteObject:object];
     } else {
-        NSLog(@"Core Data didn't find Post: %@", identity);
+        // NSLog(@"Core Data didn't find Post: %@", identity);
     }
 }
 
@@ -91,7 +91,7 @@ fromManagedObjectContext:(NSManagedObjectContext *)context
     if (!matches || error || matches.count > 1) {
         NSLog(@"Error when fetching CDPost");
     } else if (matches.count == 1) {
-        NSLog(@"Core Data found Bookmarked Post to delete: %@", identity);
+        // NSLog(@"Core Data found Bookmarked Post to delete: %@", identity);
         CDPost *object = [matches firstObject];
         object.bookmarked = NO;
     } else {
@@ -110,7 +110,7 @@ fromManagedObjectContext:(NSManagedObjectContext *)context
     if (!matches || error || matches.count > 1) {
         NSLog(@"Error when fetching CDPost");
     } else if (matches.count == 1) {
-        NSLog(@"Core Data found Post to check for bookmarked?: %@", identity);
+        // NSLog(@"Core Data found Post to check for bookmarked?: %@", identity);
         CDPost *object = [matches firstObject];
         return object.bookmarked;
     } else {

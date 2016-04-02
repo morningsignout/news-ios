@@ -24,10 +24,10 @@
     if (!matches || error || matches.count > 1) {
         NSLog(@"Error when fetching CDAuthor");
     } else if (matches.count == 1) {
-        NSLog(@"Core Data found Author: %d", author.ID);
+        // NSLog(@"Core Data found Author: %d", author.ID);
         nAuthor = [matches firstObject];
     } else {
-        NSLog(@"Core Data didn't find Author, inserting Author: %d", author.ID);
+        // NSLog(@"Core Data didn't find Author, inserting Author: %d", author.ID);
         nAuthor = [NSEntityDescription insertNewObjectForEntityForName:@"CDAuthor" inManagedObjectContext:context];
         nAuthor.identity = [NSString stringWithFormat:@"%d", author.ID];
         nAuthor.name = author.name;
@@ -49,11 +49,11 @@
     if (!matches || error || matches.count > 1) {
         NSLog(@"Error when fetching CDAuthor");
     } else if (matches.count == 1) {
-        NSLog(@"Core Data found Author to delete: %@", identity);
+        // NSLog(@"Core Data found Author to delete: %@", identity);
         NSManagedObject *object = [matches firstObject];
         [context deleteObject:object];
     } else {
-        NSLog(@"Core Data didn't find Author: %@", identity);
+        // NSLog(@"Core Data didn't find Author: %@", identity);
     }
 }
 

@@ -143,8 +143,6 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 
 - (IBAction)removeFromBookmarks:(id)sender
 {
-    NSLog(@"Deleting bookmark");
-
     // Get index of cell
     CGPoint buttonPosition = [sender convertPoint:CGPointZero
                                            toView:self.tableView];
