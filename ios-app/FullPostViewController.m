@@ -147,10 +147,10 @@ static const CGFloat initialWebViewYOffset = 365;
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         UIImage *image = responseObject;
         self.header.coverImage.image = image;
-        self.header.coverImage.contentMode = UIViewContentModeScaleAspectFill;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Image error: %@", error);
+        self.header.coverImage.image = [UIImage imageNamed:@"imgNotAvailable"];
     }];
+    self.header.coverImage.contentMode = UIViewContentModeScaleAspectFill;
     [requestOperation start];
 }
 

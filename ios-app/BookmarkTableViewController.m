@@ -118,7 +118,7 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
         cell.imageView.image                = nil;
         
         NSURLRequest *requestLeft = [NSURLRequest requestWithURL:[NSURL URLWithString:post.fullCoverImageURL]];
-        [cell.imageView setImageWithURLRequest:requestLeft placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        [cell.imageView setImageWithURLRequest:requestLeft placeholderImage:[UIImage imageNamed:@"imgNotAvailable"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
             cell.imageView.image = image;
         } failure:nil];
     }

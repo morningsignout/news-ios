@@ -301,7 +301,7 @@ static NSString * const reuseIdentifier = @"Cell";
     
     cell.title.text = post.title;
     cell.imageView.image = nil;
-    [cell.imageView setImageWithURLRequest:requestLeft placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+    [cell.imageView setImageWithURLRequest:requestLeft placeholderImage:[UIImage imageNamed:@"imgNotAvailable"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
         cell.imageView.image = image;
     } failure:nil];
     
