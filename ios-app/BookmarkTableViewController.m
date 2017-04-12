@@ -60,7 +60,7 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     attributes = @{NSParagraphStyleAttributeName : style};
     
     // Set ManagedObjectContext
-    _delegate = [[UIApplication sharedApplication] delegate];
+    _delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     if ([self.delegate performSelector:@selector(managedObjectContext)])
         _context = [self.delegate managedObjectContext];
     else

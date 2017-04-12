@@ -15,6 +15,7 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    [super awakeFromNib];
     
     // Optimize shadows
     self.imageContainerView.opaque  = YES;

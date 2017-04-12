@@ -45,7 +45,6 @@ static const CGFloat initialWebViewYOffset = 365;
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;
 @property (strong, nonatomic) CommentsViewController *commentVC;
 @property (nonatomic, strong) AppDelegate *delegate;
-@property (strong, nonatomic) ADBannerView *adView;
 
 @property (nonatomic, strong) UIBarButtonItem *shareItem;
 @property (nonatomic, strong) UIBarButtonItem *bookmarkButton;
@@ -64,12 +63,10 @@ static const CGFloat initialWebViewYOffset = 365;
     self.webView.scrollView.delegate = self;
     self.webView.translatesAutoresizingMaskIntoConstraints = YES;
     
-    _delegate = [[UIApplication sharedApplication] delegate];
+    _delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
     [self setupInitialHTML];
     [self setUpLabels];
-    
-    [self.view addSubview:self.adView];
     
     self.lastContentOffset = 60.0;
     
@@ -211,7 +208,7 @@ static const CGFloat initialWebViewYOffset = 365;
 - (void)loadWebView {
     NSString *filteredHTML = [self.html stringByAppendingString:[self setFontSize]];
     [self.webView loadHTMLString:filteredHTML baseURL:nil];
-    self.webView.frame = CGRectMake(0, 365, self.view.frame.size.width, self.view.frame.size.height - self.adView.frame.size.height);
+    self.webView.frame = CGRectMake(0, 365, self.view.frame.size.width, self.view.frame.size.height);
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
@@ -428,7 +425,7 @@ static const CGFloat initialWebViewYOffset = 365;
     {
         // then we are at the top
         [UIView animateWithDuration:0.5 animations:^{
-            self.webView.frame = CGRectMake(0, 60, self.view.frame.size.width, self.view.frame.size.height - self.adView.frame.size.height - 60);
+            self.webView.frame = CGRectMake(0, 60, self.view.frame.size.width, self.view.frame.size.height - 60);
         } completion:^(BOOL completed){
             [self.webView.scrollView setContentOffset:CGPointZero animated:YES];
             scrolled = YES;
@@ -437,7 +434,7 @@ static const CGFloat initialWebViewYOffset = 365;
     }
     else if (scrollOffset < -80) {
         [UIView animateWithDuration:0.5 animations:^{
-            self.webView.frame = CGRectMake(0, initialWebViewYOffset, self.view.frame.size.width, self.view.frame.size.height - self.adView.frame.size.height - initialWebViewYOffset);
+            self.webView.frame = CGRectMake(0, initialWebViewYOffset, self.view.frame.size.width, self.view.frame.size.height - initialWebViewYOffset);
         } completion:^(BOOL completed){
             scrolled = NO;
         }];
@@ -467,19 +464,6 @@ static const CGFloat initialWebViewYOffset = 365;
             self.progressView.progress += 0.02;
         }];
     }
-}
-
-- (ADBannerView *)adView {
-    if (!_adView) {
-        _adView = [[ADBannerView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 50, self.view.frame.size.width, 50)];
-        _adView.delegate = self;
-    }
-    return _adView;
-}
-
-- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
-    self.adView.hidden = YES;
-    self.webView.frame = CGRectMake(0, self.webView.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
 }
 
 @end

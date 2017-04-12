@@ -49,7 +49,7 @@ static NSString * const reuseIdentifier = @"Cell";
     [super viewDidLoad];
     [self.view addSubview:self.collectionView];
     
-    _delegate = [[UIApplication sharedApplication] delegate];
+    _delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
     // Start loading data from JSON page 1
     self.page = 1;
