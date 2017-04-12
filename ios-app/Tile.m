@@ -16,6 +16,7 @@
 @implementation Tile
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     UIGestureRecognizer* recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
     [self addGestureRecognizer:recognizer];
 }

@@ -49,22 +49,15 @@
 + (UIFont *) kNavFont;
 
 // Tile Font
-+ (UIFont *) kTileTitleFont;
 
 // Full Post Font
-+ (UIFont *) kFullPostTitleFont;
-+ (UIFont *) kFullPostAuthorFont;
-+ (UIFont *) kFullPostDateFont;
-+ (UIFont *) kFullPostTagFont;
-+ (UIFont *) kFullPostCategoryFont;
+//+ (UIFont *) kFullPostAuthorFont;
 
 // Bookmark Fonts
 // Note: change cell height on storyboard
-+ (UIFont *) kBookmarkTitleFont;
-+ (UIFont *) kBookmarkExcerptFont;
+
 
 // Category Font
-+ (UIFont *) kCategoryButtonTextFont;
 
 @end
 

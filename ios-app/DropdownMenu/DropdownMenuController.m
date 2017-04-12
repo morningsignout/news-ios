@@ -193,8 +193,8 @@ CAShapeLayer *closedMenuShape;
 }
 
 
--(CGFloat)offset {
-    return UIInterfaceOrientationIsLandscape(self.interfaceOrientation) ? 20.0f : 0.0f;
+- (CGFloat)offset {
+    return UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]) ? 20.0f : 0.0f;
 }
 
 
