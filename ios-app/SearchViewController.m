@@ -92,12 +92,12 @@
         if([self.searchTerm length] == 0)
             return;
         
-        NSArray* refreshPosts;
-        refreshPosts = [DataParser DataForSearchTerm:self.searchTerm InPage:self.page];
+        NSArray* refreshPosts = [DataParser DataForSearchTerm:self.searchTerm InPage:self.page];
 
         dispatch_async(dispatch_get_main_queue(), ^{
             [self refreshPosts:refreshPosts];
             [self.collectionView reloadData];
+            [self endLongSpinner];
         });
         
     });

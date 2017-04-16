@@ -133,7 +133,14 @@ NSDateFormatter *dateToStringFormatter;
     
     // Get thumbnail and full cover image
     NSString *thumbnailImageURL = [parseData valueForKey:@"thumbnail"];
-    NSString *fullImageURL = [[[parseData valueForKey:@"thumbnail_images"] valueForKey:@"full"] valueForKey:@"url"];
+    NSArray *coverImages = [parseData valueForKey:@"thumbnail_images"];
+    NSString *fullImageURL = [[NSString alloc] init];
+    if (coverImages == nil || coverImages.count == 0) {
+        fullImageURL = nil;
+    } else {
+        fullImageURL = [[[parseData valueForKey:@"thumbnail_images"] valueForKey:@"full"] valueForKey:@"url"];
+    }
+    
     if (thumbnailImageURL == (id)[NSNull null] || title.length == 0 )
         thumbnailImageURL = fullImageURL;
     

@@ -29,14 +29,13 @@
 
 static NSString * const SEGUE_IDENTIFIER = @"viewPost";
 
-@interface BaseTiledCollectionViewController () <NSFetchedResultsControllerDelegate> {
+@interface BaseTiledCollectionViewController () {
     Post *seguePost;
     CGSize tileHeight;
 }
 @property (nonatomic, strong) NSArray *cellSizes;
 @property (strong, nonatomic) UIView *bottomSpinnerBackground;
-@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
-
+@property (nonatomic, strong) NSMutableArray *posts;
 @end
 
 @implementation BaseTiledCollectionViewController
@@ -56,14 +55,13 @@ static NSString * const reuseIdentifier = @"Cell";
     
 
     // Perform fetch
-    NSError *error;
-    if (![self.fetchedResultsController performFetch:&error])
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    // NSError *error;
+    // if (![self.fetchedResultsController performFetch:&error])
+    //        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
     
     // Download new posts
-    //if (contentType != SEARCH) {
-        [self loadPosts];
-    //}
+    [self loadPosts];
+    
     contentType = NONE;
     
     tileHeight = CGSizeMake(1, 1.5);
@@ -88,48 +86,47 @@ static NSString * const reuseIdentifier = @"Cell";
 
 #pragma mark - NSFetchedResultsController
 
-- (NSFetchedResultsController *)fetchedResultsController
-{
-    if (_fetchedResultsController)
-        return _fetchedResultsController;
-    
-    /* Initialize the fetchedResultsController */
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CDPost"];
-    if ([self isCategory]) {
-        // NSLog(@"CALLED CATEGORY PREDICATE %@", [self categoryName]);
-        request.predicate = [NSPredicate predicateWithFormat:@"ANY categories.name ==[c] %@", [self categoryName]];
-    } else if ([self isFeatured]) {
-        // NSLog(@"CALLED CATEGORY PREDICATE FEATURED");
-        request.predicate = [NSPredicate predicateWithFormat:@"ANY categories.name ==[c] %@", @"featured"];
-    } else if ([self isSubscription]) {
-        // NSLog(@"CALLED CATEGORY PREDICATE SUBSCRIBED");
-        request.predicate = [NSPredicate predicateWithFormat:@"ANY categories.subscribed == 1"];
-    } else if ([self isSearch]) {
-        NSString *searchText = [self searchText];
-        // NSLog(@"CALLED PREDICATE SEARCH %@", searchText);
-        request.predicate = [NSPredicate predicateWithFormat:@"title CONTAINS[c] %@", searchText ? searchText : @""];
-    } else if ([self isAuthor]) {
-        // NSLog(@"CALLED AUTHOR PREDICATE %d", [self authorID]);
-        request.predicate = [NSPredicate predicateWithFormat:@"authoredBy.identity == %d", [self authorID]];
-    }
-    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES selector:@selector(localizedStandardCompare:)]];
-    
-    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
-                                                                          managedObjectContext:self.delegate.managedObjectContext
-                                                                            sectionNameKeyPath:nil
-                                                                                     cacheName:nil];
-    _fetchedResultsController.delegate = self;
-    
-    return _fetchedResultsController;
-}
+//- (NSFetchedResultsController *)fetchedResultsController
+//{
+//    if (_fetchedResultsController)
+//        return _fetchedResultsController;
+//    
+//    /* Initialize the fetchedResultsController */
+//    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CDPost"];
+//    if ([self isCategory]) {
+//        // NSLog(@"CALLED CATEGORY PREDICATE %@", [self categoryName]);
+//        request.predicate = [NSPredicate predicateWithFormat:@"ANY categories.name ==[c] %@", [self categoryName]];
+//    } else if ([self isFeatured]) {
+//        // NSLog(@"CALLED CATEGORY PREDICATE FEATURED");
+//        request.predicate = [NSPredicate predicateWithFormat:@"ANY categories.name ==[c] %@", @"featured"];
+//    } else if ([self isSubscription]) {
+//        // NSLog(@"CALLED CATEGORY PREDICATE SUBSCRIBED");
+//        request.predicate = [NSPredicate predicateWithFormat:@"ANY categories.subscribed == 1"];
+//    } else if ([self isSearch]) {
+//        NSString *searchText = [self searchText];
+//        // NSLog(@"CALLED PREDICATE SEARCH %@", searchText);
+//        request.predicate = [NSPredicate predicateWithFormat:@"title CONTAINS[c] %@", searchText ? searchText : @""];
+//    } else if ([self isAuthor]) {
+//        // NSLog(@"CALLED AUTHOR PREDICATE %d", [self authorID]);
+//        request.predicate = [NSPredicate predicateWithFormat:@"authoredBy.identity == %d", [self authorID]];
+//    }
+//    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES selector:@selector(localizedStandardCompare:)]];
+//    
+//    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+//                                                                          managedObjectContext:self.delegate.managedObjectContext
+//                                                                            sectionNameKeyPath:nil
+//                                                                                     cacheName:nil];
+//    _fetchedResultsController.delegate = self;
+//    
+//    return _fetchedResultsController;
+//}
 
 - (void)loadPosts {
     [self startSpinnerWithMessage:@"Loading posts..."];
     dispatch_queue_t q = dispatch_queue_create("refresh latest", NULL);
     dispatch_async(q, ^{
-    
-        NSArray * refreshPosts = [self getDataForPage];
-        
+        NSArray *refreshPosts = [self getDataForPage];
+
         dispatch_async(dispatch_get_main_queue(), ^{
             [self refreshPosts:refreshPosts];
             [self endLongSpinner];
@@ -150,26 +147,23 @@ static NSString * const reuseIdentifier = @"Cell";
     return nil;
 }
 
+- (NSMutableArray *)posts {
+    if (!_posts) {
+        _posts = [[NSMutableArray alloc] init];
+    }
+    return _posts;
+}
+
 - (void)refreshPosts:(NSArray *)newPosts {
+    [self.posts addObjectsFromArray:newPosts];
+    if ([self isSearch]) {
+        self.posts = [NSMutableArray arrayWithArray:newPosts];
+    }
+    
     dispatch_async(dispatch_get_main_queue(), ^{
-        
-        // Load into core data
-        for (Post *post in newPosts) {
-            [CDPost postWithPost:post inManagedObjectContext:self.delegate.managedObjectContext];
-        }
-        [self.delegate saveContext];
         self.collectionView.userInteractionEnabled = YES;
         [self endLongSpinner];
-        
-        if ([self isSearch]) {
-            _fetchedResultsController = nil;
-            // Perform fetch
-            NSError *error;
-            if (![self.fetchedResultsController performFetch:&error])
-                NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-//            NSLog(@"SEARCH FETCHED OBJECTS: %@", self.fetchedResultsController.fetchedObjects);
-            [self.collectionView reloadData];
-        }
+        [self.collectionView reloadData];
     });
 }
 
@@ -218,18 +212,10 @@ static NSString * const reuseIdentifier = @"Cell";
     return NO;
 }
 
-- (Post *)getPostFromPosts:(int)index {
-    if (self.fetchedResultsController.fetchedObjects.count == 0)
-        return nil;
-    CDPost *cPost = [self.fetchedResultsController.fetchedObjects objectAtIndex:index];
-    Post *post = [Post postFromCDPost:cPost];
-    return post;
-}
-
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.fetchedResultsController.fetchedObjects.count;
+    return self.posts.count;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -238,7 +224,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (![self getEndOfPosts] && indexPath.item == self.fetchedResultsController.fetchedObjects.count - 12) {
+    if (![self getEndOfPosts] && indexPath.item == self.posts.count - 12) {
         [self fetchMoreItems];
     }
     
@@ -294,16 +280,21 @@ static NSString * const reuseIdentifier = @"Cell";
         cell = (TileCollectionViewCellC *)[self.collectionView dequeueReusableCellWithReuseIdentifier:CELL_IDENTIFIER_C forIndexPath:indexPath];
     }
     
-    CDPost *cPost = [self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.item];
-    Post *post = [Post postFromCDPost:cPost];
+    Post *post = [self.posts objectAtIndex:indexPath.item];
     
-    NSURLRequest *requestLeft = [NSURLRequest requestWithURL:[NSURL URLWithString:post.thumbnailCoverImageURL]];
-    
-    cell.title.text = post.title;
-    cell.imageView.image = nil;
-    [cell.imageView setImageWithURLRequest:requestLeft placeholderImage:[UIImage imageNamed:@"imgNotAvailable"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-        cell.imageView.image = image;
-    } failure:nil];
+    // Make a request for the cover image only if the image URL exists
+    if (post.thumbnailCoverImageURL) {
+        NSURLRequest *requestLeft = [NSURLRequest requestWithURL:[NSURL URLWithString:post.thumbnailCoverImageURL]];
+        
+        cell.title.text = post.title;
+        cell.imageView.image = nil;
+        [cell.imageView setImageWithURLRequest:requestLeft placeholderImage:[UIImage imageNamed:@"imgNotAvailable"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+            cell.imageView.image = image;
+        } failure:nil];
+    } else {
+        cell.imageView.image = [UIImage imageNamed:@"imgNotAvailable"];
+    }
+
     
     return cell;
 }
@@ -311,8 +302,7 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark - Navigation
  
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    CDPost *cPost = [self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.item];
-    Post *post = [Post postFromCDPost:cPost];
+    Post *post = [self.posts objectAtIndex:indexPath.item];
     if ([self shouldPerformSegueWithIdentifier:SEGUE_IDENTIFIER sender:post]) {
         [self performSegueWithIdentifier:SEGUE_IDENTIFIER sender:post];
     }

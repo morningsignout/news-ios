@@ -27,7 +27,7 @@
 #import <iAd/iAd.h>
 
 static NSString * const header = @"<!-- Latest compiled and minified CSS --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"><!-- Optional theme --><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css\"><!-- Latest compiled and minified JavaScript --><script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\"></script><!-- Yeon's CSS --><link rel=\"stylesheet\" href=\"http://morningsignout.com/wp-content/themes/mso/style.css?ver=4.3\"><meta charset=\"utf-8\"> \
-    <style type=\"text/css\">.ssba {}.ssba img { width: 0px !important; padding: 0px; border:  0; box-shadow: none !important; vertical-align: middle; }  ssba ssba-wrap { visibility:hidden!important; }</style><div style=\"padding:5px;background-color:white;box-shadow:none;\"></div>";
+    <style type=\"text/css\">.ssba {}.ssba img { width: 0px !important; padding: 0px; border:  0; box-shadow: none !important; vertical-align: middle; }  ssba ssba-wrap { visibility:hidden!important; } .search-everything-highlight-color { background-color: transparent!important; } </style><div style=\"padding:5px;background-color:white;box-shadow:none;\"></div>";
 
 static const CGFloat initialWebViewYOffset = 365;
 
@@ -207,6 +207,8 @@ static const CGFloat initialWebViewYOffset = 365;
 
 - (void)loadWebView {
     NSString *filteredHTML = [self.html stringByAppendingString:[self setFontSize]];
+    // Add http: in front of //embed to show getty images in webview
+    filteredHTML = [filteredHTML stringByReplacingOccurrencesOfString:@"//embed" withString:@"http://embed"];
     [self.webView loadHTMLString:filteredHTML baseURL:nil];
     self.webView.frame = CGRectMake(0, 365, self.view.frame.size.width, self.view.frame.size.height);
 }

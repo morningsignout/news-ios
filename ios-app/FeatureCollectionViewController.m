@@ -32,7 +32,6 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     self.title = @"Featured";
     self.end = false;
     
-    self.topFeatured = [super getPostFromPosts:0];
     contentType = FEATURED;
     
     // Initialize Refresh Control
@@ -62,12 +61,20 @@ static NSString * const SEGUE_IDENTIFIER = @"viewPost";
     return YES;
 }
 
+// Note: using recent posts instead of category_slug=featured posts
 - (NSArray *)getDataForTypeOfView {
-    NSMutableArray *data = [NSMutableArray arrayWithArray:[DataParser DataForFeaturedPostsWithPageNumber:self.page]];
+    NSMutableArray *data = [NSMutableArray arrayWithArray:[DataParser DataForRecentPostsWithPageNumber:self.page]];
     if (self.page == 1) {
-        self.topFeatured = data.firstObject;
-        [data removeObjectAtIndex:0];
-        [data addObject:self.topFeatured];
+        // Find top featured that has a cover image
+        for (int i = 0; i < data.count; i++) {
+            Post *p = [data objectAtIndex:i];
+            if (p.thumbnailCoverImageURL) {
+                self.topFeatured = p;
+                [data removeObjectAtIndex:i];
+                [data addObject:p];
+                break;
+            }
+        }
     }
     return data;
 }

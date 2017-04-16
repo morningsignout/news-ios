@@ -21,7 +21,8 @@
     NSError *error;
     NSArray *matches = [context executeFetchRequest:request error:&error];
     
-    if (!matches || error || matches.count > 1) {
+    if (!matches || error) {
+    //if (!matches || error || matches.count > 1) {
         NSLog(@"Error when fetching CDAuthor");
     } else if (matches.count == 1) {
         // NSLog(@"Core Data found Author: %d", author.ID);
